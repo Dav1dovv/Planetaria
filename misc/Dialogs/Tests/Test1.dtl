@@ -1,0 +1,9 @@
+Hello Guy
+this is dialog
+This is dialog too
+what do you want?
+- Shop something or craft
+	do Global.CraftMenu()
+	[end_timeline]
+- Nothing
+	[end_timeline]

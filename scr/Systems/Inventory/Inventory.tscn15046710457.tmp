@@ -1,0 +1,472 @@
+[gd_scene load_steps=19 format=3 uid="uid://xi525y36l0mn"]
+
+[ext_resource type="Script" uid="uid://nmf4f5vsqrnb" path="res://scr/Systems/Inventory/inventory.gd" id="1_w5r8t"]
+[ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="2_smraw"]
+[ext_resource type="Shader" uid="uid://cpqgkpo83gda7" path="res://misc/Shader/Blur.gdshader" id="2_uegqv"]
+[ext_resource type="Script" uid="uid://bxguvf402r2aw" path="res://scr/Systems/Inventory/TrashSlot.gd" id="3_08cpt"]
+[ext_resource type="Script" uid="uid://c0qwscwwyv07c" path="res://scr/Systems/Craft/CraftRecipe.gd" id="3_ngij8"]
+[ext_resource type="Resource" uid="uid://depne451jnfse" path="res://scr/Resources/Items/PortalEnergy.tres" id="4_f4jol"]
+[ext_resource type="Script" uid="uid://cxcq4sbko837p" path="res://scr/Systems/Craft/IngeridentResource.gd" id="4_h1lmb"]
+[ext_resource type="Resource" uid="uid://d3solnlslg6pa" path="res://misc/Drop/Auralis.tres" id="5_ngij8"]
+[ext_resource type="PackedScene" uid="uid://bwaixuiwrerk5" path="res://scr/Systems/Inventory/InventorySlot.tscn" id="6_81ckb"]
+[ext_resource type="Resource" uid="uid://57qaotudd1po" path="res://scr/Resources/Items/Quarts.tres" id="6_f4jol"]
+[ext_resource type="Script" uid="uid://c785sodtl7e0" path="res://scr/Systems/Inventory/hot_bar.gd" id="9_tp014"]
+
+[sub_resource type="GDScript" id="GDScript_uh2ii"]
+script/source = "extends Node
+class_name CraftingManager2
+
+@export var inventory: Inventory
+@export var simple_recipes: Array[CraftingRecipe] = []  # Ручной крафт (без станции)
+@export var workbench_recipes: Array[CraftingRecipe] = []  # Верстак
+@export var kotel_recipes: Array[CraftingRecipe] = []  # Котёл
+@export var anvil_recipes: Array[CraftingRecipe] = []  # Наковальня (пример)
+
+signal crafted(item: ItemData, amount: int)
+signal recipes_updated(station: String)
+
+var current_station: String = \"\"  # Текущая станция
+
+func _ready() -> void:
+	if not inventory:
+		inventory = get_tree().get_first_node_in_group(\"Inventory\")
+	if inventory:
+		inventory.inventory_changed.connect(_on_inventory_changed)
+		print(\"CraftingManager подключён к инвентарю\")
+
+func set_current_station(station: String) -> void:
+	current_station = station.to_lower()
+	_update_recipes_ui()
+	print(\"Текущая станция: \", current_station)
+
+func get_available_recipes() -> Array[CraftingRecipe]:  # Все рецепты станции
+	var all_recipes: Array[CraftingRecipe] = []
+	match current_station:
+		\"workbench\":
+			all_recipes = workbench_recipes
+		\"kotel\":
+			all_recipes = kotel_recipes
+		\"anvil\":
+			all_recipes = anvil_recipes
+		_:
+			all_recipes = simple_recipes
+	
+	# Сортировка: сначала доступные
+	all_recipes.sort_custom(func(a, b):
+		var can_a = can_craft(a)
+		var can_b = can_craft(b)
+		if can_a != can_b:
+			return can_a  # Доступные первыми
+		return a.output_item.item_name.nocasecmp_to(b.output_item.item_name) < 0  # Исправлено: item_name
+	)
+	
+	return all_recipes
+
+func can_craft(recipe: CraftingRecipe) -> bool:
+	if not inventory or (recipe.require_station != current_station and recipe.require_station != \"\"):
+		return false
+	for ingredient in recipe.inputs:
+		var current_count = inventory.get_item_count(ingredient.InputItem.item_name)  # Исправлено: item_name
+		if current_count < ingredient.InputAmmout:
+			return false
+	return true
+
+func craft(recipe: CraftingRecipe) -> bool:
+	if not can_craft(recipe):
+		print(\"Нельзя крафтить: Недостаточно ресурсов для \", recipe.output_item.item_name)  # Исправлено: item_name
+		return false
+	
+	# Удаляем ингредиенты
+	for ingredient in recipe.inputs:
+		var item = ingredient.InputItem
+		var amount = ingredient.InputAmmout
+		print(\"Удаляем \", amount, \" шт. \", item.item_name)  # Исправлено: item_name
+		inventory.remove_item(item, amount)
+	
+	# Добавляем результат
+	var output = recipe.output_item.duplicate()
+	var output_amount = recipe.output_amount
+	print(\"Добавляем \", output_amount, \" шт. \", output.item_name)  # Исправлено: item_name
+	inventory.add_item(output, output_amount)
+	
+	emit_signal(\"crafted\", output, output_amount)
+	_update_recipes_ui()
+	return true
+
+func _on_inventory_changed() -> void:
+	print(\"Инвентарь изменился, обновляем UI крафта\")
+	_update_recipes_ui()
+
+func _update_recipes_ui() -> void:
+	emit_signal(\"recipes_updated\", current_station)
+"
+
+[sub_resource type="Resource" id="Resource_xnpxd"]
+script = ExtResource("3_ngij8")
+output_item = ExtResource("4_f4jol")
+output_amount = 4
+metadata/_custom_type_script = "uid://c0qwscwwyv07c"
+
+[sub_resource type="Resource" id="Resource_1ywms"]
+script = ExtResource("4_h1lmb")
+input_item = ExtResource("5_ngij8")
+input_amount = 3
+metadata/_custom_type_script = "uid://cxcq4sbko837p"
+
+[sub_resource type="Resource" id="Resource_0bh7v"]
+script = ExtResource("4_h1lmb")
+input_item = ExtResource("6_f4jol")
+input_amount = 5
+metadata/_custom_type_script = "uid://cxcq4sbko837p"
+
+[sub_resource type="Resource" id="Resource_iypyy"]
+script = ExtResource("3_ngij8")
+output_item = ExtResource("4_f4jol")
+output_amount = 4
+ingredients = Array[ExtResource("4_h1lmb")]([SubResource("Resource_1ywms"), SubResource("Resource_0bh7v")])
+metadata/_custom_type_script = "uid://c0qwscwwyv07c"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6xr2d"]
+shader = ExtResource("2_uegqv")
+shader_parameter/blur_amount = -2.0
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08cpt"]
+atlas = ExtResource("2_smraw")
+region = Rect2(16, 16, 16, 16)
+
+[node name="Inventory" type="Control" groups=["Inventory", "Save"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_w5r8t")
+
+[node name="CraftManager" type="Node" parent="." node_paths=PackedStringArray("inventory")]
+unique_name_in_owner = true
+script = SubResource("GDScript_uh2ii")
+inventory = NodePath("..")
+simple_recipes = Array[ExtResource("3_ngij8")]([SubResource("Resource_xnpxd")])
+workbench_recipes = Array[ExtResource("3_ngij8")]([SubResource("Resource_iypyy")])
+kotel_recipes = Array[ExtResource("3_ngij8")]([SubResource("Resource_iypyy")])
+anvil_recipes = Array[ExtResource("3_ngij8")]([SubResource("Resource_iypyy")])
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_6xr2d")
+layout_mode = 1
+offset_left = 240.0
+offset_top = 156.0
+offset_right = 240.0
+offset_bottom = 156.0
+mouse_filter = 1
+
+[node name="GridContainer" type="GridContainer" parent="Panel"]
+layout_mode = 1
+offset_left = -227.0
+offset_top = -145.0
+offset_right = -51.0
+offset_bottom = -49.0
+columns = 9
+
+[node name="InventorySlot" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot2" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot3" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot4" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot5" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot6" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot7" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot8" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot9" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot10" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot11" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot12" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot13" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot14" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot15" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot16" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot17" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot18" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot19" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot20" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot21" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot22" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot23" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot24" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot25" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot26" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot27" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot28" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot29" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot30" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot31" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot32" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot33" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot34" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot35" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="InventorySlot36" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+ammount = null
+
+[node name="TrashSlot" type="TextureRect" parent="Panel/GridContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 8
+texture = SubResource("AtlasTexture_08cpt")
+expand_mode = 1
+script = ExtResource("3_08cpt")
+
+[node name="Craft" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -223.0
+offset_top = -42.0
+offset_right = -223.0
+offset_bottom = -42.0
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Craft"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 0
+offset_right = 117.0
+offset_bottom = 142.0
+horizontal_scroll_mode = 0
+
+[node name="HotBar" type="HBoxContainer" parent="." groups=["Hotbar"]]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+offset_left = 13.0
+offset_top = 11.0
+offset_right = 189.0
+offset_bottom = 27.0
+alignment = 1
+script = ExtResource("9_tp014")
+
+[node name="InventorySlot" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "1"
+
+[node name="InventorySlot2" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot2"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "2"
+
+[node name="InventorySlot3" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot3"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "3"
+
+[node name="InventorySlot4" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot4"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "4"
+
+[node name="InventorySlot5" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot5"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "5"
+
+[node name="InventorySlot6" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot6"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "6"
+
+[node name="InventorySlot7" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot7"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "7"
+
+[node name="InventorySlot8" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot8"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "8"
+
+[node name="InventorySlot9" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+ammount = null
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot9"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "9"

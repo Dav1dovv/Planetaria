@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://fgmnq4ft82wh"]
+
+[ext_resource type="Script" uid="uid://bdpkv7mxycsja" path="res://scr/Manager/GameManager.gd" id="1_074my"]
+[ext_resource type="PackedScene" uid="uid://qc6y8v64442s" path="res://misc/Entity/Player/player.tscn" id="6_bd8m6"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="7_1ds54"]
+[ext_resource type="Script" uid="uid://cx0477dq0nkws" path="res://scr/Misc/Blaze_camera.gd" id="7_2ifnd"]
+
+[sub_resource type="Resource" id="Resource_wo72l"]
+resource_local_to_scene = true
+resource_name = "Player Stat"
+script = ExtResource("7_1ds54")
+base_move_speed = 6.0
+base_armor = 10.0
+base_defense_modifier = 0.2
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[node name="LocationRoot" type="Node2D" unique_id=1133907741 groups=["World"]]
+y_sort_enabled = true
+script = ExtResource("1_074my")
+
+[node name="Player" parent="." unique_id=1150737309 instance=ExtResource("6_bd8m6")]
+Entity_stats = SubResource("Resource_wo72l")
+
+[node name="Blaze_camera" type="Camera2D" parent="Player" unique_id=294408334]
+position = Vector2(0, -8)
+script = ExtResource("7_2ifnd")
+metadata/_custom_type_script = "uid://cx0477dq0nkws"
+
+[connection signal="died" from="Player" to="." method="_on_player_died"]

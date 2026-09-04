@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Generation" format=3 uid="uid://cvtvyu4kwan22"]
+
+[ext_resource type="PackedScene" uid="uid://cct8to734kk6v" path="res://misc/HarvestItems/Bush.tscn" id="1_6cbue"]
+[ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="2_lwfrc"]
+
+[resource]
+script = ExtResource("2_lwfrc")
+Generation_scene = ExtResource("1_6cbue")
+random_scales = {
+"Big": Vector2(1.5, 1.5),
+"Middle": Vector2(1.3, 1.3),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"

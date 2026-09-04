@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dbhmebbny0165"
+path="res://.godot/imported/Yairam.dialogue-f3ea55228d7326400d5048df0bd1082f.tres"
+
+[deps]
+
+source_file="res://misc/Dialogs/Dialogues/Scene1/Yairam.dialogue"
+dest_files=["res://.godot/imported/Yairam.dialogue-f3ea55228d7326400d5048df0bd1082f.tres"]
+
+[params]
+
+defaults=true

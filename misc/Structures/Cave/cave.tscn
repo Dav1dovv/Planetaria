@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cnidd0x3oq73e"]
+
+[ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="1_jqaah"]
+[ext_resource type="Texture2D" uid="uid://u3e55gux7xk2" path="res://Assets/Textures/Items/BossCallers/Caller6.png" id="1_o1t6b"]
+[ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/Textures/Light/GradientLight.png" id="2_o1t6b"]
+[ext_resource type="Script" uid="uid://bj528o0edtyfg" path="res://scr/Misc/Door.gd" id="3_yr2nm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1t6b"]
+size = Vector2(20, 14)
+
+[node name="Cave" type="Node2D" unique_id=1135860097]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1220634269]
+script = ExtResource("1_jqaah")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1059652298]
+position = Vector2(0, -33)
+polygon = PackedVector2Array(-16, 12, -27.1, 32, -13, 32, -8, 18, 13, 17, 17, 32, 31, 32, 29, 16.7, 29, 15.200001, 17, 11)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1140905156]
+position = Vector2(0, -33)
+texture = ExtResource("1_o1t6b")
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D" unique_id=300759953]
+modulate = Color(0.09803922, 0.09803922, 0.09803922, 0.4117647)
+show_behind_parent = true
+position = Vector2(1.9999979, 37.5)
+scale = Vector2(3.25, 1.3125)
+texture = ExtResource("2_o1t6b")
+flip_v = true
+
+[node name="Door" type="Area2D" parent="." unique_id=1793839801]
+collision_layer = 1024
+collision_mask = 4
+script = ExtResource("3_yr2nm")
+scene_name = "Cave"
+move_direction = "Up"
+body_skin = null
+metadata/_custom_type_script = "uid://bj528o0edtyfg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door" unique_id=2098565621]
+position = Vector2(2, -6)
+shape = SubResource("RectangleShape2D_o1t6b")

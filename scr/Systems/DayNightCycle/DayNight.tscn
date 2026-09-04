@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cu0mowstbdnxm"]
+
+[ext_resource type="Script" uid="uid://bmy0n3b15nank" path="res://scr/Systems/DayNightCycle/daynightcycle.gd" id="1_uhy3e"]
+
+[sub_resource type="Animation" id="Animation_8pq8i"]
+resource_name = "Finish_weather"
+
+[sub_resource type="Animation" id="Animation_pfavm"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_85eed"]
+resource_name = "Start_weather"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5nt2"]
+_data = {
+&"Finish_weather": SubResource("Animation_8pq8i"),
+&"RESET": SubResource("Animation_pfavm"),
+&"Start_weather": SubResource("Animation_85eed")
+}
+
+[node name="CanvasModulate" type="CanvasModulate" unique_id=1997208922]
+script = ExtResource("1_uhy3e")
+midday_color = Color(0.9704494, 0.7744617, 0.66695976, 1)
+day_to_mid_minutes = 6.0
+mid_to_night_minutes = 1.5
+night_to_day_minutes = 5.5
+
+[node name="Timer" type="Timer" parent="." unique_id=808393236]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1303499408]
+libraries/ = SubResource("AnimationLibrary_j5nt2")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

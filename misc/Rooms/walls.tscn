@@ -1,0 +1,354 @@
+[gd_scene format=3 uid="uid://cxtqhworanqrv"]
+
+[ext_resource type="PackedScene" uid="uid://b74rp6vq14uh2" path="res://misc/Structures/Blocks/StoneBlock.tscn" id="1_g5fof"]
+
+[node name="Walls" type="Node2D" unique_id=2131055735]
+y_sort_enabled = true
+
+[node name="HarvestItem" parent="." unique_id=1934415035 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 0)
+
+[node name="HarvestItem17" parent="." unique_id=2034023682 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -144)
+
+[node name="HarvestItem18" parent="." unique_id=1590155160 instance=ExtResource("1_g5fof")]
+position = Vector2(-280, -160)
+
+[node name="HarvestItem19" parent="." unique_id=566150504 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -160)
+
+[node name="HarvestItem20" parent="." unique_id=225013796 instance=ExtResource("1_g5fof")]
+position = Vector2(-248, -160)
+
+[node name="HarvestItem21" parent="." unique_id=498139758 instance=ExtResource("1_g5fof")]
+position = Vector2(-264, -160)
+
+[node name="HarvestItem22" parent="." unique_id=172925446 instance=ExtResource("1_g5fof")]
+position = Vector2(-216, -160)
+
+[node name="HarvestItem23" parent="." unique_id=1394778909 instance=ExtResource("1_g5fof")]
+position = Vector2(-232, -160)
+
+[node name="HarvestItem24" parent="." unique_id=802075724 instance=ExtResource("1_g5fof")]
+position = Vector2(-184, -160)
+
+[node name="HarvestItem25" parent="." unique_id=430227935 instance=ExtResource("1_g5fof")]
+position = Vector2(-200, -160)
+
+[node name="HarvestItem26" parent="." unique_id=501170930 instance=ExtResource("1_g5fof")]
+position = Vector2(-152, -160)
+
+[node name="HarvestItem27" parent="." unique_id=478424662 instance=ExtResource("1_g5fof")]
+position = Vector2(-168, -160)
+
+[node name="HarvestItem28" parent="." unique_id=658210587 instance=ExtResource("1_g5fof")]
+position = Vector2(-120, -160)
+
+[node name="HarvestItem29" parent="." unique_id=986057016 instance=ExtResource("1_g5fof")]
+position = Vector2(-136, -160)
+
+[node name="HarvestItem30" parent="." unique_id=1903610042 instance=ExtResource("1_g5fof")]
+position = Vector2(-88, -160)
+
+[node name="HarvestItem31" parent="." unique_id=1625932310 instance=ExtResource("1_g5fof")]
+position = Vector2(-104, -160)
+
+[node name="HarvestItem32" parent="." unique_id=1841257068 instance=ExtResource("1_g5fof")]
+position = Vector2(-56, -160)
+
+[node name="HarvestItem33" parent="." unique_id=907884475 instance=ExtResource("1_g5fof")]
+position = Vector2(-72, -160)
+
+[node name="HarvestItem34" parent="." unique_id=2009894266 instance=ExtResource("1_g5fof")]
+position = Vector2(-24, -160)
+
+[node name="HarvestItem35" parent="." unique_id=66813985 instance=ExtResource("1_g5fof")]
+position = Vector2(-40, -160)
+
+[node name="HarvestItem36" parent="." unique_id=1391542447 instance=ExtResource("1_g5fof")]
+position = Vector2(8, -160)
+
+[node name="HarvestItem37" parent="." unique_id=1952209182 instance=ExtResource("1_g5fof")]
+position = Vector2(-8, -160)
+
+[node name="HarvestItem38" parent="." unique_id=1199405911 instance=ExtResource("1_g5fof")]
+position = Vector2(40, -160)
+
+[node name="HarvestItem39" parent="." unique_id=1852479776 instance=ExtResource("1_g5fof")]
+position = Vector2(24, -160)
+
+[node name="HarvestItem40" parent="." unique_id=1211075739 instance=ExtResource("1_g5fof")]
+position = Vector2(72, -160)
+
+[node name="HarvestItem41" parent="." unique_id=428288156 instance=ExtResource("1_g5fof")]
+position = Vector2(56, -160)
+
+[node name="HarvestItem42" parent="." unique_id=1846100846 instance=ExtResource("1_g5fof")]
+position = Vector2(104, -160)
+
+[node name="HarvestItem43" parent="." unique_id=1252714035 instance=ExtResource("1_g5fof")]
+position = Vector2(88, -160)
+
+[node name="HarvestItem44" parent="." unique_id=291850531 instance=ExtResource("1_g5fof")]
+position = Vector2(136, -160)
+
+[node name="HarvestItem45" parent="." unique_id=1277958169 instance=ExtResource("1_g5fof")]
+position = Vector2(120, -160)
+
+[node name="HarvestItem46" parent="." unique_id=287638782 instance=ExtResource("1_g5fof")]
+position = Vector2(168, -160)
+
+[node name="HarvestItem47" parent="." unique_id=362228580 instance=ExtResource("1_g5fof")]
+position = Vector2(152, -160)
+
+[node name="HarvestItem48" parent="." unique_id=681761692 instance=ExtResource("1_g5fof")]
+position = Vector2(200, -160)
+
+[node name="HarvestItem49" parent="." unique_id=545451819 instance=ExtResource("1_g5fof")]
+position = Vector2(184, -160)
+
+[node name="HarvestItem50" parent="." unique_id=1990929933 instance=ExtResource("1_g5fof")]
+position = Vector2(232, -160)
+
+[node name="HarvestItem51" parent="." unique_id=1103927344 instance=ExtResource("1_g5fof")]
+position = Vector2(216, -160)
+
+[node name="HarvestItem52" parent="." unique_id=342293443 instance=ExtResource("1_g5fof")]
+position = Vector2(264, -160)
+
+[node name="HarvestItem53" parent="." unique_id=1719585438 instance=ExtResource("1_g5fof")]
+position = Vector2(248, -160)
+
+[node name="HarvestItem54" parent="." unique_id=363168529 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -160)
+
+[node name="HarvestItem55" parent="." unique_id=43357891 instance=ExtResource("1_g5fof")]
+position = Vector2(280, -160)
+
+[node name="HarvestItem81" parent="." unique_id=52853553 instance=ExtResource("1_g5fof")]
+position = Vector2(-280, 176)
+
+[node name="HarvestItem82" parent="." unique_id=1336744328 instance=ExtResource("1_g5fof")]
+position = Vector2(-248, 176)
+
+[node name="HarvestItem83" parent="." unique_id=1415131453 instance=ExtResource("1_g5fof")]
+position = Vector2(-264, 176)
+
+[node name="HarvestItem84" parent="." unique_id=1139558334 instance=ExtResource("1_g5fof")]
+position = Vector2(-216, 176)
+
+[node name="HarvestItem85" parent="." unique_id=1624816383 instance=ExtResource("1_g5fof")]
+position = Vector2(-232, 176)
+
+[node name="HarvestItem86" parent="." unique_id=128699319 instance=ExtResource("1_g5fof")]
+position = Vector2(-184, 176)
+
+[node name="HarvestItem87" parent="." unique_id=736672257 instance=ExtResource("1_g5fof")]
+position = Vector2(-200, 176)
+
+[node name="HarvestItem88" parent="." unique_id=1269770840 instance=ExtResource("1_g5fof")]
+position = Vector2(-152, 176)
+
+[node name="HarvestItem89" parent="." unique_id=95276430 instance=ExtResource("1_g5fof")]
+position = Vector2(-168, 176)
+
+[node name="HarvestItem90" parent="." unique_id=790349585 instance=ExtResource("1_g5fof")]
+position = Vector2(-120, 176)
+
+[node name="HarvestItem91" parent="." unique_id=775393685 instance=ExtResource("1_g5fof")]
+position = Vector2(-136, 176)
+
+[node name="HarvestItem92" parent="." unique_id=815231631 instance=ExtResource("1_g5fof")]
+position = Vector2(-88, 176)
+
+[node name="HarvestItem93" parent="." unique_id=1327648553 instance=ExtResource("1_g5fof")]
+position = Vector2(-104, 176)
+
+[node name="HarvestItem94" parent="." unique_id=1267648003 instance=ExtResource("1_g5fof")]
+position = Vector2(-56, 176)
+
+[node name="HarvestItem95" parent="." unique_id=103804103 instance=ExtResource("1_g5fof")]
+position = Vector2(-72, 176)
+
+[node name="HarvestItem96" parent="." unique_id=753984492 instance=ExtResource("1_g5fof")]
+position = Vector2(-24, 176)
+
+[node name="HarvestItem97" parent="." unique_id=629785250 instance=ExtResource("1_g5fof")]
+position = Vector2(-40, 176)
+
+[node name="HarvestItem98" parent="." unique_id=267177096 instance=ExtResource("1_g5fof")]
+position = Vector2(8, 176)
+
+[node name="HarvestItem99" parent="." unique_id=44455752 instance=ExtResource("1_g5fof")]
+position = Vector2(-8, 176)
+
+[node name="HarvestItem100" parent="." unique_id=1074469924 instance=ExtResource("1_g5fof")]
+position = Vector2(40, 176)
+
+[node name="HarvestItem101" parent="." unique_id=2121697586 instance=ExtResource("1_g5fof")]
+position = Vector2(24, 176)
+
+[node name="HarvestItem102" parent="." unique_id=1061898379 instance=ExtResource("1_g5fof")]
+position = Vector2(72, 176)
+
+[node name="HarvestItem103" parent="." unique_id=1127655795 instance=ExtResource("1_g5fof")]
+position = Vector2(56, 176)
+
+[node name="HarvestItem104" parent="." unique_id=775549567 instance=ExtResource("1_g5fof")]
+position = Vector2(104, 176)
+
+[node name="HarvestItem105" parent="." unique_id=754134960 instance=ExtResource("1_g5fof")]
+position = Vector2(88, 176)
+
+[node name="HarvestItem106" parent="." unique_id=1908814222 instance=ExtResource("1_g5fof")]
+position = Vector2(136, 176)
+
+[node name="HarvestItem107" parent="." unique_id=1287034031 instance=ExtResource("1_g5fof")]
+position = Vector2(120, 176)
+
+[node name="HarvestItem108" parent="." unique_id=644927267 instance=ExtResource("1_g5fof")]
+position = Vector2(168, 176)
+
+[node name="HarvestItem109" parent="." unique_id=732850584 instance=ExtResource("1_g5fof")]
+position = Vector2(152, 176)
+
+[node name="HarvestItem110" parent="." unique_id=1597812618 instance=ExtResource("1_g5fof")]
+position = Vector2(200, 176)
+
+[node name="HarvestItem111" parent="." unique_id=86326861 instance=ExtResource("1_g5fof")]
+position = Vector2(184, 176)
+
+[node name="HarvestItem112" parent="." unique_id=1131629268 instance=ExtResource("1_g5fof")]
+position = Vector2(232, 176)
+
+[node name="HarvestItem113" parent="." unique_id=814856269 instance=ExtResource("1_g5fof")]
+position = Vector2(216, 176)
+
+[node name="HarvestItem114" parent="." unique_id=367828087 instance=ExtResource("1_g5fof")]
+position = Vector2(264, 176)
+
+[node name="HarvestItem115" parent="." unique_id=2041276255 instance=ExtResource("1_g5fof")]
+position = Vector2(248, 176)
+
+[node name="HarvestItem116" parent="." unique_id=824251278 instance=ExtResource("1_g5fof")]
+position = Vector2(280, 176)
+
+[node name="HarvestItem2" parent="." unique_id=446502164 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 16)
+
+[node name="HarvestItem3" parent="." unique_id=1402581345 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 32)
+
+[node name="HarvestItem4" parent="." unique_id=1815045220 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 48)
+
+[node name="HarvestItem5" parent="." unique_id=688589120 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 64)
+
+[node name="HarvestItem6" parent="." unique_id=1748426898 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 80)
+
+[node name="HarvestItem7" parent="." unique_id=161165419 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 96)
+
+[node name="HarvestItem8" parent="." unique_id=1256778632 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 112)
+
+[node name="HarvestItem9" parent="." unique_id=91333220 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -128)
+
+[node name="HarvestItem10" parent="." unique_id=1506693398 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -112)
+
+[node name="HarvestItem11" parent="." unique_id=1967504147 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -96)
+
+[node name="HarvestItem12" parent="." unique_id=1012186249 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -80)
+
+[node name="HarvestItem13" parent="." unique_id=1738719355 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -64)
+
+[node name="HarvestItem14" parent="." unique_id=1116796286 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -48)
+
+[node name="HarvestItem15" parent="." unique_id=2076369915 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -32)
+
+[node name="HarvestItem16" parent="." unique_id=1388207324 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, -16)
+
+[node name="HarvestItem56" parent="." unique_id=1209665790 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 0)
+
+[node name="HarvestItem57" parent="." unique_id=957185585 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -144)
+
+[node name="HarvestItem58" parent="." unique_id=1369458532 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 16)
+
+[node name="HarvestItem59" parent="." unique_id=1754725610 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 32)
+
+[node name="HarvestItem60" parent="." unique_id=959661777 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 48)
+
+[node name="HarvestItem61" parent="." unique_id=263270704 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 64)
+
+[node name="HarvestItem62" parent="." unique_id=2119047586 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 80)
+
+[node name="HarvestItem63" parent="." unique_id=1097134491 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 96)
+
+[node name="HarvestItem64" parent="." unique_id=1283886128 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 112)
+
+[node name="HarvestItem73" parent="." unique_id=660186325 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 128)
+
+[node name="HarvestItem74" parent="." unique_id=1769937249 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 144)
+
+[node name="HarvestItem75" parent="." unique_id=1971295382 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 160)
+
+[node name="HarvestItem76" parent="." unique_id=651131130 instance=ExtResource("1_g5fof")]
+position = Vector2(296, 176)
+
+[node name="HarvestItem77" parent="." unique_id=521707605 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 128)
+
+[node name="HarvestItem78" parent="." unique_id=2016130019 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 144)
+
+[node name="HarvestItem79" parent="." unique_id=1788147334 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 160)
+
+[node name="HarvestItem80" parent="." unique_id=319607547 instance=ExtResource("1_g5fof")]
+position = Vector2(-296, 176)
+
+[node name="HarvestItem65" parent="." unique_id=1768988767 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -128)
+
+[node name="HarvestItem66" parent="." unique_id=1633430541 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -112)
+
+[node name="HarvestItem67" parent="." unique_id=1651487998 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -96)
+
+[node name="HarvestItem68" parent="." unique_id=2038428889 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -80)
+
+[node name="HarvestItem69" parent="." unique_id=2140953310 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -64)
+
+[node name="HarvestItem70" parent="." unique_id=2091924803 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -48)
+
+[node name="HarvestItem71" parent="." unique_id=1659475704 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -32)
+
+[node name="HarvestItem72" parent="." unique_id=1874919270 instance=ExtResource("1_g5fof")]
+position = Vector2(296, -16)

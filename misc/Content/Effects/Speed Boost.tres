@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Effect" format=3 uid="uid://crr3682hbf6k5"]
+
+[ext_resource type="Texture2D" uid="uid://b64un2hdo8wht" path="res://Assets/Textures/UI/Effects/Effect1.png" id="1_sws6j"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="3_u7e0u"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="4_rmkpu"]
+
+[resource]
+script = ExtResource("4_rmkpu")
+effect_icon = ExtResource("1_sws6j")
+effect_type = 1
+value = 3.0
+duration = 5.0
+particle_color = Color(0.39607844, 1, 0.2784314, 1)
+particle = ExtResource("3_u7e0u")
+display_name = "Speed Boost"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"

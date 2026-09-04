@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://2o0o5m2mc63k"]
+
+[ext_resource type="Script" uid="uid://dlswreqv7akhj" path="res://scr/Systems/DayNightCycle/Weather/WeatherEffect.gd" id="1_wi7bv"]
+
+[sub_resource type="Curve" id="Curve_lyo60"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3624454, 0.8314607), 3.3081865, 3.3081865, 0, 0, Vector2(0.59825325, 0.68539333), -0.57893246, -0.57893246, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_85eed"]
+curve = SubResource("Curve_lyo60")
+
+[sub_resource type="Gradient" id="Gradient_6eyha"]
+colors = PackedColorArray(1, 1, 1, 0.117647, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8pq8i"]
+gradient = SubResource("Gradient_6eyha")
+
+[sub_resource type="Curve" id="Curve_1wyr8"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 0.47191), 0.0, 0.0, 0, 0, Vector2(0.24890828, 3), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_a4dpi"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 0.16853929), 0.0, 0.0, 0, 0, Vector2(0.22270742, 1.3820226), 0.0, 0.0, 0, 0, Vector2(0.4934498, 1.7865169), 0.0, 0.0, 0, 0, Vector2(0.6200873, 3), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_bsah1"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 0.16853929), 0.0, 0.0, 0, 0, Vector2(0.32751092, 1.9550563), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_c5chu"]
+curve_x = SubResource("Curve_1wyr8")
+curve_y = SubResource("Curve_a4dpi")
+curve_z = SubResource("Curve_bsah1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mer4x"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -150, 0)
+emission_shape = 3
+emission_box_extents = Vector3(260, 1, 1)
+gravity = Vector3(-250, 2500, 0)
+scale_over_velocity_curve = SubResource("CurveXYZTexture_c5chu")
+color = Color(0.827451, 1, 1, 0.5686275)
+color_ramp = SubResource("GradientTexture1D_8pq8i")
+alpha_curve = SubResource("CurveTexture_85eed")
+
+[node name="Rain" type="Control" unique_id=2105899237]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wi7bv")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1093015128]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.262745, 0.290196, 0.345098, 0.25098)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=500134293]
+position = Vector2(249, 131)
+amount = 1000
+lifetime = 0.5
+preprocess = 0.5
+speed_scale = 0.4
+visibility_rect = Rect2(-260, -150, 520, 200)
+process_material = SubResource("ParticleProcessMaterial_mer4x")

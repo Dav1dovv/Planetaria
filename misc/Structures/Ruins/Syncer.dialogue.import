@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bf6c2wg8vq7x2"
+path="res://.godot/imported/Syncer.dialogue-657bac1d8dd1bd9d52db5823c484cb18.tres"
+
+[deps]
+
+source_file="res://misc/Structures/Ruins/Syncer.dialogue"
+dest_files=["res://.godot/imported/Syncer.dialogue-657bac1d8dd1bd9d52db5823c484cb18.tres"]
+
+[params]
+
+defaults=true

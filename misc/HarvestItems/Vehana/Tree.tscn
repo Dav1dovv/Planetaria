@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://d0qb8iwxdcwpn"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/HarvestRoot.tscn" id="1_32v1v"]
+[ext_resource type="Resource" uid="uid://b7dxq4y8wfso" path="res://misc/Content/Items/Wood.tres" id="3_d3fsl"]
+[ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_hs44r"]
+[ext_resource type="Resource" uid="uid://ky47smcnnrdj" path="res://misc/Content/Items/ExpPoint.tres" id="5_u7jed"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="6_x2q3c"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="7_1t5m1"]
+[ext_resource type="AudioStream" uid="uid://v4sxnpx0ucxs" path="res://Assets/Audio/SFX/Environemnt/HarvesstItems/Wood-01.mp3" id="10_jow1p"]
+[ext_resource type="Texture2D" uid="uid://dn11ly1rieh8w" path="res://misc/HarvestItems/Vehana/Textures/Oktavian Tree.png" id="11_44ll0"]
+[ext_resource type="AudioStream" uid="uid://drwfryrgniotc" path="res://Assets/Audio/SFX/Environemnt/HarvesstItems/Wood-02.mp3" id="11_45q5k"]
+[ext_resource type="PackedScene" uid="uid://d4dhrx0cb6776" path="res://misc/Particles/SplashParticles.tscn" id="13_jow1p"]
+[ext_resource type="AudioStream" uid="uid://bucv88ie5tnuv" path="res://misc/HarvestItems/SFX/Tree/WoodDestroy.mp3" id="16_3spyh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_phfk7"]
+radius = 3.70122
+height = 23.155107
+
+[sub_resource type="Resource" id="Resource_hedjd"]
+script = ExtResource("7_1t5m1")
+drop_item = ExtResource("5_u7jed")
+drop_chance = 0.1051
+max_throws = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="Resource" id="Resource_dke88"]
+script = ExtResource("7_1t5m1")
+drop_item = ExtResource("6_x2q3c")
+drop_chance = 0.2111
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phfk7"]
+size = Vector2(21.7234, 24.4137)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mchyi"]
+playback_mode = 1
+random_pitch = 1.4753766
+streams_count = 2
+stream_0/stream = ExtResource("10_jow1p")
+stream_1/stream = ExtResource("11_45q5k")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4cjpm"]
+polygon = PackedVector2Array(-8, -6, -9, -1, 13, -1, 12, -7)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_45q5k"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qinkj"]
+atlas = SubResource("CompressedTexture2D_45q5k")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="Gradient" id="Gradient_wwo1s"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uupl7"]
+gradient = SubResource("Gradient_wwo1s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_srima"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 28.36
+angle_min = -86.399994
+angle_max = 37.00001
+inherit_velocity_ratio = 0.407
+direction = Vector3(0, -1, 0)
+spread = 25.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 700, 0)
+damping_min = 100.0
+damping_max = 800.0
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_uupl7")
+
+[sub_resource type="Animation" id="Animation_45q5k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_qinkj"]
+resource_name = "destroy"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.6060654]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwo1s"]
+_data = {
+&"RESET": SubResource("Animation_45q5k"),
+&"destroy": SubResource("Animation_qinkj")
+}
+
+[node name="Tree" unique_id=1525282769 instance=ExtResource("1_32v1v")]
+durability = 18.0
+harvest_tool_lvl = 0
+max_distance = 70.0
+
+[node name="StaticBody2D" parent="." index="0" unique_id=273132599]
+position = Vector2(-1.0973816, 0.7206211)
+
+[node name="CollisionShape2D" parent="StaticBody2D" index="0" unique_id=605264910]
+position = Vector2(1, -3)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_phfk7")
+
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+position = Vector2(1.614686, -12.717681)
+scale = Vector2(1.71349, 2.43441)
+rect = Rect2(-10, -10, 18.168613, 17.004868)
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow")]
+
+[node name="droper" parent="." index="2" unique_id=1465568748]
+drop_resources = Array[ExtResource("7_1t5m1")]([ExtResource("3_d3fsl"), SubResource("Resource_hedjd"), SubResource("Resource_dke88")])
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
+position = Vector2(-0.5320306, -10.949819)
+shape = SubResource("RectangleShape2D_phfk7")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="." index="5" unique_id=692783260]
+stream = SubResource("AudioStreamRandomizer_mchyi")
+max_polyphony = 4
+playback_type = 2
+
+[node name="Destroy" type="AudioStreamPlayer2D" parent="." index="6" unique_id=1206173942]
+stream = ExtResource("16_3spyh")
+
+[node name="VFX_damage" parent="." index="7" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../SFX")
+particles = NodePath("../GPUParticles2D")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="8" unique_id=1545977258]
+visible = false
+occluder = SubResource("OccluderPolygon2D_4cjpm")
+
+[node name="GPUParticles2D" parent="." index="9" unique_id=1130400609 instance=ExtResource("13_jow1p")]
+texture = SubResource("AtlasTexture_qinkj")
+process_material = SubResource("ParticleProcessMaterial_srima")
+
+[node name="AnimationPlayer" parent="." index="10" unique_id=1799726278]
+libraries/ = SubResource("AnimationLibrary_wwo1s")
+
+[node name="Sprite2D" parent="." index="12" unique_id=308116851]
+position = Vector2(-0.21122742, 0.002216339)
+texture = ExtResource("11_44ll0")
+offset = Vector2(-1.7273712, -30.667759)
+hframes = 4
+frame = 2
+script = ExtResource("3_hs44r")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
+
+[node name="Shadow" parent="." index="13" unique_id=1322860807]
+show_behind_parent = true
+position = Vector2(0.06303787, -0.064971924)
+scale = Vector2(1.8528863, 0.6620634)

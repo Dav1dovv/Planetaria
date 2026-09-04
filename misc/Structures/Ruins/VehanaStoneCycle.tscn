@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://br168m26q62il"]
+
+[ext_resource type="Texture2D" uid="uid://dw8hujpfuk6cs" path="res://Assets/Textures/Items/Ruin.png" id="1_7jfkx"]
+[ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="2_h0ha0"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="3_7yqb2"]
+
+[node name="Ruin1" type="Node2D" unique_id=187901231]
+
+[node name="RandomSprite2D" type="Sprite2D" parent="." unique_id=800856646]
+position = Vector2(-45.564194, -60.98593)
+texture = ExtResource("1_7jfkx")
+hframes = 6
+script = ExtResource("2_h0ha0")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="RandomSprite2D" unique_id=1629373848]
+modulate = Color(0.09019608, 0.09019608, 0.13333334, 0.23921569)
+show_behind_parent = true
+position = Vector2(-5.4200745, 28.83316)
+scale = Vector2(2.4064283, 1)
+texture = ExtResource("3_7yqb2")
+
+[node name="RandomSprite2D2" type="Sprite2D" parent="." unique_id=601033943]
+position = Vector2(-101.25957, -19.40422)
+texture = ExtResource("1_7jfkx")
+hframes = 6
+frame = 5
+script = ExtResource("2_h0ha0")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="RandomSprite2D2" unique_id=1080175397]
+modulate = Color(0.09019608, 0.09019608, 0.13333334, 0.23921569)
+show_behind_parent = true
+position = Vector2(-5.4200745, 28.83316)
+scale = Vector2(2.4064283, 1)
+texture = ExtResource("3_7yqb2")
+
+[node name="RandomSprite2D3" type="Sprite2D" parent="." unique_id=812733664]
+position = Vector2(-40.974625, 28.963928)
+texture = ExtResource("1_7jfkx")
+hframes = 6
+frame = 4
+script = ExtResource("2_h0ha0")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="RandomSprite2D3" unique_id=1324042924]
+modulate = Color(0.09019608, 0.09019608, 0.13333334, 0.23921569)
+show_behind_parent = true
+position = Vector2(-5.4200745, 28.83316)
+scale = Vector2(2.4064283, 1)
+texture = ExtResource("3_7yqb2")
+
+[node name="RandomSprite2D4" type="Sprite2D" parent="." unique_id=1110958269]
+position = Vector2(48.40132, 43.334167)
+texture = ExtResource("1_7jfkx")
+hframes = 6
+frame = 3
+script = ExtResource("2_h0ha0")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="RandomSprite2D4" unique_id=532934628]
+modulate = Color(0.09019608, 0.09019608, 0.13333334, 0.23921569)
+show_behind_parent = true
+position = Vector2(-5.4200745, 28.83316)
+scale = Vector2(2.4064283, 1)
+texture = ExtResource("3_7yqb2")
+
+[node name="RandomSprite2D5" type="Sprite2D" parent="." unique_id=63464913]
+position = Vector2(97.47044, -30.970528)
+texture = ExtResource("1_7jfkx")
+hframes = 6
+frame = 2
+script = ExtResource("2_h0ha0")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="RandomSprite2D5" unique_id=1346075457]
+modulate = Color(0.09019608, 0.09019608, 0.13333334, 0.23921569)
+show_behind_parent = true
+position = Vector2(-5.4200745, 28.83316)
+scale = Vector2(2.4064283, 1)
+texture = ExtResource("3_7yqb2")
+
+[node name="RandomSprite2D6" type="Sprite2D" parent="." unique_id=1276903459]
+position = Vector2(13.351929, -88.45152)
+texture = ExtResource("1_7jfkx")
+hframes = 6
+frame = 4
+script = ExtResource("2_h0ha0")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="RandomSprite2D6" unique_id=250730871]
+modulate = Color(0.09019608, 0.09019608, 0.13333334, 0.23921569)
+show_behind_parent = true
+position = Vector2(-5.4200745, 28.83316)
+scale = Vector2(2.4064283, 1)
+texture = ExtResource("3_7yqb2")

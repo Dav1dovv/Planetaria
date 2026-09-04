@@ -1,0 +1,532 @@
+[gd_scene load_steps=47 format=3 uid="uid://xi525y36l0mn"]
+
+[ext_resource type="Script" uid="uid://nmf4f5vsqrnb" path="res://Assets/Scripts/Inventory/inventory.gd" id="1_w5r8t"]
+[ext_resource type="Texture2D" uid="uid://chavhmblum66w" path="res://Assets/UI/UI.png" id="2_smraw"]
+[ext_resource type="Shader" uid="uid://byfq4to3i1kfx" path="res://Assets/Shaders/Blur.gdshader" id="2_uegqv"]
+[ext_resource type="Script" uid="uid://bxguvf402r2aw" path="res://Assets/Scripts/Inventory/TrashSlot.gd" id="3_08cpt"]
+[ext_resource type="Resource" uid="uid://dhfoor6bb7dnn" path="res://Assets/Misc/Items/Coin.tres" id="4_tp014"]
+[ext_resource type="PackedScene" uid="uid://bwaixuiwrerk5" path="res://Assets/Scripts/Inventory/InventorySlot.tscn" id="6_81ckb"]
+[ext_resource type="Script" uid="uid://btgu746vlqnsc" path="res://Assets/Scripts/Crafting/CraftingManager.gd" id="7_l8bdw"]
+[ext_resource type="Script" uid="uid://cyspapfl4ie8t" path="res://Assets/Scripts/Crafting/Crafting Recipe.gd" id="8_tp014"]
+[ext_resource type="Script" uid="uid://c785sodtl7e0" path="res://Assets/Scripts/Inventory/hot_bar.gd" id="9_tp014"]
+[ext_resource type="Script" uid="uid://dnxtka6wsg1c8" path="res://Assets/Scripts/Inventory/ItemResource.gd" id="9_w5yo8"]
+[ext_resource type="Resource" uid="uid://bigvqtp02rce7" path="res://Assets/Scripts/Crafting/Sword.tres" id="10_nyhik"]
+[ext_resource type="Resource" uid="uid://ydggjm06enpr" path="res://Assets/Misc/Items/Wood.tres" id="12_8kc28"]
+[ext_resource type="Resource" uid="uid://droo6sv3qiat" path="res://Assets/Misc/Items/Stone.tres" id="13_0suw0"]
+[ext_resource type="Resource" uid="uid://12nwp0087cv" path="res://Assets/Misc/Weapons/Boomerang.tres" id="14_gemjo"]
+[ext_resource type="Script" uid="uid://ceb6ttwd81a3k" path="res://Assets/Scripts/Crafting/build_panel_Logic.gd" id="15_1ek74"]
+[ext_resource type="PackedScene" uid="uid://cxyss25tqj1y5" path="res://Assets/Scripts/Crafting/craft_button.tscn" id="15_nyhik"]
+[ext_resource type="Texture2D" uid="uid://bjlc1gcy2wory" path="res://Assets/UI/Icons.png" id="15_q4s60"]
+[ext_resource type="Resource" uid="uid://blhjci3irb8sg" path="res://Assets/Misc/Weapons/Bomb_recipe.tres" id="16_sc4fn"]
+[ext_resource type="Resource" uid="uid://ds2u176hrlgvq" path="res://Assets/Misc/Weapons/Boomerang_recipe.tres" id="17_7shdu"]
+[ext_resource type="Resource" uid="uid://bip7hri8u1l3c" path="res://Assets/Misc/Weapons/Bow_Recipe.tres" id="18_tidw6"]
+[ext_resource type="Resource" uid="uid://dbvro0qqcf6c3" path="res://Assets/Misc/Weapons/Cactus Mace_Recipe.tres" id="19_1it4y"]
+[ext_resource type="Resource" uid="uid://pijn7clof6i8" path="res://Assets/Misc/Weapons/Mushroom Mace_recipe.tres" id="20_h0qcl"]
+[ext_resource type="Resource" uid="uid://bmqjkig5oy0ay" path="res://Assets/Misc/Weapons/Iron Sekira_Recipe.tres" id="21_kis0d"]
+[ext_resource type="Resource" uid="uid://bndukmb0qmtph" path="res://Assets/Misc/Weapons/Iron Hammer_Recipe.tres" id="22_x8xkw"]
+[ext_resource type="Resource" uid="uid://cr776wwcl8et0" path="res://Assets/Misc/Weapons/Iron Bow_recipe.tres" id="23_q4s60"]
+[ext_resource type="Resource" uid="uid://fy3j3qkoueqn" path="res://Assets/Misc/Weapons/Iron Axe_Recipe.tres" id="24_6po67"]
+[ext_resource type="Resource" uid="uid://1wq2dom7d133" path="res://Assets/Misc/Weapons/Fire Cane_recipe.tres" id="25_e1uif"]
+[ext_resource type="Resource" uid="uid://bxiq71j8mqh5o" path="res://Assets/Misc/Weapons/Diamond Sword_recipe.tres" id="26_1ek74"]
+[ext_resource type="Resource" uid="uid://c0xorpkmxnofu" path="res://Assets/Misc/Weapons/Diamond Sekira_recipe.tres" id="27_a6nyt"]
+[ext_resource type="Resource" uid="uid://bn1is4r08f0kt" path="res://Assets/Misc/Weapons/Diamond Hammer_Recipe.tres" id="28_x8xkw"]
+[ext_resource type="Resource" uid="uid://7ql8fsqb3s6w" path="res://Assets/Misc/Weapons/Diamond axe_Recipe.tres" id="29_q4s60"]
+[ext_resource type="Resource" uid="uid://bee35b85qr8l0" path="res://Assets/Misc/Weapons/Demonic Sword_Recipe.tres" id="30_6po67"]
+[ext_resource type="Resource" uid="uid://dmd40dp2jsvvv" path="res://Assets/Misc/Weapons/Crystal Sword_recipe.tres" id="31_e1uif"]
+[ext_resource type="Resource" uid="uid://dqg80t6s44w8j" path="res://Assets/Misc/Weapons/Crystal Sekira._Recipe.tres" id="32_1ek74"]
+[ext_resource type="Resource" uid="uid://brs5mdct43tbv" path="res://Assets/Misc/Weapons/Crystal Axe_recipe.tres" id="33_a6nyt"]
+[ext_resource type="Resource" uid="uid://c0f3rkd7bln23" path="res://Assets/Misc/Items/Energetic drink_recipe.tres" id="36_a6nyt"]
+[ext_resource type="Resource" uid="uid://di78mo002ttmv" path="res://Assets/Misc/Items/Bottle_Recip.tres" id="36_fuu2r"]
+[ext_resource type="Resource" uid="uid://cx7vgepjck5sp" path="res://Assets/Misc/Items/Health Potion_recipe.tres" id="37_fuu2r"]
+[ext_resource type="Resource" uid="uid://dag4qtw7o6bsc" path="res://Assets/Misc/Items/Thread_recipe.tres" id="39_toanv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6xr2d"]
+shader = ExtResource("2_uegqv")
+shader_parameter/blur_amount = -2.0
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08cpt"]
+atlas = ExtResource("2_smraw")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="Resource" id="Resource_2g5pw"]
+script = ExtResource("8_tp014")
+output_item = ExtResource("14_gemjo")
+output_amount = 1
+input_items = Array[ExtResource("9_w5yo8")]([ExtResource("12_8kc28"), ExtResource("13_0suw0")])
+input_amounts = Array[int]([100, 20])
+metadata/_custom_type_script = "uid://cyspapfl4ie8t"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k75mh"]
+shader = ExtResource("2_uegqv")
+shader_parameter/blur_amount = 1.405
+shader_parameter/mix_amount = 0.18
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6po67"]
+atlas = ExtResource("15_q4s60")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1uif"]
+atlas = ExtResource("15_q4s60")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ek74"]
+atlas = ExtResource("15_q4s60")
+region = Rect2(32, 16, 16, 16)
+
+[node name="Inventory" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_w5r8t")
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_6xr2d")
+layout_mode = 1
+offset_left = 240.0
+offset_top = 135.0
+offset_right = 240.0
+offset_bottom = 135.0
+mouse_filter = 1
+
+[node name="GridContainer" type="GridContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -124.0
+offset_right = -52.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 9
+
+[node name="InventorySlot" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot17" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot18" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot19" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot20" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="InventorySlot21" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot22" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot23" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot24" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot25" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot26" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="InventorySlot27" parent="Panel/GridContainer" instance=ExtResource("6_81ckb")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/GridContainer"]
+layout_mode = 2
+
+[node name="InventorySlot" parent="Panel/GridContainer/HBoxContainer" instance=ExtResource("6_81ckb")]
+self_modulate = Color(0.329412, 0.658824, 1, 1)
+layout_mode = 2
+item = ExtResource("4_tp014")
+ammount = 10
+
+[node name="TrashSlot" type="TextureRect" parent="Panel/GridContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 8
+texture = SubResource("AtlasTexture_08cpt")
+expand_mode = 1
+script = ExtResource("3_08cpt")
+
+[node name="HotBar" type="HBoxContainer" parent="." groups=["Hotbar"]]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+offset_left = 12.0
+offset_top = 11.0
+offset_right = 188.0
+offset_bottom = 27.0
+alignment = 1
+script = ExtResource("9_tp014")
+
+[node name="InventorySlot" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "1"
+
+[node name="InventorySlot2" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot2"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "2"
+
+[node name="InventorySlot3" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot3"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "3"
+
+[node name="InventorySlot4" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot4"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "4"
+
+[node name="InventorySlot5" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot5"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "5"
+
+[node name="InventorySlot6" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot6"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "6"
+
+[node name="InventorySlot7" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot7"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "7"
+
+[node name="InventorySlot8" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot8"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "8"
+
+[node name="InventorySlot9" parent="HotBar" instance=ExtResource("6_81ckb")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HotBar/InventorySlot9"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 5
+text = "9"
+
+[node name="CraftingManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_l8bdw")
+recipes = Array[ExtResource("8_tp014")]([ExtResource("10_nyhik"), SubResource("Resource_2g5pw")])
+metadata/_custom_type_script = "uid://btgu746vlqnsc"
+
+[node name="BuildPanel" type="Panel" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_k75mh")
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -232.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("15_1ek74")
+
+[node name="Weapon_page" type="TextureButton" parent="BuildPanel"]
+layout_mode = 0
+offset_left = -36.0
+offset_top = 139.0
+offset_right = 4.0
+offset_bottom = 179.0
+scale = Vector2(0.927449, 0.913785)
+texture_normal = SubResource("AtlasTexture_6po67")
+stretch_mode = 1
+
+[node name="Pickaxe_page" type="TextureButton" parent="BuildPanel"]
+layout_mode = 0
+offset_left = -36.0
+offset_top = 187.0
+offset_right = 4.0
+offset_bottom = 227.0
+scale = Vector2(0.927449, 0.913785)
+texture_normal = SubResource("AtlasTexture_e1uif")
+stretch_mode = 1
+
+[node name="Other_Page" type="TextureButton" parent="BuildPanel"]
+layout_mode = 0
+offset_left = -36.0
+offset_top = 234.0
+offset_right = 4.0
+offset_bottom = 274.0
+scale = Vector2(0.927449, 0.913785)
+texture_normal = SubResource("AtlasTexture_1ek74")
+stretch_mode = 1
+
+[node name="VFlowContainer" type="ScrollContainer" parent="BuildPanel"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -101.0
+offset_right = 119.0
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Weapon_Container" type="VBoxContainer" parent="BuildPanel/VFlowContainer"]
+layout_mode = 2
+
+[node name="Craft Button" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("16_sc4fn")
+
+[node name="Craft Button2" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("17_7shdu")
+
+[node name="Craft Button3" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("18_tidw6")
+
+[node name="Craft Button4" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("19_1it4y")
+
+[node name="Craft Button5" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("20_h0qcl")
+
+[node name="Craft Button6" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("21_kis0d")
+
+[node name="Craft Button7" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("22_x8xkw")
+
+[node name="Craft Button8" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("23_q4s60")
+
+[node name="Craft Button9" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("24_6po67")
+
+[node name="Craft Button10" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("25_e1uif")
+
+[node name="Craft Button11" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("26_1ek74")
+
+[node name="Craft Button12" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("27_a6nyt")
+
+[node name="Craft Button13" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("28_x8xkw")
+
+[node name="Craft Button14" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("29_q4s60")
+
+[node name="Craft Button15" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("30_6po67")
+
+[node name="Craft Button16" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("31_e1uif")
+
+[node name="Craft Button17" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("32_1ek74")
+
+[node name="Craft Button18" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("33_a6nyt")
+
+[node name="Craft Button19" parent="BuildPanel/VFlowContainer/Weapon_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("19_1it4y")
+
+[node name="Other_Container" type="VBoxContainer" parent="BuildPanel/VFlowContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Craft Button" parent="BuildPanel/VFlowContainer/Other_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("36_fuu2r")
+
+[node name="Craft Button3" parent="BuildPanel/VFlowContainer/Other_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("36_a6nyt")
+
+[node name="Craft Button2" parent="BuildPanel/VFlowContainer/Other_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("37_fuu2r")
+
+[node name="Craft Button4" parent="BuildPanel/VFlowContainer/Other_Container" instance=ExtResource("15_nyhik")]
+custom_minimum_size = Vector2(230, 75)
+layout_mode = 2
+recipe = ExtResource("39_toanv")
+
+[node name="Label" type="Label" parent="BuildPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+grow_horizontal = 2
+text = "CRAFTING"
+
+[connection signal="pressed" from="BuildPanel/Weapon_page" to="BuildPanel" method="_on_weapon_page_pressed"]
+[connection signal="pressed" from="BuildPanel/Other_Page" to="BuildPanel" method="_on_other_page_pressed"]

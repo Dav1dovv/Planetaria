@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://37etl711645b"
+path="res://.godot/imported/Bern1.dialogue-2f85c7b80c6158388b07e289ae2f995a.tres"
+
+[deps]
+
+source_file="res://misc/Dialogs/Bern/Bern1.dialogue"
+dest_files=["res://.godot/imported/Bern1.dialogue-2f85c7b80c6158388b07e289ae2f995a.tres"]
+
+[params]
+
+defaults=true

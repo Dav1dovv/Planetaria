@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://co6j4pqtskgmp"]
+
+[ext_resource type="PackedScene" uid="uid://w8ixqhyxdxr3" path="res://misc/Entity/Animals/Cactus Snail.tscn" id="1_125rn"]
+[ext_resource type="PackedScene" uid="uid://uepsdmu57fgh" path="res://misc/Entity/NPC/Trader.tscn" id="2_4uibv"]
+[ext_resource type="Script" uid="uid://bvwvs7as8jfa6" path="res://scr/Misc/Rope.gd" id="3_4uibv"]
+
+[node name="Trader" type="Node2D" unique_id=1508158515]
+
+[node name="Creature" parent="." unique_id=1718629020 instance=ExtResource("2_4uibv")]
+position = Vector2(-60, 0)
+
+[node name="Marker2D" type="Marker2D" parent="Creature" unique_id=1124015980]
+position = Vector2(0, -10)
+
+[node name="Snail" parent="." unique_id=2111811093 instance=ExtResource("1_125rn")]
+
+[node name="Rope" type="Node2D" parent="." unique_id=86777577 node_paths=PackedStringArray("point_a", "point_b")]
+script = ExtResource("3_4uibv")
+point_a = NodePath("../Creature/Marker2D")
+point_b = NodePath("../Snail")
+max_length = 130.0
+rope_color = Color(0.66439116, 0.42944106, 0.19626686, 1)
+metadata/_custom_type_script = "uid://bvwvs7as8jfa6"

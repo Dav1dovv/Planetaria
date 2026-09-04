@@ -1,0 +1,271 @@
+[gd_scene format=3 uid="uid://cajofw8k5naam"]
+
+[ext_resource type="Script" uid="uid://dm3p1fw3o1vwv" path="res://scr/Manager/LevelManager.gd" id="1_3icio"]
+[ext_resource type="Resource" uid="uid://lw4x7f1p1hoe" path="res://scr/Manager/SceneRegistry.tres" id="2_m7nf5"]
+[ext_resource type="Script" uid="uid://bttgnk3bb2a8i" path="res://addons/font_auto_size_labels/auto_size_label.gd" id="2_wtyph"]
+[ext_resource type="FontFile" uid="uid://dfsuae2k2msy7" path="res://Assets/Fonts/NavirianScript-Regular.ttf" id="3_wtyph"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6vyuc"]
+font = ExtResource("3_wtyph")
+font_color = Color(0.47843137, 1, 1, 1)
+shadow_color = Color(0, 0, 0, 0.18039216)
+shadow_offset = Vector2(0, 1.845)
+stacked_outline_count = 1
+stacked_outline_0/size = 2
+stacked_outline_0/color = Color(0, 0.41960785, 0.7058824, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h4ltw"]
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.18039216)
+shadow_offset = Vector2(0, 0.5)
+stacked_outline_count = 2
+stacked_outline_0/size = 2
+stacked_outline_0/color = Color(0.54891276, 0.7774165, 0.9999996, 1)
+stacked_outline_1/size = 1
+stacked_outline_1/color = Color(0, 0, 0, 0.40784314)
+
+[sub_resource type="Animation" id="Animation_2wn0h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -56)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Label2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jigvp"]
+resource_name = "Show"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2333333, 2.7666667, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -56), Vector2(0, 1), Vector2(0, 1), Vector2(0, -56)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.76666665, 1.11),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Label2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.3666667, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b8hkq"]
+_data = {
+&"RESET": SubResource("Animation_2wn0h"),
+&"Show": SubResource("Animation_jigvp")
+}
+
+[sub_resource type="Animation" id="Animation_agclx"]
+resource_name = "Fade_In"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.12074213, 0.12074213),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3icio"]
+resource_name = "Fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2.3784144, 2.3784144),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_10rpm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gcf7u"]
+_data = {
+&"Fade_In": SubResource("Animation_agclx"),
+&"Fade_out": SubResource("Animation_3icio"),
+&"RESET": SubResource("Animation_10rpm")
+}
+
+[node name="SceneManager" type="Node" unique_id=737168447]
+process_mode = 3
+script = ExtResource("1_3icio")
+scene_registry = ExtResource("2_m7nf5")
+metadata/_custom_type_script = "uid://dm3p1fw3o1vwv"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=718572714]
+layer = 8
+
+[node name="CanvasLayer2" type="Control" parent="CanvasLayer" unique_id=381271140]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/CanvasLayer2" unique_id=1984132900]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -56.0
+offset_bottom = -56.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CanvasLayer2/Control" unique_id=2083410026]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 45.0
+grow_horizontal = 2
+text = "TEST"
+label_settings = SubResource("LabelSettings_6vyuc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/CanvasLayer2/Control" unique_id=1154753058]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 7.0
+offset_bottom = 52.0
+grow_horizontal = 2
+text = "TEST"
+label_settings = SubResource("LabelSettings_h4ltw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelAnim" type="AnimationPlayer" parent="CanvasLayer/CanvasLayer2" unique_id=1984405301]
+libraries/ = SubResource("AnimationLibrary_b8hkq")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=68827252]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect" unique_id=1575207465]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -37.5
+offset_top = -37.0
+offset_right = 37.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "LOADING..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Message" type="Label" parent="CanvasLayer/ColorRect" unique_id=1959319250]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -71.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Message"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("2_wtyph")
+_max_size = 18
+_min_size = 12
+_current_font_size = 18
+_editor_defaults_set = true
+metadata/_custom_type_script = "uid://bttgnk3bb2a8i"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2065520795]
+libraries/ = SubResource("AnimationLibrary_gcf7u")
+speed_scale = 2.0

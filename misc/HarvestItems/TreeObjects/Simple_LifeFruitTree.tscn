@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://dteiq6ibs70h7"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/HarvestRoot.tscn" id="1_f3l70"]
+[ext_resource type="Texture2D" uid="uid://7t0oc4ieaqpb" path="res://misc/HarvestItems/Textures/LifeFruit.png" id="3_my7y8"]
+[ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="4_nnn6h"]
+[ext_resource type="Shader" uid="uid://cdlafcs161hqt" path="res://Assets/Shader/tree_wind.gdshader" id="5_50bdx"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="5_my7y8"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="6_t78ob"]
+[ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="7_my7y8"]
+[ext_resource type="Resource" uid="uid://dwhy2xb7bqqsf" path="res://misc/Content/Items/LifeFruit.tres" id="8_vxks1"]
+[ext_resource type="AudioStream" uid="uid://bdpgims8h837c" path="res://misc/HarvestItems/SFX/Tree/Chop1.mp3" id="9_50bdx"]
+[ext_resource type="AudioStream" uid="uid://7cg0p0tt6th1" path="res://misc/HarvestItems/SFX/Tree/Chop3.mp3" id="11_20o6u"]
+[ext_resource type="AudioStream" uid="uid://b8nyht1i5ljfb" path="res://misc/HarvestItems/SFX/Tree/Chop5.mp3" id="13_m17xs"]
+[ext_resource type="PackedScene" uid="uid://d4dhrx0cb6776" path="res://misc/Particles/SplashParticles.tscn" id="13_t78ob"]
+[ext_resource type="AudioStream" uid="uid://bucv88ie5tnuv" path="res://misc/HarvestItems/SFX/Tree/WoodDestroy.mp3" id="16_vt0py"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_phfk7"]
+radius = 3.0
+height = 15.6869
+
+[sub_resource type="Resource" id="Resource_1t5m1"]
+script = ExtResource("6_t78ob")
+drop_item = ExtResource("7_my7y8")
+drop_chance = 1.0
+max_throws = 4
+max_count = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="Resource" id="Resource_45q5k"]
+script = ExtResource("6_t78ob")
+drop_item = ExtResource("8_vxks1")
+drop_chance = 1.0
+max_throws = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_50bdx"]
+resource_local_to_scene = true
+shader = ExtResource("5_50bdx")
+shader_parameter/wind_strength = 1.7570000834575
+shader_parameter/wind_speed = 1.7070000810825
+shader_parameter/wind_frequency = 1.2850000610375
+shader_parameter/wind_offset = 23.36400110979
+shader_parameter/fade_alpha = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phfk7"]
+size = Vector2(21.7234, 24.4137)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5cbeb"]
+playback_mode = 1
+streams_count = 3
+stream_0/stream = ExtResource("9_50bdx")
+stream_1/stream = ExtResource("11_20o6u")
+stream_2/stream = ExtResource("13_m17xs")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_45q5k"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tu0i"]
+atlas = SubResource("CompressedTexture2D_45q5k")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="Gradient" id="Gradient_2wdbu"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uupl7"]
+gradient = SubResource("Gradient_2wdbu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7wlcu"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 28.36
+angle_min = -86.399994
+angle_max = 37.00001
+inherit_velocity_ratio = 0.407
+direction = Vector3(0, -1, 0)
+spread = 25.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 700, 0)
+damping_min = 100.0
+damping_max = 800.0
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_uupl7")
+
+[node name="LifeFruitTree" unique_id=1900192733 instance=ExtResource("1_f3l70")]
+durability = 10.0
+harvest_tool_lvl = 0
+can_infect = false
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
+position = Vector2(3, -4)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_phfk7")
+
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+position = Vector2(1.3378, -22.6682)
+scale = Vector2(1.71349, 2.43441)
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow")]
+
+[node name="droper" parent="." index="2" unique_id=1465568748]
+drop_resources = Array[ExtResource("6_t78ob")]([SubResource("Resource_1t5m1"), SubResource("Resource_45q5k")])
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="3" unique_id=720834341]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
+material = SubResource("ShaderMaterial_50bdx")
+position = Vector2(2.27439, -13.6867)
+texture = ExtResource("3_my7y8")
+offset = Vector2(-2.27439, -14.3133)
+hframes = 3
+frame = 2
+script = ExtResource("4_nnn6h")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="." index="4" unique_id=1029758437]
+self_modulate = Color(0.0392157, 0.0705882, 0.2, 0.388235)
+z_index = -10
+position = Vector2(2.85278, -2.19958)
+scale = Vector2(1.22948, 0.739666)
+texture = ExtResource("5_my7y8")
+
+[node name="CollisionShape2D" parent="." index="6" unique_id=1716306559]
+position = Vector2(1.31389, -12.7471)
+shape = SubResource("RectangleShape2D_phfk7")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="." index="7" unique_id=1486453752]
+stream = SubResource("AudioStreamRandomizer_5cbeb")
+bus = &"SFX"
+
+[node name="Destroy" type="AudioStreamPlayer2D" parent="." index="8" unique_id=819688419]
+stream = ExtResource("16_vt0py")
+
+[node name="VFX_damage" parent="." index="9" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../SFX")
+particles = NodePath("../GPUParticles2D")
+
+[node name="GPUParticles2D" parent="." index="10" unique_id=1130400609 instance=ExtResource("13_t78ob")]
+texture = SubResource("AtlasTexture_5tu0i")
+process_material = SubResource("ParticleProcessMaterial_7wlcu")

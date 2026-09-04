@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://b8ekv73e134mt"]
+
+[ext_resource type="Texture2D" uid="uid://bqypjlibbdl0h" path="res://Assets/Textures/SpriteSheets/Houses.png" id="1_1jels"]
+[ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/Textures/Light/GradientLight.png" id="2_2teqn"]
+[ext_resource type="Texture2D" uid="uid://c2ysa6udwgtci" path="res://Assets/Textures/SpriteSheets/Structures.png" id="3_01rqe"]
+[ext_resource type="PackedScene" uid="uid://g42tx2egaq3a" path="res://misc/Entity/NPC/NPC_smith_bern.tscn" id="4_f71rx"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="5_2atsl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2s4nf"]
+size = Vector2(50.94738, 20.418064)
+
+[sub_resource type="Resource" id="Resource_2s4nf"]
+resource_local_to_scene = true
+script = ExtResource("5_2atsl")
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[node name="Smith" type="Sprite2D" unique_id=1108390029]
+y_sort_enabled = true
+scale = Vector2(1.3150811, 1.3150811)
+texture = ExtResource("1_1jels")
+offset = Vector2(1.2725067, -7.6443443)
+region_enabled = true
+region_rect = Rect2(3, 7, 57, 57)
+metadata/_edit_group_ = true
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=619960088]
+modulate = Color(0.22352941, 0.16078432, 0.18039216, 0.38039216)
+show_behind_parent = true
+z_index = -1
+position = Vector2(17.044996, 33.33888)
+rotation = 3.1415927
+scale = Vector2(5.782788, 3.1970725)
+texture = ExtResource("2_2teqn")
+
+[node name="Station1" type="Sprite2D" parent="." unique_id=1158741029]
+position = Vector2(44.1037, 22.051872)
+scale = Vector2(0.7262238, 0.7262238)
+texture = ExtResource("3_01rqe")
+region_enabled = true
+region_rect = Rect2(0, 29, 52, 28)
+
+[node name="Station2" type="Sprite2D" parent="." unique_id=1378144204]
+position = Vector2(34.978836, 7.189106)
+scale = Vector2(0.54824245, 0.54824245)
+texture = ExtResource("3_01rqe")
+region_enabled = true
+region_rect = Rect2(3, 115, 30, 29)
+
+[node name="Station3" type="Sprite2D" parent="." unique_id=1797364020]
+position = Vector2(51.70784, 7.189106)
+scale = Vector2(0.54824245, 0.54824245)
+texture = ExtResource("3_01rqe")
+region_enabled = true
+region_rect = Rect2(3, 115, 30, 29)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1015929357]
+position = Vector2(0, -7.407358)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=103092016]
+position = Vector2(0.38018036, 18.014645)
+shape = SubResource("RectangleShape2D_2s4nf")
+debug_color = Color(0.99958235, 0, 0.12291277, 0.41960785)
+
+[node name="SmithBern" parent="." unique_id=2111811093 node_paths=PackedStringArray("player") instance=ExtResource("4_f71rx")]
+position = Vector2(14.447778, 34.218422)
+awareness_radius = 30.0
+player = NodePath("")
+Entity_stats = SubResource("Resource_2s4nf")

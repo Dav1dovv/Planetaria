@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bt2ajpcx1cdom"]
+
+[ext_resource type="Script" uid="uid://cr65l214fovic" path="res://scr/Manager/GlobalManager.gd" id="1_37aq7"]
+[ext_resource type="PackedScene" uid="uid://b0axajdtsw2j4" path="res://misc/UI/DeveloperConsole/developer_console.tscn" id="2_w6mfr"]
+[ext_resource type="PackedScene" uid="uid://cajofw8k5naam" path="res://scr/Manager/scene_manager.tscn" id="3_2p3co"]
+[ext_resource type="Script" uid="uid://uahjcr0ydax3" path="res://scr/Manager/MusicManager.gd" id="6_0btrw"]
+[ext_resource type="Script" uid="uid://dm0fatudshy1s" path="res://scr/Systems/Options/SettingsManager.gd" id="6_h51m3"]
+[ext_resource type="PackedScene" uid="uid://b3xyfsgecbtas" path="res://misc/UI/OptionMenu/option_menu.tscn" id="7_37aq7"]
+[ext_resource type="Script" uid="uid://pbt7e74fa2co" path="res://scr/Misc/Musiclibrary.gd" id="7_tgb6n"]
+
+[node name="Global" type="Node" unique_id=1524236085]
+script = ExtResource("1_37aq7")
+
+[node name="DeveloperConsole" parent="." unique_id=769159530 instance=ExtResource("2_w6mfr")]
+unique_name_in_owner = true
+
+[node name="SceneManager" parent="." unique_id=1678669278 instance=ExtResource("3_2p3co")]
+scenes = {
+"Test_Scene": "res://Assets/Locations/WorlRoot.tscn",
+"World": "res://Assets/Scenes/Playable/ship.tscn",
+"oktavia": "res://Assets/Scenes/Playable/Planets/Oktavia.tscn"
+}
+
+[node name="MusicManager" type="Node" parent="." unique_id=1081242722 groups=["MusicManager"]]
+unique_name_in_owner = true
+script = ExtResource("6_0btrw")
+fade_duration = 3.6
+
+[node name="music_library" type="Node" parent="MusicManager" unique_id=854691489]
+script = ExtResource("7_tgb6n")
+metadata/_custom_type_script = "uid://pbt7e74fa2co"
+
+[node name="SettingManager" type="Node" parent="." unique_id=1512219625]
+script = ExtResource("6_h51m3")
+metadata/_custom_type_script = "uid://dm0fatudshy1s"
+
+[node name="OptionMenu" parent="." unique_id=1619027941 instance=ExtResource("7_37aq7")]

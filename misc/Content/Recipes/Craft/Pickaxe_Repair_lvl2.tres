@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://dy5qewt27bigq"]
+
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="1_jpemc"]
+[ext_resource type="Resource" uid="uid://vccixxawo0wc" path="res://misc/Content/Items/Pickaxe_LVL2.tres" id="2_jpemc"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_l8asf"]
+[ext_resource type="Resource" uid="uid://ky47smcnnrdj" path="res://misc/Content/Items/ExpPoint.tres" id="4_uwxv5"]
+
+[resource]
+script = ExtResource("3_l8asf")
+mode = 1
+recipe_name = "Pickaxe"
+result_item = ExtResource("2_jpemc")
+main_resource = ExtResource("1_jpemc")
+main_amount = 10
+secondary_resource = ExtResource("4_uwxv5")
+secondary_amount = 10
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

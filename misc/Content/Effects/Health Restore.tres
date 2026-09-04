@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Effect" format=3 uid="uid://bcr5ppm27mw0p"]
+
+[ext_resource type="Texture2D" uid="uid://bhs2ikxc2auo4" path="res://Assets/Textures/UI/Effects/Effect3.png" id="1_wge8n"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_qp1so"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="3_okk6e"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="4_f6w2n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqfq1"]
+atlas = ExtResource("2_qp1so")
+region = Rect2(80, 64, 16, 16)
+
+[resource]
+script = ExtResource("4_f6w2n")
+effect_icon = ExtResource("1_wge8n")
+value = 5.0
+particle = ExtResource("3_okk6e")
+icon = SubResource("AtlasTexture_sqfq1")
+display_name = "Health Restore"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"

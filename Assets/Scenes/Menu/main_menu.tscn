@@ -1,0 +1,471 @@
+[gd_scene format=3 uid="uid://cqb5pjqlwp3h3"]
+
+[ext_resource type="Script" uid="uid://ysh8w6vpmjfx" path="res://Assets/Scenes/Menu/MainMenu.gd" id="1_xj65m"]
+[ext_resource type="Script" uid="uid://bsetxn1nl0rlt" path="res://scr/Misc/parallax.gd" id="2_qbvys"]
+[ext_resource type="Script" uid="uid://bttgnk3bb2a8i" path="res://addons/font_auto_size_labels/auto_size_label.gd" id="3_bwn3d"]
+[ext_resource type="Shader" uid="uid://c385wv3jtcml3" path="res://Assets/Shader/StarField.gdshader" id="3_y08pf"]
+[ext_resource type="Shader" uid="uid://vrsslnus0n8r" path="res://Assets/Shader/Shine.gdshader" id="4_axoc4"]
+[ext_resource type="Texture2D" uid="uid://dk6hs5so2us68" path="res://Assets/Textures/Items/PlanetX-Sheet.png" id="4_qbvys"]
+[ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://scr/Misc/UIelements/button.tscn" id="5_bwn3d"]
+[ext_resource type="Texture2D" uid="uid://bselbp4rb0efj" path="res://Assets/Textures/UI/Title/title.png" id="5_fqo0y"]
+[ext_resource type="Material" uid="uid://ul06moidsjcy" path="res://misc/Particles/PlanetBG.tres" id="5_wk7rc"]
+[ext_resource type="Theme" uid="uid://bmjvsrl7b67cy" path="res://misc/UI/theme.tres" id="6_tuj82"]
+[ext_resource type="PackedScene" uid="uid://oq4fs5yb67n0" path="res://scr/Systems/SaveLoadSlot/Save_laodUI.tscn" id="7_uc0ha"]
+[ext_resource type="Texture2D" uid="uid://erxt6oh26im8" path="res://Assets/Textures/Items/Planet.png" id="11_fqo0y"]
+[ext_resource type="Script" uid="uid://b60d08i8hic0m" path="res://scr/Misc/Planet.gd" id="12_jm7od"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="13_fqo0y"]
+[ext_resource type="PackedScene" uid="uid://b3xyfsgecbtas" path="res://misc/UI/OptionMenu/option_menu.tscn" id="16_wk7rc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lncde"]
+shader = ExtResource("3_y08pf")
+shader_parameter/dimensions = Vector2(1920, 1080)
+shader_parameter/small_stars = 102.97
+shader_parameter/small_stars_far_size = 0.70000001043084
+shader_parameter/small_stars_near_size = 0.40000000596048
+shader_parameter/large_stars = 34.29
+shader_parameter/large_stars_far_size = 0.10000000149012
+shader_parameter/large_stars_near_size = 0.30000000447036
+shader_parameter/far_stars_color = Color(0.5, 0, 1, 1)
+shader_parameter/near_stars_color = Color(1, 1, 1, 1)
+shader_parameter/base_scroll_speed = 0.02999999932944
+shader_parameter/additional_scroll_speed = 0.00999999977648
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1kdp3"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y08pf"]
+shader = ExtResource("4_axoc4")
+shader_parameter/size_effect = 1.0
+shader_parameter/speed = 0.75
+shader_parameter/highlight_strength = 0.2500000633301003
+shader_parameter/color_mode_toggle = false
+shader_parameter/is_horizontal = true
+shader_parameter/pause_duration = 1.82
+shader_parameter/texture_size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_5yjyr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../TextureRect:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 121.545)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TextureRect:offset_transform_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TextureRect:offset_transform_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0034906585]
+}
+
+[sub_resource type="Animation" id="Animation_axoc4"]
+resource_name = "TIitle"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../TextureRect:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.54, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(30, 121.545), Vector2(30, 129.94), Vector2(30, 121.545)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TextureRect:offset_transform_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.55, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TextureRect:offset_transform_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.0034906585, 0.0034906585]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y08pf"]
+_data = {
+&"RESET": SubResource("Animation_5yjyr"),
+&"TIitle": SubResource("Animation_axoc4")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_qbvys"]
+font_size = 24
+font_color = Color(0.992157, 0.733333, 0.294118, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.13333334)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.227451)
+shadow_offset = Vector2(1, 2)
+
+[node name="MainMenu" type="ColorRect" unique_id=1265719968]
+y_sort_enabled = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05882353, 0.05882353, 0.10980392, 0)
+script = ExtResource("1_xj65m")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=698209429]
+follow_viewport_enabled = true
+script = ExtResource("2_qbvys")
+follow_speed = 2.5
+invert = false
+
+[node name="BG" type="Parallax2D" parent="ParallaxBackground" unique_id=1278170103]
+
+[node name="MainBackground" type="ColorRect" parent="ParallaxBackground/BG" unique_id=1992287265]
+material = SubResource("ShaderMaterial_lncde")
+offset_left = -239.12976
+offset_top = -126.0954
+offset_right = 308.31146
+offset_bottom = 327.70398
+scale = Vector2(1.5791667, 1.0740741)
+color = Color(0, 0, 0, 1)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParallaxBackground/BG" unique_id=1699626976]
+material = SubResource("CanvasItemMaterial_1kdp3")
+position = Vector2(-4, 262)
+texture = ExtResource("4_qbvys")
+lifetime = 1.76
+speed_scale = 0.5
+process_material = ExtResource("5_wk7rc")
+
+[node name="Planets" type="Parallax2D" parent="ParallaxBackground" unique_id=24460928]
+scroll_scale = Vector2(2, 2)
+
+[node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets" unique_id=1007087873]
+position = Vector2(4.132263, 251.23965)
+rotation = 439.72147
+scale = Vector2(2.819653, 2.819653)
+texture = ExtResource("11_fqo0y")
+region_enabled = true
+region_rect = Rect2(4, 53, 41, 41)
+script = ExtResource("12_jm7od")
+rotation_speed = 0.2
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="PointLight2D" type="PointLight2D" parent="ParallaxBackground/Planets/planet" unique_id=1761002293]
+color = Color(1, 0.5294118, 0.15686275, 1)
+energy = 2.08
+texture = ExtResource("13_fqo0y")
+texture_scale = 6.34
+
+[node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=530346119]
+position = Vector2(5.9159737, -41.65517)
+rotation = 3567.5276
+texture = ExtResource("11_fqo0y")
+region_enabled = true
+region_rect = Rect2(60, 80, 12, 12)
+script = ExtResource("12_jm7od")
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet" unique_id=2125312616]
+modulate = Color(1, 0.4392157, 0.02745098, 1)
+scale = Vector2(1.998, 1.998)
+texture = ExtResource("13_fqo0y")
+
+[node name="planet2" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=684306597]
+position = Vector2(-48.649956, -41.51426)
+rotation = 2202.5767
+texture = ExtResource("11_fqo0y")
+region_enabled = true
+region_rect = Rect2(49, 50, 19, 19)
+script = ExtResource("12_jm7od")
+rotation_speed = 1.1
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet2" unique_id=1274513453]
+modulate = Color(1, 0.54901963, 1, 1)
+scale = Vector2(2.248, 2.248)
+texture = ExtResource("13_fqo0y")
+
+[node name="planet3" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1423906424]
+position = Vector2(-36.936844, 71.13017)
+rotation = 710.8205
+texture = ExtResource("11_fqo0y")
+region_enabled = true
+region_rect = Rect2(57, 9, 32, 32)
+script = ExtResource("12_jm7od")
+rotation_speed = 0.6
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet3" unique_id=393299669]
+scale = Vector2(3.108, 3.108)
+texture = ExtResource("13_fqo0y")
+
+[node name="planet4" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1718899979]
+position = Vector2(-66.099815, -28.727964)
+rotation = 602.47064
+scale = Vector2(0.32927373, 0.32927373)
+texture = ExtResource("11_fqo0y")
+region_enabled = true
+region_rect = Rect2(7, 9, 32, 32)
+script = ExtResource("12_jm7od")
+rotation_speed = 0.5
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet4" unique_id=1889933256]
+modulate = Color(0.827451, 0.6509804, 0.36078432, 1)
+scale = Vector2(3.968, 3.968)
+texture = ExtResource("13_fqo0y")
+
+[node name="planet5" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=543942180]
+position = Vector2(-53.9042, 23.165627)
+rotation = 751.8383
+scale = Vector2(0.57125205, 0.57125205)
+texture = ExtResource("11_fqo0y")
+region_enabled = true
+region_rect = Rect2(76, 52, 25, 25)
+script = ExtResource("12_jm7od")
+rotation_speed = 0.5
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet5" unique_id=1475206894]
+scale = Vector2(2.718, 2.718)
+texture = ExtResource("13_fqo0y")
+
+[node name="planet6" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1322698681]
+position = Vector2(43.515324, 82.038666)
+rotation = 3173.1438
+texture = ExtResource("11_fqo0y")
+region_enabled = true
+region_rect = Rect2(104, 8, 17, 17)
+script = ExtResource("12_jm7od")
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet6" unique_id=633756616]
+scale = Vector2(2.098, 2.098)
+texture = ExtResource("13_fqo0y")
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=693915399]
+modulate = Color(1, 0.6431373, 0.3254902, 1)
+scale = Vector2(5.203, 5.203)
+texture = ExtResource("13_fqo0y")
+
+[node name="Marker2D" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=736093489]
+rotation = -791.3414
+script = ExtResource("12_jm7od")
+rotation_speed = -0.5
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="planet7" type="Sprite2D" parent="ParallaxBackground/Planets/planet/Marker2D" unique_id=1864340330]
+position = Vector2(110.0839, -3.0646439)
+rotation = -4037.905
+texture = ExtResource("11_fqo0y")
+region_enabled = true
+region_rect = Rect2(112, 51, 13, 13)
+script = ExtResource("12_jm7od")
+rotation_speed = -3.0
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/Marker2D/planet7" unique_id=1610668178]
+modulate = Color(0.5764706, 1, 1, 1)
+scale = Vector2(1.618, 1.618)
+texture = ExtResource("13_fqo0y")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1030770465]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=736569363]
+texture_filter = 3
+texture_repeat = 1
+material = SubResource("ShaderMaterial_y08pf")
+custom_minimum_size = Vector2(30, 121.545)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -101.32266
+offset_top = 7.3054934
+offset_right = 280.66956
+offset_bottom = 188.56932
+grow_horizontal = 2
+scale = Vector2(0.5389631, 0.5389631)
+offset_transform_enabled = true
+offset_transform_rotation = -0.0034906585
+texture = ExtResource("5_fqo0y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/TextureRect" unique_id=1720517864]
+root_node = NodePath("../../VBoxContainer")
+libraries/ = SubResource("AnimationLibrary_y08pf")
+autoplay = &"TIitle"
+speed_scale = 1.3
+
+[node name="SplashLabel" type="Label" parent="CanvasLayer/TextureRect" unique_id=1362709919]
+z_index = 3
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 119.4568
+offset_top = -22.265
+offset_right = 308.18622
+offset_bottom = 46.73822
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -0.15631552
+scale = Vector2(1.044707, 1.044707)
+theme_override_font_sizes/font_size = 12
+text = "Also play Felaria"
+label_settings = SubResource("LabelSettings_qbvys")
+autowrap_mode = 3
+script = ExtResource("3_bwn3d")
+_max_size = 24
+_min_size = 12
+_current_font_size = 24
+_editor_defaults_set = true
+metadata/_custom_type_script = "uid://bttgnk3bb2a8i"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1727128541]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -106.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=2045199075]
+custom_minimum_size = Vector2(123.19, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="SoloBtn" parent="CanvasLayer/VBoxContainer/VBoxContainer" unique_id=392024303 node_paths=PackedStringArray("shortcut_context") instance=ExtResource("5_bwn3d")]
+custom_minimum_size = Vector2(100, 13)
+layout_mode = 2
+focus_next = NodePath("../MultiBtn")
+focus_previous = NodePath("../Exit")
+shortcut_context = NodePath(".")
+theme_override_font_sizes/font_size = 7
+text = "Start Game"
+
+[node name="MultiBtn" parent="CanvasLayer/VBoxContainer/VBoxContainer" unique_id=1793936385 instance=ExtResource("5_bwn3d")]
+custom_minimum_size = Vector2(100, 13)
+layout_mode = 2
+focus_next = NodePath("../OptionBtn")
+focus_previous = NodePath("../SoloBtn")
+theme_override_font_sizes/font_size = 7
+disabled = true
+text = "Multiplayer"
+
+[node name="OptionBtn" parent="CanvasLayer/VBoxContainer/VBoxContainer" unique_id=1554355578 instance=ExtResource("5_bwn3d")]
+custom_minimum_size = Vector2(45, 13)
+layout_mode = 2
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../MultiBtn")
+theme_override_font_sizes/font_size = 7
+text = "Options"
+
+[node name="Exit" parent="CanvasLayer/VBoxContainer/VBoxContainer" unique_id=1321396718 instance=ExtResource("5_bwn3d")]
+custom_minimum_size = Vector2(45, 13)
+layout_mode = 2
+layout_direction = 2
+focus_next = NodePath("../SoloBtn")
+focus_previous = NodePath(".")
+theme_override_font_sizes/font_size = 7
+text = "Exit"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="CanvasLayer" unique_id=1365783710]
+oversampling_override = 1.0
+title = ""
+initial_position = 2
+size = Vector2i(438, 145)
+borderless = true
+theme = ExtResource("6_tuj82")
+ok_button_text = "Yes"
+dialog_text = "Are you sure want to exit game?
+"
+cancel_button_text = "No"
+
+[node name="LinkButton" type="LinkButton" parent="CanvasLayer" unique_id=991565007]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -17.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+text = "Report a bug"
+uri = "https://docs.google.com/forms/d/e/1FAIpQLSet0XvkBd1-Ay8jgNT1lBt_jbAg7Si-_xMukYRDRgzBInfM-g/viewform?usp=dialog"
+text_direction = 2
+structured_text_bidi_override = 1
+
+[node name="V_Label" type="Label" parent="CanvasLayer" unique_id=232830318]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -14.0
+offset_right = 44.0
+offset_bottom = -4.0
+grow_vertical = 0
+text = "V: 0.0.0"
+
+[node name="SaveLoadUI" parent="." unique_id=266179224 instance=ExtResource("7_uc0ha")]
+visible = false
+
+[node name="OptionMenu" parent="." unique_id=1619027941 instance=ExtResource("16_wk7rc")]
+visible = false
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/VBoxContainer/SoloBtn" to="." method="_on_solo_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/VBoxContainer/OptionBtn" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="canceled" from="CanvasLayer/ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="CanvasLayer/ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

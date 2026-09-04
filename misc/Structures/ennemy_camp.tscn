@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://h106lj2xe051"]
+
+[ext_resource type="PackedScene" uid="uid://dc6224o6es5o2" path="res://misc/Structures/camp.tscn" id="1_xtunk"]
+[ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://misc/Entity/Enemies/Rat.tscn" id="2_ndko2"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="4_tax3s"]
+
+[sub_resource type="Resource" id="Resource_amfqk"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 30
+base_move_speed = 2.3
+base_armor = 10.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_xtunk"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 45
+base_armor = 10.0
+base_defense_modifier = 0.1
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[node name="Ennemy Camp" type="Node2D" unique_id=1739429471]
+
+[node name="Camp" parent="." unique_id=265569063 instance=ExtResource("1_xtunk")]
+
+[node name="Creature" parent="." unique_id=2111811093 instance=ExtResource("2_ndko2")]
+position = Vector2(-61, -1)
+Entity_stats = SubResource("Resource_amfqk")
+
+[node name="Creature2" parent="." unique_id=1043371710 instance=ExtResource("2_ndko2")]
+position = Vector2(66, 0)
+Entity_stats = SubResource("Resource_xtunk")

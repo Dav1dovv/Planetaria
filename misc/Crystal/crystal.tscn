@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://8ysv3553uoh3"]
+
+[ext_resource type="Script" uid="uid://b4lwq0f6a5hv" path="res://misc/Crystal/crystal.gd" id="1_6acrw"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="3_m2pa7"]
+[ext_resource type="Material" uid="uid://dt3kmwwp04orp" path="res://misc/HarvestItems/Shinin1.tres" id="3_qqn8e"]
+[ext_resource type="Texture2D" uid="uid://bp731d1yfc2aj" path="res://Assets/Textures/Items/Crystal1.png" id="4_luo6g"]
+[ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://scr/Systems/Interaction/Interaction.gd" id="5_luo6g"]
+
+[sub_resource type="Animation" id="Animation_qqn8e"]
+resource_name = "Levitating"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crystal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -20.239502), Vector2(0, -35.691166)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crystal:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Crystal:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.47, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.2373896, 1.2373896), Vector2(1.138949, 1.35801), Vector2(1.2373896, 1.2373896)]
+}
+
+[sub_resource type="Animation" id="Animation_luo6g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crystal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -20.239502)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crystal:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Crystal:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2373896, 1.2373896)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_os00q"]
+_data = {
+&"Levitating": SubResource("Animation_qqn8e"),
+&"RESET": SubResource("Animation_luo6g")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdos3"]
+size = Vector2(33.90474, 42.8225)
+
+[node name="crystal" type="Node2D" unique_id=1200449064]
+script = ExtResource("1_6acrw")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=2142861487]
+modulate = Color(0.13333334, 0.14509805, 0.14509805, 0.30980393)
+position = Vector2(0, 2.815113)
+scale = Vector2(1.2373896, 0.33809566)
+texture = ExtResource("3_m2pa7")
+
+[node name="Crystal" type="Sprite2D" parent="." unique_id=655492247]
+clip_children = 2
+material = ExtResource("3_qqn8e")
+position = Vector2(0, -20.239502)
+scale = Vector2(1.2373896, 1.2373896)
+texture = ExtResource("4_luo6g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=943106209]
+libraries/ = SubResource("AnimationLibrary_os00q")
+autoplay = &"Levitating"
+
+[node name="interaction" type="Area2D" parent="." unique_id=1862943737]
+collision_layer = 128
+collision_mask = 256
+script = ExtResource("5_luo6g")
+show_message = "back to ship"
+metadata/_custom_type_script = "uid://btxho8sqg8tnx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction" unique_id=204196029]
+position = Vector2(0, -14.828566)
+shape = SubResource("RectangleShape2D_cdos3")

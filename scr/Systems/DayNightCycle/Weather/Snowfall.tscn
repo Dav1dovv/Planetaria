@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://d1db77vb5cyfq"]
+
+[ext_resource type="Script" uid="uid://dlswreqv7akhj" path="res://scr/Systems/DayNightCycle/Weather/WeatherEffect.gd" id="1_8b07k"]
+[ext_resource type="Texture2D" uid="uid://ctgel1bdfuv1o" path="res://Assets/Textures/Particle/Snow-sheet.png" id="1_n7lem"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8b07k"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_hk7i3"]
+_limits = [0.0, 0.3, 0.0, 1.0]
+_data = [Vector2(0, 0.1122466), 0.0, 0.617243, 0, 0, Vector2(0.497585, 0.3), -0.03173431, -0.03173431, 0, 0, Vector2(1, 0.07930741), -1.3779598, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_85eed"]
+curve = SubResource("Curve_hk7i3")
+
+[sub_resource type="Gradient" id="Gradient_6eyha"]
+offsets = PackedFloat32Array(0, 0.40444446, 0.71555555, 1)
+colors = PackedColorArray(1, 1, 1, 0.117647, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.40784314)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8pq8i"]
+gradient = SubResource("Gradient_6eyha")
+
+[sub_resource type="Curve" id="Curve_s7x3d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5059761, 0.6815879), 0.0, 0.0, 0, 0, Vector2(0.99203193, 0.5278716), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_6fvwh"]
+curve = SubResource("Curve_s7x3d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cjraq"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -150, 0)
+emission_shape = 3
+emission_box_extents = Vector3(260, 1, 1)
+gravity = Vector3(-250, 2500, 0)
+scale_min = 0.2
+scale_curve = SubResource("CurveTexture_6fvwh")
+color_ramp = SubResource("GradientTexture1D_8pq8i")
+alpha_curve = SubResource("CurveTexture_85eed")
+
+[node name="Rain" type="Control" unique_id=719357116]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8b07k")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=288713228]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.85490197, 0.99607843, 0.99607843, 0.02745098)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=283346658]
+material = SubResource("CanvasItemMaterial_8b07k")
+position = Vector2(249, 131)
+amount = 1000
+texture = ExtResource("1_n7lem")
+lifetime = 0.5
+speed_scale = 0.1
+visibility_rect = Rect2(-260, -150, 520, 200)
+process_material = SubResource("ParticleProcessMaterial_cjraq")

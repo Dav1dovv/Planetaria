@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="DropResource" format=3 uid="uid://b7dxq4y8wfso"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_7eggj"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_yii5n"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="3_7ulgc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44ll0"]
+atlas = ExtResource("1_7eggj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="Resource" id="Resource_7sv7p"]
+script = ExtResource("2_yii5n")
+icon = SubResource("AtlasTexture_44ll0")
+item_name = "Wood"
+metadata/_custom_type_script = "uid://wm1t8anytdyq"
+
+[resource]
+resource_name = "Wood"
+script = ExtResource("3_7ulgc")
+drop_item = SubResource("Resource_7sv7p")
+drop_chance = 1.0
+max_throws = 4
+max_count = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"

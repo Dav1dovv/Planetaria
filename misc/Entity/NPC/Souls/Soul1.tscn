@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://denh6fbxp26qj"]
+
+[ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_gxeyr"]
+[ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="2_gw45r"]
+
+[node name="Creature" unique_id=1251952136 instance=ExtResource("1_gxeyr")]
+
+[node name="Node2D" type="Node2D" parent="." index="9" unique_id=1349389356]
+
+[node name="Creatures" type="Sprite2D" parent="." index="10" unique_id=1610540584]
+position = Vector2(-0.51826096, -14.297401)
+texture = ExtResource("2_gw45r")
+region_enabled = true
+region_rect = Rect2(35, 98, 12, 28)

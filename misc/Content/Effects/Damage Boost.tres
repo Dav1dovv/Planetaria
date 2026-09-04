@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Effect" format=3 uid="uid://ct7uylmkxjabo"]
+
+[ext_resource type="Texture2D" uid="uid://dkj52eeo80ghu" path="res://Assets/Textures/UI/Effects/Effect2.png" id="1_r4lyc"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="2_2367m"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="3_s2772"]
+
+[resource]
+script = ExtResource("3_s2772")
+effect_icon = ExtResource("1_r4lyc")
+effect_type = 2
+particle_color = Color(0.7254902, 0.24313726, 0.08627451, 1)
+particle = ExtResource("2_2367m")
+display_name = "Damage Boost"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"

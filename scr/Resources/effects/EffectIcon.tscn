@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dmxlwliv0qjfu"]
+
+[ext_resource type="Texture2D" uid="uid://b64un2hdo8wht" path="res://Assets/Textures/UI/Effects/Effect1.png" id="1_3ea65"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3ea65"]
+font_size = 8
+
+[node name="EffectIcon" type="Control" unique_id=1824255709]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -464.0
+offset_bottom = -254.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=553881333]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_3ea65")
+
+[node name="Timer" type="Label" parent="." unique_id=1844095502]
+layout_mode = 0
+offset_top = 14.046965
+offset_right = 40.0
+offset_bottom = 31.046965
+text = "19d"
+label_settings = SubResource("LabelSettings_3ea65")

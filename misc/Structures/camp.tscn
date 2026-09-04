@@ -1,0 +1,207 @@
+[gd_scene format=3 uid="uid://dc6224o6es5o2"]
+
+[ext_resource type="Texture2D" uid="uid://0e258k1bemao" path="res://Assets/Textures/SpriteSheets/Camp.png" id="1_7yhfp"]
+[ext_resource type="Texture2D" uid="uid://f2a2p4mby8u1" path="res://Assets/Textures/Particle/Smoke.png" id="2_oddsj"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="3_ww3wb"]
+[ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="4_7hlqd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u7hf"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbsbb"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egvxu"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emoxc"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d5v7"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87v2m"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1noe"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1geu"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnopa"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a52v3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0u7hf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbsbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egvxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emoxc")
+}],
+"loop": 1,
+"name": &"OFF",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1d5v7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87v2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1noe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1geu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnopa")
+}],
+"loop": 1,
+"name": &"ON",
+"speed": 8.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ekfnw"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_3sirv"]
+_data = [Vector2(0, 0.011235952), 0.0, 0.0, 0, 0, Vector2(0.57589287, 0.8089888), 0.0, 0.0, 0, 0, Vector2(1, 0.033707857), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2a35p"]
+curve = SubResource("Curve_3sirv")
+
+[sub_resource type="Curve" id="Curve_ixdmb"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.14285713, 200), 0.0, 0.0, 0, 0, Vector2(0.3348214, 0), 0.0, 0.0, 0, 0, Vector2(0.57142854, 200), 0.0, 0.0, 0, 0, Vector2(0.69196427, 0), 0.0, 0.0, 0, 0, Vector2(0.82142854, 200), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CurveTexture" id="CurveTexture_h5ne8"]
+curve = SubResource("Curve_ixdmb")
+
+[sub_resource type="Gradient" id="Gradient_gbsbb"]
+offsets = PackedFloat32Array(0, 0.4040404, 0.56565654, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mnx7f"]
+gradient = SubResource("Gradient_gbsbb")
+
+[sub_resource type="Curve" id="Curve_rq4lr"]
+_data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.4107143, 1), 0.0, 0.0, 0, 0, Vector2(0.58928573, 0.7415731), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_axuvx"]
+curve = SubResource("Curve_rq4lr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gaae2"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(4, 4, 4)
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector3(-5, 0, 0)
+gravity = Vector3(0, -98, 0)
+scale_min = 0.19999999
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_axuvx")
+scale_over_velocity_min = 0.5
+scale_over_velocity_max = 53.76
+color = Color(0.18717611, 0.18717614, 0.18717608, 1)
+color_ramp = SubResource("GradientTexture1D_mnx7f")
+alpha_curve = SubResource("CurveTexture_2a35p")
+anim_speed_max = 16.0
+anim_speed_curve = SubResource("CurveTexture_h5ne8")
+
+[sub_resource type="Animation" id="Animation_gbsbb"]
+resource_name = "Light"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [9.88, 15.53]
+}
+
+[sub_resource type="Animation" id="Animation_egvxu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [9.88]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_emoxc"]
+_data = {
+&"Light": SubResource("Animation_gbsbb"),
+&"RESET": SubResource("Animation_egvxu")
+}
+
+[node name="Camp" type="Node2D" unique_id=265569063]
+y_sort_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2036935548]
+position = Vector2(0, -15)
+sprite_frames = SubResource("SpriteFrames_a52v3")
+animation = &"ON"
+autoplay = "ON"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" unique_id=249322329]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_ekfnw")
+position = Vector2(3, 0)
+amount = 24
+texture = ExtResource("2_oddsj")
+process_material = SubResource("ParticleProcessMaterial_gaae2")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1173753225]
+visible = false
+position = Vector2(1, -9)
+color = Color(0.97340745, 0.9441534, 0, 1)
+texture = ExtResource("3_ww3wb")
+texture_scale = 9.88
+
+[node name="optimizer" type="VisibleOnScreenEnabler2D" parent="." unique_id=750335681 node_paths=PackedStringArray("hide_objects")]
+rect = Rect2(-82, -93, 166, 159)
+script = ExtResource("4_7hlqd")
+hide_objects = [NodePath("../AnimatedSprite2D"), NodePath("../PointLight2D")]
+metadata/_custom_type_script = "uid://dbxsovdq7bbia"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=612410351]
+libraries/ = SubResource("AnimationLibrary_emoxc")
+autoplay = &"Light"

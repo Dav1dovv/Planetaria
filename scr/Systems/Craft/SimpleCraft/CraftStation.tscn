@@ -1,0 +1,284 @@
+[gd_scene format=3 uid="uid://5nk644nw1v5k"]
+
+[ext_resource type="Script" uid="uid://dmhx0c874k02q" path="res://scr/Systems/Craft/SimpleCraft/CraftStation.gd" id="1_hpr4m"]
+[ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="2_d2j83"]
+[ext_resource type="Resource" uid="uid://ky47smcnnrdj" path="res://misc/Content/Items/ExpPoint.tres" id="2_o6wim"]
+[ext_resource type="Script" uid="uid://bw8xm8btg3jhd" path="res://scr/Systems/Inventory/inventoryslot.gd" id="3_rh3au"]
+[ext_resource type="PackedScene" uid="uid://civqx7y0nh75n" path="res://scr/Systems/Inventory/tooltip.tscn" id="5_hpr4m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nthsc"]
+atlas = ExtResource("2_d2j83")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nw2f"]
+atlas = ExtResource("2_d2j83")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rnow5"]
+font_size = 6
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2au6i"]
+atlas = ExtResource("2_d2j83")
+region = Rect2(64, 80, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqy7i"]
+atlas = ExtResource("2_d2j83")
+region = Rect2(64, 112, 64, 16)
+
+[node name="CraftStation" type="Control" unique_id=104361974]
+custom_minimum_size = Vector2(200, 165)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -134.90901
+offset_right = 54.39212
+offset_bottom = 53.686005
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hpr4m")
+gold_item = ExtResource("2_o6wim")
+
+[node name="Craft" type="Panel" parent="." unique_id=1859719515]
+custom_minimum_size = Vector2(180, 160)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabBar" type="HBoxContainer" parent="Craft" unique_id=559108268]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.00001
+offset_top = -26.5
+offset_right = 118.000015
+offset_bottom = -6.5
+grow_horizontal = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="TabCraft" type="Button" parent="Craft/TabBar" unique_id=2084197745]
+visible = false
+custom_minimum_size = Vector2(70, 18)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+text = "Craft"
+
+[node name="TabRepair" type="Button" parent="Craft/TabBar" unique_id=1285823383]
+visible = false
+custom_minimum_size = Vector2(70, 18)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+text = "Repair"
+
+[node name="TabDisassemble" type="Button" parent="Craft/TabBar" unique_id=1831849426]
+visible = false
+custom_minimum_size = Vector2(70, 18)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+text = "Diassemble"
+
+[node name="Body" type="HBoxContainer" parent="Craft" unique_id=610005097]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.5000153
+offset_top = 2.5
+offset_right = -1.5000153
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Space" type="Control" parent="Craft/Body" unique_id=294734715]
+layout_mode = 2
+
+[node name="Left" type="VBoxContainer" parent="Craft/Body" unique_id=901312447]
+custom_minimum_size = Vector2(138, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Craft/Body/Left" unique_id=523425576]
+layout_mode = 2
+
+[node name="SearchBox" type="LineEdit" parent="Craft/Body/Left" unique_id=1533321336]
+custom_minimum_size = Vector2(100, 5)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 4
+placeholder_text = "Search"
+
+[node name="Control2" type="Control" parent="Craft/Body/Left" unique_id=741299862]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="CategoryFilter" type="OptionButton" parent="Craft/Body/Left" unique_id=1092596913]
+custom_minimum_size = Vector2(100, 5)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 8
+selected = 0
+item_count = 6
+popup/item_0/text = "ALL"
+popup/item_0/id = 0
+popup/item_1/text = "Weapons"
+popup/item_1/id = 1
+popup/item_2/text = "Pickaxe"
+popup/item_2/id = 2
+popup/item_3/text = "Food"
+popup/item_3/id = 3
+popup/item_4/text = "Materials"
+popup/item_4/id = 4
+popup/item_5/text = "Acsesories"
+popup/item_5/id = 5
+
+[node name="Scroll" type="ScrollContainer" parent="Craft/Body/Left" unique_id=1651807817]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="RecipeGrid" type="GridContainer" parent="Craft/Body/Left/Scroll" unique_id=1548325886]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+columns = 4
+
+[node name="HSeparator" type="VSeparator" parent="Craft/Body" unique_id=1572969117]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Right" type="VBoxContainer" parent="Craft/Body" unique_id=199462479]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Craft/Body/Right" unique_id=1312989236]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="ResultSlot" type="TextureButton" parent="Craft/Body/Right" unique_id=1448857901]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+button_mask = 0
+texture_normal = SubResource("AtlasTexture_nthsc")
+stretch_mode = 1
+script = ExtResource("3_rh3au")
+active_slot = SubResource("AtlasTexture_1nw2f")
+unactive_slot = SubResource("AtlasTexture_nthsc")
+
+[node name="Border" type="ColorRect" parent="Craft/Body/Right/ResultSlot" unique_id=2076730172]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="Icon" type="TextureRect" parent="Craft/Body/Right/ResultSlot" unique_id=1678097705]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
+
+[node name="Count" type="Label" parent="Craft/Body/Right/ResultSlot" unique_id=993522421]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_rnow5")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Tooltip" parent="Craft/Body/Right/ResultSlot" unique_id=1049169178 instance=ExtResource("5_hpr4m")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -3.0
+offset_right = -2.0
+offset_bottom = -3.0
+
+[node name="DurabilityBar" type="TextureProgressBar" parent="Craft/Body/Right/ResultSlot" unique_id=481966937]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_top = 1
+stretch_margin_right = 1
+stretch_margin_bottom = 1
+texture_under = SubResource("AtlasTexture_2au6i")
+texture_progress = SubResource("AtlasTexture_mqy7i")
+
+[node name="MaxCount" type="Button" parent="Craft/Body/Right/ResultSlot" unique_id=1885611948]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 21.169998
+offset_top = -14.5
+offset_right = 50.17
+offset_bottom = -0.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "MAX"
+
+[node name="GoldLabel" type="Label" parent="Craft/Body/Right" unique_id=59422489]
+layout_mode = 2
+text = "GOLD LABEL"
+
+[node name="IngredientsList" type="VBoxContainer" parent="Craft/Body/Right" unique_id=1368680222]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="CraftButton" type="Button" parent="Craft/Body/Right" unique_id=2006113380]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "Craft"
+
+[node name="Space2" type="Control" parent="Craft/Body" unique_id=659715579]
+layout_mode = 2
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="gui_input" from="Craft/Body/Right/ResultSlot" to="Craft/Body/Right/ResultSlot" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Craft/Body/Right/ResultSlot" to="Craft/Body/Right/ResultSlot" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Craft/Body/Right/ResultSlot" to="Craft/Body/Right/ResultSlot" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Craft/Body/Right/ResultSlot/Icon" to="Craft/Body/Right/ResultSlot" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Craft/Body/Right/ResultSlot/Icon" to="Craft/Body/Right/ResultSlot" method="_on_mouse_exited"]

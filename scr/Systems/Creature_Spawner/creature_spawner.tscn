@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bs6umdlyqc1mn"]
+
+[ext_resource type="Script" uid="uid://bl7jbpdad5e77" path="res://scr/Systems/Creature_Spawner/creature_spawner.gd" id="1_u2n8r"]
+
+[node name="CreatureSpawner" type="Node2D" unique_id=251808566]
+script = ExtResource("1_u2n8r")
+
+[node name="MobSpawnerTimer" type="Timer" parent="." unique_id=1443154442]
+wait_time = 20.0
+
+[connection signal="timeout" from="MobSpawnerTimer" to="." method="_on_mob_spawner_timer_timeout"]

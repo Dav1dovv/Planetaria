@@ -1,0 +1,206 @@
+[gd_scene format=3 uid="uid://ciane2i2vcc0q"]
+
+[ext_resource type="Script" uid="uid://fonxpd3d3r1v" path="res://misc/Utils/Drop/DropItems/droppedHeart.gd" id="1_wl450"]
+[ext_resource type="Shader" uid="uid://kbvf8in1yiw1" path="res://Assets/Shader/Bounce.gdshader" id="2_ti5si"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="3_wl450"]
+[ext_resource type="Texture2D" uid="uid://dcwyk5jh8nuon" path="res://Assets/Textures/Light/DropLight.png" id="4_8dhoa"]
+[ext_resource type="AudioStream" uid="uid://08oqevgaspp5" path="res://Assets/Audio/SFX/Pick1.mp3" id="5_lnqvo"]
+[ext_resource type="Script" uid="uid://cburu6b4ckehs" path="res://addons/godot-rapier2d/custom_nodes/rapier_area_2d.gd" id="5_ti5si"]
+[ext_resource type="AudioStream" uid="uid://dbbxnnsrle115" path="res://Assets/Audio/SFX/Pick2.mp3" id="6_0o6ud"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvgdi"]
+shader = ExtResource("2_ti5si")
+shader_parameter/do_abs = false
+shader_parameter/do_quantize = false
+shader_parameter/quantize_to = 2.0
+shader_parameter/sine_amplitude = Vector2(1, 2)
+shader_parameter/sine_speed = Vector2(0.2, 1.3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfhsv"]
+atlas = ExtResource("3_wl450")
+region = Rect2(80, 64, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nfhsv"]
+radius = 38.013157
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qbj5j"]
+radius = 6.0827627
+
+[sub_resource type="Animation" id="Animation_tvgdi"]
+resource_name = "Pick"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -80)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0.32652, 0.32652)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.333333, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/Label:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.366667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_nfhsv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/Label:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qbj5j"]
+_data = {
+&"Pick": SubResource("Animation_tvgdi"),
+&"RESET": SubResource("Animation_nfhsv")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_p6xfw"]
+streams_count = 2
+stream_0/stream = ExtResource("5_lnqvo")
+stream_1/stream = ExtResource("6_0o6ud")
+
+[node name="Dropped Heart" type="CharacterBody2D" unique_id=344010950]
+z_index = 10
+script = ExtResource("1_wl450")
+metadata/_edit_vertical_guides_ = [-78.0]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1813599795]
+material = SubResource("ShaderMaterial_tvgdi")
+texture = SubResource("AtlasTexture_nfhsv")
+
+[node name="Label" type="Label" parent="Sprite2D" unique_id=1532461399]
+visible = false
+offset_left = -21.0
+offset_right = 20.0
+offset_bottom = 19.0
+text = "+1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D" unique_id=1743497339]
+modulate = Color(1, 0.29411766, 0.2, 1)
+show_behind_parent = true
+position = Vector2(0, 1)
+scale = Vector2(1.29458, 1.29458)
+texture = ExtResource("4_8dhoa")
+
+[node name="PickZone" type="Area2D" parent="." unique_id=1215954225]
+z_index = -2
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("5_ti5si")
+metadata/_custom_type_script = "uid://cburu6b4ckehs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickZone" unique_id=59834009]
+shape = SubResource("CircleShape2D_nfhsv")
+disabled = true
+
+[node name="Pick" type="Area2D" parent="." unique_id=348962393]
+z_index = -1
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("5_ti5si")
+metadata/_custom_type_script = "uid://cburu6b4ckehs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pick" unique_id=1026849421]
+shape = SubResource("CircleShape2D_qbj5j")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1670823922]
+libraries/ = SubResource("AnimationLibrary_qbj5j")
+speed_scale = 2.0
+
+[node name="Timer" type="Timer" parent="." unique_id=2023514592]
+wait_time = 1.2999999999999998
+autostart = true
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="." unique_id=1544300050]
+stream = SubResource("AudioStreamRandomizer_p6xfw")
+max_distance = 150.0
+max_polyphony = 10
+bus = &"SFX"
+
+[connection signal="body_entered" from="PickZone" to="." method="_on_pick_zone_body_entered"]
+[connection signal="body_exited" from="PickZone" to="." method="_on_pick_zone_body_exited"]
+[connection signal="area_entered" from="Pick" to="." method="_on_pick_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

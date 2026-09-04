@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://jlrtclk6o81r"]
+
+[ext_resource type="PackedScene" uid="uid://5gi0l2jioe6c" path="res://misc/Rooms/TestObject.tscn" id="1_mar1r"]
+[ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="2_tr7kh"]
+[ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="3_1n08h"]
+[ext_resource type="PackedScene" uid="uid://nlav2fqp7tmh" path="res://misc/HarvestItems/cooper.tscn" id="4_5jjvb"]
+[ext_resource type="PackedScene" uid="uid://ci8lyapkm0sfc" path="res://misc/HarvestItems/Stone.tscn" id="5_c7xnk"]
+[ext_resource type="PackedScene" uid="uid://cxtqhworanqrv" path="res://misc/Rooms/walls.tscn" id="7_6o5q1"]
+
+[sub_resource type="Resource" id="Resource_fuhlr"]
+script = ExtResource("2_tr7kh")
+Generation_scene = ExtResource("5_c7xnk")
+Generation_random_versions = Array[PackedScene]([ExtResource("3_1n08h"), ExtResource("4_5jjvb")])
+random_scales = {
+"Big": Vector2(1.5, 1.5),
+"Middle": Vector2(1.25, 1.25),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[node name="SimpleRoom" unique_id=1694202812 instance=ExtResource("1_mar1r")]
+
+[node name="WorldGenerator" parent="." index="1" unique_id=1114010409]
+generation_items = Array[ExtResource("2_tr7kh")]([SubResource("Resource_fuhlr")])
+
+[node name="Walls" parent="." index="2" unique_id=2131055735 instance=ExtResource("7_6o5q1")]

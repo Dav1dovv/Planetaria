@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://wyeldfaexejh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c8lru"]
+font_size = 8
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.13333334)
+stacked_outline_count = 1
+stacked_outline_0/size = 1
+
+[sub_resource type="Animation" id="Animation_rpvbp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-76, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_yuuyn"]
+resource_name = "Show"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.46, 1.7566667, 1.7666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0, 0.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 1.7566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.9233333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-76, -0.25, 0, 0.25, 0, -76, -0.25, 0, 0.25, 0, -76, -0.20000002, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.26666668, 1.9566667)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(5, -0.25, 0, 0.25, 0, 5, -0.25, 0, 0.25, 0, -173, -0.20000002, 29.666668, 0, 0),
+"times": PackedFloat32Array(0, 0.26666668, 1.9566667)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ccfrh"]
+_data = {
+&"RESET": SubResource("Animation_rpvbp"),
+&"Show": SubResource("Animation_yuuyn")
+}
+
+[node name="Hint" type="Label" unique_id=276903365]
+light_mask = 0
+visibility_layer = 524288
+offset_left = -76.0
+offset_top = 5.0
+offset_right = 74.280945
+offset_bottom = 42.500305
+scale = Vector2(1.378933, 1.378933)
+pivot_offset = Vector2(74.506546, 1.9942079)
+theme_override_font_sizes/font_size = 0
+text = "You need lvl 1 pickaxe"
+label_settings = SubResource("LabelSettings_c8lru")
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1894211227]
+libraries/ = SubResource("AnimationLibrary_ccfrh")
+autoplay = &"Show"
+speed_scale = 0.5

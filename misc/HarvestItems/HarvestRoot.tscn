@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://bny4sqh4i8i5v"]
+
+[ext_resource type="Script" uid="uid://chdla2y821gv8" path="res://misc/HarvestItems/Scripts/Harvestable.gd" id="1_h7l06"]
+[ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="2_a3kjp"]
+[ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="3_law3s"]
+[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Utils/Drop/Dropper.gd" id="4_3q2u0"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="5_1bq01"]
+[ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="6_gierp"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="7_a3kjp"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cdos3"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(8, 8, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -100, 0)
+spread = 101.659
+flatness = 1.0
+initial_velocity_max = 22.9
+gravity = Vector3(0, -35, 0)
+scale_max = 2.5
+color = Color(0.6039216, 0.18039216, 0.60784316, 1)
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.049999975
+
+[node name="HarvestRoot" type="Area2D" unique_id=1934415035 node_paths=PackedStringArray("VFX_component") groups=["Harvestable"]]
+collision_layer = 19
+collision_mask = 136
+script = ExtResource("1_h7l06")
+durability = 15.0
+VFX_component = NodePath("VFX_damage")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=273132599]
+show_behind_parent = true
+z_index = -1
+disable_mode = 1
+script = ExtResource("2_a3kjp")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=605264910]
+position = Vector2(0, -10.7399)
+debug_color = Color(0.99072, 0.0103639, 0.261337, 0.42)
+
+[node name="optimizer" type="VisibleOnScreenEnabler2D" parent="." unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+script = ExtResource("3_law3s")
+hide_objects = [NodePath("../Corruption"), NodePath("../Sprite2D"), NodePath("../Shadow")]
+metadata/_custom_type_script = "uid://dbxsovdq7bbia"
+
+[node name="droper" type="Node" parent="." unique_id=1465568748]
+script = ExtResource("4_3q2u0")
+metadata/_custom_type_script = "uid://c6tw2fkklnri5"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=802892367]
+visible = false
+position = Vector2(0, -10)
+color = Color(0.8536, 0.00059451105, 0.8565563, 1)
+energy = 0.6
+texture = ExtResource("5_1bq01")
+texture_scale = 4.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1716306559]
+z_index = 6
+position = Vector2(0.54052, -10.5402)
+
+[node name="VFX_damage" type="Node" parent="." unique_id=2140509907]
+script = ExtResource("6_gierp")
+metadata/_custom_type_script = "uid://b286rq0s2stos"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1799726278]
+
+[node name="Corruption" type="GPUParticles2D" parent="." unique_id=2028233571]
+emitting = false
+amount = 24
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_cdos3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=308116851]
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1322860807]
+modulate = Color(0.10980392, 0.101960786, 0.1254902, 0.3647059)
+texture = ExtResource("7_a3kjp")

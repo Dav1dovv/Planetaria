@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://kr65sfdcxp6o"]
+
+[ext_resource type="Script" uid="uid://bx5wo7hqv65gd" path="res://common/BlazeSDK/Core/Items/ItemData.gd" id="1_5ao5j"]
+
+[resource]
+script = ExtResource("1_5ao5j")

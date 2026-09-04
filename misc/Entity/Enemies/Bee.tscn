@@ -1,0 +1,349 @@
+[gd_scene format=3 uid="uid://yy130vybtk2l"]
+
+[ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_8c1h1"]
+[ext_resource type="Script" uid="uid://ln3py6cejre4" path="res://misc/Entity/Enemies/bee.gd" id="2_w4mgs"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_2a35p"]
+[ext_resource type="Texture2D" uid="uid://b13hbc37dqdjf" path="res://misc/Entity/Textures/Bee/Bee.png" id="4_4jsne"]
+[ext_resource type="AudioStream" uid="uid://blnryjrjf4l5n" path="res://Assets/Audio/SFX/Creatures/Ghost/Ghost.mp3" id="5_8c1h1"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="6_07dc1"]
+[ext_resource type="Texture2D" uid="uid://ddxw1yloyxtpn" path="res://misc/Entity/Textures/Bee/Sting.png" id="8_5anuo"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="8_q1tpa"]
+
+[sub_resource type="Resource" id="Resource_8c1h1"]
+resource_local_to_scene = true
+resource_name = "Bee Stat"
+script = ExtResource("3_2a35p")
+max_health = 10
+base_move_speed = 1.5
+base_armor = 7.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g38em"]
+size = Vector2(16, 12)
+
+[sub_resource type="Resource" id="Resource_onooq"]
+script = ExtResource("8_q1tpa")
+Damage = 3
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5anuo"]
+size = Vector2(30, 18)
+
+[sub_resource type="Animation" id="Animation_w4mgs"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_8c1h1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5anuo"]
+_data = {
+&"Attack": SubResource("Animation_w4mgs"),
+&"RESET": SubResource("Animation_8c1h1")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4mgs"]
+atlas = ExtResource("4_4jsne")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c1h1"]
+atlas = ExtResource("4_4jsne")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5anuo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4mgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c1h1")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_0r3tc"]
+resource_name = "Death"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skin/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -22), Vector2(0, -3.0000002)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skin/Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skin/Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.875, 0.4375)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skin/Shadow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -1.0000001), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skin/Shadow:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skin/Shadow:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.375, 0.49999994), Vector2(0.87500006, 0.375)]
+}
+
+[sub_resource type="Animation" id="Animation_onooq"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skin/Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.51, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -22), Vector2(0, -26), Vector2(0, -22)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skin/Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.46666667, 0.6, 1.0333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.09373741, -0.13990895, -0.13990895, 0.09373741]
+}
+
+[sub_resource type="Animation" id="Animation_3sfyk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skin/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skin/Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skin/Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skin/Shadow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1.0000001)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skin/Shadow:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skin/Shadow:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.375, 0.49999994)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lw71o"]
+_data = {
+&"Death": SubResource("Animation_0r3tc"),
+&"Idle": SubResource("Animation_onooq"),
+&"RESET": SubResource("Animation_3sfyk")
+}
+
+[node name="Bee" unique_id=2111811093 node_paths=PackedStringArray("body_anim", "hand_anim") instance=ExtResource("1_8c1h1")]
+collision_layer = 4
+script = ExtResource("2_w4mgs")
+behavior = 0.5
+can_flee = true
+hear_radius = 150.0
+fov_half_angle = 150.0
+wander_interval_min = 5.0
+wander_interval_max = 10.0
+ray_length = 70.0
+attack_radius = 0.0
+body_anim = NodePath("Skin/AnimationPlayer")
+hand_anim = NodePath("HitBox/AnimationPlayer")
+Entity_stats = SubResource("Resource_8c1h1")
+
+[node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
+hide_objects = [NodePath("../Skin")]
+
+[node name="HurtBox" parent="." index="1" unique_id=411889454]
+position = Vector2(0, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0" unique_id=344222811]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_g38em")
+
+[node name="HitBox" parent="." index="2" unique_id=1440497730]
+position = Vector2(0, -18)
+collision_layer = 8
+collision_mask = 16
+equip = SubResource("Resource_onooq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0" unique_id=58802552]
+position = Vector2(-2.4041265e-07, 2)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_5anuo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HitBox" index="1" unique_id=1992095533]
+libraries/ = SubResource("AnimationLibrary_5anuo")
+
+[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
+stream = ExtResource("5_8c1h1")
+pitch_scale = 2.03
+bus = &"SFX"
+
+[node name="Skin" type="Node2D" parent="." index="7" unique_id=425173707]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Skin" index="0" unique_id=2046489119]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_5anuo")
+autoplay = "default"
+frame_progress = 0.46188512
+
+[node name="Sting" type="Sprite2D" parent="Skin/Sprite" index="0" unique_id=1479289512]
+position = Vector2(-11, 0)
+texture = ExtResource("8_5anuo")
+
+[node name="Shadow" type="Sprite2D" parent="Skin" index="1" unique_id=987531688]
+modulate = Color(0.14509805, 0.10980392, 0.13725491, 0.23529412)
+show_behind_parent = true
+position = Vector2(0, -1.0000001)
+scale = Vector2(1.375, 0.49999994)
+texture = ExtResource("6_07dc1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Skin" index="2" unique_id=618574069]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_lw71o")
+autoplay = &"Idle"
+
+[node name="DeathTimer" type="Timer" parent="." index="8" unique_id=173244219]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="attacked" from="HitBox" to="." method="_on_hit_box_attacked"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

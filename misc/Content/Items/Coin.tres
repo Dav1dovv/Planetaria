@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://6utu3axt82j5"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_rct8x"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hj1pb"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vu1v2"]
+atlas = SubResource("CompressedTexture2D_hj1pb")
+region = Rect2(64, 0, 16, 16)
+
+[resource]
+resource_name = "Coin"
+script = ExtResource("1_rct8x")
+icon = SubResource("AtlasTexture_vu1v2")
+item_name = "Coin"
+max_count = 999
+price = 6
+is_counter_item = true
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

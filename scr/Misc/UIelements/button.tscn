@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://gb7k36a7pc6o"]
+
+[ext_resource type="Script" uid="uid://b22k0b1ixwx0c" path="res://scr/Misc/Blaze_button.gd" id="1_e3xi5"]
+[ext_resource type="AudioStream" uid="uid://cu6l3hs530ogk" path="res://Assets/Audio/SFX/UI/Buttons/Button-02.mp3" id="2_8u74a"]
+[ext_resource type="AudioStream" uid="uid://bh1ikc871d00u" path="res://Assets/Audio/SFX/UI/Buttons/Button-03.mp3" id="3_stp65"]
+[ext_resource type="AudioStream" uid="uid://bjm8s7c61mpgh" path="res://Assets/Audio/SFX/UI/Buttons/Button-01.mp3" id="4_oy3jc"]
+
+[node name="Button" type="Button" unique_id=1632295610]
+offset_right = 145.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 18
+script = ExtResource("1_e3xi5")
+
+[node name="Accept" type="AudioStreamPlayer" parent="." unique_id=217328601]
+stream = ExtResource("2_8u74a")
+pitch_scale = 1.28
+bus = &"SFX"
+
+[node name="Decline" type="AudioStreamPlayer" parent="." unique_id=137418604]
+stream = ExtResource("3_stp65")
+pitch_scale = 0.64
+bus = &"SFX"
+
+[node name="Hover" type="AudioStreamPlayer" parent="." unique_id=13286914]
+stream = ExtResource("4_oy3jc")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

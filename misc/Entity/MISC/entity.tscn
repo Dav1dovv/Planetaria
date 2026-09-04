@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ddok5ai5dtxca"]
+
+[ext_resource type="Script" uid="uid://dsd2vkq83udix" path="res://misc/Entity/Scripts/Entity.gd" id="1_281gg"]
+[ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="2_q2g5j"]
+
+[node name="Entity" type="CharacterBody2D" unique_id=2111811093]
+y_sort_enabled = true
+script = ExtResource("1_281gg")
+metadata/_custom_type_script = "uid://dsd2vkq83udix"
+metadata/_edit_group_ = true
+
+[node name="optimizer" type="VisibleOnScreenEnabler2D" parent="." unique_id=63861658]
+position = Vector2(0, -10)
+enable_node_path = NodePath("")
+script = ExtResource("2_q2g5j")
+metadata/_custom_type_script = "uid://dbxsovdq7bbia"

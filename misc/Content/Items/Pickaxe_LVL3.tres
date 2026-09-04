@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://dqyp4etjlrbse"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_npv1g"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_l55i7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbubl"]
+atlas = ExtResource("1_npv1g")
+region = Rect2(32, 96, 16, 16)
+
+[resource]
+script = ExtResource("2_l55i7")
+equiped_weapon_sprite = SubResource("AtlasTexture_kbubl")
+is_weapon = false
+one_shot_attack = false
+icon = SubResource("AtlasTexture_kbubl")
+item_name = "Pickaxe"
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

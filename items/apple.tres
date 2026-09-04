@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://4uxofcuwn3es"]
+
+[ext_resource type="Script" uid="uid://bmmvqaakiiljt" path="res://common/BlazeSDK/Core/Effects/EffectResource.gd" id="1_dumep"]
+[ext_resource type="Script" uid="uid://bovylpy6vnl8a" path="res://common/BlazeSDK/Core/Items/FoodItemData.gd" id="2_xmv7l"]
+
+[resource]
+script = ExtResource("2_xmv7l")

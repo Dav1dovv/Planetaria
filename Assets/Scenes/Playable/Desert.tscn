@@ -1,0 +1,250 @@
+[gd_scene format=3 uid="uid://duw2mnik7rufx"]
+
+[ext_resource type="PackedScene" uid="uid://fgmnq4ft82wh" path="res://Assets/Scenes/Playable/location_root.tscn" id="1_2eidc"]
+[ext_resource type="TileSet" uid="uid://dmhkwk4cs7odt" path="res://misc/TileSets/TILES.res" id="2_rsjpw"]
+[ext_resource type="PackedScene" uid="uid://ddnp7igm5m7rn" path="res://scr/Systems/WorldGenerator/Preseets/land_Gen_presset.tscn" id="3_j2cba"]
+[ext_resource type="Script" uid="uid://cxixcs17bxicy" path="res://scr/Systems/WorldGenerator/SpecialStructure.gd" id="4_4sboa"]
+[ext_resource type="PackedScene" uid="uid://h106lj2xe051" path="res://misc/Structures/ennemy_camp.tscn" id="5_johiw"]
+[ext_resource type="PackedScene" uid="uid://bxb0fsvt4mjfw" path="res://misc/Structures/Boiler/Boiler.tscn" id="6_iclqk"]
+[ext_resource type="PackedScene" uid="uid://dc6224o6es5o2" path="res://misc/Structures/camp.tscn" id="7_0kk43"]
+[ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="8_tbngs"]
+[ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Structures/Ruins/syncer.tscn" id="9_0l3dh"]
+[ext_resource type="PackedScene" uid="uid://hmy1xjfrwqwq" path="res://misc/Structures/honey_comb.tscn" id="10_ovmnn"]
+[ext_resource type="PackedScene" uid="uid://b8ekv73e134mt" path="res://misc/Structures/smith.tscn" id="11_ei4kb"]
+[ext_resource type="PackedScene" uid="uid://cqpn8wkvr12am" path="res://misc/HarvestItems/Cactus.tscn" id="12_4sboa"]
+[ext_resource type="PackedScene" uid="uid://dj1b8v3ljmaec" path="res://misc/HarvestItems/TreeObjects/Palm.tscn" id="12_j2cba"]
+[ext_resource type="PackedScene" uid="uid://d1gv8gc1ygm17" path="res://misc/HarvestItems/Emerald.tscn" id="13_4sboa"]
+[ext_resource type="PackedScene" uid="uid://ct7urhwcdy7rg" path="res://misc/HarvestItems/SandStone.tscn" id="14_johiw"]
+[ext_resource type="PackedScene" uid="uid://dgd5as0pvq6c2" path="res://misc/HarvestItems/bone.tscn" id="15_iclqk"]
+[ext_resource type="PackedScene" uid="uid://c4utefe16m5jg" path="res://misc/HarvestItems/life_crystal.tscn" id="16_0kk43"]
+[ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="16_mnrnh"]
+[ext_resource type="PackedScene" uid="uid://nlav2fqp7tmh" path="res://misc/HarvestItems/cooper.tscn" id="17_bvore"]
+[ext_resource type="Script" uid="uid://cspf06hgc8h0w" path="res://scr/Systems/Creature_Spawner/SpawnConfig.gd" id="18_866cm"]
+[ext_resource type="PackedScene" uid="uid://diwv2u61puib1" path="res://misc/HarvestItems/Gold.tscn" id="18_tbngs"]
+[ext_resource type="PackedScene" uid="uid://bu36h4hqr8fy5" path="res://misc/Entity/Enemies/slime.tscn" id="19_grv47"]
+[ext_resource type="PackedScene" uid="uid://crdntcnp1cntm" path="res://misc/Entity/Animals/Nox.tscn" id="20_5ry07"]
+[ext_resource type="PackedScene" uid="uid://cvj174hseymkm" path="res://misc/Entity/Animals/Snail.tscn" id="21_wfq12"]
+[ext_resource type="PackedScene" uid="uid://byhpun3f4s0co" path="res://misc/Entity/Animals/cow.tscn" id="22_unsd3"]
+[ext_resource type="PackedScene" uid="uid://bgohoombtdw0k" path="res://misc/Entity/Animals/Sheep.tscn" id="23_1nf3l"]
+[ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://misc/Entity/Enemies/Pig.tscn" id="24_xh84y"]
+[ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://misc/Entity/Enemies/Rat.tscn" id="25_saxml"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="26_5itkd"]
+[ext_resource type="PackedScene" uid="uid://8ysv3553uoh3" path="res://misc/Crystal/crystal.tscn" id="27_07csx"]
+
+[sub_resource type="Resource" id="Resource_puewl"]
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("7_0kk43")
+spawn_weight = 0.818
+Generation_random_versions = Array[PackedScene]([ExtResource("5_johiw"), ExtResource("6_iclqk")])
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_y14l7"]
+resource_name = "Camp"
+script = ExtResource("4_4sboa")
+structure_name = "Camp"
+custom_type_name = "Camp"
+generation_item = SubResource("Resource_puewl")
+min_distance_between_same_type = 350.0
+exclusion_radius = 150.0
+spawn_priority = 76
+spawn_chance = 0.728
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_x3om7"]
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("9_0l3dh")
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_7pk4t"]
+resource_name = "Syncer"
+script = ExtResource("4_4sboa")
+structure_name = "Syncer"
+structure_type = 2
+custom_type_name = "Syncer"
+generation_item = SubResource("Resource_x3om7")
+min_distance_from_player = 150.0
+min_distance_between_same_type = 100.0
+min_distance_between_any = 150.0
+exclusion_radius = 100.0
+spawn_priority = 32
+spawn_chance = 0.562
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_jtce0"]
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("10_ovmnn")
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_hwayi"]
+resource_name = "HoneyComb"
+script = ExtResource("4_4sboa")
+structure_name = "HoneyComb"
+structure_type = 2
+custom_type_name = "HoneyComb"
+generation_item = SubResource("Resource_jtce0")
+max_instances = 1
+min_distance_from_player = 200.0
+min_distance_between_same_type = 150.0
+min_distance_between_any = 150.0
+exclusion_radius = 100.0
+spawn_chance = 0.715
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_2gqpv"]
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("11_ei4kb")
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_5bbjv"]
+script = ExtResource("4_4sboa")
+structure_name = "Houses"
+structure_type = 2
+custom_type_name = "Houses"
+generation_item = SubResource("Resource_2gqpv")
+exclusion_radius = 300.0
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_so4x0"]
+resource_name = "palm"
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("12_j2cba")
+Generation_random_versions = Array[PackedScene]([ExtResource("12_4sboa")])
+random_scales = {
+"Big": Vector2(2, 2),
+"Middle": Vector2(1.7, 1.7),
+"Standart": Vector2(1.35, 1.35)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_en3oc"]
+resource_name = "sandstone"
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("14_johiw")
+spawn_weight = 0.626
+Generation_random_versions = Array[PackedScene]([ExtResource("13_4sboa")])
+random_scales = {
+"Big": Vector2(1.7, 1.7),
+"Middle": Vector2(1.5, 1.5),
+"Standart": Vector2(1.2, 1.2)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_a76op"]
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("15_iclqk")
+spawn_weight = 0.245
+random_scales = {
+"Big": Vector2(1.3, 1.3),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_uysg6"]
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("16_0kk43")
+spawn_weight = 0.062
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_1t0vu"]
+script = ExtResource("8_tbngs")
+Generation_scene = ExtResource("17_bvore")
+spawn_weight = 0.458
+Generation_random_versions = Array[PackedScene]([ExtResource("16_mnrnh"), ExtResource("18_tbngs"), ExtResource("18_tbngs")])
+random_scales = {
+"Big": Vector2(1.6, 1.6),
+"Middle": Vector2(1.5, 1.5),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_vdqi3"]
+script = ExtResource("18_866cm")
+creature_scene = ExtResource("19_grv47")
+spawn_phase = "Day"
+metadata/_custom_type_script = "uid://cspf06hgc8h0w"
+
+[sub_resource type="Resource" id="Resource_eu50n"]
+script = ExtResource("18_866cm")
+creature_scene = ExtResource("20_5ry07")
+spawn_phase = "Day"
+variations = Array[PackedScene]([ExtResource("21_wfq12"), ExtResource("22_unsd3"), ExtResource("23_1nf3l")])
+metadata/_custom_type_script = "uid://cspf06hgc8h0w"
+
+[sub_resource type="Resource" id="Resource_3gx4s"]
+script = ExtResource("18_866cm")
+creature_scene = ExtResource("24_xh84y")
+spawn_phase = "Night"
+variations = Array[PackedScene]([ExtResource("25_saxml")])
+metadata/_custom_type_script = "uid://cspf06hgc8h0w"
+
+[sub_resource type="Resource" id="Resource_johiw"]
+resource_local_to_scene = true
+resource_name = "Player Stat"
+script = ExtResource("26_5itkd")
+base_move_speed = 6.0
+base_armor = 10.0
+base_defense_modifier = 0.2
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[node name="LocationRoot" unique_id=1133907741 instance=ExtResource("1_2eidc")]
+position = Vector2(-2, 5)
+
+[node name="Tiles" type="Node2D" parent="." index="0" unique_id=1343467750]
+z_index = -22
+y_sort_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Grass" type="TileMapLayer" parent="Tiles" index="0" unique_id=1460343154]
+tile_set = ExtResource("2_rsjpw")
+
+[node name="Details" type="TileMapLayer" parent="Tiles" index="1" unique_id=1551528778]
+tile_set = ExtResource("2_rsjpw")
+
+[node name="Water" type="TileMapLayer" parent="Tiles" index="2" unique_id=1269194311]
+tile_set = ExtResource("2_rsjpw")
+
+[node name="Generation" parent="." index="1" unique_id=96793758 node_paths=PackedStringArray("ground_layer", "water_layer", "grass_variation_layer") instance=ExtResource("3_j2cba")]
+map_size_chunks = Vector2i(12, 12)
+chunk_size = Vector2i(8, 8)
+location_id = "Forest"
+debug_logging = true
+ground_layer = NodePath("../Tiles/Grass")
+water_layer = NodePath("../Tiles/Water")
+grass_terrain_id = 2
+grass_variation_layer = NodePath("../Tiles/Details")
+grass_variation_atlas_source_id = 4
+grass_variation_coords = Array[Vector2i]([Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(7, 0), Vector2i(8, 0), Vector2i(9, 0), Vector2i(4, 1), Vector2i(5, 1), Vector2i(6, 1), Vector2i(7, 1), Vector2i(8, 1), Vector2i(9, 1)])
+grass_variation_chance = 0.66
+water_level = 0.141
+special_structures = Array[ExtResource("4_4sboa")]([SubResource("Resource_y14l7"), SubResource("Resource_7pk4t"), SubResource("Resource_hwayi"), SubResource("Resource_5bbjv")])
+max_structure_attempts = 10
+resource_items = Array[ExtResource("8_tbngs")]([SubResource("Resource_so4x0"), SubResource("Resource_en3oc"), SubResource("Resource_a76op"), SubResource("Resource_uysg6"), SubResource("Resource_1t0vu")])
+resources_per_chunk = 2
+resource_min_spacing = 165.0
+target_path = NodePath("../Player")
+chunk_time_budget_ms = 1.0
+
+[node name="CreatureSpawner" parent="." index="2" unique_id=2003484596 node_paths=PackedStringArray("player")]
+player = NodePath("../Player")
+spawn_distance_max = 350.0
+max_creatures = 15
+creatures = Array[ExtResource("18_866cm")]([SubResource("Resource_vdqi3"), SubResource("Resource_eu50n"), SubResource("Resource_3gx4s")])
+
+[node name="Player" parent="." index="3" unique_id=1150737309]
+position = Vector2(9, -7)
+Entity_stats = SubResource("Resource_johiw")
+
+[node name="crystal" parent="." index="4" unique_id=1200449064 instance=ExtResource("27_07csx")]
+position = Vector2(30, -34)
+script = null

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Effect" format=3 uid="uid://ca7iuwj5lfqa5"]
+
+[ext_resource type="Texture2D" uid="uid://bhs2ikxc2auo4" path="res://Assets/Textures/UI/Effects/Effect3.png" id="1_1o4it"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="3_hy42i"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="4_5uwhr"]
+
+[resource]
+script = ExtResource("4_5uwhr")
+effect_icon = ExtResource("1_1o4it")
+effect_type = 3
+value = 12.0
+duration = 5.0
+particle_color = Color(1, 0, 0, 1)
+particle = ExtResource("3_hy42i")
+display_name = "Regeneration"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"

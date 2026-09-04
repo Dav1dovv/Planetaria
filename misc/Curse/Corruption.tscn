@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://cfxxahs7peuhm"]
+
+[ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_3j62l"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="2_a5e65"]
+[ext_resource type="Script" uid="uid://bcojg2oc8uiw0" path="res://misc/Curse/corruption.gd" id="2_hvmba"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_b6k8d"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_xgs0l"]
+
+[sub_resource type="Resource" id="Resource_5vj5a"]
+script = ExtResource("3_xgs0l")
+max_health = 5
+base_move_speed = 10.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_cdos3"]
+script = ExtResource("3_b6k8d")
+Damage = 1
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cdos3"]
+radius = 8.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m2rrc"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(8, 8, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -100, 0)
+spread = 101.659
+flatness = 1.0
+initial_velocity_max = 22.9
+gravity = Vector3(0, -35, 0)
+scale_max = 2.5
+color = Color(0.6039216, 0.18039216, 0.60784316, 1)
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.049999975
+
+[sub_resource type="Animation" id="Animation_hvmba"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Corruption/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Corruption/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Corruption/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.6249999, 1.6249998)]
+}
+
+[sub_resource type="Animation" id="Animation_b6k8d"]
+resource_name = "curse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Corruption/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Corruption/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Corruption/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.49, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.6249999, 1.6249998), Vector2(1.240277, 1.2402769), Vector2(1.6249999, 1.6249998)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xgs0l"]
+_data = {
+&"RESET": SubResource("Animation_hvmba"),
+&"curse": SubResource("Animation_b6k8d")
+}
+
+[node name="Curse" unique_id=1251952136 instance=ExtResource("1_3j62l")]
+script = ExtResource("2_hvmba")
+corupt = 7
+behavior = 1.0
+attack_radius = 1.0
+Entity_stats = SubResource("Resource_5vj5a")
+
+[node name="HitBox" parent="." index="2" unique_id=1440497730]
+equip = SubResource("Resource_cdos3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0" unique_id=9866221]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_cdos3")
+
+[node name="HealthBar" parent="." index="7" unique_id=1354189396]
+visible = false
+
+[node name="Skin" type="Node2D" parent="." index="10" unique_id=1976922875]
+position = Vector2(0, -10)
+
+[node name="Corruption" type="GPUParticles2D" parent="Skin" index="0" unique_id=776316391]
+amount = 48
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_m2rrc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skin/Corruption" index="0" unique_id=344765223]
+self_modulate = Color(1, 0, 1, 1)
+scale = Vector2(1.6249999, 1.6249998)
+texture = ExtResource("2_a5e65")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skin/Corruption/Sprite2D" index="0" unique_id=1934525666]
+self_modulate = Color(0, 0, 1, 1)
+scale = Vector2(0.45454544, 0.45454553)
+texture = ExtResource("2_a5e65")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Skin" index="1" unique_id=1588613683]
+libraries/ = SubResource("AnimationLibrary_xgs0l")
+autoplay = &"curse"
+
+[node name="Timer" type="Timer" parent="." index="11" unique_id=2141009598]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

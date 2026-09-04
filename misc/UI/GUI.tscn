@@ -1,0 +1,236 @@
+[gd_scene format=3 uid="uid://dreoa0kkr7ov6"]
+
+[ext_resource type="Script" uid="uid://bnbv4h1swhyt8" path="res://misc/UI/gui.gd" id="1_7myg7"]
+[ext_resource type="Shader" uid="uid://cintnagw1njik" path="res://scr/Systems/Infection/infection_vignette.gdshader" id="2_01dxt"]
+[ext_resource type="Texture2D" uid="uid://bes0yp1rfj1q3" path="res://Assets/Textures/UI/Icons.png" id="2_kscpg"]
+[ext_resource type="Script" uid="uid://bol7bb0n3rim5" path="res://scr/Resources/effects/EffectdisplayUI.gd" id="3_0kf04"]
+[ext_resource type="Script" uid="uid://bnl813ev2w7bk" path="res://scr/Systems/Infection/InfectionVignette.gd" id="3_my3yu"]
+[ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="4_01dxt"]
+[ext_resource type="PackedScene" uid="uid://xi525y36l0mn" path="res://scr/Systems/Inventory/Inventory.tscn" id="5_my3yu"]
+[ext_resource type="Script" uid="uid://brgbxkb6l0dem" path="res://scr/Misc/health_bar.gd" id="5_yfmxh"]
+[ext_resource type="PackedScene" uid="uid://bhugp3d5bopwb" path="res://misc/UI/Death/death_menu.tscn" id="6_yfmxh"]
+[ext_resource type="PackedScene" uid="uid://b0mf3l56dvooj" path="res://misc/UI/Pause/pause_menu.tscn" id="7_2v76w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cdos3"]
+shader = ExtResource("2_01dxt")
+shader_parameter/strength = 0.0
+shader_parameter/vignette_color = Color(0.45, 0.05, 0.65, 1)
+shader_parameter/radius = 0.75
+shader_parameter/softness = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukw7k"]
+atlas = ExtResource("2_kscpg")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yfmxh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po7el"]
+atlas = ExtResource("4_01dxt")
+region = Rect2(64, 112, 64, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_01dxt"]
+texture = SubResource("AtlasTexture_po7el")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+modulate_color = Color(0.82638633, 0, 0.065350935, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_my3yu"]
+texture = SubResource("AtlasTexture_po7el")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my3yu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfmxh"]
+atlas = ExtResource("4_01dxt")
+region = Rect2(64, 112, 64, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2v76w"]
+texture = SubResource("AtlasTexture_yfmxh")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+modulate_color = Color(0.5456216, 1.790464e-05, 0.4052836, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rpipr"]
+load_path = "res://.godot/imported/Icons.png-a24332a59a427aaf04ec263d25c271be.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npi0j"]
+atlas = SubResource("CompressedTexture2D_rpipr")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="Curve" id="Curve_2v76w"]
+_data = [Vector2(0.42628205, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_w5cb6"]
+curve = SubResource("Curve_2v76w")
+
+[sub_resource type="Curve" id="Curve_ukw7k"]
+_data = [Vector2(0, 0.9916129), 0.0, 1.0176345, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1uxp1"]
+curve = SubResource("Curve_ukw7k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1rtb2"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 8.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, -15, 0)
+scale_min = 1.5
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_1uxp1")
+color = Color(0.8509804, 0.29411766, 0.95686275, 1)
+alpha_curve = SubResource("CurveTexture_w5cb6")
+turbulence_noise_strength = 0.1
+turbulence_noise_scale = 2.0
+turbulence_noise_speed = Vector3(5, 5, 5)
+turbulence_influence_max = 0.15
+
+[node name="GUI" type="CanvasLayer" unique_id=1874703344]
+script = ExtResource("1_7myg7")
+
+[node name="HUD" type="Control" parent="." unique_id=1608603810]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="HUD" unique_id=179089321]
+material = SubResource("ShaderMaterial_cdos3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_my3yu")
+
+[node name="Deffense" type="TextureRect" parent="HUD" unique_id=1325443342]
+visible = false
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 36.0
+offset_right = 39.0
+offset_bottom = 60.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = SubResource("AtlasTexture_ukw7k")
+
+[node name="Label" type="Label" parent="HUD/Deffense" unique_id=299167214]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 1.999999
+offset_right = 33.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EffectDisplayUI" type="HBoxContainer" parent="HUD" unique_id=1570758857]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -41.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+script = ExtResource("3_0kf04")
+metadata/_custom_type_script = "uid://bol7bb0n3rim5"
+
+[node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=1844046137]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 0
+offset_left = 11.0
+offset_top = 14.0
+offset_right = 111.0
+offset_bottom = 24.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+localize_numeral_system = false
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_yfmxh")
+theme_override_styles/fill = SubResource("StyleBoxTexture_01dxt")
+show_percentage = false
+script = ExtResource("5_yfmxh")
+
+[node name="DelayedBar" type="ProgressBar" parent="HUD/HealthBar" unique_id=1548220911]
+z_index = -1
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 10.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+localize_numeral_system = false
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxTexture_my3yu")
+show_percentage = false
+
+[node name="CurseBar" type="ProgressBar" parent="HUD/HealthBar" unique_id=2069860655]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 10.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+localize_numeral_system = false
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_my3yu")
+theme_override_styles/fill = SubResource("StyleBoxTexture_2v76w")
+show_percentage = false
+
+[node name="HeartIcon" type="TextureRect" parent="HUD/HealthBar" unique_id=1537346670]
+visible = false
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+offset_right = 24.0
+offset_bottom = 24.0
+scale = Vector2(0.7601346, 0.7601346)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = SubResource("AtlasTexture_npi0j")
+
+[node name="Corruption Effect" type="GPUParticles2D" parent="HUD/HealthBar" unique_id=1448438442]
+z_index = -1
+position = Vector2(0, 2)
+emitting = false
+amount = 12
+lifetime = 2.0
+preprocess = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_1rtb2")
+
+[node name="Inventory" parent="HUD" unique_id=71132192 instance=ExtResource("5_my3yu")]
+layout_mode = 1
+
+[node name="DeathMenu" parent="." unique_id=20416363 instance=ExtResource("6_yfmxh")]
+visible = false
+
+[node name="PauseMenu" parent="." unique_id=1332997478 instance=ExtResource("7_2v76w")]
+visible = false
+mouse_filter = 2
+
+[connection signal="visibility_changed" from="HUD/Inventory" to="." method="_on_inventory_visibility_changed"]
+[connection signal="visibility_changed" from="DeathMenu" to="." method="_on_death_menu_visibility_changed"]
+[connection signal="visibility_changed" from="PauseMenu" to="." method="_on_pause_menu_visibility_changed"]

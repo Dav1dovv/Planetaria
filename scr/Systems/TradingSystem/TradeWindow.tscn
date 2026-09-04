@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://dts1ot2trd002"]
+
+[ext_resource type="Script" uid="uid://chv0ve4dgguod" path="res://scr/Systems/TradingSystem/TradeWindow.gd" id="1_win"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+
+[node name="TradeWindow" type="Control" unique_id=1572348915]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_win")
+
+[node name="Panel" type="Panel" parent="." unique_id=1360127493]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -65.0
+offset_right = 130.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1226843645]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopRow" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1880690855]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer/TopRow" unique_id=1852042795]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TRADE"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="GoldLabel" type="Label" parent="Panel/VBoxContainer" unique_id=2118923065]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 6
+text = "Золото: 0"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=2123089009]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="PlayerSide" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer" unique_id=620722679]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/PlayerSide" unique_id=668356508]
+layout_mode = 2
+text = "Инвентарь"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer/PlayerSide" unique_id=861276278]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/HBoxContainer/PlayerSide/ScrollContainer" unique_id=1076016960]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 5
+
+[node name="Separator" type="VSeparator" parent="Panel/VBoxContainer/HBoxContainer" unique_id=1774568095]
+layout_mode = 2
+
+[node name="TraderSide" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer" unique_id=818281136]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/TraderSide" unique_id=1287498639]
+layout_mode = 2
+text = "Торговец"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer/TraderSide" unique_id=1453855143]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/HBoxContainer/TraderSide/ScrollContainer" unique_id=466352718]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 5
+
+[node name="HintLabel" type="Label" parent="Panel/VBoxContainer" unique_id=262432634]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+text = "ЛКМ — купить / продать 1 шт.   |   ESC — закрыть"
+horizontal_alignment = 1

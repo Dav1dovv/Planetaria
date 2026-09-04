@@ -1,0 +1,294 @@
+[gd_scene format=3 uid="uid://b3xyfsgecbtas"]
+
+[ext_resource type="Script" uid="uid://c57oddggb1aad" path="res://scr/Systems/Options/SettingsMenu.gd" id="1_xr7uy"]
+[ext_resource type="FontFile" uid="uid://dj2oqg7k2rxlo" path="res://Assets/Fonts/HemiHead-Bold.otf" id="2_2ev4k"]
+
+[node name="OptionMenu" type="CanvasLayer" unique_id=1619027941]
+script = ExtResource("1_xr7uy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1934483596]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.333344
+offset_top = 9.75
+offset_right = -17.333344
+offset_bottom = -9.75
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer" unique_id=982320318]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/tab_separation = 11
+tab_alignment = 1
+current_tab = 0
+tab_0/title = "   Graphic   "
+tab_1/title = "   Audio   "
+tab_2/title = "   Controll   "
+tab_3/title = "   Language  "
+
+[node name="Graphic" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=1520537981]
+layout_mode = 2
+metadata/_tab_index = 0
+metadata/_tab_name = "   Graphic   "
+
+[node name="Label2" type="Label" parent="VBoxContainer/TabContainer/Graphic" unique_id=1044839213]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2ev4k")
+theme_override_font_sizes/font_size = 12
+text = "OPTIMIZATION"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/TabContainer/Graphic" unique_id=1044839214]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Graphic/HBoxContainer2" unique_id=1044839215]
+layout_mode = 2
+text = "quality"
+
+[node name="OptionPerformance" type="OptionButton" parent="VBoxContainer/TabContainer/Graphic/HBoxContainer2" unique_id=1044839216]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Понизь, если игра лагает на твоём устройстве"
+
+[node name="LabelHint" type="Label" parent="VBoxContainer/TabContainer/Graphic" unique_id=1044839217]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "affects render distance, resource density and FPS cap"
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/TabContainer/Graphic" unique_id=1934627769]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="CustomPanel" type="VBoxContainer" parent="VBoxContainer/TabContainer/Graphic" unique_id=1044839218]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="RenderDistanceRow" type="HBoxContainer" parent="VBoxContainer/TabContainer/Graphic/CustomPanel" unique_id=1044839219]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/RenderDistanceRow" unique_id=1044839220]
+layout_mode = 2
+text = "render distance"
+
+[node name="SliderRenderDistance" type="HSlider" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/RenderDistanceRow" unique_id=1044839221]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+tooltip_text = "Сколько чанков карты вокруг игрока держится прогруженными (больше — дальше видно, тяжелее для устройства)"
+
+[node name="LabelRenderDistance" type="Label" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/RenderDistanceRow" unique_id=1044839222]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FPSRow" type="HBoxContainer" parent="VBoxContainer/TabContainer/Graphic/CustomPanel" unique_id=1044839223]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/FPSRow" unique_id=1044839224]
+layout_mode = 2
+text = "fps limit"
+
+[node name="OptionFPSLimit" type="OptionButton" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/FPSRow" unique_id=1044839225]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ChunkBatchRow" type="HBoxContainer" parent="VBoxContainer/TabContainer/Graphic/CustomPanel" unique_id=1044839226]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/ChunkBatchRow" unique_id=1044839227]
+layout_mode = 2
+text = "chunk load speed"
+
+[node name="SliderChunkBatch" type="HSlider" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/ChunkBatchRow" unique_id=1044839228]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+tooltip_text = "Сколько чанков красится за один заход при подгрузке карты (больше — плавнее подгрузка, но тяжелее отдельные кадры)"
+
+[node name="LabelChunkBatch" type="Label" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/ChunkBatchRow" unique_id=1044839229]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ChunkBudgetRow" type="HBoxContainer" parent="VBoxContainer/TabContainer/Graphic/CustomPanel" unique_id=1044839230]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/ChunkBudgetRow" unique_id=1044839231]
+layout_mode = 2
+text = "chunk erase budget"
+
+[node name="SliderChunkBudget" type="HSlider" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/ChunkBudgetRow" unique_id=1044839232]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+tooltip_text = "Сколько миллисекунд за кадр можно тратить на стирание старых чанков позади игрока"
+
+[node name="LabelChunkBudget" type="Label" parent="VBoxContainer/TabContainer/Graphic/CustomPanel/ChunkBudgetRow" unique_id=1044839233]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Graphic" unique_id=1274504217]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2ev4k")
+theme_override_font_sizes/font_size = 12
+text = "Graphic"
+
+[node name="CheckFullscreen" type="CheckBox" parent="VBoxContainer/TabContainer/Graphic" unique_id=1688403362]
+unique_name_in_owner = true
+layout_mode = 2
+text = "full screen"
+flat = true
+
+[node name="CheckVsync" type="CheckBox" parent="VBoxContainer/TabContainer/Graphic" unique_id=44299172]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vsync"
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Graphic" unique_id=1712967436]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Graphic/HBoxContainer" unique_id=1245181796]
+layout_mode = 2
+text = "screen size"
+
+[node name="OptionResolution" type="OptionButton" parent="VBoxContainer/TabContainer/Graphic/HBoxContainer" unique_id=1318080427]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Audio" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=94457167]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+metadata/_tab_name = "   Audio   "
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Audio" unique_id=1136401214]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2ev4k")
+theme_override_font_sizes/font_size = 12
+text = "AUDIO"
+
+[node name="Master" type="HBoxContainer" parent="VBoxContainer/TabContainer/Audio" unique_id=1502286849]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Audio/Master" unique_id=134270765]
+layout_mode = 2
+text = "Master"
+
+[node name="SliderMaster" type="HSlider" parent="VBoxContainer/TabContainer/Audio/Master" unique_id=742196841]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="LabelMaster" type="Label" parent="VBoxContainer/TabContainer/Audio/Master" unique_id=1485549778]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BGM" type="HBoxContainer" parent="VBoxContainer/TabContainer/Audio" unique_id=1187535144]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Audio/BGM" unique_id=1130502548]
+layout_mode = 2
+text = "BGM"
+
+[node name="SliderMusic" type="HSlider" parent="VBoxContainer/TabContainer/Audio/BGM" unique_id=1378763449]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="LabelMusic" type="Label" parent="VBoxContainer/TabContainer/Audio/BGM" unique_id=290652786]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SFX" type="HBoxContainer" parent="VBoxContainer/TabContainer/Audio" unique_id=1411564227]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Audio/SFX" unique_id=2077199567]
+layout_mode = 2
+text = "SFX
+"
+
+[node name="SliderSFX" type="HSlider" parent="VBoxContainer/TabContainer/Audio/SFX" unique_id=835065574]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="LabelSFX" type="Label" parent="VBoxContainer/TabContainer/Audio/SFX" unique_id=135362632]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CheckMute" type="CheckBox" parent="VBoxContainer/TabContainer/Audio" unique_id=1264629767]
+unique_name_in_owner = true
+layout_mode = 2
+text = "MUTE"
+flat = true
+
+[node name="Controll" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=769871970]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+metadata/_tab_name = "   Controll   "
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Controll" unique_id=155773479]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2ev4k")
+theme_override_font_sizes/font_size = 12
+text = "Container"
+
+[node name="KeybindsContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Controll" unique_id=835348159]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Language" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=1732153657]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+metadata/_tab_name = "   Language  "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Language" unique_id=1693556905]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/TabContainer/Language/HBoxContainer" unique_id=991447915]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Languge"
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Language/HBoxContainer" unique_id=1625926524]
+layout_mode = 2
+text = "Language"
+
+[node name="OptionLanguage" type="OptionButton" parent="VBoxContainer/TabContainer/Language/HBoxContainer" unique_id=605785220]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=207050683]
+layout_mode = 2
+alignment = 1
+
+[node name="BtnSave" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1751051071]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "save"
+
+[node name="BtnReset" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1901624928]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Reset"
+
+[node name="BtnClose" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1391566373]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Close
+"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SceneData" format=3 uid="uid://df61ndgalseu5"]
+
+[ext_resource type="Script" uid="uid://dahsqqqv7jj4q" path="res://scr/Resources/SceneController.gd" id="1_i878r"]
+
+[resource]
+script = ExtResource("1_i878r")
+key = "Forest"
+scene_path = "uid://blwrcxcnxmo7e"
+display_name = "Forest"
+music_key = "Forest"
+metadata/_custom_type_script = "uid://dahsqqqv7jj4q"

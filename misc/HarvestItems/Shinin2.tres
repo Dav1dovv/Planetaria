@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bgul038d2vviw"]
+
+[ext_resource type="Shader" uid="uid://vrsslnus0n8r" path="res://Assets/Shader/Shine.gdshader" id="1_banog"]
+
+[resource]
+shader = ExtResource("1_banog")
+shader_parameter/size_effect = 1.0
+shader_parameter/speed = 1.0
+shader_parameter/highlight_strength = 0.5
+shader_parameter/color_mode_toggle = false
+shader_parameter/is_horizontal = true
+shader_parameter/pause_duration = 0.5
+shader_parameter/texture_size = Vector2(16, 16)

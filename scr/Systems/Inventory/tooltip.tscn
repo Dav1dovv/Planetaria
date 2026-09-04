@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://civqx7y0nh75n"]
+
+[ext_resource type="Script" uid="uid://bci0xbmv0yg4c" path="res://scr/Systems/Inventory/Tooltip.gd" id="1_jbrqr"]
+[ext_resource type="Script" uid="uid://co0lo02vnu10n" path="res://addons/font_auto_size_labels/auto_size_rich_text_label.gd" id="2_wxwl8"]
+
+[node name="Tooltip" type="Control" unique_id=2062752056]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -480.0
+offset_bottom = -267.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_jbrqr")
+
+[node name="Panel" type="Panel" parent="." unique_id=1656957692]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -84.0
+offset_right = 126.0
+offset_bottom = -4.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=291060087]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 122.0
+offset_bottom = 65.0
+theme_override_constants/separation = -3
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer" unique_id=1746416388]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "item"
+autowrap_mode = 3
+
+[node name="Description" type="RichTextLabel" parent="Panel/VBoxContainer" unique_id=501658043]
+custom_minimum_size = Vector2(0, 57.31)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.5899028, 0.5899029, 0.5899029, 1)
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "this is description"
+script = ExtResource("2_wxwl8")
+_max_size = 9
+_min_size = 6
+_current_font_size = 9
+_editor_defaults_set = true
+metadata/_custom_type_script = "uid://co0lo02vnu10n"

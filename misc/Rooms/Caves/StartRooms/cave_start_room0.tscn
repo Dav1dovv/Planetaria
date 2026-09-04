@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://db4ccwy6g3ag5"]
+
+[ext_resource type="PackedScene" uid="uid://5gi0l2jioe6c" path="res://misc/Rooms/TestObject.tscn" id="1_jtr20"]
+[ext_resource type="Texture2D" uid="uid://cf8i27htsnj7e" path="res://Assets/Textures/Items/Door.png" id="2_55mtj"]
+[ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="2_uy8cc"]
+[ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="3_2cgqk"]
+[ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/Textures/Light/GradientLight.png" id="3_fps2e"]
+[ext_resource type="Script" uid="uid://bj528o0edtyfg" path="res://scr/Misc/Door.gd" id="4_55mtj"]
+[ext_resource type="PackedScene" uid="uid://nlav2fqp7tmh" path="res://misc/HarvestItems/cooper.tscn" id="4_68nm4"]
+[ext_resource type="PackedScene" uid="uid://qc6y8v64442s" path="res://misc/Entity/Player/player.tscn" id="5_26bhv"]
+[ext_resource type="PackedScene" uid="uid://diwv2u61puib1" path="res://misc/HarvestItems/Gold.tscn" id="5_gdss6"]
+[ext_resource type="PackedScene" uid="uid://ci8lyapkm0sfc" path="res://misc/HarvestItems/Stone.tscn" id="6_1td6s"]
+[ext_resource type="Script" uid="uid://cx0477dq0nkws" path="res://scr/Misc/Blaze_camera.gd" id="6_ju28e"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_hr0lt"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="8_gh1sx"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="9_vyr1r"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="11_kncpw"]
+
+[sub_resource type="Resource" id="Resource_4lfi2"]
+script = ExtResource("2_uy8cc")
+Generation_scene = ExtResource("6_1td6s")
+Generation_random_versions = Array[PackedScene]([ExtResource("3_2cgqk"), ExtResource("4_68nm4"), ExtResource("5_gdss6")])
+random_scales = {
+"Big": Vector2(1.5, 1.5),
+"Middle": Vector2(1.25, 1.25),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_uy8cc"]
+blend_mode = 1
+light_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_26bhv"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ju28e"]
+blend_mode = 3
+light_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fps2e"]
+
+[sub_resource type="Resource" id="Resource_uy8cc"]
+resource_local_to_scene = true
+resource_name = "Player Stat"
+script = ExtResource("11_kncpw")
+base_move_speed = 6.0
+base_armor = 10.0
+base_defense_modifier = 0.2
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_08fsb"]
+script = ExtResource("9_vyr1r")
+
+[node name="CaveStartRoom" unique_id=1694202812 instance=ExtResource("1_jtr20")]
+
+[node name="WorldGenerator" parent="." index="1" unique_id=1114010409]
+position = Vector2(0, 47)
+generation_items = Array[ExtResource("2_uy8cc")]([SubResource("Resource_4lfi2")])
+
+[node name="Polygon2D" parent="WorldGenerator" index="0" unique_id=424368822]
+polygon = PackedVector2Array(-21, -161, -110, -155, -278, -151, -285, -27, -170, 35, 10, 39, 10, 39, -39, -55, 1, -38, 85, -35, 84, 29, 181, 57, 252, 74, 276, 24, 276, -67, 200, -142, 131, -99, 67, -95, 55, -138, 39, -71, -26, -77)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="2" unique_id=2051681740]
+visibility_layer = 16
+material = SubResource("CanvasItemMaterial_uy8cc")
+position = Vector2(0, -173)
+scale = Vector2(1.5833334, 1.3125)
+texture = ExtResource("2_55mtj")
+offset = Vector2(0, -14.476196)
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D" index="0" unique_id=1883356510]
+material = SubResource("CanvasItemMaterial_26bhv")
+position = Vector2(0, 35.04762)
+scale = Vector2(1.2631578, -4.5238094)
+color = Color(1, 1, 0.61960787, 1)
+texture = ExtResource("3_fps2e")
+
+[node name="Door" type="Area2D" parent="." index="3" unique_id=563285543]
+material = SubResource("CanvasItemMaterial_ju28e")
+position = Vector2(0, -175)
+collision_layer = 1024
+collision_mask = 4
+script = ExtResource("4_55mtj")
+scene_name = "Previous"
+action = 0
+move_direction = "Up"
+metadata/_custom_type_script = "uid://bj528o0edtyfg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door" index="0" unique_id=2080752291]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_fps2e")
+
+[node name="Player" parent="." index="4" unique_id=1150737309 instance=ExtResource("5_26bhv")]
+position = Vector2(0, -160)
+Entity_stats = SubResource("Resource_uy8cc")
+
+[node name="Camera2D" type="Camera2D" parent="." index="5" unique_id=1404122190]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(0, -169.62)
+process_callback = 0
+position_smoothing_speed = 2.0
+editor_draw_limits = true
+script = ExtResource("6_ju28e")
+auto_screenshot = false
+metadata/_custom_type_script = "uid://cx0477dq0nkws"
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D" index="0" unique_id=2128821607]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("7_hr0lt")
+
+[node name="PhantomCamera2D" type="Node2D" parent="." index="6" unique_id=1974548071 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(0, -169.62)
+script = ExtResource("8_gh1sx")
+follow_mode = 2
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_08fsb")
+follow_offset = Vector2(0, -9.62)
+draw_limits = true
+limit_target = NodePath("../Wall")

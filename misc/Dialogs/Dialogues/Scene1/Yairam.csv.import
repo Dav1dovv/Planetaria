@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://q40ecthoheyr"
+
+[deps]
+
+files=["res://misc/Dialogs/Dialogues/Scene1/Yairam.en.translation", "res://misc/Dialogs/Dialogues/Scene1/Yairam.ru.translation"]
+
+source_file="res://misc/Dialogs/Dialogues/Scene1/Yairam.csv"
+dest_files=["res://misc/Dialogs/Dialogues/Scene1/Yairam.en.translation", "res://misc/Dialogs/Dialogues/Scene1/Yairam.ru.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

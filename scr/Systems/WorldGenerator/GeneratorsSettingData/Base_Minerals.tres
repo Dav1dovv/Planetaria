@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Generation" format=3 uid="uid://b4tc1oy7261xk"]
+
+[ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="1_veb0x"]
+[ext_resource type="PackedScene" uid="uid://nlav2fqp7tmh" path="res://misc/HarvestItems/cooper.tscn" id="2_posht"]
+[ext_resource type="PackedScene" uid="uid://diwv2u61puib1" path="res://misc/HarvestItems/Gold.tscn" id="3_6crxu"]
+[ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="4_i2hde"]
+[ext_resource type="PackedScene" uid="uid://ckuu8pnbas3ip" path="res://misc/HarvestItems/Lead.tscn" id="4_jjmlr"]
+
+[resource]
+script = ExtResource("4_i2hde")
+Generation_scene = ExtResource("3_6crxu")
+spawn_weight = 0.3
+Generation_random_versions = Array[PackedScene]([ExtResource("1_veb0x"), ExtResource("2_posht"), ExtResource("3_6crxu"), ExtResource("4_jjmlr")])
+random_rotation_degress = 0.6
+metadata/_custom_type_script = "uid://bwabf86cec2s5"

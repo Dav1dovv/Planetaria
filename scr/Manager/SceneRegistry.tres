@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="SceneRegistry" format=3 uid="uid://lw4x7f1p1hoe"]
+
+[ext_resource type="Script" uid="uid://dahsqqqv7jj4q" path="res://scr/Resources/SceneController.gd" id="1_d63od"]
+[ext_resource type="Script" uid="uid://b7mb22r6p1vpu" path="res://scr/Systems/SceneRegistry.gd" id="2_bcnq4"]
+
+[sub_resource type="Resource" id="Resource_xu2h1"]
+script = ExtResource("1_d63od")
+key = "Vehana"
+scene_path = "uid://blwrcxcnxmo7e"
+display_name = "Vehana"
+music_key = "Forest"
+metadata/_custom_type_script = "uid://dahsqqqv7jj4q"
+
+[sub_resource type="Resource" id="Resource_bv3vm"]
+script = ExtResource("1_d63od")
+key = "Ship"
+scene_path = "uid://fcge2dhsv6cb"
+display_name = "Ship"
+music_key = "Ship"
+metadata/_custom_type_script = "uid://dahsqqqv7jj4q"
+
+[resource]
+script = ExtResource("2_bcnq4")
+scenes = Array[ExtResource("1_d63od")]([SubResource("Resource_xu2h1"), SubResource("Resource_bv3vm")])
+metadata/_custom_type_script = "uid://b7mb22r6p1vpu"

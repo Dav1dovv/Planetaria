@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://c35burxanwn45"]
+
+[ext_resource type="Script" uid="uid://0dquushvd5ho" path="res://misc/Structures/Portals/portal.gd" id="1_r5to3"]
+[ext_resource type="Texture2D" uid="uid://cc58jdop8ro4x" path="res://Assets/Textures/Items/Portals.png" id="1_uqoqr"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="2_h85vr"]
+[ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="3_h85vr"]
+[ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://scr/Systems/Interaction/Interaction.gd" id="5_5yywu"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="6_7xr7x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uqoqr"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aiagi"]
+atlas = ExtResource("6_7xr7x")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cdos3"]
+radius = 24.0
+
+[node name="Portal" type="Node2D" unique_id=1193187100]
+script = ExtResource("1_r5to3")
+scenes = Array[String](["Desert"])
+
+[node name="Portals" type="Sprite2D" parent="." unique_id=1637411889]
+position = Vector2(0, -24)
+texture = ExtResource("1_uqoqr")
+offset = Vector2(0, -11)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=466649927]
+modulate = Color(0.11372549, 0.09803922, 0.08627451, 0.12941177)
+show_behind_parent = true
+position = Vector2(0, -5)
+scale = Vector2(4, 0.875)
+texture = ExtResource("2_h85vr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1721151803]
+position = Vector2(0, 1)
+script = ExtResource("3_h85vr")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1267080955]
+position = Vector2(-19, -11)
+shape = SubResource("CircleShape2D_uqoqr")
+debug_color = Color(0.9459135, 0.2349414, 0, 0.41960785)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=2122839643]
+position = Vector2(19, -11)
+shape = SubResource("CircleShape2D_uqoqr")
+debug_color = Color(0.9459135, 0.2349414, 0, 0.41960785)
+
+[node name="interaction" type="Area2D" parent="." unique_id=1295844991]
+collision_layer = 128
+collision_mask = 256
+script = ExtResource("5_5yywu")
+show_message = "interact "
+icon_help = SubResource("AtlasTexture_aiagi")
+metadata/_custom_type_script = "uid://btxho8sqg8tnx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction" unique_id=1437948782]
+position = Vector2(0, -27)
+shape = SubResource("CircleShape2D_cdos3")

@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://o4a6276bgxhx"]
+
+[ext_resource type="Script" uid="uid://dba47bfyot3vs" path="res://misc/Entity/Scripts/Creature.gd" id="1_n87c8"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="2_dm04a"]
+[ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="3_6xjkt"]
+[ext_resource type="Script" uid="uid://d2b3gchtl7jhb" path="res://misc/Utils/Boxes/HurtBox.gd" id="4_y0r7g"]
+[ext_resource type="Script" uid="uid://c8gtsucgxp2ef" path="res://misc/Utils/Boxes/EnemyHitBox.gd" id="5_uoj0l"]
+[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Utils/Drop/Dropper.gd" id="6_ghm6a"]
+[ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="10_l73nt"]
+[ext_resource type="PackedScene" uid="uid://digbxx3ko1dgy" path="res://misc/Particles/BloodSplash.tscn" id="11_2upue"]
+[ext_resource type="PackedScene" uid="uid://g80sp0xblswl" path="res://misc/Particles/Death.tscn" id="11_jed1r"]
+[ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="12_n87c8"]
+[ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="13_5aled"]
+
+[sub_resource type="Resource" id="Resource_15r6q"]
+script = ExtResource("2_dm04a")
+base_move_speed = 1.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3sfyk"]
+random_pitch = 1.0905077
+streams_count = 1
+stream_0/stream = ExtResource("12_n87c8")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po7el"]
+atlas = ExtResource("13_5aled")
+region = Rect2(64, 112, 64, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x812b"]
+texture = SubResource("AtlasTexture_po7el")
+modulate_color = Color(0.5411765, 1, 0.41568628, 1)
+
+[node name="Creature" type="CharacterBody2D" unique_id=1251952136 node_paths=PackedStringArray("Vfx")]
+collision_mask = 3
+script = ExtResource("1_n87c8")
+Entity_stats = SubResource("Resource_15r6q")
+Vfx = NodePath("VFX")
+metadata/_custom_type_script = "uid://dba47bfyot3vs"
+
+[node name="optimizer" type="VisibleOnScreenEnabler2D" parent="." unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
+position = Vector2(0, -10)
+enable_node_path = NodePath("")
+script = ExtResource("3_6xjkt")
+hide_objects = [NodePath("../DamageVFX")]
+metadata/_custom_type_script = "uid://dbxsovdq7bbia"
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=411889454 groups=["Ennemy"]]
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("4_y0r7g")
+metadata/_custom_type_script = "uid://d2b3gchtl7jhb"
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1440497730]
+script = ExtResource("5_uoj0l")
+metadata/_custom_type_script = "uid://c8gtsucgxp2ef"
+
+[node name="Drop" type="Node" parent="." unique_id=1587885386]
+script = ExtResource("6_ghm6a")
+metadata/_custom_type_script = "uid://c6tw2fkklnri5"
+
+[node name="VFX" type="Node" parent="." unique_id=304494227 node_paths=PackedStringArray("audio_player", "particles")]
+script = ExtResource("10_l73nt")
+audio_player = NodePath("../DamageSFX")
+particles = NodePath("../DamageVFX")
+metadata/_custom_type_script = "uid://cyqd8atmamgy0"
+
+[node name="DamageVFX" parent="." unique_id=1460921651 instance=ExtResource("11_2upue")]
+position = Vector2(0, -9.999999)
+
+[node name="DamageSFX" type="AudioStreamPlayer2D" parent="." unique_id=2033228583]
+stream = SubResource("AudioStreamRandomizer_3sfyk")
+pitch_scale = 0.4
+max_distance = 160.0
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1354189396]
+offset_left = -14.0
+offset_top = 4.0
+offset_right = 14.0
+offset_bottom = 8.0
+theme_override_styles/fill = SubResource("StyleBoxTexture_x812b")
+show_percentage = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=713772618]
+
+[node name="Explosion" parent="." unique_id=440659189 instance=ExtResource("11_jed1r")]
+
+[connection signal="died" from="." to="." method="_on_died"]
+[connection signal="health_changed" from="." to="." method="_on_health_changed"]

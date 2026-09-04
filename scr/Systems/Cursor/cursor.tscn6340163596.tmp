@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3gyvcnhryywy"]
+
+[ext_resource type="Script" uid="uid://bvjwq42peqx7y" path="res://scr/Systems/Cursor/Cursor.gd" id="1_64xn1"]
+[ext_resource type="Texture2D" uid="uid://bhk7sv1o8driw" path="res://scr/Resources/Items/Items.png" id="2_e1yyt"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dd4go"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nsgu"]
+atlas = ExtResource("2_e1yyt")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_64xn1"]
+radius = 5.51274
+
+[node name="cursor" type="Area2D" node_paths=PackedStringArray("help_label")]
+z_index = 810
+material = SubResource("CanvasItemMaterial_dd4go")
+collision_layer = 256
+collision_mask = 128
+script = ExtResource("1_64xn1")
+help_label = NodePath("Label")
+metadata/_custom_type_script = "uid://bvjwq42peqx7y"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_0nsgu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_64xn1")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

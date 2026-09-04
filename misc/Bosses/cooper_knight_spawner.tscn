@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cp85xsr4qei4j"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/HarvestRoot.tscn" id="1_8b6jl"]
+[ext_resource type="Script" uid="uid://cnohayhu26o4q" path="res://misc/BossCaller/BossCaller.gd" id="2_g2p8x"]
+[ext_resource type="PackedScene" uid="uid://cl5fu1tb50e86" path="res://misc/Entity/Bosses/CooperKnight.tscn" id="3_cxp41"]
+[ext_resource type="Texture2D" uid="uid://dcm0uy788xsqp" path="res://Assets/Textures/Items/BossCallers/Caller3.png" id="4_iuhp4"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="5_hipkt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cdos3"]
+radius = 5.999999
+height = 38.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kdp3"]
+size = Vector2(38, 29.4598)
+
+[node name="CooperKnightSpawner" unique_id=1934415035 instance=ExtResource("1_8b6jl")]
+script = ExtResource("2_g2p8x")
+Boss = ExtResource("3_cxp41")
+boss_name = "Cooper Knight"
+harvest_tool_lvl = 2
+can_corrupt = false
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
+position = Vector2(0, -7.000001)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_cdos3")
+
+[node name="optimizer" parent="." index="2" unique_id=2100972979]
+rect = Rect2(-30, -49, 60, 60)
+
+[node name="PointLight2D" parent="." index="4" unique_id=802892367]
+visible = true
+color = Color(0.8055481, 0.4030995, 0, 1)
+
+[node name="CollisionShape2D" parent="." index="5" unique_id=1716306559]
+position = Vector2(1.0000005, -15.270101)
+shape = SubResource("RectangleShape2D_1kdp3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="8" unique_id=11331205]
+position = Vector2(0, -31)
+texture = ExtResource("4_iuhp4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D" index="0" unique_id=294741735]
+modulate = Color(0.1254902, 0.15686275, 0.1764706, 0.2)
+show_behind_parent = true
+position = Vector2(0, 25.5)
+scale = Vector2(3.5000002, 1.1875)
+texture = ExtResource("5_hipkt")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SceneData" format=3 uid="uid://dmxgvotci7h70"]
+
+[ext_resource type="Script" uid="uid://dahsqqqv7jj4q" path="res://scr/Resources/SceneController.gd" id="1_qse2w"]
+
+[resource]
+script = ExtResource("1_qse2w")
+key = "Village"
+scene_path = "uid://s85soyx8ao5e"
+display_name = "Norville"
+music_key = "Village"
+metadata/_custom_type_script = "uid://dahsqqqv7jj4q"

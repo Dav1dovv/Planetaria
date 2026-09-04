@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://dpejwjyq78y7h"]
+
+[ext_resource type="Script" uid="uid://loq3kip7ism3" path="res://scr/Systems/WorldGenerator/WorldGenerator.gd" id="1_i7fgs"]
+[ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="2_way8g"]
+[ext_resource type="PackedScene" uid="uid://cqpn8wkvr12am" path="res://misc/HarvestItems/Cactus.tscn" id="3_dck8x"]
+[ext_resource type="PackedScene" uid="uid://dj1b8v3ljmaec" path="res://misc/HarvestItems/TreeObjects/Palm.tscn" id="4_01wfs"]
+[ext_resource type="PackedScene" uid="uid://ct7urhwcdy7rg" path="res://misc/HarvestItems/SandStone.tscn" id="5_i7fgs"]
+[ext_resource type="PackedScene" uid="uid://ci8lyapkm0sfc" path="res://misc/HarvestItems/Stone.tscn" id="7_0s65e"]
+[ext_resource type="PackedScene" uid="uid://diwv2u61puib1" path="res://misc/HarvestItems/Gold.tscn" id="8_way8g"]
+[ext_resource type="PackedScene" uid="uid://nlav2fqp7tmh" path="res://misc/HarvestItems/cooper.tscn" id="9_ru8mv"]
+[ext_resource type="PackedScene" uid="uid://bodm1xuyyxtpt" path="res://misc/HarvestItems/Crystal.tscn" id="11_i2m82"]
+[ext_resource type="PackedScene" uid="uid://t1mi61y84oib" path="res://misc/Structures/Chest/chest.tscn" id="12_vpjuu"]
+[ext_resource type="Script" uid="uid://cxixcs17bxicy" path="res://scr/Systems/WorldGenerator/SpecialStructure.gd" id="14_uct3e"]
+[ext_resource type="PackedScene" uid="uid://h106lj2xe051" path="res://misc/Structures/ennemy_camp.tscn" id="15_v8rep"]
+[ext_resource type="PackedScene" uid="uid://dc6224o6es5o2" path="res://misc/Structures/camp.tscn" id="16_676ld"]
+[ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Structures/Ruins/syncer.tscn" id="17_l6wl8"]
+[ext_resource type="PackedScene" uid="uid://co6j4pqtskgmp" path="res://misc/Structures/TravelerTrader.tscn" id="18_mqgb4"]
+
+[sub_resource type="Resource" id="Resource_iuswx"]
+resource_name = "Tree"
+script = ExtResource("2_way8g")
+Generation_scene = ExtResource("4_01wfs")
+spawn_weight = 0.732
+Generation_random_versions = Array[PackedScene]([ExtResource("3_dck8x")])
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_fxqv4"]
+resource_name = "Stone"
+script = ExtResource("2_way8g")
+Generation_scene = ExtResource("7_0s65e")
+spawn_weight = 0.738
+Generation_random_versions = Array[PackedScene]([ExtResource("5_i7fgs")])
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_te162"]
+resource_name = "Minerals"
+script = ExtResource("2_way8g")
+Generation_scene = ExtResource("8_way8g")
+spawn_weight = 0.586
+Generation_random_versions = Array[PackedScene]([ExtResource("9_ru8mv")])
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_i3qgw"]
+resource_name = "Crystal"
+script = ExtResource("2_way8g")
+Generation_scene = ExtResource("11_i2m82")
+spawn_weight = 0.209
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_d2wb4"]
+resource_name = "Chest"
+script = ExtResource("2_way8g")
+Generation_scene = ExtResource("12_vpjuu")
+spawn_weight = 0.152
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_puewl"]
+script = ExtResource("2_way8g")
+Generation_scene = ExtResource("16_676ld")
+spawn_weight = 0.818
+Generation_random_versions = Array[PackedScene]([ExtResource("15_v8rep"), ExtResource("16_676ld")])
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_y14l7"]
+script = ExtResource("14_uct3e")
+structure_name = "Camp"
+custom_type_name = "Camp"
+generation_item = SubResource("Resource_puewl")
+min_distance_between_same_type = 350.0
+exclusion_radius = 150.0
+spawn_priority = 76
+spawn_chance = 0.728
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_x3om7"]
+script = ExtResource("2_way8g")
+Generation_scene = ExtResource("17_l6wl8")
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_7pk4t"]
+script = ExtResource("14_uct3e")
+structure_name = "Syncer"
+structure_type = 2
+custom_type_name = "Syncer"
+generation_item = SubResource("Resource_x3om7")
+spawn_priority = 32
+spawn_chance = 0.26
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_yomvk"]
+script = ExtResource("2_way8g")
+Generation_scene = ExtResource("18_mqgb4")
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_yp8h4"]
+script = ExtResource("14_uct3e")
+structure_name = "Trader"
+structure_type = 2
+custom_type_name = "Trader"
+generation_item = SubResource("Resource_yomvk")
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[node name="Desert_Gen_preset" type="Node2D" unique_id=96793758]
+y_sort_enabled = true
+script = ExtResource("1_i7fgs")
+generation_items = Array[ExtResource("2_way8g")]([SubResource("Resource_iuswx"), SubResource("Resource_fxqv4"), SubResource("Resource_te162"), SubResource("Resource_i3qgw"), SubResource("Resource_d2wb4")])
+min_distance = 63.6
+max_cluster_size = 6
+noise_scale = 0.15
+special_structures = Array[ExtResource("14_uct3e")]([SubResource("Resource_y14l7"), SubResource("Resource_7pk4t"), SubResource("Resource_yp8h4")])
+max_structure_attempts = 67
+metadata/_custom_type_script = "uid://loq3kip7ism3"

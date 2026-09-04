@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://b8g6o4tj34wvb"]
+
+[ext_resource type="Script" uid="uid://bmbm1aqoak5fa" path="res://misc/Structures/Ruins/syncer.gd" id="1_6dqgc"]
+[ext_resource type="Texture2D" uid="uid://i55f2t12q0ha" path="res://Assets/Textures/Items/Syncer.png" id="1_jrsy6"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="2_s5bxi"]
+[ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="4_e0wsh"]
+[ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://scr/Systems/Interaction/Interaction.gd" id="4_ny1l2"]
+[ext_resource type="AudioStream" uid="uid://b1pe4ord4bxue" path="res://Assets/Audio/SFX/Coin.wav" id="6_e0wsh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dqgc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e0wsh"]
+radius = 21.119156
+
+[sub_resource type="Curve" id="Curve_pj1qr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1375, 1), 0.0, 0.0, 0, 0, Vector2(0.7375, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_iw1ep"]
+curve = SubResource("Curve_pj1qr")
+
+[sub_resource type="Gradient" id="Gradient_ny1l2"]
+offsets = PackedFloat32Array(0, 0.5970149, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1kdp3"]
+gradient = SubResource("Gradient_ny1l2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cdos3"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 22.1
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 30.7, 0)
+spread = 180.0
+flatness = 0.41
+initial_velocity_max = 373.72998
+gravity = Vector3(0, 98, 0)
+scale_min = 1.5
+scale_max = 4.0
+scale_over_velocity_min = 95.96
+scale_over_velocity_max = 181.81999
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("GradientTexture1D_1kdp3")
+alpha_curve = SubResource("CurveTexture_iw1ep")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.06999998
+
+[node name="Syncer" type="Node2D" unique_id=631591119]
+script = ExtResource("1_6dqgc")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1144076422]
+position = Vector2(0, -32.317917)
+texture = ExtResource("1_jrsy6")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1383285326]
+modulate = Color(0, 0, 0, 0.22745098)
+show_behind_parent = true
+position = Vector2(0, -1.6757431)
+scale = Vector2(1.9575672, 0.7606082)
+texture = ExtResource("2_s5bxi")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1077066600]
+script = ExtResource("4_e0wsh")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=194799131]
+position = Vector2(0, -9.973984)
+shape = SubResource("RectangleShape2D_6dqgc")
+
+[node name="interaction_area" type="Area2D" parent="." unique_id=1548589377]
+collision_layer = 128
+collision_mask = 256
+script = ExtResource("4_ny1l2")
+metadata/_custom_type_script = "uid://btxho8sqg8tnx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction_area" unique_id=250545220]
+position = Vector2(0.32701874, -19.78446)
+shape = SubResource("CircleShape2D_e0wsh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1536135772]
+position = Vector2(0, -18.225693)
+emitting = false
+amount = 21
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_cdos3")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=384883297]
+stream = ExtResource("6_e0wsh")
+pitch_scale = 2.52

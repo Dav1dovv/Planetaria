@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bny4sqh4i8i5v"]
+
+[ext_resource type="Script" uid="uid://ckghcn3me8e7p" path="res://scr/Common/Harvestable/Harvestable.gd" id="1_wrbgf"]
+[ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Systems/Optimizer.gd" id="3_8a784"]
+[ext_resource type="Script" uid="uid://cyqd8atmamgy0" path="res://scr/Misc/VFX.gd" id="4_n1i2x"]
+[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Drop/DropItem.gd" id="4_wrbgf"]
+
+[node name="HarvestItem" type="Area2D" node_paths=PackedStringArray("VFX_component") groups=["Harvestable"]]
+collision_layer = 19
+collision_mask = 8
+script = ExtResource("1_wrbgf")
+durability = 15.0
+VFX_component = NodePath("VFX")
+metadata/_custom_type_script = "uid://ckghcn3me8e7p"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -10.7399)
+debug_color = Color(0.99072, 0.0103639, 0.261337, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.54052, -10.5402)
+
+[node name="VFX" type="Node" parent="."]
+script = ExtResource("4_n1i2x")
+metadata/_custom_type_script = "uid://cyqd8atmamgy0"
+
+[node name="optimizer" type="VisibleOnScreenEnabler2D" parent="."]
+script = ExtResource("3_8a784")
+metadata/_custom_type_script = "uid://dbxsovdq7bbia"
+
+[node name="droper" type="Node" parent="."]
+script = ExtResource("4_wrbgf")
+metadata/_custom_type_script = "uid://c6tw2fkklnri5"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SceneData" format=3 uid="uid://dbd3cgu2pkqab"]
+
+[ext_resource type="Script" uid="uid://dahsqqqv7jj4q" path="res://scr/Resources/SceneController.gd" id="1_gvpid"]
+
+[resource]
+script = ExtResource("1_gvpid")
+key = "Desert"
+scene_path = "uid://co8b3d1si0du7"
+display_name = "Desert"
+metadata/_custom_type_script = "uid://dahsqqqv7jj4q"

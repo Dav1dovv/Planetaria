@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://bwaixuiwrerk5"]
+
+[ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="2_bu6t6"]
+[ext_resource type="Script" uid="uid://bw8xm8btg3jhd" path="res://scr/Systems/Inventory/inventoryslot.gd" id="2_ekxhe"]
+[ext_resource type="PackedScene" uid="uid://civqx7y0nh75n" path="res://scr/Systems/Inventory/tooltip.tscn" id="4_bu6t6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nthsc"]
+atlas = ExtResource("2_bu6t6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nw2f"]
+atlas = ExtResource("2_bu6t6")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rnow5"]
+font_size = 5
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_offset = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2au6i"]
+atlas = ExtResource("2_bu6t6")
+region = Rect2(64, 80, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqy7i"]
+atlas = ExtResource("2_bu6t6")
+region = Rect2(64, 112, 64, 16)
+
+[node name="InventorySlot" type="TextureButton" unique_id=1448857901]
+offset_right = 16.0
+offset_bottom = 16.0
+texture_normal = SubResource("AtlasTexture_nthsc")
+stretch_mode = 1
+script = ExtResource("2_ekxhe")
+active_slot = SubResource("AtlasTexture_1nw2f")
+unactive_slot = SubResource("AtlasTexture_nthsc")
+
+[node name="Border" type="ColorRect" parent="." unique_id=2076730172]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1678097705]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="Count" type="Label" parent="." unique_id=993522421]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.06387186
+offset_top = -7.1277323
+offset_right = 3.1897907
+offset_bottom = 1.8722687
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_rnow5")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Tooltip" parent="." unique_id=1049169178 instance=ExtResource("4_bu6t6")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -3.0
+offset_right = -2.0
+offset_bottom = -3.0
+
+[node name="DurabilityBar" type="TextureProgressBar" parent="." unique_id=481966937]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_top = 1
+stretch_margin_right = 1
+stretch_margin_bottom = 1
+texture_under = SubResource("AtlasTexture_2au6i")
+texture_progress = SubResource("AtlasTexture_mqy7i")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Icon" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Icon" to="." method="_on_mouse_exited"]

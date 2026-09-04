@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Effect" format=3 uid="uid://cwxguvwvt0kvq"]
+
+[ext_resource type="Texture2D" uid="uid://cndi010t3aj7d" path="res://Assets/Textures/UI/Effects/Effect4.png" id="1_jneah"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="2_1ctvd"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="3_v0dpw"]
+
+[resource]
+script = ExtResource("3_v0dpw")
+effect_icon = ExtResource("1_jneah")
+effect_type = 4
+value = 5.0
+duration = 4.0
+particle_color = Color(0.12941177, 0.14509805, 1, 1)
+particle = ExtResource("2_1ctvd")
+display_name = "Defense Boost"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"

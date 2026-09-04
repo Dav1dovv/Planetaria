@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://bhugp3d5bopwb"]
+
+[ext_resource type="Script" uid="uid://c54vxvsyxcjjc" path="res://misc/UI/Death/death_menu.gd" id="1_n7k28"]
+[ext_resource type="Shader" uid="uid://cpqgkpo83gda7" path="res://Assets/Shader/Blur.gdshader" id="1_y5vxu"]
+[ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://scr/Misc/UIelements/button.tscn" id="2_n7k28"]
+[ext_resource type="FontFile" uid="uid://dj2oqg7k2rxlo" path="res://Assets/Fonts/HemiHead-Bold.otf" id="3_fwrx0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_veb3l"]
+shader = ExtResource("1_y5vxu")
+shader_parameter/blur_amount = 0.0
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(0.48775673, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_cylog"]
+resource_name = "Blur"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:material:shader_parameter/mix_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.2800000133]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:material:shader_parameter/blur_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.930000186675]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel/Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.03333333, 0.56666666, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel/VBoxContainer:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.7666667, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_27yrt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:material:shader_parameter/mix_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:material:shader_parameter/blur_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel/Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel/VBoxContainer:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wr8i"]
+_data = {
+&"Blur": SubResource("Animation_cylog"),
+&"RESET": SubResource("Animation_27yrt")
+}
+
+[node name="DeathMenu" type="Control" unique_id=20416363]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_n7k28")
+
+[node name="Panel" type="Panel" parent="." unique_id=601425161]
+material = SubResource("ShaderMaterial_veb3l")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Panel" unique_id=2120542165]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 136.90793
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_fwrx0")
+theme_override_font_sizes/font_size = 35
+text = "You was slain"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1762709262]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = 13.0
+offset_right = 70.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Revive" parent="Panel/VBoxContainer" unique_id=1467702195 instance=ExtResource("2_n7k28")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Revive"
+
+[node name="MainMenu" parent="Panel/VBoxContainer" unique_id=135669841 instance=ExtResource("2_n7k28")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Main Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=670391239]
+libraries/ = SubResource("AnimationLibrary_8wr8i")
+
+[connection signal="pressed" from="Panel/VBoxContainer/Revive" to="." method="_on_revive_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

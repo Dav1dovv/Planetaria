@@ -1,0 +1,169 @@
+[gd_scene format=3 uid="uid://blwrcxcnxmo7e"]
+
+[ext_resource type="PackedScene" uid="uid://fgmnq4ft82wh" path="res://Assets/Scenes/Playable/location_root.tscn" id="1_stybx"]
+[ext_resource type="TileSet" uid="uid://bhhg7klmns5su" path="res://Resources/TileSets/PlanetTiles.tres" id="2_xbsfe"]
+[ext_resource type="PackedScene" uid="uid://ddnp7igm5m7rn" path="res://scr/Systems/WorldGenerator/Preseets/land_Gen_presset.tscn" id="3_0j3cm"]
+[ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="4_4kn4s"]
+[ext_resource type="Script" uid="uid://cxixcs17bxicy" path="res://scr/Systems/WorldGenerator/SpecialStructure.gd" id="4_gneim"]
+[ext_resource type="PackedScene" uid="uid://dxe8u451kmxek" path="res://misc/HarvestItems/Vehana/Stonet.tscn" id="5_16hdi"]
+[ext_resource type="PackedScene" uid="uid://h106lj2xe051" path="res://misc/Structures/ennemy_camp.tscn" id="5_yrpry"]
+[ext_resource type="PackedScene" uid="uid://dli226i6n3xmm" path="res://misc/HarvestItems/Vehana/Fuel.tscn" id="6_4tc6h"]
+[ext_resource type="PackedScene" uid="uid://bxb0fsvt4mjfw" path="res://misc/Structures/Boiler/Boiler.tscn" id="6_q0mio"]
+[ext_resource type="PackedScene" uid="uid://dc6224o6es5o2" path="res://misc/Structures/camp.tscn" id="7_3ashd"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="7_gneim"]
+[ext_resource type="PackedScene" uid="uid://8ysv3553uoh3" path="res://misc/Crystal/crystal.tscn" id="8_yrpry"]
+[ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Structures/Ruins/syncer.tscn" id="9_7rr5q"]
+[ext_resource type="PackedScene" uid="uid://br168m26q62il" path="res://misc/Structures/Ruins/VehanaStoneCycle.tscn" id="10_oe8ja"]
+[ext_resource type="PackedScene" uid="uid://d0qb8iwxdcwpn" path="res://misc/HarvestItems/Vehana/Tree.tscn" id="13_oe8ja"]
+[ext_resource type="Script" uid="uid://bl7jbpdad5e77" path="res://scr/Systems/Creature_Spawner/creature_spawner.gd" id="15_7rr5q"]
+[ext_resource type="Script" uid="uid://cspf06hgc8h0w" path="res://scr/Systems/Creature_Spawner/SpawnConfig.gd" id="16_oe8ja"]
+[ext_resource type="PackedScene" uid="uid://crkxdrgf26do0" path="res://misc/Entity/Enemies/enem1.tscn" id="17_pjayy"]
+[ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://misc/Entity/Enemies/Pig.tscn" id="18_kjh4x"]
+
+[sub_resource type="Resource" id="Resource_puewl"]
+script = ExtResource("4_4kn4s")
+Generation_scene = ExtResource("7_3ashd")
+spawn_weight = 0.818
+Generation_random_versions = Array[PackedScene]([ExtResource("5_yrpry"), ExtResource("6_q0mio")])
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_y14l7"]
+resource_name = "Camp"
+script = ExtResource("4_gneim")
+structure_name = "Camp"
+custom_type_name = "Camp"
+generation_item = SubResource("Resource_puewl")
+min_distance_between_same_type = 350.0
+exclusion_radius = 150.0
+spawn_priority = 76
+spawn_chance = 0.728
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_x3om7"]
+script = ExtResource("4_4kn4s")
+Generation_scene = ExtResource("9_7rr5q")
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_7pk4t"]
+resource_name = "Syncer"
+script = ExtResource("4_gneim")
+structure_name = "Syncer"
+structure_type = 2
+custom_type_name = "Syncer"
+generation_item = SubResource("Resource_x3om7")
+spawn_priority = 32
+spawn_chance = 0.26
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_masm5"]
+script = ExtResource("4_4kn4s")
+Generation_scene = ExtResource("10_oe8ja")
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_8xend"]
+script = ExtResource("4_gneim")
+structure_type = 2
+custom_type_name = "Special Structure"
+generation_item = SubResource("Resource_masm5")
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_toe3h"]
+script = ExtResource("4_4kn4s")
+Generation_scene = ExtResource("5_16hdi")
+spawn_weight = 0.681
+random_scales = {
+"Big": Vector2(1.5, 1.5),
+"Middle": Vector2(1.25, 1.25),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_7uocb"]
+script = ExtResource("4_4kn4s")
+Generation_scene = ExtResource("6_4tc6h")
+spawn_weight = 0.126
+random_scales = {
+"Big": Vector2(1.5, 1.5),
+"Middle": Vector2(1.25, 1.25),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_4rc4y"]
+script = ExtResource("4_4kn4s")
+Generation_scene = ExtResource("13_oe8ja")
+spawn_weight = 0.566
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_pjayy"]
+resource_local_to_scene = true
+resource_name = "Player Stat"
+script = ExtResource("7_gneim")
+base_move_speed = 6.0
+base_armor = 10.0
+base_defense_modifier = 0.2
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_cdos3"]
+script = ExtResource("16_oe8ja")
+creature_scene = ExtResource("17_pjayy")
+variations = Array[PackedScene]([ExtResource("18_kjh4x")])
+metadata/_custom_type_script = "uid://cspf06hgc8h0w"
+
+[node name="LocationRoot" unique_id=1133907741 instance=ExtResource("1_stybx")]
+position = Vector2(-2, 5)
+world_seed = "Forest"
+
+[node name="Tiles" type="Node2D" parent="." index="0" unique_id=1343467750]
+z_index = -22
+y_sort_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Grass" type="TileMapLayer" parent="Tiles" index="0" unique_id=1460343154]
+tile_set = ExtResource("2_xbsfe")
+
+[node name="Details" type="TileMapLayer" parent="Tiles" index="1" unique_id=1551528778]
+tile_set = ExtResource("2_xbsfe")
+
+[node name="Water" type="TileMapLayer" parent="Tiles" index="2" unique_id=1269194311]
+tile_set = ExtResource("2_xbsfe")
+
+[node name="Generation" parent="." index="1" unique_id=96793758 node_paths=PackedStringArray("ground_layer", "water_layer", "grass_variation_layer") instance=ExtResource("3_0j3cm")]
+map_size_chunks = Vector2i(30, 30)
+chunk_size = Vector2i(8, 8)
+location_id = "Vehana"
+debug_logging = true
+ground_layer = NodePath("../Tiles/Grass")
+water_layer = NodePath("../Tiles/Water")
+grass_variation_layer = NodePath("../Tiles/Details")
+grass_variation_coords = Array[Vector2i]([Vector2i(6, 0), Vector2i(6, 0), Vector2i(7, 0), Vector2i(8, 0), Vector2i(9, 0), Vector2i(6, 1), Vector2i(7, 1), Vector2i(8, 1), Vector2i(9, 1), Vector2i(6, 2), Vector2i(7, 2), Vector2i(8, 2), Vector2i(9, 2), Vector2i(6, 3), Vector2i(7, 3), Vector2i(8, 3), Vector2i(9, 3), Vector2i(6, 4)])
+grass_variation_chance = 0.376
+grass_variation_avoid_edges = false
+water_level = 0.21
+special_structures = Array[ExtResource("4_gneim")]([SubResource("Resource_y14l7"), SubResource("Resource_7pk4t"), SubResource("Resource_8xend")])
+resource_items = Array[ExtResource("4_4kn4s")]([SubResource("Resource_toe3h"), SubResource("Resource_7uocb"), SubResource("Resource_4rc4y")])
+resource_min_spacing = 68.0
+target_path = NodePath("../Player")
+
+[node name="Player" parent="." index="2" unique_id=1150737309]
+position = Vector2(9, -7)
+Entity_stats = SubResource("Resource_pjayy")
+
+[node name="crystal" parent="." index="3" unique_id=1200449064 instance=ExtResource("8_yrpry")]
+position = Vector2(30, -34)
+
+[node name="CreatureSpawn" type="Node2D" parent="." index="4" unique_id=1100231554 node_paths=PackedStringArray("player")]
+script = ExtResource("15_7rr5q")
+player = NodePath("../Player")
+creatures = Array[ExtResource("16_oe8ja")]([SubResource("Resource_cdos3")])
+spawn_interval_variation = 5.0

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://skjvwfk2f5ut"]
+
+[ext_resource type="PackedScene" uid="uid://ct5em2x7b3mbs" path="res://misc/Entity/NPC/NPC_Barmen.tscn" id="1_aqpmn"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="2_m2hsy"]
+[ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="3_xvhg3"]
+
+[sub_resource type="Resource" id="Resource_aqpmn"]
+resource_local_to_scene = true
+script = ExtResource("2_m2hsy")
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[node name="Anelim" unique_id=2111811093 instance=ExtResource("1_aqpmn")]
+dialog_timeline = Array[String]([])
+awareness_radius = 40.0
+Entity_stats = SubResource("Resource_aqpmn")
+
+[node name="Body" parent="Skin" parent_id_path=PackedInt32Array(1878994847) index="0" unique_id=1621133311]
+region_rect = Rect2(12, 116, 7, 8)
+
+[node name="Head" parent="Skin/Body" index="0" unique_id=1756965514]
+z_index = 1
+offset = Vector2(-0.64, -4.15)
+region_rect = Rect2(8, 99, 14, 15)
+
+[node name="RightLeg" parent="Skin/Body" index="1" unique_id=330349318]
+region_rect = Rect2(16, 124, 3, 4)
+
+[node name="LeftLeg" parent="Skin/Body" index="2" unique_id=822392126]
+region_rect = Rect2(12, 124, 3, 4)
+
+[node name="LeftHand" parent="Skin/Body" index="3" unique_id=1282115197]
+offset = Vector2(-0.095, 3.22)
+region_rect = Rect2(6, 117, 4, 6)
+
+[node name="RightHand" parent="Skin/Body" index="4" unique_id=1754363545]
+offset = Vector2(0, 3.295)
+region_rect = Rect2(6, 117, 4, 6)
+
+[node name="Skirt" type="Sprite2D" parent="Skin/Body" index="5" unique_id=1448255260]
+position = Vector2(0, 3.25)
+scale = Vector2(1, 1.5)
+texture = ExtResource("3_xvhg3")
+offset = Vector2(0, 1)
+region_enabled = true
+region_rect = Rect2(21, 125, 9, 3)

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://msio1p7hmgcu"]
+
+[ext_resource type="Script" uid="uid://g7a224ocq136" path="res://misc/Message/message.gd" id="1_a0r0j"]
+[ext_resource type="FontFile" uid="uid://dfsuae2k2msy7" path="res://Assets/Fonts/NavirianScript-Regular.ttf" id="2_rrwm1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cdos3"]
+font = ExtResource("2_rrwm1")
+
+[sub_resource type="LabelSettings" id="LabelSettings_sn7do"]
+
+[node name="Message" type="Control" unique_id=2014320033]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_a0r0j")
+Message_Text = null
+
+[node name="Panel" type="Panel" parent="." unique_id=117699321]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 35.0
+offset_right = 380.0
+offset_bottom = 205.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=217120293]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.7647095
+offset_top = 5.0
+offset_right = -7.7647095
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Navirian" type="Label" parent="Panel/VBoxContainer" unique_id=1667616631]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "THIS IS TEXT"
+label_settings = SubResource("LabelSettings_cdos3")
+
+[node name="Translation" type="Label" parent="Panel/VBoxContainer" unique_id=907992992]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "THIS IS TEXT"
+label_settings = SubResource("LabelSettings_sn7do")
