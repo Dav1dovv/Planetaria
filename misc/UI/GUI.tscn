@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://bnbv4h1swhyt8" path="res://misc/UI/gui.gd" id="1_7myg7"]
 [ext_resource type="Shader" uid="uid://cintnagw1njik" path="res://scr/Systems/Infection/infection_vignette.gdshader" id="2_01dxt"]
 [ext_resource type="Texture2D" uid="uid://bes0yp1rfj1q3" path="res://Assets/Textures/UI/Icons.png" id="2_kscpg"]
-[ext_resource type="Script" uid="uid://bol7bb0n3rim5" path="res://scr/Resources/effects/EffectdisplayUI.gd" id="3_0kf04"]
 [ext_resource type="Script" uid="uid://bnl813ev2w7bk" path="res://scr/Systems/Infection/InfectionVignette.gd" id="3_my3yu"]
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="4_01dxt"]
+[ext_resource type="Script" uid="uid://bobl8s2gcvn4x" path="res://scr/Resources/effects/EffectDsplayUI.gd" id="5_01dxt"]
 [ext_resource type="PackedScene" uid="uid://xi525y36l0mn" path="res://scr/Systems/Inventory/Inventory.tscn" id="5_my3yu"]
 [ext_resource type="Script" uid="uid://brgbxkb6l0dem" path="res://scr/Misc/health_bar.gd" id="5_yfmxh"]
 [ext_resource type="PackedScene" uid="uid://bhugp3d5bopwb" path="res://misc/UI/Death/death_menu.tscn" id="6_yfmxh"]
@@ -154,8 +154,7 @@ offset_top = -41.0
 grow_horizontal = 0
 grow_vertical = 0
 alignment = 2
-script = ExtResource("3_0kf04")
-metadata/_custom_type_script = "uid://bol7bb0n3rim5"
+script = ExtResource("5_01dxt")
 
 [node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=1844046137]
 custom_minimum_size = Vector2(100, 10)

@@ -100,9 +100,12 @@ func _update_tooltip() -> void:
 
 func activate_slot() -> void:
 	texture_normal = active_slot
+	offset_transform_position = Vector2(0,0.3)
+	offset_transform_scale = Vector2(1.1,1.1)
 func disable_slot() -> void:
 	texture_normal = unactive_slot
-
+	offset_transform_position = Vector2(0,0)
+	offset_transform_scale = Vector2(1,1)
 # ── Mouse events ─────────────────────────────────────────────────
 const _HOVER_SCALE := 1.35
 

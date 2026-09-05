@@ -25,10 +25,9 @@ var _light: PointLight2D = null
 # Флаг активного пассивного эффекта (чтобы не добавлять дважды)
 var _passive_effect_active: bool = false
 
-# Накопитель для regen-тика (раз в секунду)
-var _regen_tick: float = 0.0
-
-const PASSIVE_TICK_INTERVAL := 1.0
+# Ресурс эффекта, который сейчас держит текущее оружие (нужен, чтобы снять
+# именно его при смене оружия — EffectManager снимает по effect_type).
+var _current_passive_effect: Effect = null
 
 
 func _ready() -> void:
@@ -45,62 +44,8 @@ func _process(delta: float) -> void:
 		_on_equip_changed(_current_equip, equip)
 		_current_equip = equip
 
-	# Тик пассивных эффектов на игрока
-	if _passive_effect_active and _current_equip:
-		_tick_passive(delta)
-
 
 # ─── Публичный API ────────────────────────────────────────────────────────────
-
-## Вызывается из player.gd при попадании по врагу.
-## target — нода врага (должна иметь метод apply_status_effect или take_damage)
-# ── try_apply_on_hit_effect — заменить весь метод на этот ─────────────────
-# Добавлена поддержка bleed и corruption через фабрики Effect
-
-func try_apply_on_hit_effect(target: Node) -> void:
-	if not _current_equip:
-		return
-	var e := _current_equip
-	if e.on_hit_effect == "none":
-		return
-	if randf() > e.on_hit_chance:
-		return
-
-	# heal_on_hit — лечит игрока, не врага
-	if e.on_hit_effect == "heal_on_hit":
-		_player.Entity_stats.current_health = minf(
-			_player.Entity_stats.current_health + e.on_hit_potency,
-			_player.Entity_stats.max_health
-		)
-		_player._on_health_changed(_player.Entity_stats.current_health)
-		return
-
-	if not target.has_method("apply_effect_instance"):
-		return
-
-	var effect: Effect = null
-
-	match e.on_hit_effect:
-		"poison":
-			effect = Effect.create_poison(e.on_hit_potency, e.on_hit_duration)
-		"burn":
-			effect = Effect.create_burn(e.on_hit_potency, e.on_hit_duration)
-		"freeze":
-			# on_hit_potency здесь = доля замедления (0.35 = -35%)
-			effect = Effect.create_freeze(e.on_hit_potency, e.on_hit_duration)
-		"bleed":
-			effect = Effect.create_bleed(e.on_hit_bleed_percent, e.on_hit_duration)
-		"corruption":
-			effect = Effect.create_corruption(e.on_hit_potency, e.on_hit_corruption_bonus, e.on_hit_duration)
-		"slow":
-			effect = Effect.new()
-			effect.effect_type   = Effect.EffectType.SLOW
-			effect.value         = e.on_hit_potency
-			effect.duration      = e.on_hit_duration
-			effect.display_name  = "Замедление"
-
-	if effect:
-		target.apply_effect_instance(effect)
 
 ## Вызывается из player.gd на каждом шаге рывка.
 ## Возвращает список нод, которым нанесён урон (чтобы не бить дважды).
@@ -124,8 +69,29 @@ func apply_lunge_damage(already_hit: Array, lunge_damage: float) -> void:
 					poise_dmg = _current_equip.poise_damage * 0.6  # рывок стаггерит слабее прямого удара
 
 				body.take_damage(final_damage, _player, is_crit, poise_dmg)
-				try_apply_on_hit_effect(body)
 				already_hit.append(body)
+
+
+## Вызывается из player_combat.gd → on_weapon_hit() при обычном ударе (не рывке).
+## Ожидает на equip_data необязательные поля:
+##   on_hit_effect: Effect  — какой эффект накладывать на цель
+##   on_hit_effect_chance: float — шанс срабатывания 0..1 (по умолчанию 1.0, если поля нет)
+## ВНИМАНИЕ: у меня нет исходника equip_data.gd, поэтому имена полей — предположение.
+## Если у тебя они называются иначе, поправь два .get() ниже (или пришли equip_data.gd).
+func try_apply_on_hit_effect(target: Node) -> void:
+	if not _current_equip or not is_instance_valid(target):
+		return
+
+	var on_hit_effect = _current_equip.get("on_hit_effect")
+	if on_hit_effect == null or not (on_hit_effect is Effect):
+		return
+
+	var chance = _current_equip.get("on_hit_effect_chance")
+	if chance == null:
+		chance = 1.0
+
+	if randf() <= float(chance) and target.has_method("apply_effect_instance"):
+		target.apply_effect_instance(on_hit_effect)
 
 
 # ─── Внутренняя логика ────────────────────────────────────────────────────────
@@ -176,41 +142,38 @@ func _remove_light() -> void:
 
 
 func _apply_passive_player_effect(e: equip_data) -> void:
-	# Немедленное применение эффектов через систему статусов если есть
-	if _player.has_method("apply_status_effect"):
-		_player.apply_status_effect(e.passive_player_effect, INF, e.passive_player_potency)
+	var effect := _build_passive_effect(e)
+	if effect == null:
+		return
+	_current_passive_effect = effect
+	_player.apply_passive_effect(effect)
 
 
 func _remove_passive_player_effect(e: equip_data) -> void:
 	_passive_effect_active = false
-	if e.passive_player_effect == "none":
+	if _current_passive_effect == null:
 		return
-	# Снимаем эффект
-	if _player.has_method("remove_status_effect"):
-		_player.remove_status_effect(e.passive_player_effect)
-	# Сброс speed_boost вручную на случай если системы нет
-	if e.passive_player_effect == "speed_boost":
-		_player.Entity_stats.move_speed = maxf(
-			_player.Entity_stats.move_speed - e.passive_player_potency, 1.0
-		)
+	_player.remove_passive_effect(_current_passive_effect)
+	_current_passive_effect = null
 
 
-func _tick_passive(delta: float) -> void:
-	var e := _current_equip
-	_regen_tick += delta
-	if _regen_tick < PASSIVE_TICK_INTERVAL:
-		return
-	_regen_tick = 0.0
-
+## Строит Effect-ресурс из строкового passive_player_effect оружия.
+## Длительность не важна — apply_passive_effect() держит эффект, пока
+## явно не вызовут remove_passive_effect() (т.е. пока оружие экипировано).
+func _build_passive_effect(e: equip_data) -> Effect:
 	match e.passive_player_effect:
 		"regen":
-			var hp := _player.Entity_stats
-			hp.current_health = minf(hp.current_health + e.passive_player_potency, hp.max_health)
-			_player._on_health_changed(hp.current_health)
+			return Effect.create_regeneration(e.passive_player_potency, -1.0)
 		"speed_boost":
-			# Применяется один раз при экипировке, тик не нужен — уже обработано
-			pass
-		"poison", "burn":
-			# Оружие-проклятие: тикает урон по игроку
-			if _player.has_method("take_damage"):
-				_player.take_damage(e.passive_player_potency, null)
+			var eff := Effect.new()
+			eff.effect_type = Effect.EffectType.SPEED_BOOST
+			eff.value = e.passive_player_potency
+			eff.duration = -1.0
+			return eff
+		"poison":
+			# Оружие-проклятие: тикает урон по владельцу, пока оружие в руках
+			return Effect.create_poison(e.passive_player_potency, -1.0)
+		"burn":
+			return Effect.create_burn(e.passive_player_potency, -1.0)
+		_:
+			return null

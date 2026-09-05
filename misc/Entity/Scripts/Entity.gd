@@ -29,6 +29,10 @@ signal died
 var is_alive: bool = true
 var is_knocked_back: bool = false
 var is_invincible: bool = false   # iframes
+var is_invisible: bool = false    # см. set_invisibility()
+
+# Менеджер эффектов (баффы/дебаффы/DoT) — общий для игрока и существ
+var effect_manager: EffectManager
 
 # Кешируем спрайт сущности для flash-эффекта
 var _entity_sprite: Node = null
@@ -38,9 +42,59 @@ func _ready():
 	Entity_stats = Entity_stats.duplicate()
 	Entity_stats.move_speed = Entity_stats.base_move_speed
 	Entity_stats.current_health = Entity_stats.max_health
-	#effect_manager.effect_added.connect(_on_effect_added)
-	#effect_manager.effect_removed.connect(_on_effect_removed)
+	effect_manager = _get_or_create_effect_manager()
+	effect_manager.effect_added.connect(_on_effect_added)
+	effect_manager.effect_removed.connect(_on_effect_removed)
 	_entity_sprite = _find_sprite(self)
+
+# ── ЭФФЕКТЫ (баффы / дебаффы / DoT) ──────────────────────────────
+## EffectManager можно добавить руками в сцену (как дочерний Node) — тогда
+## он подхватится автоматически. Если его нет, создаётся на лету.
+func _get_or_create_effect_manager() -> EffectManager:
+	for child in get_children():
+		if child is EffectManager:
+			return child
+	var em := EffectManager.new()
+	em.name = "EffectManager"
+	add_child(em)
+	return em
+
+## Точка входа для Effect.apply_effect(target) — см. EffectResource.gd.
+func apply_effect_instance(effect: Effect) -> void:
+	effect_manager.apply_effect(effect)
+
+## Точка входа для Effect.remove_effect(target).
+func remove_effect_instance(effect: Effect) -> void:
+	effect_manager.remove_effect(effect.effect_type)
+
+func has_effect(effect_type) -> bool:
+	return effect_manager.has_effect(effect_type)
+
+## "Пока экипировано" — для аксессуаров (AccessoryData) и пассивов оружия
+## (WeaponPassiveHandler). В отличие от apply_effect_instance() не снимается
+## по таймеру: живёт, пока явно не вызовут remove_passive_effect() при снятии
+## предмета. Несколько источников одного и того же эффекта не гасят друг друга.
+func apply_passive_effect(effect: Effect) -> void:
+	effect_manager.apply_passive_effect(effect)
+
+func remove_passive_effect(effect: Effect) -> void:
+	effect_manager.remove_passive_effect(effect)
+
+## Переопредели в Player/Creature, если нужна реакция на появление эффекта
+## (иконка в UI и т.п.). EffectDisplayUI игрока может слушать сигнал напрямую
+## через player.effect_manager.effect_added.
+func _on_effect_added(effect: Effect) -> void:
+	pass
+
+func _on_effect_removed(effect: Effect) -> void:
+	pass
+
+## Видимость для систем обнаружения (Creature.gd может проверять target.is_invisible
+## в своей логике зрения/слуха, если такая проверка понадобится).
+func set_invisibility(active: bool) -> void:
+	is_invisible = active
+	if _entity_sprite:
+		_entity_sprite.modulate.a = 0.35 if active else 1.0
 
 # ── КРИТЫ / STAGGER (переопределяется в подклассах, напр. Creature) ─
 ## Множитель входящего урона. Creature переопределяет — во время STUNNED
@@ -204,3 +258,23 @@ func heal(amount: float) -> void:
 		return
 	Entity_stats.current_health = min(Entity_stats.current_health + amount, Entity_stats.max_health)
 	emit_signal("health_changed", Entity_stats.current_health)
+
+## Урон от периодических эффектов (яд, ожог, кровотечение, заражение).
+## Отдельно от take_damage(): без хитстопа, тряски камеры, нокбэка и i-фреймов —
+## это "фоновый" урон, а не удар оружием. По умолчанию броня/защита его не
+## снижают (DoT считается "истинным" уроном) — передай ignore_reduction = false,
+## если для конкретного эффекта это должно быть иначе.
+func take_dot_damage(amount: float, ignore_reduction: bool = true) -> void:
+	if not is_alive or amount <= 0.0:
+		return
+
+	var actual_damage := amount
+	if not ignore_reduction:
+		var total_reduction = clamp(Entity_stats.get_total_damage_reduction(), 0.0, 0.9)
+		actual_damage = amount * (1.0 - total_reduction)
+
+	Entity_stats.current_health -= actual_damage
+	emit_signal("health_changed", Entity_stats.current_health)
+
+	if Entity_stats.current_health <= 0:
+		die()

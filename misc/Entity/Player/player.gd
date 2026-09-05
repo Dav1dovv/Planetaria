@@ -160,6 +160,9 @@ func respawn() -> void:
 
 #region infection
 func add_infection(amount: float) -> void:
+	# Пример использования EffectManager вне самого менеджера: если активен
+	# INFECTION_RESIST, домножаем накопление заражения на его value (напр. x0.7).
+	amount *= effect_manager.get_effect_value(Effect.EffectType.INFECTION_RESIST, 1.0)
 	corruption += amount
 	coruption_change()
 

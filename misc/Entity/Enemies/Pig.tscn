@@ -1556,7 +1556,6 @@ disabled = true
 [node name="DamageSFX" parent="." index="6" unique_id=2033228583]
 stream = ExtResource("7_5xc2f")
 pitch_scale = 1.0
-bus = &"SFX"
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=1935695162]
 
@@ -1569,7 +1568,7 @@ region_rect = Rect2(278, 18, 8, 8)
 [node name="LeftLeg" type="Sprite2D" parent="Skin/Body" index="0" unique_id=308076313]
 position = Vector2(-2, 4)
 texture = ExtResource("3_ehkkp")
-offset = Vector2(0, 2)
+offset = Vector2(-0.8, 2)
 region_enabled = true
 region_rect = Rect2(278, 26, 4, 4)
 
@@ -1577,7 +1576,7 @@ region_rect = Rect2(278, 26, 4, 4)
 show_behind_parent = true
 position = Vector2(2, 4)
 texture = ExtResource("3_ehkkp")
-offset = Vector2(0, 2)
+offset = Vector2(0.57, 2)
 region_enabled = true
 region_rect = Rect2(282, 26, 4, 4)
 
@@ -1594,7 +1593,7 @@ y_sort_enabled = true
 [node name="LeftHand" type="Sprite2D" parent="Skin/Body/Hand" index="0" unique_id=223224140]
 position = Vector2(-3.55887, -3.64698)
 texture = ExtResource("3_ehkkp")
-offset = Vector2(0, 3)
+offset = Vector2(-1.2, 3.33)
 region_enabled = true
 region_rect = Rect2(272, 19, 3, 6)
 
@@ -1610,7 +1609,7 @@ self_modulate = Color(0.67069, 0.67069, 0.67069, 1)
 z_index = -1
 position = Vector2(3.50243, -3.64698)
 texture = ExtResource("3_ehkkp")
-offset = Vector2(0, 3)
+offset = Vector2(1.185, 3.35)
 region_enabled = true
 region_rect = Rect2(272, 19, 3, 6)
 

@@ -26,7 +26,8 @@ texture = ExtResource("1_3ea65")
 [node name="Timer" type="Label" parent="." unique_id=1844095502]
 layout_mode = 0
 offset_top = 14.046965
-offset_right = 40.0
-offset_bottom = 31.046965
+offset_right = 19.751755
+offset_bottom = 24.046965
 text = "19d"
 label_settings = SubResource("LabelSettings_3ea65")
+horizontal_alignment = 1
