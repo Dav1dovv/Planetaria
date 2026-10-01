@@ -1,15 +1,16 @@
 [gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://cfpv0nwkqmdh1"]
 
-[ext_resource type="Resource" uid="uid://ky47smcnnrdj" path="res://misc/Content/Items/ExpPoint.tres" id="1_lbhmo"]
+[ext_resource type="Resource" uid="uid://bmkdrb4efmfp8" path="res://misc/Content/Items/Pickaxe_LVL1.tres" id="1_r0i6d"]
 [ext_resource type="Resource" uid="uid://vccixxawo0wc" path="res://misc/Content/Items/Pickaxe_LVL2.tres" id="2_wicrv"]
 [ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_24u2q"]
-[ext_resource type="Resource" uid="uid://r4sg8e1stb8y" path="res://misc/Content/Items/Sword_LVL1.tres" id="4_143cv"]
 
 [resource]
 script = ExtResource("3_24u2q")
-recipe_name = "Pickaxe"
+recipe_name = "Pickaxe 2"
+description = "LVL : 2
+MAX_DURABILITY : 100
+DMG : 10
+ATK_SPEED : 1"
 result_item = ExtResource("2_wicrv")
-main_resource = ExtResource("1_lbhmo")
-main_amount = 20
-secondary_resource = ExtResource("4_143cv")
+main_resource = ExtResource("1_r0i6d")
 metadata/_custom_type_script = "uid://b47c08bhjaot6"

@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/mesh/video_camera.svg")
 extends Camera2D
 class_name Blaze_camera
 

@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/mesh/video.svg")
 extends AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.

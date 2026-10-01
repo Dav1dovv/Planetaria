@@ -121,11 +121,12 @@ window/vsync/vsync_mode=0
 
 [editor]
 
-movie_writer/movie_file="/home/davit/Документы/CaS/VIDS/Clip1.avi"
+movie_writer/ogv/encoding_speed=2
+movie_writer/movie_file="/home/davit/Документы/CaS/VIDS/ship.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/font_auto_size_labels/plugin.cfg")
+enabled=PackedStringArray("res://addons/at-icons/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/font_auto_size_labels/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/yard/plugin.cfg")
 
 [file_customization]
 
@@ -300,3 +301,4 @@ rapier/solver/contact_natural_frequency=50.0
 textures/canvas_textures/default_texture_filter=0
 textures/canvas_textures/default_texture_repeat=1
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://ifmg80qkwwpr"]
+
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="1_n601f"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="1_sibqo"]
+[ext_resource type="Resource" uid="uid://cxd8jxmdk1q7h" path="res://misc/Content/Items/Wep2.tres" id="2_nr0np"]
+
+[resource]
+script = ExtResource("1_sibqo")
+recipe_name = "sword"
+description = "LVL : 1
+MAX_DURABILITY : 100
+DMG : 10
+ATK_SPEED : 1"
+result_item = ExtResource("2_nr0np")
+main_resource = ExtResource("1_n601f")
+main_amount = 35
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dmhx0c874k02q" path="res://scr/Systems/Craft/SimpleCraft/CraftStation.gd" id="1_hpr4m"]
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="2_d2j83"]
-[ext_resource type="Resource" uid="uid://ky47smcnnrdj" path="res://misc/Content/Items/ExpPoint.tres" id="2_o6wim"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="2_rh3au"]
 [ext_resource type="Script" uid="uid://bw8xm8btg3jhd" path="res://scr/Systems/Inventory/inventoryslot.gd" id="3_rh3au"]
 [ext_resource type="PackedScene" uid="uid://civqx7y0nh75n" path="res://scr/Systems/Inventory/tooltip.tscn" id="5_hpr4m"]
 
@@ -44,7 +44,7 @@ offset_bottom = 53.686005
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hpr4m")
-gold_item = ExtResource("2_o6wim")
+gold_item = ExtResource("2_rh3au")
 
 [node name="Craft" type="Panel" parent="." unique_id=1859719515]
 custom_minimum_size = Vector2(180, 160)
@@ -60,29 +60,27 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -118.00001
-offset_top = -26.5
-offset_right = 118.000015
-offset_bottom = -6.5
+offset_left = 0.2758026
+offset_top = -18.209736
+offset_right = 149.2758
+offset_bottom = 1.7902641
 grow_horizontal = 2
 theme_override_constants/separation = 9
 alignment = 1
 
 [node name="TabCraft" type="Button" parent="Craft/TabBar" unique_id=2084197745]
-visible = false
 custom_minimum_size = Vector2(70, 18)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 12
-text = "Craft"
+text = "SHOP"
 
 [node name="TabRepair" type="Button" parent="Craft/TabBar" unique_id=1285823383]
-visible = false
 custom_minimum_size = Vector2(70, 18)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 12
-text = "Repair"
+text = "REPAIRq"
 
 [node name="TabDisassemble" type="Button" parent="Craft/TabBar" unique_id=1831849426]
 visible = false

@@ -16,17 +16,7 @@ var durability: int = -1  # -1 = не инициализирована
 @export var spread_degrees: float = 0.0
 @export var projectile_speed: float = 400.0
 @export var accuracy_radius: float = 20.0
-@export var miss_chance_per_unit: float = 0.05
-
-@export_subgroup("critical hits")
-@export var critical_radius: float = 5.0
-@export_range(0.01, 1) var critical_chance: float = 0.2
-@export var critical_multiplier: float = 2.0
-
-@export_subgroup("stagger")
-## Сколько "стаггера" (poise-урона) наносит удар этим оружием врагу.
-## Тяжёлое/дробящее оружие (молот, булава) — ставь выше; кинжалы — ниже.
-@export_range(0.0, 100.0, 1.0) var poise_damage: float = 15.0
+@export var knockback : float = 5
 
 @export_group("Attack Behavior")
 @export var one_shot_attack: bool = true

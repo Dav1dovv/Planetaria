@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/mesh/door.svg")
 @tool
 extends RapierArea2D
 class_name Door

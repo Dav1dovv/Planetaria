@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://ctocyibpog8vu"]
+
+[ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/Audio/SFX/Player/Drink.wav" id="1_1f2ew"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_janhr"]
+[ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_08oaj"]
+[ext_resource type="Resource" uid="uid://bcr5ppm27mw0p" path="res://misc/Content/Effects/Health Restore.tres" id="3_s1c5a"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="4_gmavs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkf83"]
+atlas = ExtResource("4_gmavs")
+region = Rect2(128, 64, 16, 16)
+
+[resource]
+script = ExtResource("2_08oaj")
+eat_sound = ExtResource("1_1f2ew")
+effects = Array[ExtResource("1_janhr")]([ExtResource("3_s1c5a")])
+health_restore = 10.0
+icon = SubResource("AtlasTexture_tkf83")
+play_anim = "Drink"
+item_name = "Health Potion"
+metadata/_custom_type_script = "uid://bw7mfbq68vy23"

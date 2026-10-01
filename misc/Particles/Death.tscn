@@ -8,6 +8,13 @@ particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
+[sub_resource type="Gradient" id="Gradient_1dmaw"]
+offsets = PackedFloat32Array(0, 0.26229507, 0.50409836, 0.7418033, 1)
+colors = PackedColorArray(0.5132329, 0.5132329, 0.5132329, 1, 1, 1, 1, 1, 0.5251013, 0.5251013, 0.5251013, 1, 1, 1, 1, 1, 0.627451, 0.20784314, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oe8ja"]
+gradient = SubResource("Gradient_1dmaw")
+
 [sub_resource type="Gradient" id="Gradient_vmu72"]
 offsets = PackedFloat32Array(0, 0.18032786, 0.88114756, 1)
 colors = PackedColorArray(0.31431597, 0.31431615, 0.31431615, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82606, 0.82606006, 0.82606, 1)
@@ -34,6 +41,7 @@ gravity = Vector3(0, 0, 0)
 scale_max = 2.5
 scale_curve = SubResource("CurveTexture_iraa4")
 color_ramp = SubResource("GradientTexture1D_1dmaw")
+color_initial_ramp = SubResource("GradientTexture1D_oe8ja")
 anim_speed_max = 6.18
 
 [node name="Explosion" type="GPUParticles2D" unique_id=440659189]

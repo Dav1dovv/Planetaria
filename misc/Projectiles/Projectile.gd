@@ -1,6 +1,9 @@
-# Projectile.gd
+@icon("res://addons/at-icons/mesh/arrow_projectile.svg")
 extends RapierCharacterBody2D
 class_name Projectile
+
+# Сигнал попадания по цели — PlayerCombat использует его для эффектов оружия (on-hit)
+signal hit_target(target: Node)
 
 @export var speed: float = 400.0
 @export var lifetime: float = 5.0
@@ -15,6 +18,13 @@ class_name Projectile
 @export var homing_strength: float = 3.0      # Для бумеранга — сила притяжения при возврате
 @export var max_travel_distance: float = 600.0  # Для бумеранга — когда начинать возвращаться
 
+@export_group("Collision layers")
+## Слой HurtBox врагов — его видят пули игрока (shot_target = "Ennemy")
+@export_range(1, 32) var enemy_hurtbox_layer : int = 5
+## Слой HurtBox игрока — его видят пули врагов (shot_target = "Player").
+## ВАЖНО: поставь номер слоя, на котором лежит HurtBox игрока
+@export_range(1, 32) var player_hurtbox_layer : int = 6
+
 @onready var lifetime_timer: Timer = $LifetimeTimer
 @onready var bomb_timer_node: Timer = $BombTimer
 @onready var area: Area2D = $Area2D
@@ -23,7 +33,7 @@ class_name Projectile
 @onready var explosion_particles: GPUParticles2D = $ExplosionParticles  # Опционально
 
 var direction: Vector2 = Vector2.RIGHT
-var owner_player: Player = null
+var owner_player: Node2D = null   # Player или враг, выстреливший снаряд
 var start_position: Vector2
 var has_returned: bool = false
 var is_exploded: bool = false
@@ -33,7 +43,9 @@ func _ready() -> void:
 	area.set_collision_layer_value(1, false)
 	area.set_collision_layer_value(4, true)   # HitBox layer
 	area.set_collision_mask_value(1, false)
-	area.set_collision_mask_value(5, true)    # HurtBox layer
+	# Видим HurtBox своей цели: игрока (для пуль врагов) или врагов (для пуль игрока)
+	var target_layer : int = player_hurtbox_layer if shot_target == "Player" else enemy_hurtbox_layer
+	area.set_collision_mask_value(target_layer, true)    # HurtBox layer
 
 	area.area_entered.connect(_on_area_entered)
 	lifetime_timer.wait_time = lifetime
@@ -51,14 +63,12 @@ func setup(
 		start_pos: Vector2,
 		dir: Vector2,
 		dmg: float,
-		spd: float,
 	) -> void:
 	
 	global_position = start_pos
 	start_position = start_pos
 	direction = dir
 	damage = dmg
-	speed = spd
 
 	
 	# Сразу поворачиваем спрайт
@@ -110,7 +120,11 @@ func _on_area_entered(area: Area2D) -> void:
 			return
 
 	if area.is_in_group(shot_target):
-		area.get_parent().take_damage(damage, self)
+		var victim := area.get_parent()
+		victim.take_damage(damage, self)
+		# Сообщаем о попадании (если цель не успела удалиться от урона)
+		if is_instance_valid(victim):
+			hit_target.emit(victim)
 		print("weapon damaged: " + str(damage))
 		_play_hit_effect()
 		if projectile_type == "boomerang":

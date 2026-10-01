@@ -5,12 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://b0axajdtsw2j4" path="res://misc/UI/DeveloperConsole/developer_console.tscn" id="2_w6mfr"]
 [ext_resource type="PackedScene" uid="uid://cajofw8k5naam" path="res://scr/Manager/scene_manager.tscn" id="3_2p3co"]
 [ext_resource type="AudioStream" uid="uid://6suhoapiivyl" path="res://Assets/Audio/BGM/Under PLanetaria.mp3" id="6_8or1h"]
-[ext_resource type="AudioStream" uid="uid://diqpf4i58b8dn" path="res://Assets/Audio/BGM/Vehana_Day_2Ver.wav" id="7_4xp1k"]
+[ext_resource type="AudioStream" uid="uid://b8kbgu2e4pvng" path="res://Assets/Audio/BGM/New_Project.mp3" id="6_jkut7"]
 [ext_resource type="AudioStream" uid="uid://td6afygdrfo7" path="res://Assets/Audio/BGM/game_over_1 (1).wav" id="16_b8n8i"]
 [ext_resource type="AudioStream" uid="uid://bmcaibnlutm8a" path="res://Assets/Audio/BGM/Game_Over_1.wav" id="18_r4swe"]
 [ext_resource type="AudioStream" uid="uid://74uudk4fnr3r" path="res://Assets/Audio/BGM/Game_Over_2.wav" id="19_kouma"]
 [ext_resource type="Script" uid="uid://dm0fatudshy1s" path="res://scr/Systems/Options/SettingsManager.gd" id="27_ljriy"]
-[ext_resource type="PackedScene" uid="uid://cu0mowstbdnxm" path="res://scr/Systems/DayNightCycle/DayNight.tscn" id="28_qfbsq"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_gmsqb"]
 clip_count = 5
@@ -18,7 +17,7 @@ clip_0/name = &"Main Menu"
 clip_0/stream = ExtResource("6_8or1h")
 clip_0/auto_advance = 0
 clip_1/name = &"Forest"
-clip_1/stream = ExtResource("7_4xp1k")
+clip_1/stream = ExtResource("6_jkut7")
 clip_1/auto_advance = 0
 clip_2/name = &"Game Over 1"
 clip_2/stream = ExtResource("16_b8n8i")
@@ -68,13 +67,10 @@ script = ExtResource("1_37aq7")
 [node name="ResourcePreloader" type="ResourcePreloader" parent="." unique_id=1350348439]
 resources = [PackedStringArray("SceneRegistry"), [ExtResource("2_ljriy")]]
 
-[node name="DayNight" parent="." unique_id=1946741129 instance=ExtResource("28_qfbsq")]
-active = false
+[node name="SceneManager" parent="." unique_id=1678669278 instance=ExtResource("3_2p3co")]
 
 [node name="DeveloperConsole" parent="." unique_id=769159530 instance=ExtResource("2_w6mfr")]
 unique_name_in_owner = true
-
-[node name="SceneManager" parent="." unique_id=1678669278 instance=ExtResource("3_2p3co")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1243380818]
 stream = SubResource("AudioStreamInteractive_gmsqb")
@@ -84,5 +80,4 @@ autoplay = true
 script = ExtResource("27_ljriy")
 metadata/_custom_type_script = "uid://dm0fatudshy1s"
 
-[connection signal="phase_changed" from="DayNight" to="." method="_on_day_night_phase_changed"]
 [connection signal="scene_change_finished" from="SceneManager" to="." method="_on_scene_manager_scene_change_finished"]

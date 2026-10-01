@@ -64,12 +64,16 @@ func _process(delta: float) -> void:
 
 
 ## Показать тултип с данными предмета
-func set_data(item: ItemData) -> void:
+## amount — актуальное количество в слоте (item.count для этого не подходит,
+## это поле ресурса и не отражает размер стака в слоте)
+func set_data(item: ItemData, amount: int = 1) -> void:
 	if not item:
 		hide_tooltip()
 		return
 
 	name_label.text = item.item_name
+	if amount > 1:
+		name_label.text += " (x" + str(amount) + ")"
 	name_label.add_theme_color_override("font_color", _rarity_color(item.quality))
 
 	var bb := _format_rarity_tag(item.quality) + "\n"
@@ -80,12 +84,12 @@ func set_data(item: ItemData) -> void:
 	bb += "\n"
 
 	if item is equip_data:
-		bb += _stat_line("Урон", str(item.Damage), COLOR_DAMAGE)
-		bb += _stat_line("Уровень", str(item.lvl), COLOR_LEVEL)
+		bb += _stat_line("DMG", str(item.Damage), COLOR_DAMAGE)
+		bb += _stat_line("LVL", str(item.lvl), COLOR_LEVEL)
 		if item.max_durability > 0:
 			bb += _durability_line(item.get_durability(), item.max_durability)
 	elif item is FoodData:
-		bb += _stat_line("Восстанавливает", "%d" % item.health_restore, COLOR_FOOD)
+		bb += _stat_line("Restore", "%d" % item.health_restore, COLOR_FOOD)
 
 	desc_label.text = bb
 	# Видимость НЕ трогаем здесь — её включает/выключает InventorySlot

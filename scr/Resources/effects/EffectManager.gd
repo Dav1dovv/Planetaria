@@ -34,6 +34,13 @@ class ActiveEffect:
 	var stacks: int = 1          # для UI, ограничено effect.max_stacks
 	var source_count: int = 1    # сколько источников (аксессуары, оружие) держат эффект активным
 	var permanent: bool = false  # true → длительность игнорируется, снимается только явным remove
+	# Значение, реально переданное в Stats при каждом _apply_start (по одному на стак).
+	# ВАЖНО: ae.effect может быть перезаписан более новым наложением (см. apply_effect),
+	# поэтому _apply_end НЕ должен пересчитывать значение из ae.effect заново —
+	# иначе при разных значениях у разных стаков снятие не совпадёт с наложением,
+	# и модификатор скорости/урона/защиты зависнет в Stats навсегда (персонаж
+	# останется замедлён/обездвижен даже после того, как эффект пропал из UI).
+	var applied_values: Array[float] = []
 
 var active_effects: Dictionary = {}  # Effect.EffectType -> ActiveEffect
 
@@ -141,12 +148,16 @@ func apply_effect(effect: Effect, permanent: bool = false) -> void:
 	if active_effects.has(type):
 		var existing: ActiveEffect = active_effects[type]
 		existing.source_count += 1
+		existing.effect = effect
 		if existing.stacks < effect.max_stacks:
 			existing.stacks += 1
+			# ВАЖНО: раньше здесь только рос счётчик stacks (для UI), а модификатор
+			# в Stats не добавлялся повторно — второй бафф того же типа увеличивал
+			# число стаков, но реально не усиливал скорость/урон/защиту.
+			_apply_start(existing)
 			effect_stacks_changed.emit(type, existing.stacks)
 		if not existing.permanent:
 			existing.time_left = effect.duration
-		existing.effect = effect
 		return
 
 	var ae := ActiveEffect.new()
@@ -173,11 +184,17 @@ func remove_effect(effect_type, decrement_only: bool = false) -> void:
 		ae.source_count -= 1
 		if ae.stacks > 1:
 			ae.stacks -= 1
+			_apply_end(ae)  # снимаем модификатор ровно одного снятого стака
 			effect_stacks_changed.emit(effect_type, ae.stacks)
 		if ae.source_count > 0:
 			return
 
-	_apply_end(ae)
+	# Полное снятие эффекта: откатываем модификатор по разу за каждый оставшийся
+	# стак (см. apply_effect — при стаках _apply_start вызывается несколько раз),
+	# иначе часть модификатора "залипает" в Stats (напр. add_speed_modifier
+	# добавляет отдельную запись на каждый стак, erase() снимает только одну).
+	for i in ae.stacks:
+		_apply_end(ae)
 	active_effects.erase(effect_type)
 	effect_removed.emit(ae.effect)
 
@@ -245,14 +262,19 @@ func _apply_start(ae: ActiveEffect) -> void:
 	match e.effect_type:
 		Effect.EffectType.SPEED_BOOST:
 			st.add_speed_modifier(e.value)
+			ae.applied_values.append(e.value)
 		Effect.EffectType.SLOW, Effect.EffectType.FREEZE:
 			st.add_speed_modifier(-e.value)
+			ae.applied_values.append(-e.value)
 		Effect.EffectType.DAMAGE_BOOST:
 			st.add_damage_modifier(e.value)
+			ae.applied_values.append(e.value)
 		Effect.EffectType.CORRUPTION:
 			st.add_damage_modifier(e.corruption_damage_bonus)
+			ae.applied_values.append(e.corruption_damage_bonus)
 		Effect.EffectType.DEFENSE_BOOST:
 			st.add_defense_modifier(e.value)
+			ae.applied_values.append(e.value)
 		Effect.EffectType.INVISIBILITY:
 			if character.has_method("set_invisibility"):
 				character.set_invisibility(true)
@@ -263,17 +285,17 @@ func _apply_start(ae: ActiveEffect) -> void:
 func _apply_end(ae: ActiveEffect) -> void:
 	var e := ae.effect
 	var st := character.Entity_stats
+	# Снимаем ровно то значение, которое было реально передано в Stats при
+	# соответствующем _apply_start (LIFO) — а не то, что сейчас лежит в
+	# ae.effect.value, которое могло смениться на другой инстанс эффекта.
+	var applied: float = ae.applied_values.pop_back() if not ae.applied_values.is_empty() else e.value
 	match e.effect_type:
-		Effect.EffectType.SPEED_BOOST:
-			st.remove_speed_modifier(e.value)
-		Effect.EffectType.SLOW, Effect.EffectType.FREEZE:
-			st.remove_speed_modifier(-e.value)
-		Effect.EffectType.DAMAGE_BOOST:
-			st.remove_damage_modifier(e.value)
-		Effect.EffectType.CORRUPTION:
-			st.remove_damage_modifier(e.corruption_damage_bonus)
+		Effect.EffectType.SPEED_BOOST, Effect.EffectType.SLOW, Effect.EffectType.FREEZE:
+			st.remove_speed_modifier(applied)
+		Effect.EffectType.DAMAGE_BOOST, Effect.EffectType.CORRUPTION:
+			st.remove_damage_modifier(applied)
 		Effect.EffectType.DEFENSE_BOOST:
-			st.remove_defense_modifier(e.value)
+			st.remove_defense_modifier(applied)
 		Effect.EffectType.INVISIBILITY:
 			if character.has_method("set_invisibility"):
 				character.set_invisibility(false)

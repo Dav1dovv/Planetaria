@@ -1,0 +1,232 @@
+[gd_scene format=3 uid="uid://ddf0srh1jj7e6"]
+
+[ext_resource type="Texture2D" uid="uid://erxt6oh26im8" path="res://Assets/Textures/Items/Planet.png" id="1_8xuex"]
+[ext_resource type="Script" uid="uid://reg4n44efwpd" path="res://misc/UI/PlanetChooser/planer_chooser.gd" id="1_v7hj8"]
+[ext_resource type="Script" uid="uid://b60d08i8hic0m" path="res://scr/Misc/Planet.gd" id="2_v7hj8"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="3_lorlj"]
+[ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://scr/Misc/UIelements/button.tscn" id="4_r8nlt"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="6_lorlj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cdos3"]
+font_size = 22
+outline_size = 1
+outline_color = Color(0.427493, 0.42749307, 0.42749307, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdos3"]
+atlas = ExtResource("1_8xuex")
+region = Rect2(7, 9, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kdp3"]
+atlas = ExtResource("1_8xuex")
+region = Rect2(57, 9, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw1ep"]
+atlas = ExtResource("1_8xuex")
+region = Rect2(60, 80, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sefpg"]
+atlas = ExtResource("6_lorlj")
+region = Rect2(32, 0, 16, 16)
+
+[node name="PlanerChooser" type="CanvasLayer" unique_id=415163601]
+layer = 0
+script = ExtResource("1_v7hj8")
+
+[node name="Panel" type="Panel" parent="." unique_id=1728588162]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = 23.177631
+offset_right = -35.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="planet" type="Sprite2D" parent="Panel" unique_id=2131869783]
+position = Vector2(109.12445, 114.636955)
+rotation = 145.21422
+scale = Vector2(0.7294997, 0.7294997)
+texture = ExtResource("1_8xuex")
+region_enabled = true
+region_rect = Rect2(4, 53, 41, 41)
+script = ExtResource("2_v7hj8")
+rotation_speed = 0.2
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="PointLight2D" type="PointLight2D" parent="Panel/planet" unique_id=30143744]
+color = Color(1, 0.5294118, 0.15686275, 1)
+energy = 2.08
+texture = ExtResource("3_lorlj")
+texture_scale = 6.34
+
+[node name="planet" type="Sprite2D" parent="Panel/planet" unique_id=746474656]
+position = Vector2(5.9159737, -41.65517)
+rotation = -280.36606
+texture = ExtResource("1_8xuex")
+region_enabled = true
+region_rect = Rect2(60, 80, 12, 12)
+script = ExtResource("2_v7hj8")
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="Panel/planet/planet" unique_id=971730860]
+modulate = Color(1, 0.4392157, 0.02745098, 1)
+scale = Vector2(1.998, 1.998)
+texture = ExtResource("3_lorlj")
+
+[node name="planet2" type="Sprite2D" parent="Panel/planet" unique_id=1564283040]
+position = Vector2(-48.649956, -41.51426)
+rotation = -325.4755
+texture = ExtResource("1_8xuex")
+region_enabled = true
+region_rect = Rect2(49, 50, 19, 19)
+script = ExtResource("2_v7hj8")
+rotation_speed = 1.1
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="planet4" type="Sprite2D" parent="Panel/planet/planet2" unique_id=1736753104]
+position = Vector2(-1.5468187, 0.69523215)
+rotation = -208.63647
+scale = Vector2(0.3292737, 0.3292737)
+texture = ExtResource("1_8xuex")
+offset = Vector2(66.32508, 12.849968)
+region_enabled = true
+region_rect = Rect2(7, 9, 32, 32)
+script = ExtResource("2_v7hj8")
+rotation_speed = 0.1
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="Panel/planet/planet2/planet4" unique_id=198171534]
+modulate = Color(0.827451, 0.6509804, 0.36078432, 1)
+scale = Vector2(3.968, 3.968)
+texture = ExtResource("3_lorlj")
+
+[node name="Atmosphere" type="Sprite2D" parent="Panel/planet/planet2" unique_id=168807775]
+modulate = Color(1, 0.54901963, 1, 1)
+scale = Vector2(2.248, 2.248)
+texture = ExtResource("3_lorlj")
+
+[node name="planet3" type="Sprite2D" parent="Panel/planet" unique_id=1391051345]
+position = Vector2(-36.936844, 71.13017)
+rotation = 339.16537
+texture = ExtResource("1_8xuex")
+region_enabled = true
+region_rect = Rect2(57, 9, 32, 32)
+script = ExtResource("2_v7hj8")
+rotation_speed = 0.6
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="Panel/planet/planet3" unique_id=1016228150]
+scale = Vector2(3.108, 3.108)
+texture = ExtResource("3_lorlj")
+
+[node name="planet5" type="Sprite2D" parent="Panel/planet" unique_id=708711431]
+position = Vector2(-53.9042, 23.165627)
+rotation = -97.004524
+scale = Vector2(0.57125205, 0.57125205)
+texture = ExtResource("1_8xuex")
+region_enabled = true
+region_rect = Rect2(76, 52, 25, 25)
+script = ExtResource("2_v7hj8")
+rotation_speed = 0.5
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="Panel/planet/planet5" unique_id=1983310249]
+scale = Vector2(2.718, 2.718)
+texture = ExtResource("3_lorlj")
+
+[node name="planet6" type="Sprite2D" parent="Panel/planet" unique_id=1430704028]
+position = Vector2(43.515324, 82.038666)
+rotation = -173.61533
+texture = ExtResource("1_8xuex")
+region_enabled = true
+region_rect = Rect2(104, 8, 17, 17)
+script = ExtResource("2_v7hj8")
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="Panel/planet/planet6" unique_id=465134264]
+scale = Vector2(2.098, 2.098)
+texture = ExtResource("3_lorlj")
+
+[node name="Atmosphere" type="Sprite2D" parent="Panel/planet" unique_id=1847649415]
+modulate = Color(1, 0.6431373, 0.3254902, 1)
+scale = Vector2(5.203, 5.203)
+texture = ExtResource("3_lorlj")
+
+[node name="Marker2D" type="Sprite2D" parent="Panel/planet" unique_id=492199273]
+rotation = -177.6409
+script = ExtResource("2_v7hj8")
+rotation_speed = -0.5
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="planet7" type="Sprite2D" parent="Panel/planet/Marker2D" unique_id=402324657]
+position = Vector2(110.0839, -3.0646439)
+rotation = 129.72408
+texture = ExtResource("1_8xuex")
+region_enabled = true
+region_rect = Rect2(112, 51, 13, 13)
+script = ExtResource("2_v7hj8")
+rotation_speed = -3.0
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="Panel/planet/Marker2D/planet7" unique_id=609956299]
+modulate = Color(0.5764706, 1, 1, 1)
+scale = Vector2(1.618, 1.618)
+texture = ExtResource("3_lorlj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=649022604]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.15857
+offset_top = 7.9026337
+offset_right = -9.158569
+offset_bottom = -7.9026337
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 55
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=1066002304]
+layout_mode = 2
+text = "PLANET TRAVELER"
+label_settings = SubResource("LabelSettings_cdos3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Panel/VBoxContainer" unique_id=964645255]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "Vehana"
+popup/item_0/icon = SubResource("AtlasTexture_cdos3")
+popup/item_0/id = 0
+popup/item_1/text = "Morva"
+popup/item_1/icon = SubResource("AtlasTexture_1kdp3")
+popup/item_1/id = 1
+popup/item_2/text = "Rodus"
+popup/item_2/icon = SubResource("AtlasTexture_iw1ep")
+popup/item_2/id = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=998821359]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Button" parent="Panel/VBoxContainer/HBoxContainer" unique_id=1632295610 instance=ExtResource("4_r8nlt")]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "TRAVE X"
+icon = SubResource("AtlasTexture_sefpg")
+icon_alignment = 2
+
+[node name="Button2" parent="Panel/VBoxContainer/HBoxContainer" unique_id=291970456 instance=ExtResource("4_r8nlt")]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Close
+"
+
+[connection signal="item_selected" from="Panel/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]

@@ -7,28 +7,47 @@
 [ext_resource type="Shader" uid="uid://vrsslnus0n8r" path="res://Assets/Shader/Shine.gdshader" id="4_axoc4"]
 [ext_resource type="Texture2D" uid="uid://dk6hs5so2us68" path="res://Assets/Textures/Items/PlanetX-Sheet.png" id="4_qbvys"]
 [ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://scr/Misc/UIelements/button.tscn" id="5_bwn3d"]
-[ext_resource type="Texture2D" uid="uid://bselbp4rb0efj" path="res://Assets/Textures/UI/Title/title.png" id="5_fqo0y"]
 [ext_resource type="Material" uid="uid://ul06moidsjcy" path="res://misc/Particles/PlanetBG.tres" id="5_wk7rc"]
 [ext_resource type="Theme" uid="uid://bmjvsrl7b67cy" path="res://misc/UI/theme.tres" id="6_tuj82"]
 [ext_resource type="PackedScene" uid="uid://oq4fs5yb67n0" path="res://scr/Systems/SaveLoadSlot/Save_laodUI.tscn" id="7_uc0ha"]
+[ext_resource type="Texture2D" uid="uid://dwlr5t1df26qk" path="res://Assets/Textures/Items/SpaceShip.png" id="9_wk7rc"]
 [ext_resource type="Texture2D" uid="uid://erxt6oh26im8" path="res://Assets/Textures/Items/Planet.png" id="11_fqo0y"]
 [ext_resource type="Script" uid="uid://b60d08i8hic0m" path="res://scr/Misc/Planet.gd" id="12_jm7od"]
+[ext_resource type="Texture2D" uid="uid://cld7oj4ax55rv" path="res://Assets/Textures/UI/Title/title2.png" id="12_wk7rc"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="13_fqo0y"]
 [ext_resource type="PackedScene" uid="uid://b3xyfsgecbtas" path="res://misc/UI/OptionMenu/option_menu.tscn" id="16_wk7rc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lncde"]
 shader = ExtResource("3_y08pf")
 shader_parameter/dimensions = Vector2(1920, 1080)
-shader_parameter/small_stars = 102.97
-shader_parameter/small_stars_far_size = 0.70000001043084
-shader_parameter/small_stars_near_size = 0.40000000596048
-shader_parameter/large_stars = 34.29
-shader_parameter/large_stars_far_size = 0.10000000149012
-shader_parameter/large_stars_near_size = 0.30000000447036
+shader_parameter/small_stars = 104.025
+shader_parameter/small_stars_far_size = 0.30000000447036
+shader_parameter/small_stars_near_size = 0.20000000298024
+shader_parameter/large_stars = 35.055
+shader_parameter/large_stars_far_size = 0.20000000298024
+shader_parameter/large_stars_near_size = 0.40000000596048
 shader_parameter/far_stars_color = Color(0.5, 0, 1, 1)
 shader_parameter/near_stars_color = Color(1, 1, 1, 1)
 shader_parameter/base_scroll_speed = 0.02999999932944
 shader_parameter/additional_scroll_speed = 0.00999999977648
+shader_parameter/pixel_snap_motion = true
+shader_parameter/pixel_steps_per_second = 12.0
+shader_parameter/hard_edge_stars = true
+shader_parameter/twinkle_enabled = true
+shader_parameter/twinkle_speed = 2.0
+shader_parameter/twinkle_amount = 0.5
+shader_parameter/nebula_enabled = true
+shader_parameter/nebula_color_a = Color(0.35, 0.05, 0.55, 1)
+shader_parameter/nebula_color_b = Color(0.05, 0.25, 0.55, 1)
+shader_parameter/nebula_scale = 5.10000006854552
+shader_parameter/nebula_speed = 0.0230000010925
+shader_parameter/nebula_intensity = 0.20999999530608
+shader_parameter/comets_enabled = true
+shader_parameter/comet_interval = 7.0
+shader_parameter/comet_chance = 0.6999999843536
+shader_parameter/comet_speed = 1.70000002533203
+shader_parameter/comet_length = 0.17999999597665
+shader_parameter/comet_color = Color(0.30588236, 0.27058825, 0.34901962, 0.58431375)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1kdp3"]
 particles_animation = true
@@ -133,13 +152,163 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_qbvys"]
-font_size = 24
+font_size = 12
 font_color = Color(0.992157, 0.733333, 0.294118, 1)
 outline_size = 1
 outline_color = Color(0, 0, 0, 0.13333334)
 shadow_size = 3
 shadow_color = Color(0, 0, 0, 0.227451)
 shadow_offset = Vector2(1, 2)
+
+[sub_resource type="Animation" id="Animation_qbvys"]
+resource_name = "But"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.37254903)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6.13)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Interface:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_wk7rc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Interface:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Interface:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2yin0"]
+resource_name = "change"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset_transform_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 41.315)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Interface:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Interface:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.09, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uel20"]
+_data = {
+&"But": SubResource("Animation_qbvys"),
+&"RESET": SubResource("Animation_wk7rc"),
+&"change": SubResource("Animation_2yin0")
+}
 
 [node name="MainMenu" type="ColorRect" unique_id=1265719968]
 y_sort_enabled = true
@@ -181,8 +350,8 @@ scroll_scale = Vector2(2, 2)
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets" unique_id=1007087873]
 position = Vector2(4.132263, 251.23965)
-rotation = 439.72147
-scale = Vector2(2.819653, 2.819653)
+rotation = -287.59525
+scale = Vector2(4.175082, 4.175082)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(4, 53, 41, 41)
@@ -198,7 +367,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=530346119]
 position = Vector2(5.9159737, -41.65517)
-rotation = 3567.5276
+rotation = 66.820885
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(60, 80, 12, 12)
@@ -212,13 +381,30 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet2" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=684306597]
 position = Vector2(-48.649956, -41.51426)
-rotation = 2202.5767
+rotation = 7.0595217
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(49, 50, 19, 19)
 script = ExtResource("12_jm7od")
 rotation_speed = 1.1
 metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="planet4" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet2" unique_id=1718899979]
+position = Vector2(-1.5468187, 0.69523215)
+rotation = -92.62448
+scale = Vector2(0.3292737, 0.3292737)
+texture = ExtResource("11_fqo0y")
+offset = Vector2(66.32508, 12.849968)
+region_enabled = true
+region_rect = Rect2(7, 9, 32, 32)
+script = ExtResource("12_jm7od")
+rotation_speed = 0.1
+metadata/_custom_type_script = "uid://b60d08i8hic0m"
+
+[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet2/planet4" unique_id=1889933256]
+modulate = Color(0.827451, 0.6509804, 0.36078432, 1)
+scale = Vector2(3.968, 3.968)
+texture = ExtResource("13_fqo0y")
 
 [node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet2" unique_id=1274513453]
 modulate = Color(1, 0.54901963, 1, 1)
@@ -227,7 +413,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet3" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1423906424]
 position = Vector2(-36.936844, 71.13017)
-rotation = 710.8205
+rotation = 201.54971
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(57, 9, 32, 32)
@@ -239,25 +425,9 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 scale = Vector2(3.108, 3.108)
 texture = ExtResource("13_fqo0y")
 
-[node name="planet4" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1718899979]
-position = Vector2(-66.099815, -28.727964)
-rotation = 602.47064
-scale = Vector2(0.32927373, 0.32927373)
-texture = ExtResource("11_fqo0y")
-region_enabled = true
-region_rect = Rect2(7, 9, 32, 32)
-script = ExtResource("12_jm7od")
-rotation_speed = 0.5
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet4" unique_id=1889933256]
-modulate = Color(0.827451, 0.6509804, 0.36078432, 1)
-scale = Vector2(3.968, 3.968)
-texture = ExtResource("13_fqo0y")
-
 [node name="planet5" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=543942180]
 position = Vector2(-53.9042, 23.165627)
-rotation = 751.8383
+rotation = -231.79573
 scale = Vector2(0.57125205, 0.57125205)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -272,7 +442,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet6" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1322698681]
 position = Vector2(43.515324, 82.038666)
-rotation = 3173.1438
+rotation = -7.9507017
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(104, 8, 17, 17)
@@ -289,14 +459,14 @@ scale = Vector2(5.203, 5.203)
 texture = ExtResource("13_fqo0y")
 
 [node name="Marker2D" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=736093489]
-rotation = -791.3414
+rotation = 241.78232
 script = ExtResource("12_jm7od")
 rotation_speed = -0.5
 metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="ParallaxBackground/Planets/planet/Marker2D" unique_id=1864340330]
 position = Vector2(110.0839, -3.0646439)
-rotation = -4037.905
+rotation = -321.4451
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(112, 51, 13, 13)
@@ -309,7 +479,107 @@ modulate = Color(0.5764706, 1, 1, 1)
 scale = Vector2(1.618, 1.618)
 texture = ExtResource("13_fqo0y")
 
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Planets" unique_id=61556377]
+position = Vector2(394.77704, 90.80139)
+rotation = 1.2642266
+texture = ExtResource("9_wk7rc")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1030770465]
+
+[node name="Interface" type="Control" parent="CanvasLayer" unique_id=1593894073]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface" unique_id=1727128541]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -122.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/VBoxContainer" unique_id=2045199075]
+custom_minimum_size = Vector2(123.19, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="SoloBtn" parent="CanvasLayer/Interface/VBoxContainer/VBoxContainer" unique_id=392024303 node_paths=PackedStringArray("shortcut_context") instance=ExtResource("5_bwn3d")]
+custom_minimum_size = Vector2(100, 13)
+layout_mode = 2
+focus_next = NodePath("../MultiBtn")
+focus_previous = NodePath("../Exit")
+shortcut_context = NodePath(".")
+theme_override_font_sizes/font_size = 7
+text = "Start Game"
+
+[node name="MultiBtn" parent="CanvasLayer/Interface/VBoxContainer/VBoxContainer" unique_id=1793936385 instance=ExtResource("5_bwn3d")]
+custom_minimum_size = Vector2(100, 13)
+layout_mode = 2
+focus_next = NodePath("../OptionBtn")
+focus_previous = NodePath("../SoloBtn")
+theme_override_font_sizes/font_size = 7
+disabled = true
+text = "Multiplayer"
+
+[node name="OptionBtn" parent="CanvasLayer/Interface/VBoxContainer/VBoxContainer" unique_id=1554355578 instance=ExtResource("5_bwn3d")]
+custom_minimum_size = Vector2(45, 13)
+layout_mode = 2
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../MultiBtn")
+theme_override_font_sizes/font_size = 7
+text = "Options"
+
+[node name="Exit" parent="CanvasLayer/Interface/VBoxContainer/VBoxContainer" unique_id=1321396718 instance=ExtResource("5_bwn3d")]
+custom_minimum_size = Vector2(45, 13)
+layout_mode = 2
+layout_direction = 2
+focus_next = NodePath("../SoloBtn")
+focus_previous = NodePath(".")
+theme_override_font_sizes/font_size = 7
+text = "Exit"
+
+[node name="LinkButton" type="LinkButton" parent="CanvasLayer/Interface" unique_id=991565007]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -76.0
+offset_top = -19.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+text = "Report a bug"
+uri = "https://docs.google.com/forms/d/e/1FAIpQLSet0XvkBd1-Ay8jgNT1lBt_jbAg7Si-_xMukYRDRgzBInfM-g/viewform?usp=dialog"
+text_direction = 2
+structured_text_bidi_override = 1
+
+[node name="V_Label" type="Label" parent="CanvasLayer/Interface" unique_id=232830318]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -14.0
+offset_right = 44.0
+offset_bottom = -4.0
+grow_vertical = 0
+text = "V: 0.0.0"
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=736569363]
 texture_filter = 3
@@ -327,12 +597,12 @@ grow_horizontal = 2
 scale = Vector2(0.5389631, 0.5389631)
 offset_transform_enabled = true
 offset_transform_rotation = -0.0034906585
-texture = ExtResource("5_fqo0y")
+texture = ExtResource("12_wk7rc")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/TextureRect" unique_id=1720517864]
-root_node = NodePath("../../VBoxContainer")
+root_node = NodePath("../../Interface/VBoxContainer")
 libraries/ = SubResource("AnimationLibrary_y08pf")
 autoplay = &"TIitle"
 speed_scale = 1.3
@@ -345,77 +615,25 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 119.4568
-offset_top = -22.265
-offset_right = 308.18622
-offset_bottom = 46.73822
+offset_left = 107.296005
+offset_top = -63.039505
+offset_right = 296.0254
+offset_bottom = 5.9637146
 grow_horizontal = 2
 grow_vertical = 0
-rotation = -0.15631552
+rotation = 0.009823337
 scale = Vector2(1.044707, 1.044707)
 theme_override_font_sizes/font_size = 12
 text = "Also play Felaria"
 label_settings = SubResource("LabelSettings_qbvys")
 autowrap_mode = 3
 script = ExtResource("3_bwn3d")
-_max_size = 24
-_min_size = 12
-_current_font_size = 24
+_max_size = 12
+_min_size = 8
+_current_font_size = 12
+_size_just_modified_by_autosizer = true
 _editor_defaults_set = true
 metadata/_custom_type_script = "uid://bttgnk3bb2a8i"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1727128541]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -106.0
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=2045199075]
-custom_minimum_size = Vector2(123.19, 60)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="SoloBtn" parent="CanvasLayer/VBoxContainer/VBoxContainer" unique_id=392024303 node_paths=PackedStringArray("shortcut_context") instance=ExtResource("5_bwn3d")]
-custom_minimum_size = Vector2(100, 13)
-layout_mode = 2
-focus_next = NodePath("../MultiBtn")
-focus_previous = NodePath("../Exit")
-shortcut_context = NodePath(".")
-theme_override_font_sizes/font_size = 7
-text = "Start Game"
-
-[node name="MultiBtn" parent="CanvasLayer/VBoxContainer/VBoxContainer" unique_id=1793936385 instance=ExtResource("5_bwn3d")]
-custom_minimum_size = Vector2(100, 13)
-layout_mode = 2
-focus_next = NodePath("../OptionBtn")
-focus_previous = NodePath("../SoloBtn")
-theme_override_font_sizes/font_size = 7
-disabled = true
-text = "Multiplayer"
-
-[node name="OptionBtn" parent="CanvasLayer/VBoxContainer/VBoxContainer" unique_id=1554355578 instance=ExtResource("5_bwn3d")]
-custom_minimum_size = Vector2(45, 13)
-layout_mode = 2
-focus_next = NodePath("../Exit")
-focus_previous = NodePath("../MultiBtn")
-theme_override_font_sizes/font_size = 7
-text = "Options"
-
-[node name="Exit" parent="CanvasLayer/VBoxContainer/VBoxContainer" unique_id=1321396718 instance=ExtResource("5_bwn3d")]
-custom_minimum_size = Vector2(45, 13)
-layout_mode = 2
-layout_direction = 2
-focus_next = NodePath("../SoloBtn")
-focus_previous = NodePath(".")
-theme_override_font_sizes/font_size = 7
-text = "Exit"
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="CanvasLayer" unique_id=1365783710]
 oversampling_override = 1.0
@@ -429,34 +647,22 @@ dialog_text = "Are you sure want to exit game?
 "
 cancel_button_text = "No"
 
-[node name="LinkButton" type="LinkButton" parent="CanvasLayer" unique_id=991565007]
-anchors_preset = 3
-anchor_left = 1.0
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1057243824]
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -70.0
-offset_top = -17.0
-offset_right = -8.0
-offset_bottom = -5.0
-grow_horizontal = 0
+offset_top = -25.45456
+grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 11
-text = "Report a bug"
-uri = "https://docs.google.com/forms/d/e/1FAIpQLSet0XvkBd1-Ay8jgNT1lBt_jbAg7Si-_xMukYRDRgzBInfM-g/viewform?usp=dialog"
-text_direction = 2
-structured_text_bidi_override = 1
+offset_transform_enabled = true
+text = "PRESS ANY BUTTON TO CONTINUE"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="V_Label" type="Label" parent="CanvasLayer" unique_id=232830318]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = -14.0
-offset_right = 44.0
-offset_bottom = -4.0
-grow_vertical = 0
-text = "V: 0.0.0"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Label" unique_id=1653424246]
+libraries/ = SubResource("AnimationLibrary_uel20")
+autoplay = &"But"
 
 [node name="SaveLoadUI" parent="." unique_id=266179224 instance=ExtResource("7_uc0ha")]
 visible = false
@@ -464,8 +670,8 @@ visible = false
 [node name="OptionMenu" parent="." unique_id=1619027941 instance=ExtResource("16_wk7rc")]
 visible = false
 
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/VBoxContainer/SoloBtn" to="." method="_on_solo_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/VBoxContainer/OptionBtn" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Interface/VBoxContainer/VBoxContainer/SoloBtn" to="." method="_on_solo_pressed"]
+[connection signal="pressed" from="CanvasLayer/Interface/VBoxContainer/VBoxContainer/OptionBtn" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/Interface/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="canceled" from="CanvasLayer/ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
 [connection signal="confirmed" from="CanvasLayer/ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

@@ -9,9 +9,12 @@ region = Rect2(32, 96, 16, 16)
 
 [resource]
 script = ExtResource("2_l55i7")
+lvl = 3
+Damage = 16
+Atk_speed = 1.5
 equiped_weapon_sprite = SubResource("AtlasTexture_kbubl")
 is_weapon = false
 one_shot_attack = false
 icon = SubResource("AtlasTexture_kbubl")
-item_name = "Pickaxe"
+item_name = "MGM V3"
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

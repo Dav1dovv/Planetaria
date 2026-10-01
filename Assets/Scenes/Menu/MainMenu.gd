@@ -6,7 +6,7 @@ extends ColorRect
 
 # ── Сплеш ────────────────────────────────────────────────────────────────────
 @onready var splash_label : Label = $CanvasLayer/TextureRect/SplashLabel
-@onready var V_label: Label = $CanvasLayer/V_Label
+@onready var V_label: Label = $CanvasLayer/Interface/V_Label
 
 var splash_json_path = "res://common/SplashTexts.json"
 var splash_texts = []
@@ -15,8 +15,8 @@ var splash_texts = []
 ## Добавь узел Panel с именем "ModeSelectPanel" внутри CanvasLayer.
 ## Внутри него нужны три кнопки: SoloBtn, MultiBtn, ModeBackBtn
 ## Подробная структура описана в LOBBY_SCENE_STRUCTURE.md
-@onready var solo_btn          : Button   = $CanvasLayer/VBoxContainer/VBoxContainer/SoloBtn
-@onready var multi_btn         : Button   = $CanvasLayer/VBoxContainer/VBoxContainer/MultiBtn
+@onready var solo_btn          : Button   = $CanvasLayer/Interface/VBoxContainer/VBoxContainer/SoloBtn
+@onready var multi_btn         : Button   = $CanvasLayer/Interface/VBoxContainer/VBoxContainer/MultiBtn
 #@onready var mode_back_btn     : Button   = $CanvasLayer/ModeSelectPanel/VBoxContainer/ModeBackBtn
 
 # ── Существующие узлы ─────────────────────────────────────────────────────────
@@ -122,3 +122,8 @@ func _on_options_pressed() -> void:
 
 func _on_authors_pressed() -> void:
 	pass
+
+func _input(event: InputEvent) -> void:
+	if Input.is_anything_pressed() and !$CanvasLayer/Interface.visible:
+		$CanvasLayer/Label/AnimationPlayer.play("change")
+		

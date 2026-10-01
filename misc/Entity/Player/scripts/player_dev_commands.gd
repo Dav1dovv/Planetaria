@@ -7,7 +7,7 @@ class_name PlayerDevCommands
 
 
 func register_all() -> void:
-	var c := Global.developer_console
+	var c = Global.developer_console
 	c.register_command("set_speed",     _cmd_set_speed,                      "Set player speed: set_speed [value]")
 	c.register_command("tp",            _cmd_teleport,                       "Teleport: tp [x] [y]")
 	c.register_command("multiply",      _cmd_set_standart_multipilier_speed, "Default movement multiplier: multiply [value]")

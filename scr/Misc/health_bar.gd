@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/mesh/heart.svg")
 extends ProgressBar
 class_name health_bar
 

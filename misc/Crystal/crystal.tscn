@@ -1,89 +1,14 @@
 [gd_scene format=3 uid="uid://8ysv3553uoh3"]
 
-[ext_resource type="Script" uid="uid://b4lwq0f6a5hv" path="res://misc/Crystal/crystal.gd" id="1_6acrw"]
-[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="3_m2pa7"]
-[ext_resource type="Material" uid="uid://dt3kmwwp04orp" path="res://misc/HarvestItems/Shinin1.tres" id="3_qqn8e"]
-[ext_resource type="Texture2D" uid="uid://bp731d1yfc2aj" path="res://Assets/Textures/Items/Crystal1.png" id="4_luo6g"]
-[ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://scr/Systems/Interaction/Interaction.gd" id="5_luo6g"]
+[ext_resource type="Script" uid="uid://47rbl0h6idje" path="res://misc/Crystal/SceneChanger.gd" id="2_6acrw"]
+[ext_resource type="Texture2D" uid="uid://dwlr5t1df26qk" path="res://Assets/Textures/Items/SpaceShip.png" id="4_qqn8e"]
 
 [sub_resource type="Animation" id="Animation_qqn8e"]
 resource_name = "Levitating"
 loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Crystal:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, -20.239502), Vector2(0, -35.691166)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Crystal:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Crystal:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.47, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1.2373896, 1.2373896), Vector2(1.138949, 1.35801), Vector2(1.2373896, 1.2373896)]
-}
 
 [sub_resource type="Animation" id="Animation_luo6g"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Crystal:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -20.239502)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Crystal:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Crystal:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1.2373896, 1.2373896)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_os00q"]
 _data = {
@@ -92,23 +17,20 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cdos3"]
-size = Vector2(33.90474, 42.8225)
+size = Vector2(45.882828, 49.402615)
 
-[node name="crystal" type="Node2D" unique_id=1200449064]
-script = ExtResource("1_6acrw")
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cdos3"]
+radius = 12.479279
+height = 35.436028
+
+[node name="Ship" type="Node2D" unique_id=1200449064]
+y_sort_enabled = true
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=2142861487]
 modulate = Color(0.13333334, 0.14509805, 0.14509805, 0.30980393)
-position = Vector2(0, 2.815113)
-scale = Vector2(1.2373896, 0.33809566)
-texture = ExtResource("3_m2pa7")
-
-[node name="Crystal" type="Sprite2D" parent="." unique_id=655492247]
-clip_children = 2
-material = ExtResource("3_qqn8e")
-position = Vector2(0, -20.239502)
-scale = Vector2(1.2373896, 1.2373896)
-texture = ExtResource("4_luo6g")
+position = Vector2(0, -11.363953)
+scale = Vector2(1.2373896, 0.9604213)
+texture = ExtResource("4_qqn8e")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=943106209]
 libraries/ = SubResource("AnimationLibrary_os00q")
@@ -117,10 +39,23 @@ autoplay = &"Levitating"
 [node name="interaction" type="Area2D" parent="." unique_id=1862943737]
 collision_layer = 128
 collision_mask = 256
-script = ExtResource("5_luo6g")
+script = ExtResource("2_6acrw")
+scene = "Ship"
 show_message = "back to ship"
 metadata/_custom_type_script = "uid://btxho8sqg8tnx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interaction" unique_id=204196029]
-position = Vector2(0, -14.828566)
+position = Vector2(-1.3723984, -18.118624)
 shape = SubResource("RectangleShape2D_cdos3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=73550593]
+z_index = 1
+position = Vector2(0.05267334, 2.838791)
+texture = ExtResource("4_qqn8e")
+offset = Vector2(-0.05267334, -20.04486)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=708792387]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1754809613]
+position = Vector2(0, -23.872158)
+shape = SubResource("CapsuleShape2D_cdos3")

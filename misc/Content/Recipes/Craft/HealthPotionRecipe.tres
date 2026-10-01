@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://dcmohwkdwyaw"]
+
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="1_yfpqa"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="1_yty51"]
+[ext_resource type="Resource" uid="uid://ctocyibpog8vu" path="res://misc/Content/Items/HealthPotion.tres" id="2_ejndv"]
+
+[resource]
+script = ExtResource("1_yty51")
+recipe_name = "HealthPotion"
+category = 2
+result_item = ExtResource("2_ejndv")
+result_amount = 2
+main_resource = ExtResource("1_yfpqa")
+main_amount = 8
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

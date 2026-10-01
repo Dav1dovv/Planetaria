@@ -1,0 +1,180 @@
+[gd_scene format=3 uid="uid://doewb5iqg3g7d"]
+
+[ext_resource type="Script" uid="uid://ynv45mmhi76l" path="res://misc/Structures/Doors/door.gd" id="1_6wv72"]
+[ext_resource type="Texture2D" uid="uid://cf8i27htsnj7e" path="res://Assets/Textures/Items/Door.png" id="2_1k2qo"]
+[ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="3_dfif0"]
+[ext_resource type="Script" uid="uid://cburu6b4ckehs" path="res://addons/godot-rapier2d/custom_nodes/rapier_area_2d.gd" id="4_ir3m2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgnio"]
+atlas = ExtResource("2_1k2qo")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flk07"]
+atlas = ExtResource("2_1k2qo")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqoap"]
+atlas = ExtResource("2_1k2qo")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nqm2"]
+atlas = ExtResource("2_1k2qo")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sw4og"]
+atlas = ExtResource("2_1k2qo")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cdos3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgnio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flk07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqoap")
+}, {
+"duration": 0.7,
+"texture": SubResource("AtlasTexture_1nqm2")
+}, {
+"duration": 0.01,
+"texture": SubResource("AtlasTexture_sw4og")
+}],
+"loop": 0,
+"name": &"Close",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.6,
+"texture": SubResource("AtlasTexture_sw4og")
+}, {
+"duration": 2.6,
+"texture": SubResource("AtlasTexture_1nqm2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqoap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flk07")
+}, {
+"duration": 0.01,
+"texture": SubResource("AtlasTexture_hgnio")
+}],
+"loop": 0,
+"name": &"Open",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kdp3"]
+size = Vector2(43.35846, 23.384863)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iw1ep"]
+size = Vector2(46.601547, 26.614109)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pj1qr"]
+size = Vector2(44.980026, 26.357735)
+
+[sub_resource type="Animation" id="Animation_6wv72"]
+resource_name = "Close"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.42999998, 0.62),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1k2qo"]
+resource_name = "Open"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.38, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.61),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_dfif0"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ir3m2"]
+_data = {
+&"Close": SubResource("Animation_6wv72"),
+&"Open": SubResource("Animation_1k2qo"),
+&"RESET": SubResource("Animation_dfif0")
+}
+
+[node name="Door" type="Node2D" unique_id=1531693325]
+script = ExtResource("1_6wv72")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1404191889]
+position = Vector2(0.05831909, 24.45168)
+sprite_frames = SubResource("SpriteFrames_cdos3")
+animation = &"Close"
+frame = 4
+offset = Vector2(0, -20.134445)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=780885725]
+script = ExtResource("3_dfif0")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1023244881]
+position = Vector2(0, 10.874707)
+shape = SubResource("RectangleShape2D_1kdp3")
+
+[node name="RapierArea2D" type="Area2D" parent="." unique_id=391487652]
+script = ExtResource("4_ir3m2")
+metadata/_custom_type_script = "uid://cburu6b4ckehs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RapierArea2D" unique_id=782519176]
+position = Vector2(0, -15.205828)
+shape = SubResource("RectangleShape2D_iw1ep")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RapierArea2D" unique_id=209463687]
+position = Vector2(0, 36.41437)
+shape = SubResource("RectangleShape2D_pj1qr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1044963533]
+libraries/ = SubResource("AnimationLibrary_ir3m2")
+
+[connection signal="body_entered" from="RapierArea2D" to="." method="_on_rapier_area_2d_body_entered"]
+[connection signal="body_exited" from="RapierArea2D" to="." method="_on_rapier_area_2d_body_exited"]

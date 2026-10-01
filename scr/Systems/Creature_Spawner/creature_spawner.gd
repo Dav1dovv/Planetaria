@@ -1,13 +1,4 @@
-# creature_spawner.gd
-#
-# ИЗМЕНЕНИЯ В ЭТОЙ ВЕРСИИ:
-#  • Чистка мёртвых ссылок из _tracked перенесена из _physics_process() (каждый кадр)
-#    в _check_despawn() (раз в despawn_check_interval). Раньше при большом числе
-#    существ это был лишний проход по массиву 60 раз в секунду без реальной нужды.
-#  • Если despawn_enabled == false, чистка мёртвых ссылок всё равно делается —
-#    отдельным лёгким таймером _cleanup_timer, чтобы _tracked не пух бесконечно.
-#  • _cmd_clear(): расстояния до игрока считаются один раз в массив пар,
-#    а не пересчитываются на каждое сравнение внутри sort_custom.
+@icon("res://addons/at-icons/mesh/skull.svg")
 extends Node2D
 class_name CreatureSpawner
 
@@ -442,3 +433,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 		if not cfg or not cfg.creature_scene:
 			w.append("CreatureConfig без сцены!")
 	return w
+
+## Вызывается зонами после смены параметров
+func refresh() -> void:
+	_update_pool()
+	_restart_spawn_timer()

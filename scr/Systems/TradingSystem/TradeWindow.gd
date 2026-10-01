@@ -187,9 +187,3 @@ func _on_player_slot_clicked(slot: TradeSlot) -> void:
 func _show_message(text: String) -> void:
 	print("[Trade] %s" % text)
 	# Замени на свой UI-тултип/нотификацию при желании.
-
-func _input(event: InputEvent) -> void:
-	if not visible:
-		return
-	if event.is_action_pressed("ui_cancel"):
-		close()

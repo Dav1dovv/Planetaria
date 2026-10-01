@@ -1,8 +1,10 @@
 extends Creature
 class_name NPC
 
-@onready var interaction: interaction_area = $interaction_area
+@onready var interact_zone: interaction_area = $interaction_area
 
+
+@export_enum("Weapon", "Baff") var show_ui : String = "Weapon"
 ## Расстояние, на котором НПС останавливается и смотрит на игрока
 @export var awareness_radius: float = 80.0
 ## Расстояние, на котором НПС поворачивается лицом к игроку
@@ -17,12 +19,19 @@ func _ready() -> void:
 	super._ready()
 	if !player:
 		player = get_tree().get_first_node_in_group("Player")
+		print(name + "_NPC " + "finded player")
 	inventory = get_tree().get_first_node_in_group("Inventory")
-	interaction.interact = Callable(self, "Interact")
+	interact_zone.interact = Callable(self,"_Do")
 
-func Interact() -> void:
-	if $show_dialog:
-		$show_dialog.start()
+func _Do() -> void:
+	match  show_ui:
+		"Weapon":
+			Global.inventory.call_smith()
+		"Baff":
+			Global.inventory.call_cauldron()
+	print("interacting with "+ name)
+	
+	print("this is somehing")
 
 func _process(_delta: float) -> void:
 	if not is_instance_valid(player):

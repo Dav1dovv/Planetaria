@@ -12,7 +12,10 @@ region = Rect2(80, 64, 16, 16)
 [resource]
 script = ExtResource("4_f6w2n")
 effect_icon = ExtResource("1_wge8n")
-value = 5.0
+effect_type = 3
+value = 6.0
+duration = 10.0
+tick_interval = 1.2
 particle = ExtResource("3_okk6e")
 icon = SubResource("AtlasTexture_sqfq1")
 display_name = "Health Restore"

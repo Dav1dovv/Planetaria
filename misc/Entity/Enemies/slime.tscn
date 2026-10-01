@@ -1,15 +1,21 @@
 [gd_scene format=3 uid="uid://bu36h4hqr8fy5"]
 
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_djix7"]
-[ext_resource type="Script" uid="uid://benfhotpu4q7t" path="res://misc/Entity/Enemies/slime.gd" id="2_2l84w"]
+[ext_resource type="Script" uid="uid://dyyn2rllx0mpi" path="res://misc/Entity/Scripts/ContactEnemy.gd" id="2_0r3tc"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_0r3tc"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_2kdck"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_0r3tc"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="5_onooq"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="6_3sfyk"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="7_ojvg7"]
 [ext_resource type="AudioStream" uid="uid://03ghu38ruspr" path="res://Assets/Audio/SFX/Creatures/Slime/Slime 3.mp3" id="7_onooq"]
 [ext_resource type="AudioStream" uid="uid://c6e0oujv5udu7" path="res://Assets/Audio/SFX/Creatures/Slime/Slime.mp3" id="10_3sfyk"]
 
-[sub_resource type="Resource" id="Resource_0r3tc"]
+[sub_resource type="Resource" id="Resource_s5u5i"]
+script = ExtResource("3_2kdck")
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
+[sub_resource type="Resource" id="Resource_onooq"]
 resource_local_to_scene = true
 resource_name = "Slime Stat"
 script = ExtResource("3_0r3tc")
@@ -23,6 +29,14 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 script = ExtResource("3_2kdck")
 Damage = 2
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
+[sub_resource type="Resource" id="Resource_3sfyk"]
+script = ExtResource("5_onooq")
+drop_item = ExtResource("6_3sfyk")
+drop_chance = 0.4001
+min_throws = 2
+max_throws = 5
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="Curve" id="Curve_k51xm"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.642857, 0.651685), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -321,19 +335,25 @@ _data = {
 &"Walk": SubResource("Animation_h4df7")
 }
 
-[node name="Slime" unique_id=1251952136 node_paths=PackedStringArray("body_anim") instance=ExtResource("1_djix7")]
-script = ExtResource("2_2l84w")
-max_agr_phase = 5
-hear_radius = 100.0
-fov_half_angle = 120.0
-wander_interval_min = 6.0
-wander_interval_max = 10.0
-ray_length = 60.0
-avoidance_strength = 2.0
-attack_radius = 0.0
+[node name="Slime" unique_id=1251952136 node_paths=PackedStringArray("anim", "skin", "Vfx") instance=ExtResource("1_djix7")]
+script = ExtResource("2_0r3tc")
+can_shoot = false
+stop_while_shooting = false
+anim = NodePath("Skin/AnimationPlayer")
+line_of_sight = 200.0
+continue_follow_target = true
+can_fear = false
+speed_multiplier = 10.0
+attack_parameter = SubResource("Resource_s5u5i")
+attack_range = 20.0
 attack_cooldown = 0.8
-body_anim = NodePath("Skin/AnimationPlayer")
-Entity_stats = SubResource("Resource_0r3tc")
+aim_offset = Vector2(0, 0)
+skin = NodePath("Skin")
+show_gizmos = true
+sight_color = Color(1, 0.85, 0.2, 1)
+attack_color = Color(1, 0.2, 0.2, 1)
+Entity_stats = SubResource("Resource_onooq")
+Vfx = NodePath("VFX")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 hide_objects = [NodePath("../Skin")]
@@ -349,14 +369,19 @@ equip = SubResource("Resource_2l84w")
 position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_djix7")
 
-[node name="DamageVFX" parent="." index="5" unique_id=1460921651]
+[node name="Drop" parent="." index="4" unique_id=1587885386]
+drop_resources = Array[ExtResource("5_onooq")]([SubResource("Resource_3sfyk")])
+
+[node name="VFX" parent="." index="5" unique_id=304494227 node_paths=PackedStringArray("character")]
+character = NodePath("..")
+
+[node name="DamageVFX" parent="." index="6" unique_id=1460921651]
 process_material = SubResource("ParticleProcessMaterial_ojvg7")
 
-[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
+[node name="DamageSFX" parent="." index="7" unique_id=2033228583]
 stream = SubResource("AudioStreamRandomizer_n87c8")
 volume_db = 22.66
 pitch_scale = 1.0
-bus = &"SFX"
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=557302533]
 
@@ -365,7 +390,7 @@ position = Vector2(0, -2.9237213)
 texture = ExtResource("7_ojvg7")
 offset = Vector2(0.15767288, -5.2356453)
 region_enabled = true
-region_rect = Rect2(272, 48, 17, 16)
+region_rect = Rect2(240, 48, 32, 16)
 
 [node name="Shadow" type="Sprite2D" parent="Skin" index="1" unique_id=7161831]
 modulate = Color(0.14509805, 0.10980392, 0.13725491, 0.23529412)
@@ -382,6 +407,5 @@ libraries/ = SubResource("AnimationLibrary_v5uk5")
 max_distance = 150.0
 attenuation = 2.219139
 max_polyphony = 5
-bus = &"SFX"
 
 [connection signal="health_changed" from="." to="." method="_on_Damaged"]

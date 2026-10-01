@@ -105,7 +105,7 @@ func get_incoming_damage_multiplier() -> float:
 # ── ПОЛУЧЕНИЕ УРОНА ─────────────────────────────────────────────
 ## is_critical      — был ли удар критическим (для VFX/хитстопа)
 ## poise_damage     — сколько "стаггера" наносит этот удар (используется Creature.on_hit)
-func take_damage(damage: float, damage_source: Node2D = null, is_critical: bool = false, poise_damage: float = 0.0) -> void:
+func take_damage(damage: float, damage_source: Node2D = null, knockback_mod : float = 0.0) -> void:
 	if not is_alive or is_invincible:
 		return
 
@@ -119,15 +119,13 @@ func take_damage(damage: float, damage_source: Node2D = null, is_critical: bool 
 	if Vfx != null:
 		Vfx._damage_vfx()
 
-	_trigger_screen_shake(is_critical)
-	_do_hitstop(is_critical)
 	# ────────────────────────────────────────────────
 
 	Entity_stats.current_health -= actual_damage
 	emit_signal("health_changed", Entity_stats.current_health)
 
 	if debug_log_damage:
-		_log_damage(damage, actual_damage, total_reduction, is_critical, vulnerability_mult)
+		_log_damage(damage, actual_damage, total_reduction)
 
 	# ── Реакция существа на удар (страх, стаггер и т.д.) ─────────────
 	#if has_method("on_hit"):
@@ -135,17 +133,20 @@ func take_damage(damage: float, damage_source: Node2D = null, is_critical: bool 
 	# ──────────────────────────────────────────────────────────────────
 
 	if damage_source != null:
-		var knockback_power = knockback_strength + randi_range(0, int(damage))
-		if is_critical:
-			knockback_power *= 1.4
-		if Entity_stats.current_health <= 0:
+		var knockback_power = knockback_strength + randi_range(0, int(damage)) + knockback_mod
+
+		if Entity_stats.current_health <= Entity_stats.max_health / 35:
 			knockback_power += 40 + damage
+
 		apply_knockback(damage_source, knockback_power)
 
 	if Entity_stats.current_health <= 0:
 		die()
 	elif invincibility_duration > 0:
 		_start_invincibility()
+
+
+
 # ── SCREEN SHAKE ────────────────────────────────────────────────
 func _trigger_screen_shake(is_critical: bool = false) -> void:
 	if screen_shake_strength <= 0:
@@ -273,7 +274,11 @@ func take_dot_damage(amount: float, ignore_reduction: bool = true) -> void:
 		var total_reduction = clamp(Entity_stats.get_total_damage_reduction(), 0.0, 0.9)
 		actual_damage = amount * (1.0 - total_reduction)
 
+	if debug_log_damage:
+		print("[DOT] %s: -%.1f HP (%.1f -> %.1f)" % [name, actual_damage, Entity_stats.current_health, Entity_stats.current_health - actual_damage])
+
 	Entity_stats.current_health -= actual_damage
+	Vfx._damage_vfx()
 	emit_signal("health_changed", Entity_stats.current_health)
 
 	if Entity_stats.current_health <= 0:

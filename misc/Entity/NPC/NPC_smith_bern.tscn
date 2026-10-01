@@ -10,13 +10,24 @@ resource_local_to_scene = true
 script = ExtResource("2_njn4u")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
-[node name="SmithBern" unique_id=2111811093 instance=ExtResource("1_uue0a")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7w438"]
+size = Vector2(22.851265, 24.919147)
+
+[node name="SmithRedji" unique_id=2111811093 instance=ExtResource("1_uue0a")]
+show_ui = "Weapon"
 awareness_radius = 40.0
 wander_interval_min = 4.0
 wander_interval_max = 7.0
 wander_radius = 30.0
 turn_speed = 48.0
 Entity_stats = SubResource("Resource_k6uyc")
+
+[node name="interaction_area" parent="." index="7" unique_id=1236577010]
+position = Vector2(-0.2456932, 0)
+
+[node name="CollisionShape2D" parent="interaction_area" index="0" unique_id=1293278930]
+position = Vector2(0, -12.528223)
+shape = SubResource("RectangleShape2D_7w438")
 
 [node name="Body" parent="Skin" parent_id_path=PackedInt32Array(1878994847) index="0" unique_id=1621133311]
 region_rect = Rect2(38, 52, 7, 9)

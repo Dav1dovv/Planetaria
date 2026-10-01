@@ -55,7 +55,6 @@ speed = 100.0
 lifetime = 10.0
 damage = 20.0
 projectile_type = "bomb"
-explode_on_hit = false
 homing_strength = 1.0
 max_travel_distance = 30.0
 

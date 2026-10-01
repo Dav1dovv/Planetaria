@@ -160,7 +160,7 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 	# ── Визуальный фидбэк ────────────────────────────────────────────────────
 	if VFX_component != null:
 		VFX_component._hit_vfx($Sprite2D)
-		await VFX_component.vfx_finished
+		#await VFX_component.vfx_finished
 	# ─────────────────────────────────────────────────────────────────────────
 
 	# ── Уменьшение прочности (с бонусом от комбо-тайминга) ───────────────────

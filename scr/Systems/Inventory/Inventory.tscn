@@ -12,10 +12,11 @@
 [ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://misc/Content/Items/Fuel.tres" id="9_f4jol"]
 [ext_resource type="PackedScene" uid="uid://dts1ot2trd002" path="res://scr/Systems/TradingSystem/TradeWindow.tscn" id="9_f8cid"]
 [ext_resource type="Script" uid="uid://c785sodtl7e0" path="res://scr/Systems/Inventory/hot_bar.gd" id="9_tp014"]
-[ext_resource type="Resource" uid="uid://ky47smcnnrdj" path="res://misc/Content/Items/ExpPoint.tres" id="10_30377"]
 [ext_resource type="AudioStream" uid="uid://dcj5noosq88tu" path="res://Assets/Audio/SFX/UI/Trash/Trash-02.mp3" id="11_0bh7v"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="12_30377"]
 [ext_resource type="AudioStream" uid="uid://2sptuiu4d3fy" path="res://Assets/Audio/SFX/UI/Trash/Trash-01.mp3" id="12_h1lmb"]
+[ext_resource type="AudioStream" uid="uid://dge16bwkfs3n3" path="res://Assets/Audio/SFX/UI/OpenInv.wav" id="16_6444u"]
+[ext_resource type="AudioStream" uid="uid://dv50jbp6o0xu5" path="res://Assets/Audio/SFX/UI/CloseInv.wav" id="17_xnpxd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f8cid"]
 shader = ExtResource("6_1502c")
@@ -333,13 +334,6 @@ script = ExtResource("8_ngij8")
 gold_item = ExtResource("9_f4jol")
 max_stack = 9999
 
-[node name="InventorySlot2" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=164393157 instance=ExtResource("6_81ckb")]
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_30377")
-script = ExtResource("8_ngij8")
-gold_item = ExtResource("10_30377")
-max_stack = 9999
-
 [node name="InventorySlot3" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1963005018 instance=ExtResource("6_81ckb")]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_30377")
@@ -355,13 +349,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 station_type = 0
-
-[node name="Workbench" parent="HBoxContainer" unique_id=657580428 instance=ExtResource("8_d17u8")]
-visible = false
-custom_minimum_size = Vector2(200, 160)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="Barmen" parent="HBoxContainer" unique_id=104361974 instance=ExtResource("8_d17u8")]
 visible = false
@@ -381,9 +368,6 @@ size_flags_vertical = 4
 [node name="UI_TrashSlot_SFX" type="AudioStreamPlayer" parent="." unique_id=1684868196]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_6y4uj")
-
-[node name="UI_inv_SFX2" type="AudioStreamPlayer" parent="." unique_id=1729879615]
-unique_name_in_owner = true
 
 [node name="SCOREBAR" type="HBoxContainer" parent="." unique_id=888150505]
 layout_mode = 1
@@ -411,12 +395,13 @@ script = ExtResource("8_ngij8")
 gold_item = ExtResource("9_f4jol")
 max_stack = 9999
 
-[node name="InventorySlot2" parent="SCOREBAR" unique_id=1055580771 instance=ExtResource("6_81ckb")]
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_30377")
-script = ExtResource("8_ngij8")
-gold_item = ExtResource("10_30377")
-max_stack = 9999
+[node name="UI_inv_OpenSFX" type="AudioStreamPlayer" parent="." unique_id=1454266983]
+unique_name_in_owner = true
+stream = ExtResource("16_6444u")
+
+[node name="UI_inv_CloseSFX" type="AudioStreamPlayer" parent="." unique_id=913139867]
+unique_name_in_owner = true
+stream = ExtResource("17_xnpxd")
 
 [connection signal="mouse_entered" from="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" to="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" to="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" method="_on_mouse_exited"]

@@ -94,7 +94,7 @@ func _update_tooltip() -> void:
 	if not tip or not tip.has_method("set_data"):
 		return
 	if item:
-		tip.set_data(item)
+		tip.set_data(item, ammount)
 	else:
 		tip.clear()
 

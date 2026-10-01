@@ -12,6 +12,9 @@ resource_local_to_scene = true
 script = ExtResource("2_qd8fl")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wmxi1"]
+radius = 5.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jsr4m"]
 
 [sub_resource type="Animation" id="Animation_syvqr"]
@@ -680,22 +683,62 @@ _data = {
 &"Walk": SubResource("Animation_emg1b")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wmxi1"]
-radius = 5.0
-
 [node name="Barmen" unique_id=2111811093 node_paths=PackedStringArray("body_anim") instance=ExtResource("1_f7dn3")]
 script = ExtResource("2_htwsq")
 awareness_radius = 50.0
 face_player_radius = 20.0
+behavior = 0.0
+can_flee = false
+flee_threshold = 0.25
+flee_on_hit = false
+use_fear = false
+fear_per_damage = 0.05
+fear_proximity_radius = 60.0
+fear_proximity_rate = 0.08
+fear_decay_rate = 0.05
+fear_flee_threshold = 0.6
+fear_calm_threshold = 0.25
+hides_when_scared = false
+hide_duration = 1.5
+hide_damage_reduction = 0.0
+fear_sound = null
+fear_sound_pitch_variance = 0.08
+flee_speed_multiplier = 1.6
+pack_group = ""
+pack_alert_radius = 300.0
+hear_radius = 60.0
+sight_radius = 180.0
+fov_half_angle = 60.0
+use_los_check = true
+wall_collision_mask = 1
+memory_duration = 3.0
+wander_interval_min = 2.0
 wander_interval_max = 4.0
 wander_radius = 20.0
+turn_speed = 12.0
+patrol_points = Array[NodePath]([])
+chase_weave_enabled = true
+chase_weave_amplitude = 14.0
+chase_weave_frequency = 0.8
 ray_length = 50.0
 avoidance_strength = 2.0
+attack_damage = 10.0
+attack_radius = 28.0
+attack_cooldown = 1.2
+max_poise = 100.0
+poise_decay_rate = 15.0
+poise_decay_delay = 1.0
+stagger_duration = 1.0
+vulnerable_damage_multiplier = 1.5
 body_anim = NodePath("AnimationPlayer")
 Entity_stats = SubResource("Resource_uqqtv")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 hide_objects = [NodePath("../Skin")]
+
+[node name="CollisionShape2D" parent="." index="3" unique_id=713772618]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_wmxi1")
 
 [node name="interaction_area" type="Area2D" parent="." index="7" unique_id=1236577010]
 collision_layer = 128
@@ -763,13 +806,9 @@ position = Vector2(0, 7)
 scale = Vector2(1, 0.5)
 texture = ExtResource("6_uqqtv")
 
-[node name="HealthBar" parent="." index="10" unique_id=1354189396]
+[node name="HealthBar" parent="." index="11" unique_id=1354189396]
 offset_left = -8.247139
 offset_top = 2.1998482
 offset_right = 8.247139
 offset_bottom = 4.199848
 metadata/_edit_use_anchors_ = true
-
-[node name="CollisionShape2D" parent="." index="11" unique_id=713772618]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_wmxi1")

@@ -65,9 +65,9 @@ func _ready() -> void:
 	_plan_next_celeste()
 	_plan_next_morva()
 	
-	%DeveloperConsole.register_command("time_speed", _cmd_time_speed, "time_speed <sec>")
-	%DeveloperConsole.register_command("events", _cmd_events, "Показать ближайшие события")
-	%DeveloperConsole.register_command("tick_speed", _cmd_tick_speed, "tick_speed <scale>")
+	Global.developer_console.register_command("time_speed", _cmd_time_speed, "time_speed <sec>")
+	Global.developer_console.register_command("events", _cmd_events, "Показать ближайшие события")
+	Global.developer_console.register_command("tick_speed", _cmd_tick_speed, "tick_speed <scale>")
 	if active:
 		start()
 

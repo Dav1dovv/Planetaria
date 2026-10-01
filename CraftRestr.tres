@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="Registry" format=3 uid="uid://bc51xfhat5hrg"]
+
+[ext_resource type="Script" uid="uid://dqtv77mng5dyh" path="res://addons/yard/registry.gd" id="1_mmyty"]
+
+[resource]
+script = ExtResource("1_mmyty")
+_version = 2
+_scan_rulesets = Array[Dictionary]([{
+&"allowed_file_extensions": Array[String]([".tres"]),
+&"class_restrictions": Array[StringName]([&"\"res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd\""]),
+&"recursive_scan": false,
+&"scan_directories": Array[String](["res://misc/Content/Recipes/Craft"]),
+&"scan_regex_exclude": "",
+&"scan_regex_include": ""
+}])
+_uids_to_string_ids = Dictionary[StringName, StringName]({
+&"uid://7r5kntgyyon7": &"Pickaxe_lvl3",
+&"uid://b1fkvlvwomh61": &"Pickaxe_Repair_lvl1",
+&"uid://cfpv0nwkqmdh1": &"Pickaxe_lvl2",
+&"uid://cma67watqgnao": &"Pickaxe_Repair_lvl3",
+&"uid://dy5qewt27bigq": &"Pickaxe_Repair_lvl2",
+&"uid://ifmg80qkwwpr": &"swordrecipe"
+})
+_string_ids_to_uids = Dictionary[StringName, StringName]({
+&"Pickaxe_Repair_lvl1": &"uid://b1fkvlvwomh61",
+&"Pickaxe_Repair_lvl2": &"uid://dy5qewt27bigq",
+&"Pickaxe_Repair_lvl3": &"uid://cma67watqgnao",
+&"Pickaxe_lvl2": &"uid://cfpv0nwkqmdh1",
+&"Pickaxe_lvl3": &"uid://7r5kntgyyon7",
+&"swordrecipe": &"uid://ifmg80qkwwpr"
+})

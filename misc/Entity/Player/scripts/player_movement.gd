@@ -83,7 +83,7 @@ func try_resume_pending_exit_walk() -> void:
 	## Вызывается из Player._ready(): если игрок только что зашёл через
 	## дверь и остался отложенный exit walk в Global — подхватываем его.
 	if Global.get("pending_exit_walk") and Global.pending_exit_walk["active"]:
-		var d := Global.pending_exit_walk
+		var d = Global.pending_exit_walk
 		activate_exit_walk(d["direction"], d["duration"], d["speed_mult"])
 		Global.pending_exit_walk["active"] = false
 

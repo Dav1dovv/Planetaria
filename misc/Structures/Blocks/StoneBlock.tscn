@@ -16,24 +16,24 @@ script = ExtResource("2_qqq1y")
 durability = 20.0
 harvest_tool_lvl = 0
 
-[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 shape = SubResource("RectangleShape2D_x3clc")
 
-[node name="optimizer" parent="." index="2" unique_id=2100972979]
+[node name="optimizer" parent="." index="1" unique_id=2100972979]
 rect = Rect2(-10, -27, 20, 29)
 
-[node name="CollisionShape2D" parent="." index="5" unique_id=1716306559]
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
 position = Vector2(0.27026016, -14.5)
 shape = SubResource("RectangleShape2D_i28hn")
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="6" unique_id=1027623057]
+[node name="Sprite2D2" type="Sprite2D" parent="." index="6" unique_id=1027623057]
 position = Vector2(0, -8.562502)
 scale = Vector2(1.125, 1.0625)
 texture = ExtResource("2_i28hn")
 offset = Vector2(0, -7)
 hframes = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D" index="0" unique_id=711993269]
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D" parent_id_path=PackedInt32Array(308116851) index="0" unique_id=711993269]
 modulate = Color(0.08627451, 0.08627451, 0.11372549, 0.7294118)
 show_behind_parent = true
 position = Vector2(0, 11.823531)

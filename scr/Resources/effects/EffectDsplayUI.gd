@@ -9,6 +9,11 @@ var tracked_entity: Entity
 
 # Словарь отображаемых иконок {effect_type: Control}
 var effect_icons: Dictionary = {}
+# Словарь лейблов таймера {effect_type: Label} — храним прямую ссылку,
+# т.к. Timer-лейбл лежит на несколько уровней глубже иконки
+# (container → margin → vbox → Timer), и get_node("Timer")/has_node("Timer")
+# ищет только ПРЯМОГО потомка, поэтому таймер раньше никогда не обновлялся.
+var effect_timer_labels: Dictionary = {}
 
 func _ready():
 	set_process(true)
@@ -32,26 +37,41 @@ func set_entity(entity: Entity) -> void:
 func _process(delta: float):
 	if not tracked_entity or not tracked_entity.effect_manager:
 		return
-	
+
+	# Собираем актуальные данные один раз за кадр, а не по разу на иконку
+	var active := tracked_entity.effect_manager.get_active_effects()
+	var duration_by_type: Dictionary = {}
+	for d in active:
+		duration_by_type[d.effect.effect_type] = d.duration
+
 	# Обновляем таймеры на иконках
-	for effect_type in effect_icons.keys():
-		var icon = effect_icons[effect_type]
-		var time_left = tracked_entity.effect_manager.get_effect_time_remaining(effect_type)
-		
-		if icon.has_node("Timer"):
-			var timer_label = icon.get_node("Timer")
-			if time_left > 0:
-				timer_label.text = str(ceil(time_left))
-			else:
-				timer_label.text = ""
+	for effect_type in effect_timer_labels.keys():
+		var timer_label: Label = effect_timer_labels[effect_type]
+		if not is_instance_valid(timer_label):
+			continue
+		if not duration_by_type.has(effect_type):
+			continue
+
+		var duration: float = duration_by_type[effect_type]
+		var time_left: float = tracked_entity.effect_manager.get_effect_time_remaining(effect_type)
+
+		if duration <= 0.0:
+			# Бесконечный эффект (duration <= 0, напр. -1) — таймера нет, показываем ∞
+			timer_label.text = "∞"
+		elif time_left > 0:
+			timer_label.text = str(ceil(time_left))
+		else:
+			timer_label.text = ""
 
 func _on_effect_added(effect: Effect) -> void:
 	if effect_icons.has(effect.effect_type):
 		return  # Иконка уже есть
 	
-	var icon = _create_effect_icon(effect)
+	var timer_label := Label.new()
+	var icon = _create_effect_icon(effect, timer_label)
 	add_child(icon)
 	effect_icons[effect.effect_type] = icon
+	effect_timer_labels[effect.effect_type] = timer_label
 
 func _on_effect_removed(effect: Effect) -> void:
 	if not effect_icons.has(effect.effect_type):
@@ -60,8 +80,9 @@ func _on_effect_removed(effect: Effect) -> void:
 	var icon = effect_icons[effect.effect_type]
 	icon.queue_free()
 	effect_icons.erase(effect.effect_type)
+	effect_timer_labels.erase(effect.effect_type)
 
-func _create_effect_icon(effect: Effect) -> Control:
+func _create_effect_icon(effect: Effect, timer_label: Label) -> Control:
 	var container = PanelContainer.new()
 	container.custom_minimum_size = Vector2(48, 48)
 	
@@ -96,7 +117,6 @@ func _create_effect_icon(effect: Effect) -> Control:
 		vbox.add_child(texture_rect)
 	
 	# Таймер
-	var timer_label = Label.new()
 	timer_label.name = "Timer"
 	timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	timer_label.add_theme_font_size_override("font_size", 10)
@@ -117,3 +137,4 @@ func clear_effects() -> void:
 	for icon in effect_icons.values():
 		icon.queue_free()
 	effect_icons.clear()
+	effect_timer_labels.clear()

@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://ch6mig0k7cgae"]
+
+[ext_resource type="Script" uid="uid://otncdq7pcb1r" path="res://misc/Structures/Obstacles/gas.gd" id="1_0c3y7"]
+[ext_resource type="Texture2D" uid="uid://dm2p3xhqocn2" path="res://Assets/Textures/UI/Effects/Effect6.png" id="2_2j7p5"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="2_fb3ma"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="3_4orup"]
+
+[sub_resource type="Resource" id="Resource_fb3ma"]
+script = ExtResource("3_4orup")
+effect_icon = ExtResource("2_2j7p5")
+effect_type = 8
+value = 5.0
+duration = -1.0
+particle_color = Color(0.6603992, 0.00032613397, 0.66072875, 1)
+icon = ExtResource("2_2j7p5")
+display_name = "Poison"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cdos3"]
+radius = 111.8075
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1kdp3"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(60, 60, 60)
+emission_shape = 1
+emission_sphere_radius = 1.2
+inherit_velocity_ratio = 0.438
+velocity_pivot = Vector3(60, 60, 60)
+direction = Vector3(0, 200, 0)
+spread = 0.0
+gravity = Vector3(0, -10, 0)
+linear_accel_min = -72.590004
+linear_accel_max = -50.97
+tangential_accel_min = -46.33
+tangential_accel_max = 60.999996
+damping_min = 41.313004
+damping_max = 66.796005
+scale_over_velocity_max = 693.17
+
+[node name="Gas" type="Area2D" unique_id=159042941]
+script = ExtResource("1_0c3y7")
+effect = SubResource("Resource_fb3ma")
+metadata/_custom_type_script = "uid://cburu6b4ckehs"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=927352811]
+z_index = -19
+scale = Vector2(18.811718, 18.811718)
+texture = ExtResource("2_fb3ma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=715851633]
+shape = SubResource("CircleShape2D_cdos3")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1655355122]
+z_index = 63
+amount = 64
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_1kdp3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

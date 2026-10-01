@@ -148,6 +148,9 @@ func _on_died() -> void:
 	Global.play_game_over()
 	HandAanimator.stop()
 	BodyAnimator.play("Death")
+	$CollisionShape2D.disabled = false
+	$Dropper._drop_items()
+	await get_tree().create_timer(10).timeout
 	gui.call_death()
 
 func respawn() -> void:

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://o4a6276bgxhx"]
 
-[ext_resource type="Script" uid="uid://dba47bfyot3vs" path="res://misc/Entity/Scripts/Creature.gd" id="1_n87c8"]
+[ext_resource type="Script" uid="uid://dsd2vkq83udix" path="res://misc/Entity/Scripts/Entity.gd" id="1_n644n"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="2_dm04a"]
 [ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="3_6xjkt"]
 [ext_resource type="Script" uid="uid://d2b3gchtl7jhb" path="res://misc/Utils/Boxes/HurtBox.gd" id="4_y0r7g"]
@@ -12,9 +12,8 @@
 [ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="12_n87c8"]
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="13_5aled"]
 
-[sub_resource type="Resource" id="Resource_15r6q"]
+[sub_resource type="Resource" id="Resource_20qhi"]
 script = ExtResource("2_dm04a")
-base_move_speed = 1.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3sfyk"]
@@ -30,12 +29,11 @@ region = Rect2(64, 112, 64, 16)
 texture = SubResource("AtlasTexture_po7el")
 modulate_color = Color(0.5411765, 1, 0.41568628, 1)
 
-[node name="Creature" type="CharacterBody2D" unique_id=1251952136 node_paths=PackedStringArray("Vfx")]
+[node name="Creature" type="CharacterBody2D" unique_id=627517657]
 collision_mask = 3
-script = ExtResource("1_n87c8")
-Entity_stats = SubResource("Resource_15r6q")
-Vfx = NodePath("VFX")
-metadata/_custom_type_script = "uid://dba47bfyot3vs"
+script = ExtResource("1_n644n")
+Entity_stats = SubResource("Resource_20qhi")
+metadata/_custom_type_script = "uid://dsd2vkq83udix"
 
 [node name="optimizer" type="VisibleOnScreenEnabler2D" parent="." unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(0, -10)
@@ -53,6 +51,8 @@ metadata/_custom_type_script = "uid://d2b3gchtl7jhb"
 [node name="HitBox" type="Area2D" parent="." unique_id=1440497730]
 script = ExtResource("5_uoj0l")
 metadata/_custom_type_script = "uid://c8gtsucgxp2ef"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=713772618]
 
 [node name="Drop" type="Node" parent="." unique_id=1587885386]
 script = ExtResource("6_ghm6a")
@@ -80,9 +80,4 @@ offset_bottom = 8.0
 theme_override_styles/fill = SubResource("StyleBoxTexture_x812b")
 show_percentage = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=713772618]
-
 [node name="Explosion" parent="." unique_id=440659189 instance=ExtResource("11_jed1r")]
-
-[connection signal="died" from="." to="." method="_on_died"]
-[connection signal="health_changed" from="." to="." method="_on_health_changed"]

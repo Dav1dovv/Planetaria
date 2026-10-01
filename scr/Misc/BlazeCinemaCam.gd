@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/mesh/film_camera.svg")
 extends Blaze_camera
 class_name Blaze_Cinema_Cam
 

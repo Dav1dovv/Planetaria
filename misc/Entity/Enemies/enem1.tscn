@@ -1,16 +1,22 @@
 [gd_scene format=3 uid="uid://crkxdrgf26do0"]
 
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_6am1a"]
-[ext_resource type="Script" uid="uid://8u8vegdxloxp" path="res://misc/Entity/Enemies/Patrolers.gd" id="2_d6pb5"]
+[ext_resource type="Script" uid="uid://dyyn2rllx0mpi" path="res://misc/Entity/Scripts/ContactEnemy.gd" id="2_6am1a"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_mho44"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="4_kxpfh"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_qmv18"]
 [ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://misc/Projectiles/Arrow.tscn" id="6_gipjf"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="7_mho44"]
 [ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="7_tux8u"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="8_kxpfh"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="8_yo68u"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="9_11a4b"]
 
-[sub_resource type="Resource" id="Resource_6am1a"]
+[sub_resource type="Resource" id="Resource_m2pa7"]
+script = ExtResource("4_kxpfh")
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
+[sub_resource type="Resource" id="Resource_mho44"]
 resource_local_to_scene = true
 script = ExtResource("3_mho44")
 max_health = 30
@@ -30,8 +36,6 @@ script = ExtResource("4_kxpfh")
 Damage = 3
 hit_distance = 20.0
 equiped_weapon_sprite = SubResource("AtlasTexture_4w85q")
-critical_radius = 2.25
-critical_chance = 0.1
 icon = SubResource("AtlasTexture_4w85q")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
@@ -56,6 +60,14 @@ metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hprji"]
 size = Vector2(18, 11)
+
+[sub_resource type="Resource" id="Resource_kxpfh"]
+script = ExtResource("7_mho44")
+drop_item = ExtResource("8_kxpfh")
+drop_chance = 0.4001
+min_throws = 2
+max_throws = 5
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ac6fd"]
 atlas = ExtResource("5_qmv18")
@@ -1348,18 +1360,24 @@ _data = {
 &"Walk": SubResource("Animation_xdby1")
 }
 
-[node name="Rat" unique_id=1251952136 node_paths=PackedStringArray("body_anim", "hand_anim") instance=ExtResource("1_6am1a")]
-script = ExtResource("2_d6pb5")
-static_agr = 0.5
-behavior = 0.5
-hear_radius = 140.0
-chase_weave_amplitude = 30.0
-chase_weave_frequency = 3.0
-attack_radius = 0.0
+[node name="Rat" unique_id=1251952136 node_paths=PackedStringArray("anim", "Vfx") instance=ExtResource("1_6am1a")]
+script = ExtResource("2_6am1a")
+can_shoot = false
+stop_while_shooting = true
+anim = NodePath("Skin/Body/BodyAnim")
+line_of_sight = 100.0
+continue_follow_target = true
+can_fear = false
+speed_multiplier = 10.0
+attack_parameter = SubResource("Resource_m2pa7")
+attack_range = 50.0
 attack_cooldown = 0.8
-body_anim = NodePath("Skin/Body/BodyAnim")
-hand_anim = NodePath("Skin/Body/Hand/AnimationPlayer")
-Entity_stats = SubResource("Resource_6am1a")
+aim_offset = Vector2(0, 0)
+show_gizmos = true
+sight_color = Color(1, 0.85, 0.2, 1)
+attack_color = Color(1, 0.2, 0.2, 1)
+Entity_stats = SubResource("Resource_mho44")
+Vfx = NodePath("VFX")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 hide_objects = [NodePath("../Skin")]
@@ -1377,25 +1395,35 @@ position = Vector2(21, -2)
 shape = SubResource("RectangleShape2D_hprji")
 disabled = true
 
-[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
+[node name="Drop" parent="." index="4" unique_id=1587885386]
+drop_resources = Array[ExtResource("7_mho44")]([SubResource("Resource_kxpfh")])
+
+[node name="VFX" parent="." index="5" unique_id=304494227 node_paths=PackedStringArray("character")]
+character = NodePath("../Skin")
+
+[node name="DamageSFX" parent="." index="7" unique_id=2033228583]
 stream = ExtResource("7_tux8u")
 pitch_scale = 0.54
+
+[node name="HealthBar" parent="." index="8" unique_id=1354189396]
+offset_top = 9.36055
+offset_bottom = 13.36055
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=1935695162]
 
 [node name="Body" type="Sprite2D" parent="Skin" index="0" unique_id=583742459]
 position = Vector2(0, -8)
 texture = ExtResource("8_yo68u")
-offset = Vector2(6.704666, -3.877285)
+offset = Vector2(4.634, -6.666)
 region_enabled = true
-region_rect = Rect2(327, 5, 19, 23)
+region_rect = Rect2(247, 65, 17, 23)
 
 [node name="LeftLeg" type="Sprite2D" parent="Skin/Body" index="0" unique_id=308076313]
 position = Vector2(-2, 4)
 texture = ExtResource("8_yo68u")
-offset = Vector2(0, 2)
+offset = Vector2(0.62906647, 3.190195)
 region_enabled = true
-region_rect = Rect2(353, 20, 10, 12)
+region_rect = Rect2(273, 84, 11, 12)
 
 [node name="RightLeg" type="Sprite2D" parent="Skin/Body" index="1" unique_id=524656219]
 modulate = Color(0.83033526, 0.83033514, 0.83033514, 1)
@@ -1404,7 +1432,7 @@ position = Vector2(2, 4)
 texture = ExtResource("8_yo68u")
 offset = Vector2(0, 2)
 region_enabled = true
-region_rect = Rect2(353, 20, 10, 12)
+region_rect = Rect2(273, 84, 10, 12)
 
 [node name="Hand" type="Node2D" parent="Skin/Body" index="2" unique_id=1936350824]
 visible = false
@@ -1446,6 +1474,6 @@ speed_scale = 1.7
 [node name="Shadow" type="Sprite2D" parent="Skin" index="1" unique_id=2056743158]
 self_modulate = Color(0.0392157, 0.0705882, 0.2, 0.388235)
 z_index = -10
-position = Vector2(0, 1.6528379)
+position = Vector2(0, 3.5513668)
 scale = Vector2(1.4680675, 0.669852)
 texture = ExtResource("9_11a4b")

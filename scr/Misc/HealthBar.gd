@@ -1,23 +1,4 @@
-## Terraria × Zelda — Heart Bar (фиксированные 100 HP)
-##
-## HP всегда от 0 до 100.
-## Сердца — это только визуальное разделение этих 100 HP.
-##
-##   5 сердец  (старт) → 1 сердце = 20 HP, ½ = 10 HP
-##   10 сердец          → 1 сердце = 10 HP, ½ = 5 HP
-##   20 сердец          → 1 сердце = 5 HP,  ½ = 2.5 HP
-##
-## Текстуры — назначить в инспекторе:
-##   full_icon   ♥  полное сердце
-##   half_icon   ♡½ половина
-##   empty_icon  ♡  пустой контейнер
-##
-## API:
-##   health_bar.take_damage(20)   # -1 сердце при 5 сердцах
-##   health_bar.heal(10)
-##   health_bar.add_heart()       # +1 сердце (апгрейд), HP не меняется
-##   health_bar.add_heart(true)   # +1 сердце + восполнить новое сердце
-
+@icon("res://addons/at-icons/mesh/heart_broken.svg")
 @tool
 extends Control
 class_name HealthBar

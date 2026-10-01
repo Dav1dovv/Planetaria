@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://cxd8jxmdk1q7h"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_em68m"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_o73mm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0cw4"]
+atlas = ExtResource("1_em68m")
+region = Rect2(80, 80, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7mdbe"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utxrl"]
+atlas = SubResource("CompressedTexture2D_7mdbe")
+region = Rect2(80, 80, 16, 16)
+
+[resource]
+script = ExtResource("1_o73mm")
+Damage = 10
+equiped_weapon_sprite = SubResource("AtlasTexture_r0cw4")
+icon = SubResource("AtlasTexture_utxrl")
+item_name = "sord2"
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

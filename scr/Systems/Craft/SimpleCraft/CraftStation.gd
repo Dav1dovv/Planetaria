@@ -155,8 +155,8 @@ func _update_tab_labels() -> void:
 
 	# Подпись кнопки действия
 	match current_tab:
-		Tab.CRAFT:       craft_button.text = "Создать"
-		Tab.REPAIR:      craft_button.text = "Починить"
+		Tab.CRAFT:       craft_button.text = "BUY"
+		Tab.REPAIR:      craft_button.text = "REPAIR"
 		Tab.DISASSEMBLE: craft_button.text = "Разобрать"
 
 	# Кнопка "Макс" — только для крафта

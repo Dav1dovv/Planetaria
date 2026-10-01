@@ -1,4 +1,3 @@
-@tool
 extends RapierArea2D
 class_name interaction_area
 

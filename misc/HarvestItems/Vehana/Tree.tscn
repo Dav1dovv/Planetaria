@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/HarvestRoot.tscn" id="1_32v1v"]
 [ext_resource type="Resource" uid="uid://b7dxq4y8wfso" path="res://misc/Content/Items/Wood.tres" id="3_d3fsl"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_hs44r"]
-[ext_resource type="Resource" uid="uid://ky47smcnnrdj" path="res://misc/Content/Items/ExpPoint.tres" id="5_u7jed"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="6_x2q3c"]
 [ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="7_1t5m1"]
 [ext_resource type="AudioStream" uid="uid://v4sxnpx0ucxs" path="res://Assets/Audio/SFX/Environemnt/HarvesstItems/Wood-01.mp3" id="10_jow1p"]
@@ -16,17 +15,12 @@
 radius = 3.70122
 height = 23.155107
 
-[sub_resource type="Resource" id="Resource_hedjd"]
-script = ExtResource("7_1t5m1")
-drop_item = ExtResource("5_u7jed")
-drop_chance = 0.1051
-max_throws = 3
-metadata/_custom_type_script = "uid://d0ssuokxx56v7"
-
 [sub_resource type="Resource" id="Resource_dke88"]
 script = ExtResource("7_1t5m1")
 drop_item = ExtResource("6_x2q3c")
-drop_chance = 0.2111
+drop_chance = 0.2501
+min_throws = 3
+max_throws = 6
 metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phfk7"]
@@ -129,7 +123,7 @@ rect = Rect2(-10, -10, 18.168613, 17.004868)
 hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow")]
 
 [node name="droper" parent="." index="2" unique_id=1465568748]
-drop_resources = Array[ExtResource("7_1t5m1")]([ExtResource("3_d3fsl"), SubResource("Resource_hedjd"), SubResource("Resource_dke88")])
+drop_resources = Array[ExtResource("7_1t5m1")]([ExtResource("3_d3fsl"), SubResource("Resource_dke88")])
 
 [node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
 position = Vector2(-0.5320306, -10.949819)
@@ -163,7 +157,6 @@ position = Vector2(-0.21122742, 0.002216339)
 texture = ExtResource("11_44ll0")
 offset = Vector2(-1.7273712, -30.667759)
 hframes = 4
-frame = 2
 script = ExtResource("3_hs44r")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
 

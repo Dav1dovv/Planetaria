@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://dxe8u451kmxek"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/HarvestRoot.tscn" id="1_v8vwc"]
+[ext_resource type="Texture2D" uid="uid://clb287rvya8vm" path="res://misc/HarvestItems/Vehana/Textures/Minerals.png" id="2_ktxes"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="2_lncde"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="3_dqxwr"]
+[ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_lncde"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="5_xdmsi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ammfx"]
+radius = 3.6076422
+height = 37.94168
+
+[sub_resource type="Resource" id="Resource_v8vwc"]
+script = ExtResource("2_lncde")
+drop_item = ExtResource("3_dqxwr")
+drop_chance = 1.0
+min_throws = 4
+max_throws = 8
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="Resource" id="Resource_6bv27"]
+script = ExtResource("2_lncde")
+drop_item = ExtResource("5_xdmsi")
+drop_chance = 0.2501
+min_throws = 3
+max_throws = 6
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lncde"]
+size = Vector2(38.118225, 9.5617285)
+
+[node name="Stone" unique_id=1934415035 instance=ExtResource("1_v8vwc")]
+can_infect = false
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
+position = Vector2(0, -3.2639303)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_ammfx")
+
+[node name="optimizer" parent="." index="1" unique_id=2100972979]
+rect = Rect2(-20.79863, -31.781843, 40.581997, 41.781845)
+
+[node name="droper" parent="." index="2" unique_id=1465568748]
+drop_resources = Array[ExtResource("2_lncde")]([SubResource("Resource_v8vwc"), SubResource("Resource_6bv27")])
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
+position = Vector2(-0.08827186, -5.3210645)
+shape = SubResource("RectangleShape2D_lncde")
+
+[node name="VFX_damage" parent="." index="5" unique_id=2140509907 node_paths=PackedStringArray("character")]
+character = NodePath("../Sprite2D")
+
+[node name="Sprite2D" parent="." index="8" unique_id=308116851]
+position = Vector2(0.23476791, -4.194992)
+texture = ExtResource("2_ktxes")
+offset = Vector2(-0.23476791, -12.020668)
+hframes = 6
+frame = 4
+script = ExtResource("3_lncde")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+
+[node name="Shadow" parent="." index="9" unique_id=1322860807]
+show_behind_parent = true
+position = Vector2(-0.8306657, -3.5995426)
+scale = Vector2(2.3729024, 0.95385194)

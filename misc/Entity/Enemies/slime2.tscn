@@ -1,0 +1,429 @@
+[gd_scene format=3 uid="uid://cu51i2cuo46v0"]
+
+[ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_hip60"]
+[ext_resource type="Script" uid="uid://dyyn2rllx0mpi" path="res://misc/Entity/Scripts/ContactEnemy.gd" id="2_s5u5i"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_fnewf"]
+[ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://misc/Projectiles/Arrow.tscn" id="3_s5u5i"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="4_cmg7c"]
+[ext_resource type="AudioStream" uid="uid://03ghu38ruspr" path="res://Assets/Audio/SFX/Creatures/Slime/Slime 3.mp3" id="5_ecca4"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="6_cmg7c"]
+[ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="6_tb44u"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="7_ecca4"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="7_ns2oi"]
+[ext_resource type="AudioStream" uid="uid://c6e0oujv5udu7" path="res://Assets/Audio/SFX/Creatures/Slime/Slime.mp3" id="8_hd3kh"]
+
+[sub_resource type="Resource" id="Resource_a3vbi"]
+script = ExtResource("4_cmg7c")
+projectile = ExtResource("3_s5u5i")
+num_projectiles = 2
+spread_degrees = 160.0
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
+[sub_resource type="Resource" id="Resource_cmg7c"]
+resource_local_to_scene = true
+resource_name = "Slime Stat"
+script = ExtResource("3_fnewf")
+max_health = 25
+base_armor = 1.5
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_djix7"]
+
+[sub_resource type="Resource" id="Resource_2l84w"]
+script = ExtResource("4_cmg7c")
+Damage = 2
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
+[sub_resource type="Resource" id="Resource_ns2oi"]
+script = ExtResource("6_cmg7c")
+drop_item = ExtResource("7_ecca4")
+drop_chance = 0.4001
+min_throws = 2
+max_throws = 5
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="Curve" id="Curve_k51xm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.642857, 0.651685), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4qrji"]
+curve = SubResource("Curve_k51xm")
+
+[sub_resource type="Gradient" id="Gradient_xwwyn"]
+offsets = PackedFloat32Array(0.28106508, 0.727273)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6rmse"]
+gradient = SubResource("Gradient_xwwyn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ojvg7"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.5
+direction = Vector3(0.5, -0.5, 0)
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 700, 0)
+damping_min = 46.789
+damping_max = 100.0
+scale_min = 0.8
+scale_max = 2.0
+color = Color(0, 0.85287786, 0.69180375, 1)
+color_ramp = SubResource("GradientTexture1D_6rmse")
+alpha_curve = SubResource("CurveTexture_4qrji")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n87c8"]
+random_pitch = 1.0905077
+streams_count = 1
+stream_0/stream = ExtResource("5_ecca4")
+
+[sub_resource type="Animation" id="Animation_0r3tc"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skin/Shadow:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.17, 0.36, 0.84, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -1.0000001), Vector2(-3, -1), Vector2(-7, -1), Vector2(-15, -1), Vector2(-15, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skin/Shadow:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skin/Shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.36, 0.84),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.375, 0.49999994), Vector2(1.25, 0.49999994), Vector2(1.5, 0.25000003)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skin/Sprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.68666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -2.9237213), Vector2(-2, -9), Vector2(-16, -1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skin/Sprite:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.21, 0.68666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.20359053, -0.20323376, 0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skin/Sprite:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.36666667, 0.52000004, 0.68666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.98467636, 1.0807756), Vector2(0.7034976, 0.978599), Vector2(1.2752186, 0.52809787), Vector2(1.1563337, 0.23527217)]
+}
+
+[sub_resource type="Animation" id="Animation_onooq"]
+resource_name = "Idle"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skin/Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skin/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7081294, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.0402737, 0.9275396), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skin/Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -2.9237213), Vector2(0, -2.9237213)]
+}
+
+[sub_resource type="Animation" id="Animation_3sfyk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skin/Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skin/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skin/Shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1.0000001)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skin/Shadow:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skin/Shadow:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.375, 0.49999994)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skin/Sprite:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -2.9237213)]
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g38em"]
+playback_mode = 1
+random_pitch = 1.2599211
+streams_count = 1
+stream_0/stream = ExtResource("8_hd3kh")
+
+[sub_resource type="Animation" id="Animation_h4df7"]
+resource_name = "Walk"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skin/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.33333334, 0.46666667, 0.7, 0.8, 1.2333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -2.461147), Vector2(0, -2.461147), Vector2(0, -2.461147), Vector2(-2.3841855e-07, -12), Vector2(0, -23.999998), Vector2(0, -23.999998), Vector2(0, -2.461147)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skin/Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.33333334, 0.46666667, 0.91495925, 1.2333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0, -0.244533, 0.1736162, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skin/Sprite:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.18930191, 0.26666668, 0.33333334, 0.46666667, 0.91495925, 1.2333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0.8952899), Vector2(1, 0.8952899), Vector2(1.3128033, 0.4371732), Vector2(1.3128033, 0.4371732), Vector2(1, 0.8952899), Vector2(0.8550478, 1.0313077), Vector2(0.6841537, 1.1281723), Vector2(1, 0.8952899)]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SFX")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": SubResource("AudioStreamRandomizer_g38em")
+}],
+"times": PackedFloat32Array(1.0666667)
+}
+tracks/3/use_blend = true
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.1333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v5uk5"]
+_data = {
+&"Death": SubResource("Animation_0r3tc"),
+&"Idle": SubResource("Animation_onooq"),
+&"RESET": SubResource("Animation_3sfyk"),
+&"Walk": SubResource("Animation_h4df7")
+}
+
+[node name="Slime" unique_id=1251952136 node_paths=PackedStringArray("anim", "skin", "Vfx") instance=ExtResource("1_hip60")]
+script = ExtResource("2_s5u5i")
+can_shoot = false
+stop_while_shooting = true
+anim = NodePath("Skin/AnimationPlayer")
+line_of_sight = 200.0
+continue_follow_target = true
+can_fear = false
+speed_multiplier = 10.0
+attack_parameter = SubResource("Resource_a3vbi")
+attack_range = 20.0
+attack_cooldown = 6.0
+aim_offset = Vector2(0, 0)
+skin = NodePath("Skin")
+show_gizmos = true
+sight_color = Color(1, 0.85, 0.2, 1)
+attack_color = Color(1, 0.2, 0.2, 1)
+Entity_stats = SubResource("Resource_cmg7c")
+Vfx = NodePath("VFX")
+
+[node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
+hide_objects = [NodePath("../Skin")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" parent_id_path=PackedInt32Array(411889454) index="0" unique_id=582353403]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_djix7")
+
+[node name="HitBox" parent="." index="2" unique_id=1440497730]
+equip = SubResource("Resource_2l84w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0" unique_id=2088439719]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_djix7")
+
+[node name="Drop" parent="." index="4" unique_id=1587885386]
+drop_resources = Array[ExtResource("6_cmg7c")]([SubResource("Resource_ns2oi")])
+
+[node name="VFX" parent="." index="5" unique_id=304494227 node_paths=PackedStringArray("character")]
+character = NodePath("..")
+
+[node name="DamageVFX" parent="." index="6" unique_id=1460921651]
+process_material = SubResource("ParticleProcessMaterial_ojvg7")
+
+[node name="DamageSFX" parent="." index="7" unique_id=2033228583]
+stream = SubResource("AudioStreamRandomizer_n87c8")
+volume_db = 22.66
+pitch_scale = 1.0
+
+[node name="Skin" type="Node2D" parent="." index="9" unique_id=557302533]
+
+[node name="Sprite" type="Sprite2D" parent="Skin" index="0" unique_id=911046955]
+position = Vector2(0, -2.9237213)
+texture = ExtResource("6_tb44u")
+offset = Vector2(0.15767288, -5.2356453)
+region_enabled = true
+region_rect = Rect2(240, 32, 32, 16)
+
+[node name="Shadow" type="Sprite2D" parent="Skin" index="1" unique_id=7161831]
+modulate = Color(0.14509805, 0.10980392, 0.13725491, 0.23529412)
+show_behind_parent = true
+position = Vector2(0, -1.0000001)
+scale = Vector2(1.375, 0.49999994)
+texture = ExtResource("7_ns2oi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Skin" index="2" unique_id=620691471]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_v5uk5")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="." index="10" unique_id=1507744453]
+max_distance = 150.0
+attenuation = 2.219139
+max_polyphony = 5
+
+[connection signal="health_changed" from="." to="." method="_on_Damaged"]

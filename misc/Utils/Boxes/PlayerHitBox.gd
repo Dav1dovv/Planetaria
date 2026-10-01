@@ -126,24 +126,10 @@ func apply_damage(area: Area2D, damage: float) -> void:
 	# ── Enemy ────────────────────────────────────────────────────────────────
 	if area.is_in_group("Ennemy"):
 		var target := area.get_parent()
-		var is_crit := false
-		var final_damage := damage
-		var poise_dmg := 0.0
+
 
 		if equip is equip_data:
-			var e := equip as equip_data
-			is_crit = randf() < e.critical_chance
-			if is_crit:
-				final_damage *= e.critical_multiplier
-			poise_dmg = e.poise_damage
-
-		target.take_damage(final_damage, self, is_crit, poise_dmg)
-
-		if is_crit:
-			#DebugLog.log("КРИТ! " + str(final_damage) + " урона по " + target.name)
-			emit_signal("critical_hit", target)
-
-		if equip is equip_data:
+			target.take_damage(equip.Damage, self,equip.knockback)
 			equip.reduce_durability(1)
 		return
 	# ────────────────────────────────────────────────────────────────────────

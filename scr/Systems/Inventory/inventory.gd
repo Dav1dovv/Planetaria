@@ -21,7 +21,6 @@ signal inventory_changed
 #Menus
 @onready var inventory: Panel = $HBoxContainer/Inventory
 @onready var smith: Control = $HBoxContainer/Smith
-@onready var workbench: Control = $HBoxContainer/Workbench
 @onready var barmen: Control = $HBoxContainer/Barmen
 @onready var trade_window: TradeWindow = $HBoxContainer/TradeWindow
 
@@ -339,6 +338,11 @@ func toggle_inv():
 func call_inventory():
 	if Global.is_opened_menu && !is_opened:
 		return
+	
+	if is_opened:
+		%UI_inv_CloseSFX.play()
+	else:
+		%UI_inv_OpenSFX.play()
 	is_opened = !is_opened
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
@@ -346,7 +350,6 @@ func call_inventory():
 	inventory.visible = true
 	smith.visible = false
 	trade_window.visible = false
-	$HBoxContainer/Workbench.visible = false
 	$HBoxContainer/Barmen.visible  = false
 	Cursor.detection_mode(is_opened)
 
@@ -363,7 +366,6 @@ func _call_craft_station(station: Control) -> void:
 
 	inventory.visible = false
 	smith.visible = false
-	workbench.visible = false
 	barmen.visible = false
 	trade_window.visible = false
 
@@ -377,10 +379,6 @@ func _call_craft_station(station: Control) -> void:
 ## Наковальня — рецепты с station_restriction = SMITH_ONLY / ANY
 func call_smith() -> void:
 	_call_craft_station(smith)
-
-## Верстак — рецепты с station_restriction = WORKBENCH_ONLY / ANY
-func call_workbench() -> void:
-	_call_craft_station(workbench)
 
 ## Котёл — вся еда (category = Food), независимо от station_restriction
 func call_cauldron() -> void:

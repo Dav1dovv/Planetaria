@@ -3,15 +3,16 @@
 [ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="1_6vpkh"]
 [ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="1_xubcj"]
 [ext_resource type="Resource" uid="uid://bmkdrb4efmfp8" path="res://misc/Content/Items/Pickaxe_LVL1.tres" id="2_xubcj"]
-[ext_resource type="Resource" uid="uid://ky47smcnnrdj" path="res://misc/Content/Items/ExpPoint.tres" id="4_8ncij"]
 
 [resource]
 script = ExtResource("1_6vpkh")
 mode = 1
-recipe_name = "Pickaxe"
+recipe_name = "Pickaxe  1 repair"
+description = "LVL : 1
+MAX_DURABILITY : 100
+DMG : 10
+ATK_SPEED : 1"
 result_item = ExtResource("2_xubcj")
 main_resource = ExtResource("1_xubcj")
 main_amount = 10
-secondary_resource = ExtResource("4_8ncij")
-secondary_amount = 10
 metadata/_custom_type_script = "uid://b47c08bhjaot6"

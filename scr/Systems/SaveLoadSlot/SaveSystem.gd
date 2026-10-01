@@ -67,7 +67,7 @@ func load_slot_meta(slot: String) -> Dictionary:
 
 ## Создаёт новый слот. Если такое имя уже занято — добавляет _1, _2 …
 ## Возвращает имя созданного слота или "" при ошибке.
-func create_new_save(player_name: String, skin_index: int, head_index: int, location: String) -> String:
+func create_new_save(player_name: String, location: String) -> String:
 	var dir := DirAccess.open(SAVE_DIR)
 	if not dir:
 		push_error("[SaveSystem] Cannot open SAVE_DIR")
@@ -85,8 +85,6 @@ func create_new_save(player_name: String, skin_index: int, head_index: int, loca
 
 	var meta := {
 		"player_name": player_name,
-		"skin_index":  skin_index,
-		"head_index":  head_index,
 		"location":    location,
 	}
 	if not _write_json(_meta_path(folder), meta):
@@ -103,8 +101,6 @@ func load_save(slot: String) -> bool:
 		return false
 
 	Global.player_name              = data.get("player_name", "Player")
-	#Global.player_skin_index        = data.get("skin_index", 0)
-	#Global.player_skin_head_index   = data.get("head_index", 0)
 	Global.current_save_slot        = slot
 	return true
 
@@ -129,11 +125,8 @@ func save_player(player: Node) -> bool:
 			"hp":         player.Entity_stats.current_health,
 			"max_hp":     player.Entity_stats.max_health,
 			"Corruption" : player.corruption,
-			#"head_index": player.get_node("Skin").head_inex,
-			#"skin_index": player.get_node("Skin").skin_index,
 			"global_corruption" : Global.corruption,
 			"hunger_data" : player.hunger,
-			"infection" : player.get_infection()
 		},
 		"equipment": {
 			"equipped_item": player.get_node("GUI/HUD/Inventory/HotBar").selected_index,
@@ -159,13 +152,8 @@ func load_player(player: Node) -> bool:
 		player.Entity_stats.current_health = s.get("hp",     player.Entity_stats.max_health)
 		player.Entity_stats.max_health     = s.get("max_hp", player.Entity_stats.max_health)
 		player.corruption                  = s.get("Corruption", player.corruption)
-		#Global.player_skin_index           = s.get("skin_index", 0)
-		#Global.player_skin_head_index      = s.get("head_index",  0)
 		Global.corruption                  = s.get("global_corruption",Global.corruption)
-		player.get_node("Skin").update_skin()
 		player.hunger                      = s.get("hunger_data",100)
-		if player.infection:
-			player.infection.infection     = s.get("infection", 0.0)
 
 	if data.has("equipment"):
 		var e: Dictionary = data["equipment"]

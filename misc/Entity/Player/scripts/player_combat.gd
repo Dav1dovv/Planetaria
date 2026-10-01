@@ -10,8 +10,9 @@ var _lunge_timer:      float   = 0.0
 var _lunge_direction:  Vector2 = Vector2.ZERO
 var _lunge_hit_bodies: Array   = []
 
-@onready var player: Player = get_parent()
+@onready var player = get_parent()
 
+@export var shot_marker : Marker2D
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Ввод / атака
@@ -21,11 +22,17 @@ func handle_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("LMB") or player.is_attack or Global.is_opened_menu:
 		return
 
-	var hit_box   := player.hit_box
-	var hand_anim := player.HandAanimator
+	var hit_box   = player.hit_box
+	var hand_anim = player.HandAanimator
 
 	if hit_box.is_weapon and hit_box.equip is equip_data:
 		var equip := hit_box.equip as equip_data
+
+		# Стрелковое оружие — отдельная ветка (см. раздел «Стрельба» ниже)
+		if equip.play_anim == "Shoot":
+			_begin_shot(equip)
+			return
+
 		hit_box.look_at(player.mouse_pos)
 		player.is_attack      = true
 		hand_anim.speed_scale = equip.Atk_speed
@@ -36,9 +43,6 @@ func handle_input(event: InputEvent) -> void:
 
 		if equip.play_anim == "Attack":
 			call_deferred("_start_attack_cooldown", equip.one_shot_attack)
-		elif equip.play_anim == "Shoot":
-			player._hand.look_at(player.mouse_pos)
-			call_deferred("_start_shot_cooldown", equip.one_shot_attack)
 
 	elif hit_box.equip is FoodData:
 		player.is_attack = true
@@ -52,7 +56,7 @@ func handle_input(event: InputEvent) -> void:
 
 
 func _start_attack_cooldown(one_shot: bool) -> void:
-	var hand_anim := player.HandAanimator
+	var hand_anim = player.HandAanimator
 	await hand_anim.animation_finished
 	player.is_attack = false
 	player.hit_box.look_at(player.mouse_pos)
@@ -67,25 +71,6 @@ func _start_attack_cooldown(one_shot: bool) -> void:
 		if equip.lunge_enabled and not is_lunging:
 			start_lunge(equip)
 		call_deferred("_start_attack_cooldown", false)
-
-
-func _start_shot_cooldown(one_shot: bool) -> void:
-	var hand_anim := player.HandAanimator
-	await hand_anim.animation_finished
-	player.is_attack = false
-	player._hand.look_at(player.mouse_pos)
-	player.hit_box.look_at(player.mouse_pos)
-
-	if not one_shot and Input.is_action_pressed("LMB") \
-			and player.hit_box.is_weapon and player.hit_box.equip is equip_data:
-		var equip := player.hit_box.equip as equip_data
-		player.is_attack      = true
-		hand_anim.speed_scale = equip.Atk_speed
-		hand_anim.play(player.hit_box.play_anim)
-		player.hit_box.look_at(player.mouse_pos)
-		call_deferred("_start_attack_cooldown", false)
-	else:
-		player._hand.rotation = 0
 
 
 func _start_eat_cooldown() -> void:
@@ -150,24 +135,70 @@ func end_lunge() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 #  Стрельба
 # ─────────────────────────────────────────────────────────────────────────────
+## Поток выстрела:
+##   1. ЛКМ → handle_input() → _begin_shot(): поворот руки к курсору, запуск анимации "Shoot"
+##   2. В нужном кадре анимации (Call Method Track) вызывается shoot() — вылетают снаряды
+##   3. Анимация закончилась → _start_shot_cooldown(): если оружие не one_shot и ЛКМ зажата,
+##      следующий выстрел начинается автоматически (автоогонь)
+## Скорострельность задаётся Atk_speed (скорость анимации).
+
+func _begin_shot(equip: equip_data) -> void:
+	player.is_attack = true
+	player.hit_box.look_at(player.mouse_pos)
+	player._hand.look_at(player.mouse_pos)
+
+	player.HandAanimator.speed_scale = equip.Atk_speed
+	player.HandAanimator.play(equip.play_anim)
+	call_deferred("_start_shot_cooldown", equip.one_shot_attack)
+
+
+func _start_shot_cooldown(one_shot: bool) -> void:
+	await player.HandAanimator.animation_finished
+	player.is_attack = false
+	player._hand.look_at(player.mouse_pos)
+	player.hit_box.look_at(player.mouse_pos)
+
+	# Зажата ЛКМ и оружие автоматическое — сразу начинаем следующий выстрел
+	if not one_shot and Input.is_action_pressed("LMB") \
+			and player.hit_box.is_weapon and player.hit_box.equip is equip_data:
+		_begin_shot(player.hit_box.equip as equip_data)
+	else:
+		player._hand.rotation = 0
+
 
 func shoot() -> void:
+	## Вызывается из анимации "Shoot" (Call Method Track) в момент вылета снаряда.
 	var equip := player.hit_box.equip as equip_data
 	if not equip or not equip.projectile:
 		return
 
-	var marker   := player.hit_box.get_node("Marker2D")
-	var base_dir  = (player.get_global_mouse_position() - marker.global_position).normalized()
+	var marker = shot_marker
+
+	# Направление от дула к курсору. Если курсор почти в самом дуле — стреляем по направлению маркера
+	var to_mouse : Vector2 = player.get_global_mouse_position() - marker.global_position
+	var base_dir : Vector2 = to_mouse.normalized() if to_mouse.length() > 1.0 \
+			else Vector2.RIGHT.rotated(marker.global_rotation)
+
 	for i in equip.num_projectiles:
 		var bullet := equip.projectile.instantiate() as Projectile
-		bullet.shot_target = "Ennemy"
+		if bullet == null:
+			push_warning("PlayerCombat: корневой узел сцены снаряда должен быть Projectile")
+			return
+
+		bullet.owner_player = player
+		bullet.shot_target  = "Ennemy"
+
+		# Сначала в дерево, потом setup: иначе @onready-узлы (sprite и т.д.) ещё не готовы
+		player.get_parent().add_child(bullet)
 		bullet.setup(
 			marker.global_position,
 			base_dir.rotated((randf() - 0.5) * deg_to_rad(equip.spread_degrees)),
-			equip.Damage,
-			equip.projectile_speed,
+			equip.Damage
 		)
-		player.get_parent().add_child(bullet)
+
+		# Эффекты «при попадании» (яд, огонь и т.д.) — так же, как у ближнего боя
+		if bullet.has_signal("hit_target"):
+			bullet.hit_target.connect(on_weapon_hit)
 
 
 func on_weapon_hit(target: Node) -> void:

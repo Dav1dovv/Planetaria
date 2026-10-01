@@ -19,8 +19,6 @@ func _hit_vfx(new_character : Node2D) -> void:
 	await tween.tween_property(character, "scale", Vector2(1.0, 1.0), 0.1).set_delay(0.02)
 	tween.tween_property(character, 'modulate', Color(1.0, 1.0, 1.0, 1.0), 0.1)
 
-	tween.tween_callback(vfx_finished.emit)
-
 
 func _damage_vfx():
 	_play_audio()

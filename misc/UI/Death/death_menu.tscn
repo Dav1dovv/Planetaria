@@ -9,7 +9,7 @@
 shader = ExtResource("1_y5vxu")
 shader_parameter/blur_amount = 0.0
 shader_parameter/mix_amount = 0.0
-shader_parameter/color_over = Color(0.48775673, 0, 0, 1)
+shader_parameter/color_over = Color(0.1879043, 2.3162924e-07, 1.2032688e-08, 1)
 
 [sub_resource type="Animation" id="Animation_cylog"]
 resource_name = "Blur"
