@@ -20,6 +20,7 @@ func _ready() -> void:
 func _on_button_pressed() -> void:
 	if location_key and Global.inventory.has_total_item(FUEL,fuel_count[fuel_indx]):
 		Global.inventory.remove_from_total(FUEL,fuel_count[fuel_indx])
+		Global.save()
 		Global.scene_manager.change_scene(location_key,Vector2.ZERO)
 		if Global.is_opened_menu && !is_opened:
 			return

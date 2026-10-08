@@ -49,8 +49,11 @@ offset_bottom = 15.0
 
 [node name="Icon" type="TextureRect" parent="." unique_id=1678097705]
 layout_mode = 0
-offset_right = 16.0
-offset_bottom = 16.0
+offset_left = 2.2702627
+offset_top = 2.2702627
+offset_right = 13.729737
+offset_bottom = 13.729737
+expand_mode = 1
 
 [node name="Count" type="Label" parent="." unique_id=993522421]
 layout_mode = 1

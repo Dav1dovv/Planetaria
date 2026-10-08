@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b0axajdtsw2j4" path="res://misc/UI/DeveloperConsole/developer_console.tscn" id="2_w6mfr"]
 [ext_resource type="PackedScene" uid="uid://cajofw8k5naam" path="res://scr/Manager/scene_manager.tscn" id="3_2p3co"]
 [ext_resource type="AudioStream" uid="uid://6suhoapiivyl" path="res://Assets/Audio/BGM/Under PLanetaria.mp3" id="6_8or1h"]
-[ext_resource type="AudioStream" uid="uid://b8kbgu2e4pvng" path="res://Assets/Audio/BGM/New_Project.mp3" id="6_jkut7"]
+[ext_resource type="AudioStream" uid="uid://cbka2o7wy5vv8" path="res://Assets/Audio/BGM/Big Sun Message.mp3" id="6_jkut7"]
 [ext_resource type="AudioStream" uid="uid://td6afygdrfo7" path="res://Assets/Audio/BGM/game_over_1 (1).wav" id="16_b8n8i"]
 [ext_resource type="AudioStream" uid="uid://bmcaibnlutm8a" path="res://Assets/Audio/BGM/Game_Over_1.wav" id="18_r4swe"]
 [ext_resource type="AudioStream" uid="uid://74uudk4fnr3r" path="res://Assets/Audio/BGM/Game_Over_2.wav" id="19_kouma"]

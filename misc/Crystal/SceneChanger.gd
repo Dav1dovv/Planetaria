@@ -8,4 +8,5 @@ func _ready() -> void:
 	interact = Callable(self,"_do")
 
 func _do():
+	Global.save()
 	Global.scene_manager.change_scene(scene,Vector2.ZERO)

@@ -73,6 +73,7 @@ shape = SubResource("RectangleShape2D_6dqgc")
 collision_layer = 128
 collision_mask = 256
 script = ExtResource("4_ny1l2")
+show_message = "Activate Syncer"
 metadata/_custom_type_script = "uid://btxho8sqg8tnx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interaction_area" unique_id=250545220]

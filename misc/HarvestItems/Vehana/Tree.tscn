@@ -24,7 +24,7 @@ max_throws = 6
 metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phfk7"]
-size = Vector2(21.7234, 24.4137)
+size = Vector2(21.7234, 10.369008)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mchyi"]
 playback_mode = 1
@@ -126,7 +126,7 @@ hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow")]
 drop_resources = Array[ExtResource("7_1t5m1")]([ExtResource("3_d3fsl"), SubResource("Resource_dke88")])
 
 [node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
-position = Vector2(-0.5320306, -10.949819)
+position = Vector2(-0.5320306, -3.9274726)
 shape = SubResource("RectangleShape2D_phfk7")
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="." index="5" unique_id=692783260]
@@ -157,6 +157,7 @@ position = Vector2(-0.21122742, 0.002216339)
 texture = ExtResource("11_44ll0")
 offset = Vector2(-1.7273712, -30.667759)
 hframes = 4
+frame = 1
 script = ExtResource("3_hs44r")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
 

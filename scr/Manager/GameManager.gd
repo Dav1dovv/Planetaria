@@ -128,6 +128,8 @@ func reset_all_location_seeds() -> void:
 func _save_location_seeds() -> void:
 	SaveLoad.save_world_seeds(master_seed, world_seed, location_seeds)
 
+func save_game():
+	_save_location_seeds()
 
 func _load_location_seeds() -> void:
 	var data := SaveLoad.load_world_seeds()

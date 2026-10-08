@@ -403,5 +403,37 @@ stream = ExtResource("16_6444u")
 unique_name_in_owner = true
 stream = ExtResource("17_xnpxd")
 
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1398602969]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -130.65448
+offset_top = -95.13147
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer" unique_id=665993639]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 2
+text = "QUEST 1
+QUEST 2
+QUEST 3
+Quest 4
+........"
+horizontal_alignment = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer" unique_id=1911440823]
+custom_minimum_size = Vector2(10, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+value = 25.0
+fill_mode = 3
+show_percentage = false
+
 [connection signal="mouse_entered" from="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" to="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" to="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" method="_on_mouse_exited"]

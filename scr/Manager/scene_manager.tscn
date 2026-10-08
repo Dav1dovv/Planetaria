@@ -4,9 +4,6 @@
 [ext_resource type="Resource" uid="uid://lw4x7f1p1hoe" path="res://scr/Manager/SceneRegistry.tres" id="2_m7nf5"]
 [ext_resource type="Script" uid="uid://bttgnk3bb2a8i" path="res://addons/font_auto_size_labels/auto_size_label.gd" id="2_wtyph"]
 [ext_resource type="FontFile" uid="uid://dfsuae2k2msy7" path="res://Assets/Fonts/NavirianScript-Regular.ttf" id="3_wtyph"]
-[ext_resource type="Texture2D" uid="uid://erxt6oh26im8" path="res://Assets/Textures/Items/Planet.png" id="6_rxmvs"]
-[ext_resource type="Script" uid="uid://b60d08i8hic0m" path="res://scr/Misc/Planet.gd" id="7_2de8f"]
-[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="8_0tyw0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6vyuc"]
 font = ExtResource("3_wtyph")
@@ -126,9 +123,22 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect/Message:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.97),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="Animation" id="Animation_3icio"]
 resource_name = "Fade_out"
+length = 3.0000000000000004
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -136,10 +146,22 @@ tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(2.3784144, 2.3784144),
+"times": PackedFloat32Array(0, 1.9666667, 3),
+"transitions": PackedFloat32Array(2.3784144, 2.3784144, 2.3784144),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect/Message:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.05),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_10rpm"]
@@ -156,6 +178,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect/Message:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gcf7u"]
 _data = {
@@ -168,6 +202,7 @@ _data = {
 process_mode = 3
 script = ExtResource("1_3icio")
 scene_registry = ExtResource("2_m7nf5")
+loading_messages = Array[String](["Не всякий блеск — руда. Иногда это нечто другое.", "Куски амулета редко лежат на видном месте. Сильные существа носят их при себе.", "Возвращение на уже исследованную планету — не повтор. Там успело что-то измениться.", "Отчёт экспедиции RODUS обрывается на полуслове. Почему — решать вам.", "Любопытство сильнее страха. Это не всегда хорошо кончается.", "Корабль молчит дольше обычного. Возможно, он просто спит.", "Инженер напоминает: броня — это не шарф, не нужно её только носить для вида. Хотя кто мы такие, чтобы судить.", "Да, тот астероид выглядел угрожающе. Да, вы правильно сделали, что побежали к нему."])
 metadata/_custom_type_script = "uid://dm3p1fw3o1vwv"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=718572714]
@@ -247,7 +282,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Message" type="Label" parent="CanvasLayer/ColorRect" unique_id=1959319250]
-visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -269,136 +303,6 @@ _min_size = 12
 _current_font_size = 18
 _editor_defaults_set = true
 metadata/_custom_type_script = "uid://bttgnk3bb2a8i"
-
-[node name="planet" type="Sprite2D" parent="CanvasLayer/ColorRect" unique_id=1980229858]
-visible = false
-position = Vector2(237.72282, 141.9575)
-rotation = -314.617
-texture = ExtResource("6_rxmvs")
-region_enabled = true
-region_rect = Rect2(4, 53, 41, 41)
-script = ExtResource("7_2de8f")
-rotation_speed = 0.2
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="PointLight2D" type="PointLight2D" parent="CanvasLayer/ColorRect/planet" unique_id=1576224842]
-color = Color(1, 0.5294118, 0.15686275, 1)
-energy = 2.08
-texture = ExtResource("8_0tyw0")
-texture_scale = 6.34
-
-[node name="planet" type="Sprite2D" parent="CanvasLayer/ColorRect/planet" unique_id=1656913151]
-position = Vector2(5.9159737, -41.65517)
-rotation = -72.67431
-texture = ExtResource("6_rxmvs")
-region_enabled = true
-region_rect = Rect2(60, 80, 12, 12)
-script = ExtResource("7_2de8f")
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="CanvasLayer/ColorRect/planet/planet" unique_id=2119608156]
-modulate = Color(1, 0.4392157, 0.02745098, 1)
-scale = Vector2(1.998, 1.998)
-texture = ExtResource("8_0tyw0")
-
-[node name="planet2" type="Sprite2D" parent="CanvasLayer/ColorRect/planet" unique_id=1404871618]
-position = Vector2(-48.649956, -41.51426)
-rotation = 47.419044
-texture = ExtResource("6_rxmvs")
-region_enabled = true
-region_rect = Rect2(49, 50, 19, 19)
-script = ExtResource("7_2de8f")
-rotation_speed = 1.1
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="CanvasLayer/ColorRect/planet/planet2" unique_id=1437071090]
-modulate = Color(1, 0.54901963, 1, 1)
-scale = Vector2(2.248, 2.248)
-texture = ExtResource("8_0tyw0")
-
-[node name="planet3" type="Sprite2D" parent="CanvasLayer/ColorRect/planet" unique_id=1942444917]
-position = Vector2(-36.936844, 71.13017)
-rotation = 247.21812
-texture = ExtResource("6_rxmvs")
-region_enabled = true
-region_rect = Rect2(57, 9, 32, 32)
-script = ExtResource("7_2de8f")
-rotation_speed = 0.6
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="CanvasLayer/ColorRect/planet/planet3" unique_id=1685131206]
-scale = Vector2(3.108, 3.108)
-texture = ExtResource("8_0tyw0")
-
-[node name="planet4" type="Sprite2D" parent="CanvasLayer/ColorRect/planet" unique_id=770990407]
-position = Vector2(-66.099815, -28.727964)
-rotation = 348.97888
-scale = Vector2(0.32927373, 0.32927373)
-texture = ExtResource("6_rxmvs")
-region_enabled = true
-region_rect = Rect2(7, 9, 32, 32)
-script = ExtResource("7_2de8f")
-rotation_speed = 0.5
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="CanvasLayer/ColorRect/planet/planet4" unique_id=1354687027]
-modulate = Color(0.827451, 0.6509804, 0.36078432, 1)
-scale = Vector2(3.968, 3.968)
-texture = ExtResource("8_0tyw0")
-
-[node name="planet5" type="Sprite2D" parent="CanvasLayer/ColorRect/planet" unique_id=271147277]
-position = Vector2(-53.9042, 23.165627)
-rotation = 76.57274
-scale = Vector2(0.57125205, 0.57125205)
-texture = ExtResource("6_rxmvs")
-region_enabled = true
-region_rect = Rect2(76, 52, 25, 25)
-script = ExtResource("7_2de8f")
-rotation_speed = 0.5
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="CanvasLayer/ColorRect/planet/planet5" unique_id=1795434976]
-scale = Vector2(2.718, 2.718)
-texture = ExtResource("8_0tyw0")
-
-[node name="planet6" type="Sprite2D" parent="CanvasLayer/ColorRect/planet" unique_id=1756316596]
-position = Vector2(43.515324, 82.038666)
-rotation = -62.19627
-texture = ExtResource("6_rxmvs")
-region_enabled = true
-region_rect = Rect2(104, 8, 17, 17)
-script = ExtResource("7_2de8f")
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="CanvasLayer/ColorRect/planet/planet6" unique_id=1860790638]
-scale = Vector2(2.098, 2.098)
-texture = ExtResource("8_0tyw0")
-
-[node name="Atmosphere" type="Sprite2D" parent="CanvasLayer/ColorRect/planet" unique_id=1343742912]
-modulate = Color(1, 0.6431373, 0.3254902, 1)
-scale = Vector2(5.203, 5.203)
-texture = ExtResource("8_0tyw0")
-
-[node name="Marker2D" type="Sprite2D" parent="CanvasLayer/ColorRect/planet" unique_id=1272515736]
-rotation = -94.995636
-script = ExtResource("7_2de8f")
-rotation_speed = -0.5
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="planet7" type="Sprite2D" parent="CanvasLayer/ColorRect/planet/Marker2D" unique_id=1343830377]
-position = Vector2(110.0839, -3.0646439)
-rotation = -345.51355
-texture = ExtResource("6_rxmvs")
-region_enabled = true
-region_rect = Rect2(112, 51, 13, 13)
-script = ExtResource("7_2de8f")
-rotation_speed = -3.0
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="CanvasLayer/ColorRect/planet/Marker2D/planet7" unique_id=937808560]
-modulate = Color(0.5764706, 1, 1, 1)
-scale = Vector2(1.618, 1.618)
-texture = ExtResource("8_0tyw0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2065520795]
 libraries/ = SubResource("AnimationLibrary_gcf7u")

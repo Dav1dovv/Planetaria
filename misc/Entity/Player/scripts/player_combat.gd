@@ -189,12 +189,12 @@ func shoot() -> void:
 		bullet.shot_target  = "Ennemy"
 
 		# Сначала в дерево, потом setup: иначе @onready-узлы (sprite и т.д.) ещё не готовы
-		player.get_parent().add_child(bullet)
 		bullet.setup(
 			marker.global_position,
 			base_dir.rotated((randf() - 0.5) * deg_to_rad(equip.spread_degrees)),
 			equip.Damage
 		)
+		player.get_parent().add_child(bullet)
 
 		# Эффекты «при попадании» (яд, огонь и т.д.) — так же, как у ближнего боя
 		if bullet.has_signal("hit_target"):

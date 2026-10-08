@@ -90,8 +90,6 @@ func change_scene(scene_key: String, spawn = Vector2.ZERO) -> void:
 			scene_key, str(scene_registry.get_all_keys())
 		])
 		return
-
-	get_tree().call_group("Save", "save_game")
 	_is_transitioning = true
 	emit_signal("scene_change_started", scene_data)
 	# ── Обновляем состояние в Global ──────────────────────────────────────────

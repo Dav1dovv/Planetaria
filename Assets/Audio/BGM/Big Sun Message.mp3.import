@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cbka2o7wy5vv8"
+path="res://.godot/imported/Big Sun Message.mp3-3cfcf14b7655f563d19443619ba8b089.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Big Sun Message.mp3"
+dest_files=["res://.godot/imported/Big Sun Message.mp3-3cfcf14b7655f563d19443619ba8b089.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=120.0
+beat_count=234
+bar_beats=4

@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://misc/Entity/Enemies/Rat.tscn" id="11_kjh4x"]
 [ext_resource type="PackedScene" uid="uid://dxe8u451kmxek" path="res://misc/HarvestItems/Vehana/Stone.tscn" id="12_gneim"]
 [ext_resource type="PackedScene" uid="uid://bu36h4hqr8fy5" path="res://misc/Entity/Enemies/slime.tscn" id="12_nc0rl"]
+[ext_resource type="Script" uid="uid://cxixcs17bxicy" path="res://scr/Systems/WorldGenerator/SpecialStructure.gd" id="13_0jlpc"]
 [ext_resource type="PackedScene" uid="uid://dli226i6n3xmm" path="res://misc/HarvestItems/Vehana/Fuel.tscn" id="13_yrpry"]
 [ext_resource type="Script" uid="uid://ckkyxqart1hrg" path="res://scr/Systems/WorldGenerator/GridPlacementStrategy.gd" id="14_gneim"]
 [ext_resource type="Script" uid="uid://bl7jbpdad5e77" path="res://scr/Systems/Creature_Spawner/creature_spawner.gd" id="15_7rr5q"]
@@ -19,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://ch6mig0k7cgae" path="res://misc/Structures/Obstacles/gas.tscn" id="16_q0mio"]
 [ext_resource type="PackedScene" uid="uid://cu0mowstbdnxm" path="res://scr/Systems/DayNightCycle/DayNight.tscn" id="17_7rr5q"]
 [ext_resource type="PackedScene" uid="uid://crkxdrgf26do0" path="res://misc/Entity/Enemies/enem1.tscn" id="17_pjayy"]
+[ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Structures/Ruins/syncer.tscn" id="17_up32x"]
 [ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://misc/Entity/Enemies/Pig1.tscn" id="18_kjh4x"]
 [ext_resource type="Texture2D" uid="uid://dm2p3xhqocn2" path="res://Assets/Textures/UI/Effects/Effect6.png" id="20_impm0"]
 [ext_resource type="Script" uid="uid://bppxx6tld0367" path="res://misc/Utils/Zones/zoneParamChange.gd" id="21_kjh4x"]
@@ -73,6 +75,24 @@ creature_scene = ExtResource("18_kjh4x")
 spawn_weight = 2.105
 variations = Array[PackedScene]([ExtResource("10_3ashd"), ExtResource("12_nc0rl"), ExtResource("11_kjh4x")])
 metadata/_custom_type_script = "uid://cspf06hgc8h0w"
+
+[sub_resource type="Resource" id="Resource_jqdnb"]
+script = ExtResource("10_0j3cm")
+Generation_scene = ExtResource("17_up32x")
+spawn_weight = 0.255
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+
+[sub_resource type="Resource" id="Resource_vxdun"]
+script = ExtResource("13_0jlpc")
+structure_name = "Syncer"
+structure_type = 2
+custom_type_name = "Syncer"
+generation_item = SubResource("Resource_jqdnb")
+max_instances = 4
 
 [sub_resource type="Resource" id="Resource_3ashd"]
 script = ExtResource("10_0j3cm")
@@ -209,7 +229,7 @@ metadata/_edit_lock_ = true
 position = Vector2(-0.1917038, -11.824356)
 Entity_stats = SubResource("Resource_p7g1t")
 
-[node name="Blaze_camera" parent="Player" index="16" unique_id=294408334]
+[node name="Blaze_camera" parent="Player" index="17" unique_id=294408334]
 position_smoothing_enabled = true
 
 [node name="Ship" parent="." index="3" unique_id=1200449064 instance=ExtResource("8_yrpry")]
@@ -219,7 +239,8 @@ scale = Vector2(2.5357594, 2.5357594)
 [node name="CreatureSpawn" type="Node2D" parent="." index="4" unique_id=1100231554 node_paths=PackedStringArray("player")]
 script = ExtResource("15_7rr5q")
 player = NodePath("../Player")
-max_creatures = 25
+spawn_distance_max = 250.0
+max_creatures = 10
 creatures = Array[ExtResource("16_oe8ja")]([SubResource("Resource_cdos3")])
 base_spawn_interval = 8.0
 spawn_interval_variation = 5.0
@@ -230,6 +251,7 @@ y_sort_enabled = true
 script = ExtResource("9_xbsfe")
 generation_area = NodePath("Polygon2D")
 location_id = "vehana"
+special_structures = Array[ExtResource("13_0jlpc")]([SubResource("Resource_vxdun")])
 resource_items = Array[ExtResource("10_0j3cm")]([SubResource("Resource_3ashd"), SubResource("Resource_gneim"), SubResource("Resource_yrpry")])
 resource_placement_strategy = SubResource("Resource_q0mio")
 resource_min_spacing = 64.0

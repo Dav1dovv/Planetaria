@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_1r6ro"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_dl7qs"]
-[ext_resource type="PackedScene" uid="uid://dp5snq7fa0jqr" path="res://misc/Projectiles/Bomb.tscn" id="2_dl7qs"]
+[ext_resource type="PackedScene" uid="uid://cfhe0ka5wyk3r" path="res://misc/Projectiles/Bullet.tscn" id="2_dl7qs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r0cw4"]
 atlas = ExtResource("1_dl7qs")
@@ -10,6 +10,7 @@ region = Rect2(48, 96, 16, 16)
 
 [resource]
 script = ExtResource("1_1r6ro")
+max_durability = 60
 equiped_weapon_sprite = SubResource("AtlasTexture_r0cw4")
 projectile = ExtResource("2_dl7qs")
 one_shot_attack = false

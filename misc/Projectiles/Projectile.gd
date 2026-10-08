@@ -18,6 +18,12 @@ signal hit_target(target: Node)
 @export var homing_strength: float = 3.0      # Для бумеранга — сила притяжения при возврате
 @export var max_travel_distance: float = 600.0  # Для бумеранга — когда начинать возвращаться
 
+@export_group("Fade out")
+## Длительность плавного исчезновения в конце жизни снаряда
+@export var fade_duration: float = 0.4
+## Замедлять ли снаряд во время исчезновения
+@export var slow_down_on_fade: bool = true
+
 @export_group("Collision layers")
 ## Слой HurtBox врагов — его видят пули игрока (shot_target = "Ennemy")
 @export_range(1, 32) var enemy_hurtbox_layer : int = 5
@@ -37,6 +43,7 @@ var owner_player: Node2D = null   # Player или враг, выстреливш
 var start_position: Vector2
 var has_returned: bool = false
 var is_exploded: bool = false
+var is_fading: bool = false
 
 func _ready() -> void:
 	# Настройка слоёв (пуля игрока)
@@ -50,6 +57,9 @@ func _ready() -> void:
 	area.area_entered.connect(_on_area_entered)
 	lifetime_timer.wait_time = lifetime
 	lifetime_timer.one_shot = true
+	# Подключаем, только если сигнал ещё не подключён через редактор сцены
+	if not lifetime_timer.timeout.is_connected(_on_lifetime_timer_timeout):
+		lifetime_timer.timeout.connect(_on_lifetime_timer_timeout)
 	lifetime_timer.start()
 
 	# Таймер для бомбы
@@ -80,7 +90,8 @@ func _physics_process(delta: float) -> void:
 		return
 
 	# === Бумеранг: прямо вперёд → разворот → возврат к игроку ===
-	if projectile_type == "boomerang":
+	# Во время исчезновения бумеранг уже не наводится на игрока
+	if projectile_type == "boomerang" and not is_fading:
 		if not has_returned and global_position.distance_to(start_position) >= max_travel_distance:
 			has_returned = true
 
@@ -103,6 +114,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_area_entered(area: Area2D) -> void:
+	# Исчезающий снаряд уже не наносит урон
+	if is_fading:
+		return
+
 	# Не бьём своего владельца
 	if area.get_parent() == owner_player:
 		if projectile_type == "boomerang" and has_returned:
@@ -182,9 +197,34 @@ func _play_hit_effect() -> void:
 		hit_particles.reparent(get_parent())  # Чтобы частицы остались в мире
 	print("Projectile hit! Damage: ", damage)
 
+# Плавное исчезновение: гасим спрайт (и опционально замедляем), потом удаляем
+func _fade_out() -> void:
+	if is_fading or is_exploded:
+		return
+	is_fading = true
+
+	# Снаряд больше не должен наносить урон, пока тает
+	area.set_deferred("monitoring", false)
+	area.set_deferred("monitorable", false)
+
+	var tween := create_tween().set_parallel(true)
+
+	# Плавно гасим спрайт
+	if sprite:
+		tween.tween_property(sprite, "modulate:a", 0.0, fade_duration)\
+			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+
+	# Плавно замедляем (опционально)
+	if slow_down_on_fade:
+		tween.tween_property(self, "speed", 0.0, fade_duration)\
+			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+	# Удаляем после окончания анимации
+	tween.chain().tween_callback(queue_free)
+
 # Таймер жизни
 func _on_lifetime_timer_timeout() -> void:
 	if projectile_type == "bomb" and not is_exploded:
 		_explode()
 	else:
-		queue_free()
+		_fade_out()

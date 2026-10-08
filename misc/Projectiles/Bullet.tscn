@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://bgoo5cwnuj0lj"]
+[gd_scene format=3 uid="uid://cfhe0ka5wyk3r"]
 
-[ext_resource type="Script" uid="uid://b1l7sa4nobavs" path="res://misc/Projectiles/Projectile.gd" id="1_upmfm"]
-[ext_resource type="Texture2D" uid="uid://c58wps8d412of" path="res://Assets/Textures/SpriteSheets/Porjectiles.png" id="2_mnwhk"]
-[ext_resource type="AudioStream" uid="uid://cgigsrfyxuodb" path="res://Assets/Audio/SFX/Swing.wav" id="3_qvb12"]
+[ext_resource type="Script" uid="uid://b1l7sa4nobavs" path="res://misc/Projectiles/Projectile.gd" id="1_wrl06"]
+[ext_resource type="Texture2D" uid="uid://c58wps8d412of" path="res://Assets/Textures/SpriteSheets/Porjectiles.png" id="2_xmoit"]
+[ext_resource type="AudioStream" uid="uid://cgigsrfyxuodb" path="res://Assets/Audio/SFX/Swing.wav" id="3_ipxpn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_njjya"]
-radius = 3.0
+radius = 5.0351567
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_njjya"]
 particle_flag_disable_z = true
@@ -46,16 +46,16 @@ scale_over_velocity_max = 0.59999996
 color_ramp = SubResource("GradientTexture1D_fdh37")
 
 [node name="arrow" type="CharacterBody2D" unique_id=1278925378]
-script = ExtResource("1_upmfm")
-speed = 100.0
+script = ExtResource("1_wrl06")
+speed = 140.0
 lifetime = 1.0
 damage = 5.0
 max_travel_distance = 400.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=136001303]
-texture = ExtResource("2_mnwhk")
+texture = ExtResource("2_xmoit")
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 12)
+region_rect = Rect2(83, 1, 10, 10)
 
 [node name="LifetimeTimer" type="Timer" parent="." unique_id=531745298]
 one_shot = true
@@ -63,11 +63,10 @@ one_shot = true
 [node name="Area2D" type="Area2D" parent="." unique_id=493109129]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2024873717]
-position = Vector2(3, 0)
 shape = SubResource("CircleShape2D_njjya")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=237662136]
-stream = ExtResource("3_qvb12")
+stream = ExtResource("3_ipxpn")
 
 [node name="ExplosionParticles" type="GPUParticles2D" parent="." unique_id=668321122]
 emitting = false

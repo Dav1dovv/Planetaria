@@ -10,36 +10,44 @@ script = ExtResource("2_m2hsy")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [node name="Anelim" unique_id=2111811093 instance=ExtResource("1_aqpmn")]
-dialog_timeline = Array[String]([])
+show_ui = "Weapon"
 awareness_radius = 40.0
 Entity_stats = SubResource("Resource_aqpmn")
 
 [node name="Body" parent="Skin" parent_id_path=PackedInt32Array(1878994847) index="0" unique_id=1621133311]
-region_rect = Rect2(12, 116, 7, 8)
+region_rect = Rect2(44, 116, 7, 8)
 
 [node name="Head" parent="Skin/Body" index="0" unique_id=1756965514]
 z_index = 1
 offset = Vector2(-0.64, -4.15)
-region_rect = Rect2(8, 99, 14, 15)
+region_rect = Rect2(40, 99, 14, 15)
 
 [node name="RightLeg" parent="Skin/Body" index="1" unique_id=330349318]
-region_rect = Rect2(16, 124, 3, 4)
+region_rect = Rect2(48, 124, 3, 4)
 
 [node name="LeftLeg" parent="Skin/Body" index="2" unique_id=822392126]
-region_rect = Rect2(12, 124, 3, 4)
+region_rect = Rect2(44, 124, 3, 4)
 
-[node name="LeftHand" parent="Skin/Body" index="3" unique_id=1282115197]
-offset = Vector2(-0.095, 3.22)
-region_rect = Rect2(6, 117, 4, 6)
-
-[node name="RightHand" parent="Skin/Body" index="4" unique_id=1754363545]
-offset = Vector2(0, 3.295)
-region_rect = Rect2(6, 117, 4, 6)
-
-[node name="Skirt" type="Sprite2D" parent="Skin/Body" index="5" unique_id=1448255260]
-position = Vector2(0, 3.25)
+[node name="Skirt" type="Sprite2D" parent="Skin/Body" index="3" unique_id=1448255260]
+position = Vector2(-0.024492264, 1.8238082)
 scale = Vector2(1, 1.5)
 texture = ExtResource("3_xvhg3")
-offset = Vector2(0, 1)
+offset = Vector2(0.024492264, 1.9507945)
 region_enabled = true
-region_rect = Rect2(21, 125, 9, 3)
+region_rect = Rect2(51, 122, 13, 4)
+
+[node name="Tits" type="Sprite2D" parent="Skin/Body" index="4" unique_id=842913130]
+position = Vector2(1.7557545, -1.189208)
+scale = Vector2(1, 1.5)
+texture = ExtResource("3_xvhg3")
+offset = Vector2(0.08394241, -0.11134601)
+region_enabled = true
+region_rect = Rect2(55, 116, 5, 2)
+
+[node name="LeftHand" parent="Skin/Body" index="5" unique_id=1282115197]
+offset = Vector2(-0.095, 3.22)
+region_rect = Rect2(38, 117, 4, 6)
+
+[node name="RightHand" parent="Skin/Body" index="6" unique_id=1754363545]
+offset = Vector2(0, 3.295)
+region_rect = Rect2(38, 117, 4, 6)

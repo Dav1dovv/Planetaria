@@ -1,21 +1,15 @@
 [gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://r4sg8e1stb8y"]
 
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_l7brs"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_0tkg7"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1a66m"]
-load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7brs"]
-atlas = SubResource("CompressedTexture2D_1a66m")
-region = Rect2(64, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0tkg7"]
-atlas = SubResource("CompressedTexture2D_1a66m")
-region = Rect2(64, 80, 16, 16)
+atlas = ExtResource("1_l7brs")
+region = Rect2(0, 80, 16, 16)
 
 [resource]
 script = ExtResource("2_0tkg7")
 equiped_weapon_sprite = SubResource("AtlasTexture_l7brs")
-icon = SubResource("AtlasTexture_0tkg7")
+icon = SubResource("AtlasTexture_l7brs")
 item_name = "Sword"
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

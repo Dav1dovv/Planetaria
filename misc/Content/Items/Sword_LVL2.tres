@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://bt74ueu8khig4"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_cdhkm"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_yn5pi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7brs"]
+atlas = ExtResource("1_cdhkm")
+region = Rect2(16, 80, 16, 16)
+
+[resource]
+script = ExtResource("2_yn5pi")
+equiped_weapon_sprite = SubResource("AtlasTexture_l7brs")
+icon = SubResource("AtlasTexture_l7brs")
+item_name = "Sword"
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
