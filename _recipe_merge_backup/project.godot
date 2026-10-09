@@ -56,7 +56,7 @@ PhantomCameraManager="*uid://duq6jhf6unyis"
 Cursor="*res://scr/Systems/Cursor/cursor.tscn"
 DialogueManager="*uid://c3rodes2l3gxb"
 SaveLoad="*uid://6hlspns6ds3w"
-ItemDB="*res://scr/Resources/ItemData/ItemDB.gd"
+ItemDb="*uid://byyyacmf17iuw"
 
 [dialogic]
 

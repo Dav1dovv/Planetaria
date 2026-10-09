@@ -115,8 +115,27 @@ func _ready() -> void:
 # ─────────────────────────────────────────────────────────────────
 
 func _load_recipes() -> void:
-	# Рецепты строит ItemDB из полей ItemData (аддон Recipe Merge)
-	all_recipes = ItemDB.get_recipes()
+	if _recipe_cache.has(recipes_folder):
+		all_recipes = _recipe_cache[recipes_folder]
+		return
+
+	all_recipes.clear()
+	var dir := DirAccess.open(recipes_folder)
+	if not dir:
+		push_error("CraftStation: папка рецептов не найдена: " + recipes_folder)
+		return
+
+	dir.list_dir_begin()
+	var file_name := dir.get_next()
+	while file_name != "":
+		if file_name.ends_with(".tres") or file_name.ends_with(".res"):
+			var res = load(recipes_folder + file_name)
+			if res is CraftRecipe:
+				all_recipes.append(res)
+		file_name = dir.get_next()
+
+	all_recipes.sort_custom(func(a, b): return a.category < b.category)
+	_recipe_cache[recipes_folder] = all_recipes
 
 # ─────────────────────────────────────────────────────────────────
 #  ВКЛАДКИ

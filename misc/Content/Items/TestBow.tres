@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://dieok7r238rrp"]
 
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_1r6ro"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_8ud4d"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_dl7qs"]
 [ext_resource type="PackedScene" uid="uid://cfhe0ka5wyk3r" path="res://misc/Projectiles/Bullet.tscn" id="2_dl7qs"]
 

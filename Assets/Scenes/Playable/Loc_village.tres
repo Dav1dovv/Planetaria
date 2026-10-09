@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qse2w")
 key = "Village"
-scene_path = "uid://s85soyx8ao5e"
+scene_path = "uid://d4hirp0y51hto"
 display_name = "Norville"
 music_key = "Village"
 metadata/_custom_type_script = "uid://dahsqqqv7jj4q"

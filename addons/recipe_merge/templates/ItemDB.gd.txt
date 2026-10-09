@@ -1,0 +1,72 @@
+## ItemDB.gd — АВТОЗАГРУЗКА (Project Settings → Globals → Autoload, имя "ItemDB").
+## Единый реестр всех ItemData + источник всех рецептов.
+extends Node
+
+## Папки с .tres предметами (сканируются рекурсивно). ПОДСТАВЬ СВОИ ПУТИ.
+const ITEM_FOLDERS: PackedStringArray = [__ITEM_FOLDERS__]
+
+var _items: Dictionary = {}               # item_name -> ItemData
+var _recipes: Array[CraftRecipe] = []
+var _visited: Dictionary = {}
+
+func _ready() -> void:
+	for folder in ITEM_FOLDERS:
+		_scan(folder)
+	_build_recipes()
+	print("[ItemDB] предметов: %d, рецептов: %d" % [_items.size(), _recipes.size()])
+
+func _scan(path: String) -> void:
+	if _visited.has(path):
+		return
+	_visited[path] = true
+	var dir := DirAccess.open(path)
+	if not dir:
+		push_error("ItemDB: папка не найдена: " + path)
+		return
+	dir.list_dir_begin()
+	var f := dir.get_next()
+	while f != "":
+		if dir.current_is_dir():
+			if not f.begins_with("."):
+				_scan(path.path_join(f))
+		else:
+			# В экспортированной игре файлы приходят как "*.tres.remap"
+			var clean := f.trim_suffix(".remap")
+			if clean.ends_with(".tres") or clean.ends_with(".res"):
+				var res = load(path.path_join(clean))
+				if res is ItemData and res.item_name != "":
+					if _items.has(res.item_name):
+						push_warning("ItemDB: дубликат item_name '%s'" % res.item_name)
+					_items[res.item_name] = res
+		f = dir.get_next()
+
+func _build_recipes() -> void:
+	_recipes.clear()
+	for item: ItemData in _items.values():
+		if item.has_craft_recipe():
+			_recipes.append(CraftRecipe.from_craft(item))
+		if item.has_repair_recipe():
+			_recipes.append(CraftRecipe.from_repair(item))
+		if item.has_salvage_recipe():
+			_recipes.append(CraftRecipe.from_salvage(item))
+	_recipes.sort_custom(func(a, b): return a.category < b.category)
+
+# ── API ──────────────────────────────────────────────────────────
+func get_item(item_name: String) -> ItemData:
+	return _items.get(item_name)
+
+func get_all_items() -> Array:
+	return _items.values()
+
+func get_recipes() -> Array[CraftRecipe]:
+	return _recipes
+
+## Все рецепты, где предмет — ингредиент ("где используется")
+func recipes_using(item: ItemData) -> Array[CraftRecipe]:
+	var out: Array[CraftRecipe] = []
+	for r in _recipes:
+		for ing in r.get_ingredients():
+			if ing["item"].item_name == item.item_name:
+				out.append(r)
+				break
+	return out

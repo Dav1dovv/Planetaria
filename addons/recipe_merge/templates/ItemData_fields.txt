@@ -1,0 +1,31 @@
+# ═════════════ Recipe Merge: рецепты внутри предмета ═════════════
+@export_group("Crafting")
+## Ингредиенты крафта. Пусто = предмет нельзя скрафтить.
+@export var craft_ingredients: Array[CraftIngredient] = []
+## Сколько штук получается за один крафт
+@export var craft_amount: int = 1
+## Оплата золотом (0 = бесплатно)
+@export var craft_gold_cost: int = 0
+@export_enum("Weapons", "Pickaxe", "Food", "Materials", "Acsesories") var craft_category: int = 0
+@export var craft_smith_level: int = 1
+@export var craft_station: StationRestriction = StationRestriction.ANY
+
+@export_group("Disassemble")
+## Что получается при разборке. Пусто = разобрать нельзя.
+@export var salvage: Array[CraftIngredient] = []
+
+@export_group("Repair")
+## Пусто = ремонт недоступен
+@export var repair_ingredients: Array[CraftIngredient] = []
+@export var repair_gold_cost: int = 0
+## Сколько прочности восстанавливается (0 = полный ремонт)
+@export var repair_amount: int = 0
+
+func has_craft_recipe() -> bool:
+	return not craft_ingredients.is_empty()
+
+func has_salvage_recipe() -> bool:
+	return not salvage.is_empty()
+
+func has_repair_recipe() -> bool:
+	return not repair_ingredients.is_empty()

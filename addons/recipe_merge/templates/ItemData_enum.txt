@@ -1,0 +1,5 @@
+enum StationRestriction {
+	ANY,             ## Доступен и у кузнеца, и на верстаке
+	SMITH_ONLY,      ## Только у кузнеца
+	WORKBENCH_ONLY,  ## Только на верстаке
+}

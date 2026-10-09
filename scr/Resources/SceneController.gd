@@ -12,7 +12,7 @@ class_name SceneData
 @export var key: String = ""
 
 ## Путь к .tscn файлу
-@export_file("*.tscn") var scene_path: String = ""
+@export_file("*.scn") var scene_path: String = ""
 
 ## Человекочитаемое название (для UI, загрузочного экрана и т.п.)
 @export var display_name: String = ""

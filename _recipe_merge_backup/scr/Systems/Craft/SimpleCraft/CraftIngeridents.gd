@@ -1,4 +1,3 @@
-@tool
 # CraftIngredient.gd
 extends Resource
 class_name CraftIngredient

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_i878r")
 key = "Forest"
-scene_path = "uid://blwrcxcnxmo7e"
+scene_path = "uid://d4hirp0y51hto"
 display_name = "Forest"
 music_key = "Forest"
 metadata/_custom_type_script = "uid://dahsqqqv7jj4q"
