@@ -9,6 +9,8 @@ class_name MeleeEnemy
 @onready var explosion: GPUParticles2D = $Explosion
 @onready var drop: Dropper = $Drop
 
+@export var is_boss : bool = false
+
 # Максимальное смещение точки, к которой идёт враг (в пикселях вокруг игрока)
 @export var walk_offset : float = 2.5
 # Как часто (в секундах) враг выбирает новое смещение. Чем больше, тем плавнее и «осознаннее» движение
@@ -52,6 +54,7 @@ class_name MeleeEnemy
 	set(value):
 		attack_color = value
 		queue_redraw()
+
 
 var target
 var target_detected : bool = false
@@ -249,6 +252,9 @@ func _on_die():
 		drop._drop_items()
 	if is_in_group("Creature"):
 		remove_from_group("Creature")
+
+	if is_boss:
+		Global.report_planet_event("Vehana",QuestData.Kind,"ROAR")
 
 	await get_tree().create_timer(1.5).timeout
 	queue_free()

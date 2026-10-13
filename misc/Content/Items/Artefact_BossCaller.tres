@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b63ly05pw5sp4"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_o243y"]
+[ext_resource type="Resource" uid="uid://feu6mm5l4c0h" path="res://misc/Content/Items/Artefact_Piece.tres" id="2_o6uvl"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_yrek7"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="3_j5keg"]
+
+[sub_resource type="Resource" id="Resource_j5keg"]
+script = ExtResource("1_o243y")
+item = ExtResource("2_o6uvl")
+amount = 10
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6uvl"]
+atlas = ExtResource("3_j5keg")
+region = Rect2(0, 32, 16, 16)
+
+[resource]
+script = ExtResource("2_yrek7")
+icon = SubResource("AtlasTexture_o6uvl")
+item_name = "Boss Caller"
+stackable = false
+craft_ingredients = Array[ExtResource("1_o243y")]([SubResource("Resource_j5keg")])
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

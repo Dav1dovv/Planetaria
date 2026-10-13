@@ -4,10 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_x47r5"]
 [ext_resource type="Resource" uid="uid://bmkdrb4efmfp8" path="res://misc/Content/Items/Pickaxe_LVL1.tres" id="2_2tf5l"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_4wjak"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="3_2tf5l"]
 
 [sub_resource type="Resource" id="Resource_uwh06"]
 script = ExtResource("1_ngj78")
 item = ExtResource("2_2tf5l")
+
+[sub_resource type="Resource" id="Resource_76v4r"]
+script = ExtResource("1_ngj78")
+item = ExtResource("3_2tf5l")
+amount = 25
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kbubl"]
 atlas = ExtResource("1_x47r5")
@@ -22,5 +29,7 @@ is_weapon = false
 one_shot_attack = false
 icon = SubResource("AtlasTexture_kbubl")
 item_name = "M.G.M V2"
-craft_ingredients = Array[ExtResource("1_ngj78")]([SubResource("Resource_uwh06")])
+craft_ingredients = Array[ExtResource("1_ngj78")]([SubResource("Resource_uwh06"), SubResource("Resource_76v4r")])
+repair_gold_cost = 24
+repair_amount = 500
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

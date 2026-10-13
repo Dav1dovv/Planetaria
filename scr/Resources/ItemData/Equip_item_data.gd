@@ -1,4 +1,4 @@
-@icon("res://common/icons/helpcon3.png")
+@icon("res://addons/at-icons/mesh/sword.svg")
 extends ItemData
 class_name equip_data
 

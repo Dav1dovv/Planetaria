@@ -1,15 +1,5 @@
 extends Node
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  ИЗМЕНЕНИЯ В ЭТОЙ ВЕРСИИ:
-#   • corruption остаётся ЕДИНСТВЕННЫМ источником истины по заражению биомов
-#     (0..100 на биом). Добавлены хелперы get_corruption_level()/add_corruption(),
-#     чтобы WorldGenerator (и всё остальное) читало/писало заражение только
-#     через них, а не держало собственную копию значения, которая может
-#     разойтись с этим словарём (именно это раньше приводило к багу с
-#     затиранием float 0-100 значением int 0-3).
-# ─────────────────────────────────────────────────────────────────────────────
-
 @onready var developer_console: devconsole = %DeveloperConsole
 @onready var scene_manager: SceneManager    = $SceneManager
 @onready var day_night: DayNightCycle = $DayNight
@@ -17,7 +7,7 @@ extends Node
 @onready var setting_manager: SettingManager = $SettingManager
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  Данные текущей игры
+#  Session Data
 # ─────────────────────────────────────────────────────────────────────────────
 
 var player_name: String = "Default"
@@ -25,16 +15,22 @@ var player_skin_index: int = 0
 var player_skin_head_index: int = 0
 var game_difficult: int = 0
 var current_save_slot: String = ""
-var current_location: String = "Land"
+## Меняется при смене локации; имя планеты совпадает с PlanetData.Planet_Name
+signal location_changed(location: String)
+## Прогресс планет загружен из слота
+signal planets_loaded
 
-# Текущая погода по биому — сохраняется при смене локации
-var weather_state: Dictionary = {}
+var current_location: String = "Land":
+	set(value):
+		if current_location == value:
+			return
+		current_location = value
+		location_changed.emit(value)
 
-## ЕДИНСТВЕННЫЙ источник истины по заражению биомов (0.0..100.0 на биом).
-## Не дублируй это значение в других системах — читай/меняй только через
-## get_corruption_level() / add_corruption() ниже.
-var corruption : int = 67
+@export var planets_data : Array[PlanetData]
 
+
+##Player last info
 var last_location: String
 var last_position: Vector2
 var pending_exit_walk: Dictionary = {
@@ -57,7 +53,6 @@ const HINT = preload("uid://wyeldfaexejh")
 
 
 
-
 func _init() -> void:
 	Input.set_custom_mouse_cursor(MOUSE_Arrow, Input.CURSOR_ARROW, Vector2.ZERO)
 
@@ -70,41 +65,27 @@ func _ready() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 #  Имя персонажа
 # ─────────────────────────────────────────────────────────────────────────────
-
+#region
 func set_character_name(new_name: String) -> void:
 	if new_name.strip_edges().is_empty():
 		push_error("[Global] Character name cannot be empty")
 		return
 	player_name = new_name.strip_edges()
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  Заражение биомов (единый источник истины)
-# ─────────────────────────────────────────────────────────────────────────────
-
-
-## Изменяет заражение биома на delta_percent (может быть отрицательным).
-## Возвращает новый % заражения. Это ЕДИНСТВЕННОЕ место, которое должно
-## менять словарь corruption — все остальные системы должны вызывать этот метод.
-func add_corruption(delta_percent: float) -> float:
-	if not corruption:
-		return 0.0
-	corruption = clamp(corruption + delta_percent, 0.0, 100.0)
-	return corruption
-
-
+#endregion
 # ─────────────────────────────────────────────────────────────────────────────
 #  Инвентарь
 # ─────────────────────────────────────────────────────────────────────────────
-
+#region inventory
 func pickup_item(item_data: ItemData, amount: int = 1) -> void:
 	if not hotbar or not inventory:
 		push_error("[Global] Hotbar or Inventory not found")
 		return
 
-	if _try_add_to_container(hotbar, item_data, amount):
-		return
-	if not _try_add_to_container(inventory, item_data, amount):
+	if _try_add_to_container(hotbar, item_data, amount) \
+			or _try_add_to_container(inventory, item_data, amount):
+		report_item_picked(item_data, amount)
+	else:
 		print("[Global] Inventory full — item lost: ", item_data.item_name)
 
 
@@ -120,13 +101,72 @@ func add_initial_items() -> void:
 	pickup_item(preload("uid://dieok7r238rrp").duplicate(),1)
 	pickup_item(preload("uid://dwmw15dg8pwvd").duplicate(),45)
 
+#endregion
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Сохранение / удаление
 # ─────────────────────────────────────────────────────────────────────────────
-
+#region save/delete
 func save() -> void:
 	get_tree().call_group("Save", "save_game")
+	save_planets_data()
+
+
+## Сохраняет прогресс планет в текущий слот.
+func save_planets_data() -> void:
+	SaveLoad.save_planets(planets_data)
+
+
+## Загружает прогресс планет из текущего слота.
+## Совпадение по Planet_Name. Если сохранения нет — прогресс сбрасывается.
+func load_planets_data() -> void:
+	var saved: Array = SaveLoad.load_planets()
+
+	# Сначала сбрасываем всё, чтобы прогресс не «перетекал» между слотами
+	for planet in planets_data:
+		planet.reset()
+
+	for entry in saved:
+		if not entry is Dictionary:
+			continue
+		var planet := get_planet(entry.get("planet_name", ""))
+		if planet == null:
+			push_warning("[Global] Planet from save not found in planets_data: %s" % entry.get("planet_name", ""))
+			continue
+		planet.apply_dict(entry)
+
+	planets_loaded.emit()
+
+
+## Возвращает PlanetData по имени планеты (или null).
+func get_planet(planet_name: String) -> PlanetData:
+	for planet in planets_data:
+		if planet.Planet_Name == planet_name:
+			return planet
+	return null
+
+
+## Предмет подобран — засчитываем во всех планетах, где он есть в заданиях.
+## Вызывается автоматически из pickup_item().
+func report_item_picked(item: ItemData, amount: int = 1) -> void:
+	for planet in planets_data:
+		planet.report_item_picked(item, amount)
+
+
+## Предмет доставлен в базу. Вызывай из объекта базы после списания предмета:
+## Global.report_item_delivered("Vehana", medkit_data, "base_alpha")
+func report_item_delivered(planet_name: String, item: ItemData, destination_id: String, amount: int = 1) -> void:
+	var planet := get_planet(planet_name)
+	if planet:
+		planet.report_item_delivered(item, destination_id, amount)
+
+
+## Событие по ID (союз с расой, помощь жителям). Пример:
+## Global.report_planet_event("Morva", QuestData.Kind.ALLIANCE, "race_x")
+func report_planet_event(planet_name: String, kind: QuestData.Kind, target_id: String = "", amount: int = 1) -> void:
+	var planet := get_planet(planet_name)
+	if planet:
+		planet.report_event(kind, target_id, amount)
 
 
 func save_last_data() -> void:
@@ -136,29 +176,28 @@ func save_last_data() -> void:
 
 func delete_game_data() -> void:
 	SaveLoad.delete_all_saves()
-
+#endregion
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  UI-утилиты
 # ─────────────────────────────────────────────────────────────────────────────
-
+#region UI
 func hint(object: Node2D, message: String) -> void:
 	var hint_instant = HINT.instantiate()
 	hint_instant.text     = message
 	hint_instant.position = object.global_position + Vector2(0, -10)
 	object.call_deferred("add_child", hint_instant)
 
-
 func CraftMenu() -> void:
 	inventory.call_craft()
 
 func Trade(Trader : TraderData):
 	inventory.call_trade(Trader)
-
+#endregion
 # ─────────────────────────────────────────────────────────────────────────────
 #  Музыка
 # ─────────────────────────────────────────────────────────────────────────────
-
+#region Music
 func _switch_bgm(clip_name: StringName) -> void:
 	if not BGM.playing:
 		BGM.play()
@@ -201,3 +240,5 @@ func _on_day_night_phase_changed(is_night: bool) -> void:
 		_on_scene_manager_scene_change_finished("Night")
 	else:
 		_on_scene_manager_scene_change_finished(music_key)
+
+#endregion

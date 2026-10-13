@@ -3,14 +3,23 @@
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_0tkg7"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_l7brs"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_0tkg7"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="3_k851f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7brs"]
 atlas = ExtResource("1_l7brs")
 region = Rect2(0, 80, 16, 16)
+
+[sub_resource type="Resource" id="Resource_si6w7"]
+script = ExtResource("1_0tkg7")
+item = ExtResource("3_k851f")
+amount = 17
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
 
 [resource]
 script = ExtResource("2_0tkg7")
 equiped_weapon_sprite = SubResource("AtlasTexture_l7brs")
 icon = SubResource("AtlasTexture_l7brs")
 item_name = "Sword"
+repair_ingredients = Array[ExtResource("1_0tkg7")]([SubResource("Resource_si6w7")])
+repair_amount = 100
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

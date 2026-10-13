@@ -332,8 +332,8 @@ invert = false
 material = SubResource("ShaderMaterial_lncde")
 offset_left = -239.12976
 offset_top = -126.0954
-offset_right = 308.31146
-offset_bottom = 327.70398
+offset_right = 343.14
+offset_bottom = 381.704
 scale = Vector2(1.5791667, 1.0740741)
 color = Color(0, 0, 0, 1)
 
@@ -350,7 +350,7 @@ scroll_scale = Vector2(2, 2)
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets" unique_id=1007087873]
 position = Vector2(4.132263, 251.23965)
-rotation = -287.59525
+rotation = 806.7452
 scale = Vector2(4.175082, 4.175082)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -367,7 +367,8 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=530346119]
 position = Vector2(5.9159737, -41.65517)
-rotation = 66.820885
+rotation = 4418.195
+scale = Vector2(0.6516362, 0.6516362)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(60, 80, 12, 12)
@@ -381,7 +382,8 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet2" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=684306597]
 position = Vector2(-48.649956, -41.51426)
-rotation = 7.0595217
+rotation = 2384.29
+scale = Vector2(0.65163606, 0.65163606)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(49, 50, 19, 19)
@@ -391,7 +393,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet2" unique_id=1718899979]
 position = Vector2(-1.5468187, 0.69523215)
-rotation = -92.62448
+rotation = 91.32138
 scale = Vector2(0.3292737, 0.3292737)
 texture = ExtResource("11_fqo0y")
 offset = Vector2(66.32508, 12.849968)
@@ -413,7 +415,8 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet3" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1423906424]
 position = Vector2(-36.936844, 71.13017)
-rotation = 201.54971
+rotation = 1166.4208
+scale = Vector2(0.65163606, 0.65163606)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(57, 9, 32, 32)
@@ -427,8 +430,8 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet5" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=543942180]
 position = Vector2(-53.9042, 23.165627)
-rotation = -231.79573
-scale = Vector2(0.57125205, 0.57125205)
+rotation = 1450.1782
+scale = Vector2(0.37224847, 0.37224847)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(76, 52, 25, 25)
@@ -440,33 +443,21 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 scale = Vector2(2.718, 2.718)
 texture = ExtResource("13_fqo0y")
 
-[node name="planet6" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1322698681]
-position = Vector2(43.515324, 82.038666)
-rotation = -7.9507017
-texture = ExtResource("11_fqo0y")
-region_enabled = true
-region_rect = Rect2(104, 8, 17, 17)
-script = ExtResource("12_jm7od")
-metadata/_custom_type_script = "uid://b60d08i8hic0m"
-
-[node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet6" unique_id=633756616]
-scale = Vector2(2.098, 2.098)
-texture = ExtResource("13_fqo0y")
-
 [node name="Atmosphere" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=693915399]
 modulate = Color(1, 0.6431373, 0.3254902, 1)
 scale = Vector2(5.203, 5.203)
 texture = ExtResource("13_fqo0y")
 
 [node name="Marker2D" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=736093489]
-rotation = 241.78232
+rotation = -1113.0054
 script = ExtResource("12_jm7od")
 rotation_speed = -0.5
 metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="ParallaxBackground/Planets/planet/Marker2D" unique_id=1864340330]
 position = Vector2(110.0839, -3.0646439)
-rotation = -321.4451
+rotation = -6708.187
+scale = Vector2(0.49572185, 0.49572185)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
 region_rect = Rect2(112, 51, 13, 13)
@@ -631,7 +622,6 @@ script = ExtResource("3_bwn3d")
 _max_size = 12
 _min_size = 8
 _current_font_size = 12
-_size_just_modified_by_autosizer = true
 _editor_defaults_set = true
 metadata/_custom_type_script = "uid://bttgnk3bb2a8i"
 

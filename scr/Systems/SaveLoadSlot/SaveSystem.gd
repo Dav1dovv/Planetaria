@@ -5,6 +5,7 @@ class_name SaveLoadSystem
 #   user://Saves/{slot}/player_data.char    — здоровье, экипировка
 #   user://Saves/{slot}/worldsave/world_seeds.json
 #   user://Saves/{slot}/worldsave/harvested.json
+#   user://Saves/{slot}/worldsave/planets.json
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Константы путей
@@ -15,6 +16,7 @@ const SLOT_META_FILE  := "save_data.json"
 const PLAYER_FILE     := "player_data.char"
 const SEEDS_FILE      := "worldsave/world_seeds.json"
 const HARVESTED_FILE  := "worldsave/harvested.json"
+const PLANETS_FILE    := "worldsave/planets.json"
 
 # Расстояние «склейки» добытых позиций (0 = точное совпадение)
 const HARVEST_SNAP: float = 0.0
@@ -32,6 +34,7 @@ func _meta_path(slot: String)      -> String: return slot_dir(slot) + SLOT_META_
 func _player_path(slot: String)    -> String: return slot_dir(slot) + PLAYER_FILE
 func _seeds_path(slot: String)     -> String: return slot_dir(slot) + SEEDS_FILE
 func _harvested_path(slot: String) -> String: return slot_dir(slot) + HARVESTED_FILE
+func _planets_path(slot: String)   -> String: return slot_dir(slot) + PLANETS_FILE
 
 ## Безопасное имя папки: убираем пробелы и слэши
 func _safe_name(name: String) -> String:
@@ -102,6 +105,7 @@ func load_save(slot: String) -> bool:
 
 	Global.player_name              = data.get("player_name", "Player")
 	Global.current_save_slot        = slot
+	Global.load_planets_data()
 	return true
 
 ## Удаляет папку слота рекурсивно.
@@ -125,7 +129,6 @@ func save_player(player: Node) -> bool:
 			"hp":         player.Entity_stats.current_health,
 			"max_hp":     player.Entity_stats.max_health,
 			"Corruption" : player.corruption,
-			"global_corruption" : Global.corruption,
 			"hunger_data" : player.hunger,
 		},
 		"equipment": {
@@ -152,7 +155,6 @@ func load_player(player: Node) -> bool:
 		player.Entity_stats.current_health = s.get("hp",     player.Entity_stats.max_health)
 		player.Entity_stats.max_health     = s.get("max_hp", player.Entity_stats.max_health)
 		player.corruption                  = s.get("Corruption", player.corruption)
-		Global.corruption                  = s.get("global_corruption",Global.corruption)
 		player.hunger                      = s.get("hunger_data",100)
 
 	if data.has("equipment"):
@@ -210,6 +212,38 @@ func load_harvested() -> Dictionary:
 	if slot.is_empty():
 		return {}
 	return _read_json(_harvested_path(slot))
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  Планеты (PlanetData)
+# ─────────────────────────────────────────────────────────────────────────────
+
+## Сохраняет прогресс всех планет в planets.json.
+func save_planets(planets: Array) -> bool:
+	var slot: String = Global.current_save_slot
+	if slot.is_empty():
+		push_error("[SaveSystem] current_save_slot is empty — cannot save planets")
+		return false
+
+	var list: Array = []
+	for planet in planets:
+		if planet is PlanetData:
+			list.append(planet.to_dict())
+
+	var data := {
+		"planets": list,
+		"version": "2.0",
+	}
+	return _write_json(_planets_path(slot), data)
+
+## Загружает список сохранённых планет (массив словарей PlanetData.to_dict()).
+## Возвращает пустой массив, если файла нет или он повреждён.
+func load_planets() -> Array:
+	var slot: String = Global.current_save_slot
+	if slot.is_empty():
+		return []
+	var data := _read_json(_planets_path(slot))
+	return data.get("planets", [])
 
 
 # ─────────────────────────────────────────────────────────────────────────────

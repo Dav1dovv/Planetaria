@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_6am1a"]
 [ext_resource type="Script" uid="uid://dyyn2rllx0mpi" path="res://misc/Entity/Scripts/ContactEnemy.gd" id="2_6am1a"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="3_kxpfh"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_mho44"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="4_kxpfh"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_qmv18"]
@@ -16,7 +17,7 @@
 script = ExtResource("4_kxpfh")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
-[sub_resource type="Resource" id="Resource_mho44"]
+[sub_resource type="Resource" id="Resource_qmv18"]
 resource_local_to_scene = true
 script = ExtResource("3_mho44")
 max_health = 30
@@ -1360,7 +1361,7 @@ _data = {
 &"Walk": SubResource("Animation_xdby1")
 }
 
-[node name="Rat" unique_id=1251952136 node_paths=PackedStringArray("anim", "Vfx") instance=ExtResource("1_6am1a")]
+[node name="Rat" unique_id=1251952136 node_paths=PackedStringArray("anim", "skin", "Vfx") instance=ExtResource("1_6am1a")]
 script = ExtResource("2_6am1a")
 can_shoot = false
 stop_while_shooting = true
@@ -1373,10 +1374,11 @@ attack_parameter = SubResource("Resource_m2pa7")
 attack_range = 50.0
 attack_cooldown = 0.8
 aim_offset = Vector2(0, 0)
+skin = NodePath("Skin")
 show_gizmos = true
 sight_color = Color(1, 0.85, 0.2, 1)
 attack_color = Color(1, 0.2, 0.2, 1)
-Entity_stats = SubResource("Resource_mho44")
+Entity_stats = SubResource("Resource_qmv18")
 Vfx = NodePath("VFX")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]

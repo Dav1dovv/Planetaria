@@ -106,7 +106,7 @@ func _ready() -> void:
 		is_corrupted = true
 	elif can_infect:
 		var max_corrupt_chance := 0.3
-		var corrupt_chance := (float(Global.corruption) / 100.0) * max_corrupt_chance
+		var corrupt_chance := max_corrupt_chance
 		if randf() < corrupt_chance:
 			$Corruption.emitting = true
 			is_corrupted = true

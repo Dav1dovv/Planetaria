@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://yesc5a78ufu7"]
 
 [ext_resource type="PackedScene" uid="uid://fgmnq4ft82wh" path="res://Assets/Scenes/Playable/location_root.tscn" id="1_5o2qs"]
-[ext_resource type="TileSet" uid="uid://bhhg7klmns5su" path="res://Resources/TileSets/PlanetTiles.tres" id="2_5on0c"]
+[ext_resource type="TileSet" uid="uid://bhhg7klmns5su" path="res://common/Resources/TileSets/PlanetTiles.tres" id="2_5on0c"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_q68ey"]
 [ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://misc/Entity/Enemies/Pig1.tscn" id="4_n8j6n"]
 [ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://misc/Entity/Enemies/Rat.tscn" id="5_5on0c"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dt8r6w2e04m3f" path="res://misc/Entity/Enemies/Pig2.tscn" id="8_wwern"]
 [ext_resource type="PackedScene" uid="uid://cwojtuw4rlunx" path="res://misc/Entity/Enemies/Pig3.tscn" id="9_ntyta"]
 
-[sub_resource type="Resource" id="Resource_yiyaq"]
+[sub_resource type="Resource" id="Resource_wwern"]
 resource_local_to_scene = true
 resource_name = "Player Stat"
 script = ExtResource("3_q68ey")
@@ -19,7 +19,7 @@ base_armor = 10.0
 base_defense_modifier = 0.2
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
-[sub_resource type="Resource" id="Resource_ldeb7"]
+[sub_resource type="Resource" id="Resource_ntyta"]
 resource_local_to_scene = true
 script = ExtResource("3_q68ey")
 max_health = 35
@@ -27,7 +27,7 @@ base_move_speed = 2.3
 base_armor = 10.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
-[sub_resource type="Resource" id="Resource_mkdgn"]
+[sub_resource type="Resource" id="Resource_yiyaq"]
 resource_local_to_scene = true
 script = ExtResource("3_q68ey")
 max_health = 30
@@ -35,12 +35,28 @@ base_move_speed = 2.3
 base_armor = 10.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
-[sub_resource type="Resource" id="Resource_vmqae"]
+[sub_resource type="Resource" id="Resource_ldeb7"]
 resource_local_to_scene = true
 script = ExtResource("3_q68ey")
 max_health = 30
 base_move_speed = 2.3
 base_armor = 10.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_mkdgn"]
+resource_local_to_scene = true
+resource_name = "Slime Stat"
+script = ExtResource("3_q68ey")
+max_health = 25
+base_armor = 1.5
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_vmqae"]
+resource_local_to_scene = true
+resource_name = "Slime Stat"
+script = ExtResource("3_q68ey")
+max_health = 25
+base_armor = 1.5
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="Resource" id="Resource_sb0h2"]
@@ -69,18 +85,18 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="Resource" id="Resource_dpt3g"]
 resource_local_to_scene = true
-resource_name = "Slime Stat"
 script = ExtResource("3_q68ey")
-max_health = 25
-base_armor = 1.5
+max_health = 74
+base_move_speed = 3.0
+base_armor = 15.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="Resource" id="Resource_11b3f"]
 resource_local_to_scene = true
-resource_name = "Slime Stat"
 script = ExtResource("3_q68ey")
-max_health = 25
-base_armor = 1.5
+max_health = 74
+base_move_speed = 3.0
+base_armor = 15.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="Resource" id="Resource_t3xwd"]
@@ -94,27 +110,11 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 [sub_resource type="Resource" id="Resource_s2eu7"]
 resource_local_to_scene = true
 script = ExtResource("3_q68ey")
-max_health = 74
-base_move_speed = 3.0
-base_armor = 15.0
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="Resource" id="Resource_micpe"]
-resource_local_to_scene = true
-script = ExtResource("3_q68ey")
-max_health = 74
-base_move_speed = 3.0
-base_armor = 15.0
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="Resource" id="Resource_moclt"]
-resource_local_to_scene = true
-script = ExtResource("3_q68ey")
 max_health = 120
 base_armor = 20.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
-[sub_resource type="Resource" id="Resource_qsiwj"]
+[sub_resource type="Resource" id="Resource_micpe"]
 resource_local_to_scene = true
 script = ExtResource("3_q68ey")
 max_health = 120
@@ -129,58 +129,58 @@ tile_map_data = PackedByteArray("AADE/9X/AAANAAQAAADE/9b/AAANAAQAAADE/9f/AAANAAQ
 tile_set = ExtResource("2_5on0c")
 
 [node name="Player" parent="." index="1" unique_id=1150737309]
-Entity_stats = SubResource("Resource_yiyaq")
+Entity_stats = SubResource("Resource_wwern")
 
 [node name="Pig" parent="." index="2" unique_id=1251952136 instance=ExtResource("4_n8j6n")]
 position = Vector2(209.20168, 3.3126068)
 walk_offset = 50.0
 offset_interval = 0.5
-Entity_stats = SubResource("Resource_ldeb7")
+Entity_stats = SubResource("Resource_ntyta")
 
 [node name="Rat" parent="." index="3" unique_id=1418134410 instance=ExtResource("5_5on0c")]
 position = Vector2(621.05035, -96.63321)
-Entity_stats = SubResource("Resource_mkdgn")
+Entity_stats = SubResource("Resource_yiyaq")
 
 [node name="Rat2" parent="." index="4" unique_id=699233976 instance=ExtResource("5_5on0c")]
 position = Vector2(621.05035, 186.55273)
-Entity_stats = SubResource("Resource_vmqae")
+Entity_stats = SubResource("Resource_ldeb7")
 
 [node name="Slime" parent="." index="5" unique_id=1038366150 instance=ExtResource("6_n8j6n")]
 position = Vector2(1037.6123, -223.66245)
-Entity_stats = SubResource("Resource_sb0h2")
+Entity_stats = SubResource("Resource_mkdgn")
 
 [node name="Slime2" parent="." index="6" unique_id=57094513 instance=ExtResource("6_n8j6n")]
 position = Vector2(1037.6123, 125.15805)
-Entity_stats = SubResource("Resource_1jjjk")
+Entity_stats = SubResource("Resource_vmqae")
 
 [node name="Slime3" parent="." index="7" unique_id=1319780407 instance=ExtResource("6_n8j6n")]
 position = Vector2(1037.6123, 493.46567)
-Entity_stats = SubResource("Resource_u4jf3")
+Entity_stats = SubResource("Resource_sb0h2")
 
 [node name="Slime4" parent="." index="8" unique_id=113390075 instance=ExtResource("7_jbto0")]
 position = Vector2(833.9472, -41.69098)
-Entity_stats = SubResource("Resource_dpt3g")
+Entity_stats = SubResource("Resource_1jjjk")
 
 [node name="Slime5" parent="." index="9" unique_id=302692502 instance=ExtResource("7_jbto0")]
 position = Vector2(691.69073, 464.9756)
-Entity_stats = SubResource("Resource_11b3f")
+Entity_stats = SubResource("Resource_u4jf3")
 
 [node name="Pig2" parent="." index="10" unique_id=2124978405 instance=ExtResource("8_wwern")]
 position = Vector2(-514.56586, 153.1806)
-Entity_stats = SubResource("Resource_t3xwd")
+Entity_stats = SubResource("Resource_dpt3g")
 
 [node name="Pig3" parent="." index="11" unique_id=29157946 instance=ExtResource("8_wwern")]
 position = Vector2(-304.10437, 482.51392)
-Entity_stats = SubResource("Resource_s2eu7")
+Entity_stats = SubResource("Resource_11b3f")
 
 [node name="Pig4" parent="." index="12" unique_id=81558667 instance=ExtResource("8_wwern")]
 position = Vector2(68.10071, 609.18054)
-Entity_stats = SubResource("Resource_micpe")
+Entity_stats = SubResource("Resource_t3xwd")
 
 [node name="Pig5" parent="." index="13" unique_id=656774119 instance=ExtResource("9_ntyta")]
 position = Vector2(-686.0526, 488.36005)
-Entity_stats = SubResource("Resource_moclt")
+Entity_stats = SubResource("Resource_s2eu7")
 
 [node name="Pig6" parent="." index="14" unique_id=2047291074 instance=ExtResource("9_ntyta")]
 position = Vector2(-220.89966, -417.62805)
-Entity_stats = SubResource("Resource_qsiwj")
+Entity_stats = SubResource("Resource_micpe")

@@ -1,25 +1,12 @@
 extends Node
 class_name GameManager
 
-# ═══════════════════════════════════════════════════════════════════════════════
-#  GameManager — состояние активного мира (сид, заражение, harvested, спавн)
-# ───────────────────────────────────────────────────────────────────────────────
-#  Добавляется в каждую игровую сцену (WorlRoot, world_root и т.п.)
-#  Состояние заражения берётся из SceneData при загрузке через SceneManager,
-#  но может меняться во время игры (добыча заражённых ресурсов и т.д.)
-# ═══════════════════════════════════════════════════════════════════════════════
-
 signal world_ready
 
 @export var world_seed: String = ""
 
 ## Находимся ли мы в шахте / под землёй
 @export var is_underground: bool = false
-
-## Биом / тип локации (для логики мира)
-@export_enum("Desert", "Forest", "Thundra","Deep")
-var biome: String = "Forest"
-
 
 var activated_stations: int = 0
 var last_saved_position: Array[Vector2]

@@ -1,4 +1,4 @@
-extends Harvestable
+extends Harvest_item
 
 @export var Boss : PackedScene
 @export_placeholder("Scare") var boss_name : String = ""

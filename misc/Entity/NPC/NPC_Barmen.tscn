@@ -685,8 +685,20 @@ _data = {
 
 [node name="Barmen" unique_id=2111811093 node_paths=PackedStringArray("body_anim") instance=ExtResource("1_f7dn3")]
 script = ExtResource("2_htwsq")
-awareness_radius = 50.0
-face_player_radius = 20.0
+show_ui = "Weapon"
+awareness_radius = 35.0
+face_player_radius = 40.0
+acceleration = 160.0
+pause_time_range = Vector2(1.5, 5)
+arrive_distance = 4.0
+separation_radius = 24.0
+separation_strength = 0.8
+chat_radius = 48.0
+chat_chance = 0.35
+chat_cooldown_range = Vector2(8, 20)
+chat_duration_range = Vector2(3, 6)
+chat_turn_time = 1.1
+bubble_offset = Vector2(0, -36)
 behavior = 0.0
 can_flee = false
 flee_threshold = 0.25

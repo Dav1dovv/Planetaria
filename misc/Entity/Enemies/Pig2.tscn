@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_v22vo"]
 [ext_resource type="Script" uid="uid://bn1f2cau8aok" path="res://misc/Entity/Scripts/MeleeEnemy.gd" id="2_hphyb"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_ish33"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="3_vmw6g"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="4_vmw6g"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_r73w1"]
 [ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="6_3gqap"]
@@ -10,18 +11,19 @@
 [ext_resource type="AudioStream" uid="uid://dyduuf64t6y8v" path="res://misc/Entity/SFX/Pig.wav" id="7_n8fin"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="8_qa8mo"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="9_blpc5"]
+[ext_resource type="Resource" uid="uid://feu6mm5l4c0h" path="res://misc/Content/Items/Artefact_Piece.tres" id="9_vmw6g"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kdvry"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r73w1"]
 atlas = ExtResource("5_r73w1")
-region = Rect2(144, 80, 16, 16)
+region = Rect2(112, 80, 16, 16)
 
 [sub_resource type="Resource" id="Resource_v22vo"]
 script = ExtResource("4_vmw6g")
 Damage = 10
-equiped_weapon_sprite = SubResource("AtlasTexture_kdvry")
+equiped_weapon_sprite = SubResource("AtlasTexture_r73w1")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
-[sub_resource type="Resource" id="Resource_3gqap"]
+[sub_resource type="Resource" id="Resource_i1ukq"]
 resource_local_to_scene = true
 script = ExtResource("3_ish33")
 max_health = 74
@@ -52,6 +54,16 @@ drop_chance = 0.4001
 min_throws = 2
 max_throws = 5
 metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="Resource" id="Resource_01dxt"]
+script = ExtResource("6_3gqap")
+drop_item = ExtResource("9_vmw6g")
+drop_chance = 0.7211
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8fin"]
+atlas = ExtResource("5_r73w1")
+region = Rect2(112, 80, 16, 16)
 
 [sub_resource type="Animation" id="Animation_c3sx8"]
 resource_name = "Attack"
@@ -1538,7 +1550,7 @@ hand_anim = NodePath("Skin/Body/Hand/AnimationPlayer")
 show_gizmos = true
 sight_color = Color(1, 0.85, 0.2, 1)
 attack_color = Color(1, 0.2, 0.2, 1)
-Entity_stats = SubResource("Resource_3gqap")
+Entity_stats = SubResource("Resource_i1ukq")
 Vfx = NodePath("VFX")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
@@ -1565,7 +1577,7 @@ disabled = true
 position = Vector2(0, 8.040825)
 
 [node name="Drop" parent="." index="4" unique_id=1587885386]
-drop_resources = Array[ExtResource("6_3gqap")]([SubResource("Resource_ish33")])
+drop_resources = Array[ExtResource("6_3gqap")]([SubResource("Resource_ish33"), SubResource("Resource_01dxt")])
 
 [node name="VFX" parent="." index="5" unique_id=304494227 node_paths=PackedStringArray("character")]
 character = NodePath("../Skin")
@@ -1585,14 +1597,14 @@ position = Vector2(0, 8.040825)
 position = Vector2(0, -8)
 texture = ExtResource("8_qa8mo")
 region_enabled = true
-region_rect = Rect2(348, 18, 8, 8)
+region_rect = Rect2(316, 18, 8, 8)
 
 [node name="LeftLeg" type="Sprite2D" parent="Skin/Body" index="0" unique_id=308076313]
 position = Vector2(-2, 4)
 texture = ExtResource("8_qa8mo")
 offset = Vector2(-0.8, 2)
 region_enabled = true
-region_rect = Rect2(348, 26, 4, 4)
+region_rect = Rect2(316, 26, 4, 4)
 
 [node name="RightLeg" type="Sprite2D" parent="Skin/Body" index="1" unique_id=524656219]
 show_behind_parent = true
@@ -1600,14 +1612,14 @@ position = Vector2(2, 4)
 texture = ExtResource("8_qa8mo")
 offset = Vector2(0.57, 2)
 region_enabled = true
-region_rect = Rect2(352, 26, 4, 4)
+region_rect = Rect2(320, 26, 4, 4)
 
 [node name="Head" type="Sprite2D" parent="Skin/Body" index="2" unique_id=1235930653]
 position = Vector2(-0.015625, -4.00781)
 texture = ExtResource("8_qa8mo")
 offset = Vector2(-0.641, -4.802)
 region_enabled = true
-region_rect = Rect2(342, 8, 16, 10)
+region_rect = Rect2(311, 8, 16, 10)
 
 [node name="Hand" type="Node2D" parent="Skin/Body" index="3" unique_id=1936350824]
 y_sort_enabled = true
@@ -1617,13 +1629,13 @@ position = Vector2(-3.55887, -3.64698)
 texture = ExtResource("8_qa8mo")
 offset = Vector2(-1.2, 3.33)
 region_enabled = true
-region_rect = Rect2(342, 19, 3, 6)
+region_rect = Rect2(310, 19, 3, 6)
 
 [node name="Equip" type="Sprite2D" parent="Skin/Body/Hand/LeftHand" index="0" unique_id=868309222]
 show_behind_parent = true
 position = Vector2(0.18572333, 4.1189203)
 rotation = 0.7853982
-texture = SubResource("AtlasTexture_kdvry")
+texture = SubResource("AtlasTexture_n8fin")
 offset = Vector2(5.1, -3.66)
 
 [node name="RightHand" type="Sprite2D" parent="Skin/Body/Hand" index="1" unique_id=1476749848]
@@ -1633,7 +1645,7 @@ position = Vector2(3.50243, -3.64698)
 texture = ExtResource("8_qa8mo")
 offset = Vector2(1.185, 3.35)
 region_enabled = true
-region_rect = Rect2(342, 19, 3, 6)
+region_rect = Rect2(310, 19, 3, 6)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Skin/Body/Hand" index="2" unique_id=2094068151]
 libraries/ = SubResource("AnimationLibrary_lrqgb")
