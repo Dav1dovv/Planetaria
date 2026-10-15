@@ -19,10 +19,15 @@ func _ready() -> void:
 func _on_interact() -> void:
 	if !_used:
 		player = get_tree().get_first_node_in_group("Player")
+		$Sprite2D.play("Turn")
 		player.heal(100)
 		$GPUParticles2D.emitting = true
 		save()
 		$interaction_area.queue_free()
+		#GameJuice.banner(boss_name.to_upper(), Loc.t("awakens…"), Color(0.85, 0.15, 0.1), 1.8)
+		GameJuice.banner("CHECKPOINT","checkpoint set and progress saved",Color(0.137, 0.412, 0.706, 1.0))
+
+		
 
 func save() -> void:
 	_used = true

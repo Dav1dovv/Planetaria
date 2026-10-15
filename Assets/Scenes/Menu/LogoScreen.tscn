@@ -257,6 +257,7 @@ alpha_curve = SubResource("CurveTexture_rg8vd")
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1908077074]
 script = ExtResource("1_ammw1")
+metadata/_edit_horizontal_guides_ = [157.60625]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=235341034]
 anchors_preset = 15
@@ -327,9 +328,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -666.307
-offset_top = -383.21487
+offset_top = -392.45505
 offset_right = 988.693
-offset_bottom = 244.78513
+offset_bottom = 235.54495
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.23318239, 0.23318239)

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="3_eanea"]
 [ext_resource type="Script" uid="uid://ht74gu16u2xm" path="res://scr/Systems/Infection/Spirit.gd" id="4_54u6n"]
 
-[sub_resource type="Resource" id="Resource_eanea"]
+[sub_resource type="Resource" id="Resource_54u6n"]
 resource_local_to_scene = true
 script = ExtResource("2_54u6n")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
@@ -14,7 +14,10 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [node name="Anelim" unique_id=2111811093 instance=ExtResource("1_36go2")]
 awareness_radius = 40.0
-Entity_stats = SubResource("Resource_eanea")
+Entity_stats = SubResource("Resource_54u6n")
+
+[node name="CollisionShape2D" parent="interaction_area" parent_id_path=PackedInt32Array(1236577010) index="0" unique_id=1293278930]
+disabled = true
 
 [node name="Body" parent="Skin" parent_id_path=PackedInt32Array(1878994847) index="0" unique_id=1621133311]
 region_rect = Rect2(70, 50, 7, 8)

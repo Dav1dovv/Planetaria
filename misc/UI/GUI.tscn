@@ -97,6 +97,8 @@ turbulence_influence_max = 0.15
 
 [node name="GUI" type="CanvasLayer" unique_id=1874703344]
 script = ExtResource("1_7myg7")
+metadata/_edit_vertical_guides_ = [472.49283]
+metadata/_edit_horizontal_guides_ = [10.946903]
 
 [node name="HUD" type="Control" parent="." unique_id=1608603810]
 layout_mode = 3
@@ -236,8 +238,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -130.65448
+offset_left = -163.06137
 offset_top = -95.13147
+offset_right = -8.061371
 offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2

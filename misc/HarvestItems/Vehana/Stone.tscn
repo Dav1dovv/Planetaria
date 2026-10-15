@@ -6,6 +6,10 @@
 [ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="3_dqxwr"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_lncde"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="5_xdmsi"]
+[ext_resource type="AudioStream" uid="uid://d16cd8gkmveq0" path="res://misc/HarvestItems/SFX/Mining/Stone1.mp3" id="7_ffqeu"]
+[ext_resource type="AudioStream" uid="uid://ck8tnuu1blxre" path="res://misc/HarvestItems/SFX/Mining/Stone2.mp3" id="8_462bl"]
+[ext_resource type="AudioStream" uid="uid://c158d8m1quj47" path="res://misc/HarvestItems/SFX/Mining/Stone3.mp3" id="9_paquu"]
+[ext_resource type="AudioStream" uid="uid://imuayp8xcd7r" path="res://misc/HarvestItems/SFX/Mining/Stone4.mp3" id="10_6eg6u"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ammfx"]
 radius = 3.6076422
@@ -30,6 +34,13 @@ metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lncde"]
 size = Vector2(38.118225, 9.5617285)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cdos3"]
+streams_count = 4
+stream_0/stream = ExtResource("7_ffqeu")
+stream_1/stream = ExtResource("8_462bl")
+stream_2/stream = ExtResource("9_paquu")
+stream_3/stream = ExtResource("10_6eg6u")
+
 [node name="Stone" unique_id=1934415035 instance=ExtResource("1_v8vwc")]
 can_infect = false
 
@@ -48,8 +59,9 @@ drop_resources = Array[ExtResource("2_lncde")]([SubResource("Resource_v8vwc"), S
 position = Vector2(-0.08827186, -5.3210645)
 shape = SubResource("RectangleShape2D_lncde")
 
-[node name="VFX_damage" parent="." index="5" unique_id=2140509907 node_paths=PackedStringArray("character")]
+[node name="VFX_damage" parent="." index="5" unique_id=2140509907 node_paths=PackedStringArray("character", "audio_player")]
 character = NodePath("../Sprite2D")
+audio_player = NodePath("../AudioStreamPlayer2D")
 
 [node name="Sprite2D" parent="." index="8" unique_id=308116851]
 position = Vector2(0.23476791, -4.194992)
@@ -64,3 +76,6 @@ frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 show_behind_parent = true
 position = Vector2(-0.8306657, -3.5995426)
 scale = Vector2(2.3729024, 0.95385194)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="10" unique_id=319037361]
+stream = SubResource("AudioStreamRandomizer_cdos3")

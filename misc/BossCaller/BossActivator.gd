@@ -24,7 +24,6 @@ func interact() -> void:
 
 	Global.inventory.remove_from_total(ARTEFACT_BOSS_CALLER, 1)
 	_summoning = true
-	Global.developer_console.add_chat_message(" ", boss_name + " awakening", Color(0.52, 0.0, 0.0, 1.0))
 	Global.developer_console.log_message(boss_name + " awakening", Color(0.52, 0.0, 0.0, 1.0))
 
 	# Драматургия: баннер + нарастающая тряска, и только потом босс.

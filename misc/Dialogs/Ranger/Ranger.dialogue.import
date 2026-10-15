@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://ffhhav738jo"
+path="res://.godot/imported/Ranger.dialogue-fdfded95342aecd2354fa338adaf1ed8.tres"
+
+[deps]
+
+source_file="res://misc/Dialogs/Ranger/Ranger.dialogue"
+dest_files=["res://.godot/imported/Ranger.dialogue-fdfded95342aecd2354fa338adaf1ed8.tres"]
+
+[params]
+
+defaults=true

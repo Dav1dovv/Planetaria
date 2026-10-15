@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://cxd8jxmdk1q7h"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_cfbip"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="2_1x43w"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="3_oledb"]
+[ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://misc/Content/Items/Fuel.tres" id="4_oledb"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="4_rnyb5"]
+[ext_resource type="Resource" uid="uid://r4sg8e1stb8y" path="res://misc/Content/Items/Sword.tres" id="5_rnyb5"]
+
+[sub_resource type="Resource" id="Resource_q5yi6"]
+script = ExtResource("1_cfbip")
+item = ExtResource("2_1x43w")
+amount = 35
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0cw4"]
+atlas = ExtResource("3_oledb")
+region = Rect2(80, 80, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7mdbe"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utxrl"]
+atlas = SubResource("CompressedTexture2D_7mdbe")
+region = Rect2(80, 80, 16, 16)
+
+[sub_resource type="Resource" id="Resource_e0acq"]
+script = ExtResource("1_cfbip")
+item = ExtResource("4_oledb")
+amount = 7
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Resource_45mwk"]
+script = ExtResource("1_cfbip")
+item = ExtResource("5_rnyb5")
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[resource]
+script = ExtResource("4_rnyb5")
+Damage = 10
+equiped_weapon_sprite = SubResource("AtlasTexture_r0cw4")
+icon = SubResource("AtlasTexture_utxrl")
+item_name = "sord"
+craft_ingredients = Array[ExtResource("1_cfbip")]([SubResource("Resource_q5yi6")])
+repair_ingredients = Array[ExtResource("1_cfbip")]([SubResource("Resource_e0acq"), SubResource("Resource_45mwk")])
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

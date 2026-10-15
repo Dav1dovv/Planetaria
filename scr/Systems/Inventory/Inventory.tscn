@@ -21,7 +21,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f8cid"]
 shader = ExtResource("6_1502c")
 shader_parameter/blur_amount = 1.0000001424999998
-shader_parameter/mix_amount = 0.0
+shader_parameter/mix_amount = 0.50000002375
 shader_parameter/color_over = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhamk"]

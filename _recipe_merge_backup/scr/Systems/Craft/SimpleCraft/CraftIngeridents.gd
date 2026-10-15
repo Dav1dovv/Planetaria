@@ -1,9 +1,0 @@
-# CraftIngredient.gd
-extends Resource
-class_name CraftIngredient
-
-@export var item: ItemData
-@export var amount: int = 1
-
-func _to_string() -> String:
-	return "%s x%d" % [item.item_name if item else "None", amount]

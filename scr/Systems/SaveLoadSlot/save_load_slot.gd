@@ -96,7 +96,7 @@ func _on_slot_deleted(_slot_name: String) -> void:
 
 func _on_save_slot_selected(slot_name: String) -> void:
 	if SaveLoad.load_save(slot_name):
-		Global.scene_manager.change_scene("Vehana", Vector2.ZERO)
+		Global.scene_manager.change_scene("Ship", Vector2.ZERO)
 	else:
 		push_warning("[SaveLoadSlot] Cannot load slot: %s" % slot_name)
 

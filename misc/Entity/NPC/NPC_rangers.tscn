@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dnbbpc8i16ijg"]
+
+[ext_resource type="PackedScene" uid="uid://ct5em2x7b3mbs" path="res://misc/Entity/NPC/NPC_Barmen.tscn" id="1_pgopq"]
+[ext_resource type="Script" uid="uid://b2eacfl61pf1y" path="res://misc/Entity/NPC/QuestGiverNPC.gd" id="2_u8j5r"]
+[ext_resource type="Resource" uid="uid://ffhhav738jo" path="res://misc/Dialogs/Ranger/Ranger.dialogue" id="3_xsos2"]
+
+[node name="Ranger" unique_id=901789702 instance=ExtResource("1_pgopq")]
+script = ExtResource("2_u8j5r")
+dialogue = ExtResource("3_xsos2")
+dialogue_start = "start"
+quest_id = &"ranger"
+marker_interval = 999.0
+awareness_radius = 80.0
+wander_interval_max = 5.0
+wander_radius = 100.0
+ray_length = 40.0
+avoidance_strength = 1.8
+
+[node name="Body" parent="Skin" parent_id_path=PackedInt32Array(1878994847) index="0" unique_id=1621133311]
+region_rect = Rect2(44, 84, 7, 8)
+
+[node name="Head" parent="Skin/Body" index="0" unique_id=1756965514]
+offset = Vector2(0.125, -4.17)
+region_rect = Rect2(41, 75, 13, 10)
+
+[node name="RightLeg" parent="Skin/Body" index="1" unique_id=330349318]
+region_rect = Rect2(48, 92, 3, 4)
+
+[node name="LeftLeg" parent="Skin/Body" index="2" unique_id=822392126]
+region_rect = Rect2(44, 92, 3, 4)
+
+[node name="LeftHand" parent="Skin/Body" index="3" unique_id=1282115197]
+offset = Vector2(-0.355, 2.745)
+region_rect = Rect2(39, 85, 2, 6)
+
+[node name="RightHand" parent="Skin/Body" index="4" unique_id=1754363545]
+offset = Vector2(-0.09, 2.805)
+flip_h = true
+region_rect = Rect2(39, 85, 2, 6)

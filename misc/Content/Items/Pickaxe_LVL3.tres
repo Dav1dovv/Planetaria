@@ -5,6 +5,8 @@
 [ext_resource type="Resource" uid="uid://vccixxawo0wc" path="res://misc/Content/Items/Pickaxe_LVL2.tres" id="2_grmg3"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_l55i7"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="3_grmg3"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="5_jxg1h"]
+[ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://misc/Content/Items/Wood.tres" id="6_jhagd"]
 
 [sub_resource type="Resource" id="Resource_cpfsh"]
 script = ExtResource("1_d0m47")
@@ -20,6 +22,18 @@ metadata/_custom_type_script = "uid://bcg5vwna4id5n"
 atlas = ExtResource("1_npv1g")
 region = Rect2(32, 96, 16, 16)
 
+[sub_resource type="Resource" id="Resource_ci2xi"]
+script = ExtResource("1_d0m47")
+item = ExtResource("5_jxg1h")
+amount = 20
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Resource_ps1lw"]
+script = ExtResource("1_d0m47")
+item = ExtResource("6_jhagd")
+amount = 20
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
 [resource]
 script = ExtResource("2_l55i7")
 lvl = 3
@@ -30,7 +44,8 @@ is_weapon = false
 one_shot_attack = false
 icon = SubResource("AtlasTexture_kbubl")
 item_name = "MGM V3"
+stackable = false
 craft_ingredients = Array[ExtResource("1_d0m47")]([SubResource("Resource_cpfsh"), SubResource("Resource_t8myw")])
+repair_ingredients = Array[ExtResource("1_d0m47")]([SubResource("Resource_ci2xi"), SubResource("Resource_ps1lw")])
 repair_gold_cost = 30
-repair_amount = 500
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

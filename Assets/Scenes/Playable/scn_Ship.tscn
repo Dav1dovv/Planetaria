@@ -10,13 +10,17 @@
 [ext_resource type="PackedScene" uid="uid://daaj332bbjj6m" path="res://misc/Entity/NPC/NPC_anelim.tscn" id="7_w2c1c"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="8_bn1vh"]
 [ext_resource type="PackedScene" uid="uid://ct5em2x7b3mbs" path="res://misc/Entity/NPC/NPC_Barmen.tscn" id="9_7qg7c"]
-[ext_resource type="PackedScene" uid="uid://gpi2k0d4exmv" path="res://misc/Entity/NPC/NPC_Elder.tscn" id="10_sndvk"]
+[ext_resource type="PackedScene" uid="uid://dtnh5qhlpqq4w" path="res://misc/Entity/NPC/NPC_Elder.tscn" id="10_sndvk"]
 [ext_resource type="PackedScene" uid="uid://skjvwfk2f5ut" path="res://misc/Entity/NPC/NPC_Princess.tscn" id="11_cwcch"]
 [ext_resource type="PackedScene" uid="uid://g42tx2egaq3a" path="res://misc/Entity/NPC/NPC_smith_bern.tscn" id="12_y7y6r"]
 [ext_resource type="Script" uid="uid://gyp540t0og1d" path="res://scr/Misc/ShowChild.gd" id="13_n85m3"]
 [ext_resource type="PackedScene" uid="uid://ddf0srh1jj7e6" path="res://misc/UI/PlanetChooser/planer_chooser.tscn" id="14_lc6k5"]
 [ext_resource type="PackedScene" uid="uid://doewb5iqg3g7d" path="res://misc/Structures/Doors/door.tscn" id="15_2dmd6"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="15_dssul"]
+[ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/Textures/Light/GradientLight.png" id="18_w2c1c"]
+[ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="19_bn1vh"]
+[ext_resource type="PackedScene" uid="uid://dnbbpc8i16ijg" path="res://misc/Entity/NPC/NPC_rangers.tscn" id="20_7qg7c"]
+[ext_resource type="PackedScene" uid="uid://cwfox8l6iabgp" path="res://misc/Entity/NPC/NPC_Scientits.tscn" id="21_sndvk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ikewk"]
 shader = ExtResource("1_bkg01")
@@ -50,26 +54,6 @@ shader_parameter/comet_speed = 1.4
 shader_parameter/comet_length = 0.14
 shader_parameter/comet_color = Color(0.30588236, 0.27058825, 0.34901962, 0.58431375)
 
-[sub_resource type="Resource" id="Resource_bkg01"]
-resource_local_to_scene = true
-script = ExtResource("8_bn1vh")
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="Resource" id="Resource_ikewk"]
-resource_local_to_scene = true
-script = ExtResource("8_bn1vh")
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="Resource" id="Resource_w2c1c"]
-resource_local_to_scene = true
-script = ExtResource("8_bn1vh")
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="Resource" id="Resource_bn1vh"]
-resource_local_to_scene = true
-script = ExtResource("8_bn1vh")
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
 [sub_resource type="Resource" id="Resource_7qg7c"]
 resource_local_to_scene = true
 script = ExtResource("8_bn1vh")
@@ -86,6 +70,11 @@ script = ExtResource("8_bn1vh")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="Resource" id="Resource_y7y6r"]
+resource_local_to_scene = true
+script = ExtResource("8_bn1vh")
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_hfqm6"]
 resource_local_to_scene = true
 script = ExtResource("8_bn1vh")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
@@ -182,11 +171,27 @@ texture = ExtResource("4_dssul")
 9:2/size_in_atlas = Vector2i(2, 2)
 9:2/0 = 0
 9:2/0/texture_origin = Vector2i(0, 2)
+11:2/size_in_atlas = Vector2i(2, 3)
+11:2/0 = 0
+11:2/0/texture_origin = Vector2i(0, 11)
+11:5/size_in_atlas = Vector2i(2, 3)
+11:5/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_cdos3"]
 uv_clipping = true
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_orgpe")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdos3"]
+size = Vector2(20, 31.570717)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gf5g"]
+size = Vector2(30.761204, 39.018143)
+
+[sub_resource type="Resource" id="Resource_jrib2"]
+resource_local_to_scene = true
+script = ExtResource("8_bn1vh")
+metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [node name="Ship" type="Node2D" unique_id=85161564]
 y_sort_enabled = true
@@ -194,10 +199,10 @@ y_sort_enabled = true
 [node name="MainBackground" type="ColorRect" parent="." unique_id=705635053]
 z_index = -313
 material = SubResource("ShaderMaterial_ikewk")
-offset_left = -932.3666
-offset_top = -656.63385
-offset_right = 248.17444
-offset_bottom = 541.383
+offset_left = -975.8162
+offset_top = -644.1783
+offset_right = 204.7248
+offset_bottom = 553.83856
 scale = Vector2(1.5791667, 1.0740741)
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
@@ -205,7 +210,7 @@ color = Color(0, 0, 0, 1)
 [node name="planet" type="Sprite2D" parent="." unique_id=2019414403]
 z_index = -22
 position = Vector2(-392.0532, 370.4174)
-rotation = 33.936543
+rotation = 6.718666
 scale = Vector2(2.819653, 2.819653)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -222,7 +227,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="planet" unique_id=121156737]
 position = Vector2(5.9159737, -41.65517)
-rotation = 439.0921
+rotation = 411.62286
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(60, 80, 12, 12)
@@ -231,7 +236,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet2" type="Sprite2D" parent="planet" unique_id=819972865]
 position = Vector2(-48.649956, -41.51426)
-rotation = 632.1285
+rotation = -189.5697
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(49, 50, 19, 19)
@@ -241,7 +246,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet3" type="Sprite2D" parent="planet" unique_id=93638243]
 position = Vector2(-36.936844, 71.13017)
-rotation = 429.94995
+rotation = -61.853565
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(57, 9, 32, 32)
@@ -251,7 +256,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="planet" unique_id=1727818982]
 position = Vector2(-66.099815, -28.727964)
-rotation = -30.012516
+rotation = -75.21882
 scale = Vector2(0.32927373, 0.32927373)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -262,7 +267,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet5" type="Sprite2D" parent="planet" unique_id=649481990]
 position = Vector2(-53.9042, 23.165627)
-rotation = 475.0329
+rotation = 337.45297
 scale = Vector2(0.57125205, 0.57125205)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -273,7 +278,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet6" type="Sprite2D" parent="planet" unique_id=1327664183]
 position = Vector2(43.515324, 82.038666)
-rotation = 392.91943
+rotation = -186.67665
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(104, 8, 17, 17)
@@ -282,7 +287,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="planet" unique_id=866645813]
 position = Vector2(110.08391, -3.0646362)
-rotation = 1082.9257
+rotation = 458.51587
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(112, 51, 13, 13)
@@ -291,207 +296,38 @@ rotation_speed = 3.0
 metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="Player" parent="." unique_id=1150737309 instance=ExtResource("5_bkg01")]
-position = Vector2(89.375854, -58.923325)
+position = Vector2(144.89023, -246.45926)
 
 [node name="Blaze_camera" type="Camera2D" parent="Player" unique_id=346805975]
 position = Vector2(0, -8)
 script = ExtResource("6_ikewk")
 metadata/_custom_type_script = "uid://cx0477dq0nkws"
 
-[node name="Anelim" parent="." unique_id=2111811093 instance=ExtResource("7_w2c1c")]
-position = Vector2(-286.75226, 173.98589)
-show_ui = "Weapon"
-Entity_stats = SubResource("Resource_bkg01")
-
-[node name="Barmen" parent="." unique_id=1140039009 instance=ExtResource("9_7qg7c")]
-position = Vector2(-193.77676, -179.82373)
-show_ui = "Baff"
-Entity_stats = SubResource("Resource_ikewk")
-
-[node name="Elder" parent="." unique_id=645264185 instance=ExtResource("10_sndvk")]
-position = Vector2(-50.057083, 216.26656)
-show_ui = "Weapon"
-behavior = 0.0
-can_flee = false
-flee_threshold = 0.25
-flee_on_hit = false
-use_fear = false
-fear_per_damage = 0.05
-fear_proximity_radius = 60.0
-fear_proximity_rate = 0.08
-fear_decay_rate = 0.05
-fear_flee_threshold = 0.6
-fear_calm_threshold = 0.25
-hides_when_scared = false
-hide_duration = 1.5
-hide_damage_reduction = 0.0
-fear_sound = null
-fear_sound_pitch_variance = 0.08
-flee_speed_multiplier = 1.6
-pack_group = ""
-pack_alert_radius = 300.0
-hear_radius = 60.0
-sight_radius = 180.0
-fov_half_angle = 60.0
-use_los_check = true
-wall_collision_mask = 1
-memory_duration = 3.0
-wander_interval_min = 2.0
-turn_speed = 12.0
-patrol_points = Array[NodePath]([])
-chase_weave_enabled = true
-chase_weave_amplitude = 14.0
-chase_weave_frequency = 0.8
-attack_damage = 10.0
-attack_radius = 28.0
-attack_cooldown = 1.2
-max_poise = 100.0
-poise_decay_rate = 15.0
-poise_decay_delay = 1.0
-stagger_duration = 1.0
-vulnerable_damage_multiplier = 1.5
-Entity_stats = SubResource("Resource_w2c1c")
-
-[node name="Elder2" parent="." unique_id=696538162 instance=ExtResource("10_sndvk")]
-position = Vector2(59.908066, 218.3156)
-show_ui = "Weapon"
-behavior = 0.0
-can_flee = false
-flee_threshold = 0.25
-flee_on_hit = false
-use_fear = false
-fear_per_damage = 0.05
-fear_proximity_radius = 60.0
-fear_proximity_rate = 0.08
-fear_decay_rate = 0.05
-fear_flee_threshold = 0.6
-fear_calm_threshold = 0.25
-hides_when_scared = false
-hide_duration = 1.5
-hide_damage_reduction = 0.0
-fear_sound = null
-fear_sound_pitch_variance = 0.08
-flee_speed_multiplier = 1.6
-pack_group = ""
-pack_alert_radius = 300.0
-hear_radius = 60.0
-sight_radius = 180.0
-fov_half_angle = 60.0
-use_los_check = true
-wall_collision_mask = 1
-memory_duration = 3.0
-wander_interval_min = 2.0
-turn_speed = 12.0
-patrol_points = Array[NodePath]([])
-chase_weave_enabled = true
-chase_weave_amplitude = 14.0
-chase_weave_frequency = 0.8
-attack_damage = 10.0
-attack_radius = 28.0
-attack_cooldown = 1.2
-max_poise = 100.0
-poise_decay_rate = 15.0
-poise_decay_delay = 1.0
-stagger_duration = 1.0
-vulnerable_damage_multiplier = 1.5
-Entity_stats = SubResource("Resource_bn1vh")
-
-[node name="Elder3" parent="." unique_id=386966095 instance=ExtResource("10_sndvk")]
-position = Vector2(-126.55458, 215.58354)
-show_ui = "Weapon"
-behavior = 0.0
-can_flee = false
-flee_threshold = 0.25
-flee_on_hit = false
-use_fear = false
-fear_per_damage = 0.05
-fear_proximity_radius = 60.0
-fear_proximity_rate = 0.08
-fear_decay_rate = 0.05
-fear_flee_threshold = 0.6
-fear_calm_threshold = 0.25
-hides_when_scared = false
-hide_duration = 1.5
-hide_damage_reduction = 0.0
-fear_sound = null
-fear_sound_pitch_variance = 0.08
-flee_speed_multiplier = 1.6
-pack_group = ""
-pack_alert_radius = 300.0
-hear_radius = 60.0
-sight_radius = 180.0
-fov_half_angle = 60.0
-use_los_check = true
-wall_collision_mask = 1
-memory_duration = 3.0
-wander_interval_min = 2.0
-turn_speed = 12.0
-patrol_points = Array[NodePath]([])
-chase_weave_enabled = true
-chase_weave_amplitude = 14.0
-chase_weave_frequency = 0.8
-attack_damage = 10.0
-attack_radius = 28.0
-attack_cooldown = 1.2
-max_poise = 100.0
-poise_decay_rate = 15.0
-poise_decay_delay = 1.0
-stagger_duration = 1.0
-vulnerable_damage_multiplier = 1.5
+[node name="Anelim" parent="." unique_id=2111811093 node_paths=PackedStringArray("player") instance=ExtResource("7_w2c1c")]
+position = Vector2(-121.62727, 48.33481)
+player = NodePath("../Player")
 Entity_stats = SubResource("Resource_7qg7c")
 
-[node name="Elder4" parent="." unique_id=759432200 instance=ExtResource("10_sndvk")]
-position = Vector2(124.11131, 219.68163)
-show_ui = "Weapon"
-behavior = 0.0
-can_flee = false
-flee_threshold = 0.25
-flee_on_hit = false
-use_fear = false
-fear_per_damage = 0.05
-fear_proximity_radius = 60.0
-fear_proximity_rate = 0.08
-fear_decay_rate = 0.05
-fear_flee_threshold = 0.6
-fear_calm_threshold = 0.25
-hides_when_scared = false
-hide_duration = 1.5
-hide_damage_reduction = 0.0
-fear_sound = null
-fear_sound_pitch_variance = 0.08
-flee_speed_multiplier = 1.6
-pack_group = ""
-pack_alert_radius = 300.0
-hear_radius = 60.0
-sight_radius = 180.0
-fov_half_angle = 60.0
-use_los_check = true
-wall_collision_mask = 1
-memory_duration = 3.0
-wander_interval_min = 2.0
-turn_speed = 12.0
-patrol_points = Array[NodePath]([])
-chase_weave_enabled = true
-chase_weave_amplitude = 14.0
-chase_weave_frequency = 0.8
-attack_damage = 10.0
-attack_radius = 28.0
-attack_cooldown = 1.2
-max_poise = 100.0
-poise_decay_rate = 15.0
-poise_decay_delay = 1.0
-stagger_duration = 1.0
-vulnerable_damage_multiplier = 1.5
+[node name="Barmen" parent="." unique_id=1140039009 node_paths=PackedStringArray("player") instance=ExtResource("9_7qg7c")]
+position = Vector2(-193.77676, -179.82373)
+show_ui = "Baff"
+player = NodePath("../Player")
 Entity_stats = SubResource("Resource_sndvk")
 
-[node name="Anelim2" parent="." unique_id=2060350131 instance=ExtResource("11_cwcch")]
-position = Vector2(-176.29652, 44.54435)
-show_ui = "Weapon"
+[node name="Elder" parent="." unique_id=645264185 node_paths=PackedStringArray("player") instance=ExtResource("10_sndvk")]
+position = Vector2(-5.52684, 214.99425)
+player = NodePath("../Player")
 Entity_stats = SubResource("Resource_cwcch")
 
-[node name="SmithBern" parent="." unique_id=137651625 instance=ExtResource("12_y7y6r")]
-position = Vector2(-143.77002, -224.65735)
+[node name="Anelim2" parent="." unique_id=2060350131 node_paths=PackedStringArray("player") instance=ExtResource("11_cwcch")]
+position = Vector2(-176.29652, 44.54435)
+player = NodePath("../Player")
 Entity_stats = SubResource("Resource_y7y6r")
+
+[node name="SmithBern" parent="." unique_id=137651625 node_paths=PackedStringArray("player") instance=ExtResource("12_y7y6r")]
+position = Vector2(-143.77002, -224.65735)
+player = NodePath("../Player")
+Entity_stats = SubResource("Resource_hfqm6")
 
 [node name="interaction" type="Area2D" parent="." unique_id=660480207 node_paths=PackedStringArray("interact_object")]
 position = Vector2(65.61063, 184.1758)
@@ -599,7 +435,7 @@ metadata/_edit_lock_ = true
 
 [node name="Decor" type="TileMapLayer" parent="ShipTiles" unique_id=373441585]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAIAOz/AAAJAAIAAAAPAO3/AAAJAAAAAAAIAPv/AAAKAAAAAADu//v/AAAKAAAAAAAQAAoAAAAJAAAAAAAMAAoAAAAJAAAAAAAIAAoAAAAJAAAAAAAEAAoAAAAJAAAAAAD8/woAAAAJAAAAAAD3/woAAAAJAAAAAADy/woAAAAJAAAAAADv/woAAAAJAAAAAAAKAPz/AAAJAAYAAAAOAPz/AAAKAAYAAAAPAPz/AAAJAAYAAAASAPz/AAAKAAYAAAD8//r/AAAKAAYAAADx//z/AAAJAAYAAAD3//z/AAAKAAYAAAD5//z/AAAJAAYAAAD8//j/AAAJAAYAAAADAPj/AAAKAAYAAAADAPn/AAAKAAYAAAADAPr/AAAKAAYAAAAPAO7/AAAJAAYAAAASAPH/AAAJAAYAAAARAPD/AAAKAAYAAAAOAO3/AAAKAAYAAADt//H/AAAJAAYAAADu//D/AAAKAAYAAADw/+7/AAAKAAYAAADx/+3/AAAKAAYAAAA=")
+tile_map_data = PackedByteArray("AAAIAOz/AAAJAAIAAAAPAO3/AAAJAAAAAAAIAPv/AAAKAAAAAADu//v/AAAKAAAAAAAQAAoAAAAJAAAAAAAMAAoAAAAJAAAAAAAIAAoAAAAJAAAAAAAEAAoAAAAJAAAAAAD8/woAAAAJAAAAAAD3/woAAAAJAAAAAADy/woAAAAJAAAAAADv/woAAAAJAAAAAAAKAPz/AAAJAAYAAAAOAPz/AAAKAAYAAAAPAPz/AAAJAAYAAAASAPz/AAAKAAYAAAD8//r/AAAKAAYAAADx//z/AAAJAAYAAAD3//z/AAAKAAYAAAD5//z/AAAJAAYAAAD8//j/AAAJAAYAAAADAPj/AAAKAAYAAAADAPn/AAAKAAYAAAADAPr/AAAKAAYAAAAPAO7/AAAJAAYAAAASAPH/AAAJAAYAAAARAPD/AAAKAAYAAAAOAO3/AAAKAAYAAADt//H/AAAJAAYAAADu//D/AAAKAAYAAADw/+7/AAAKAAYAAADx/+3/AAAKAAYAAAALAPL/AAAHAAIAAAAKAPH/AAAGAAEAAAAKAPL/AAAGAAIAAAAKAPP/AAAGAAMAAAALAPH/AAAHAAEAAAALAPP/AAAHAAMAAAAMAPH/AAAHAAEAAAAMAPL/AAAHAAQAAAAMAPP/AAAHAAMAAAANAPH/AAAHAAEAAAANAPL/AAAHAAIAAAANAPP/AAAHAAMAAAAOAPH/AAAIAAEAAAAOAPL/AAAIAAIAAAAOAPP/AAAIAAMAAAA=")
 tile_set = SubResource("TileSet_cdos3")
 metadata/_edit_lock_ = true
 
@@ -614,3 +450,148 @@ scale = Vector2(1.119047, 1.119047)
 [node name="Door3" parent="." unique_id=1047024869 instance=ExtResource("15_2dmd6")]
 position = Vector2(-0.106414795, 151.5352)
 scale = Vector2(1.4568657, 0.8982906)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1084039508]
+position = Vector2(114.50635, -281.00818)
+scale = Vector2(1.4786308, 1.4786308)
+texture = ExtResource("4_dssul")
+region_enabled = true
+region_rect = Rect2(176, 80, 32, 48)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D" unique_id=1018865258]
+modulate = Color(0.101960786, 0.09803922, 0.12156863, 0.5294118)
+show_behind_parent = true
+position = Vector2(-9.412306e-07, 16.109179)
+rotation = 3.1415927
+scale = Vector2(1.9060402, 4.084416)
+texture = ExtResource("18_w2c1c")
+
+[node name="RapierStaticBody2D" type="StaticBody2D" parent="Sprite2D" unique_id=352233091]
+script = ExtResource("19_bn1vh")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/RapierStaticBody2D" unique_id=521898928]
+position = Vector2(0, -0.59506226)
+shape = SubResource("RectangleShape2D_cdos3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=162267273]
+position = Vector2(166.99722, -299.68076)
+scale = Vector2(1.4786308, 1.4786308)
+texture = ExtResource("4_dssul")
+region_enabled = true
+region_rect = Rect2(177, 35, 30, 40)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D2" unique_id=474747484]
+modulate = Color(0.101960786, 0.09803922, 0.12156863, 0.5294118)
+show_behind_parent = true
+position = Vector2(-1.4702298e-06, 22.160223)
+rotation = 3.1415927
+scale = Vector2(1.9060402, 3.2444081)
+texture = ExtResource("18_w2c1c")
+
+[node name="RapierStaticBody2D" type="StaticBody2D" parent="Sprite2D2" unique_id=1777596904]
+script = ExtResource("19_bn1vh")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D2/RapierStaticBody2D" unique_id=1154994945]
+position = Vector2(-0.24550629, -0.34649658)
+shape = SubResource("RectangleShape2D_2gf5g")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=246203065]
+position = Vector2(206.01053, -296.80298)
+scale = Vector2(1.4786308, 1.4786308)
+texture = ExtResource("4_dssul")
+region_enabled = true
+region_rect = Rect2(118, 91, 20, 35)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D3" unique_id=1248529312]
+modulate = Color(0.101960786, 0.09803922, 0.12156863, 0.5294118)
+show_behind_parent = true
+position = Vector2(-1.4702298e-06, 22.160223)
+rotation = 3.1415927
+scale = Vector2(1.4346889, 3.2444081)
+texture = ExtResource("18_w2c1c")
+
+[node name="RapierStaticBody2D" type="StaticBody2D" parent="Sprite2D3" unique_id=396102105]
+script = ExtResource("19_bn1vh")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D3/RapierStaticBody2D" unique_id=1762476888]
+position = Vector2(-0.24550629, -0.34649658)
+shape = SubResource("RectangleShape2D_2gf5g")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1495624583]
+position = Vector2(97.3215, -59.5251)
+scale = Vector2(1.4786308, 1.4786308)
+texture = ExtResource("4_dssul")
+region_enabled = true
+region_rect = Rect2(118, 91, 20, 35)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D4" unique_id=535830662]
+modulate = Color(0.101960786, 0.09803922, 0.12156863, 0.5294118)
+show_behind_parent = true
+position = Vector2(-1.4702298e-06, 22.160223)
+rotation = 3.1415927
+scale = Vector2(1.4346889, 3.2444081)
+texture = ExtResource("18_w2c1c")
+
+[node name="RapierStaticBody2D" type="StaticBody2D" parent="Sprite2D4" unique_id=346086484]
+script = ExtResource("19_bn1vh")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D4/RapierStaticBody2D" unique_id=1352374116]
+position = Vector2(-0.24550629, -0.34649658)
+shape = SubResource("RectangleShape2D_2gf5g")
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1203364821]
+position = Vector2(-257.9101, -59.18695)
+scale = Vector2(1.4786308, 1.4786308)
+texture = ExtResource("4_dssul")
+region_enabled = true
+region_rect = Rect2(118, 91, 20, 35)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D5" unique_id=931688834]
+modulate = Color(0.101960786, 0.09803922, 0.12156863, 0.5294118)
+show_behind_parent = true
+position = Vector2(-1.4702298e-06, 22.160223)
+rotation = 3.1415927
+scale = Vector2(1.4346889, 3.2444081)
+texture = ExtResource("18_w2c1c")
+
+[node name="RapierStaticBody2D" type="StaticBody2D" parent="Sprite2D5" unique_id=1277760329]
+script = ExtResource("19_bn1vh")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D5/RapierStaticBody2D" unique_id=822433085]
+position = Vector2(-0.24550629, -0.34649658)
+shape = SubResource("RectangleShape2D_2gf5g")
+
+[node name="Ranger" parent="." unique_id=901789702 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
+position = Vector2(-89.91107, 216.29291)
+player = NodePath("../Player")
+
+[node name="Ranger2" parent="." unique_id=1763003008 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
+position = Vector2(-189.64249, 205.45947)
+player = NodePath("../Player")
+
+[node name="Ranger3" parent="." unique_id=88766178 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
+position = Vector2(-145.99008, 219.79785)
+player = NodePath("../Player")
+
+[node name="Ranger4" parent="." unique_id=461436329 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
+position = Vector2(196.3548, 190.84705)
+player = NodePath("../Player")
+
+[node name="Ranger5" parent="." unique_id=795684934 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
+position = Vector2(120.37283, 211.82094)
+player = NodePath("../Player")
+
+[node name="Ranger6" parent="." unique_id=407019062 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
+position = Vector2(164.02524, 226.15932)
+player = NodePath("../Player")
+
+[node name="SmithRedji" parent="." unique_id=968481433 node_paths=PackedStringArray("player") instance=ExtResource("21_sndvk")]
+position = Vector2(-238.83481, -227.512)
+player = NodePath("../Player")
+awareness_radius = 25.0
+Entity_stats = SubResource("Resource_jrib2")

@@ -29,6 +29,7 @@ is_weapon = false
 one_shot_attack = false
 icon = SubResource("AtlasTexture_kbubl")
 item_name = "M.G.M V2"
+stackable = false
 craft_ingredients = Array[ExtResource("1_ngj78")]([SubResource("Resource_uwh06"), SubResource("Resource_76v4r")])
 repair_gold_cost = 24
 repair_amount = 500

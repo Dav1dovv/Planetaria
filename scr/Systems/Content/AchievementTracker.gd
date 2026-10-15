@@ -7,7 +7,7 @@ class_name AchievementTracker
 
 signal unlocked(id: StringName)
 
-const SFX: AudioStream = preload("res://Assets/Audio/SFX/Coin.wav")
+const SFX: AudioStream = preload("res://Assets/Audio/SFX/WIN_SFX.mp3")
 const GOLD := Color(1.0, 0.85, 0.3)
 
 ## id, ключ названия, ключ описания, монеты в награду

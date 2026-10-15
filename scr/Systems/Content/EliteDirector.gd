@@ -9,10 +9,10 @@ signal elite_spawned(enemy: Entity, affixes: Array)
 
 ## Кто может стать элитой (ID по Entity.get_enemy_id()). Боссы и звери — нет.
 const ELITE_IDS: Array[String] = ["slime", "pig", "rat", "bee", "enem"]
-const BASE_CHANCE := 0.04
-const MAX_CHANCE := 0.10
+const BASE_CHANCE := 0.09
+const MAX_CHANCE := 0.17
 ## Шанс растёт со временем игры — к концу забега элит больше
-const CHANCE_PER_MINUTE := 0.01
+const CHANCE_PER_MINUTE := 0.03
 const MAX_ALIVE := 1
 const HEALTH_MULT := 2.0
 const SECOND_AFFIX_CHANCE := 0.25

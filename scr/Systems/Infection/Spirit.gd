@@ -4,6 +4,7 @@ class_name SpiritAltar
 ##
 ## Повесь этот скрипт на interaction_area (тот же класс, что у Door.gd/Interaction.gd) —
 ## например на алтарь/NPC-иконку "Дух", размещённую в деревне/у Синкера.
+const COIN = preload("uid://6utu3axt82j5")
 
 @export var cost: int = 50
 
@@ -21,15 +22,12 @@ func _on_interact() -> void:
 		Global.hint(get_parent(), "Заражения нет")
 		return
 
-	var gold_slot: GoldSlot = null
-	if Global.inventory:
-		gold_slot = Global.inventory.gold_slot
-
-	if gold_slot == null:
+	if !Global.inventory.has_total_item(COIN,cost):
 		push_warning("[Spirit] GoldSlot не найден — очищение отменено")
 		return
 
-	if gold_slot.spend(cost):
+	if Global.inventory.has_total_item(COIN,cost):
+		Global.inventory.remove_from_total(COIN,cost)
 		p.full_cure_infection()
 		Global.hint(get_parent(), "Заражение снято")
 	else:

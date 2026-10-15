@@ -1,11 +1,23 @@
 [gd_scene format=3 uid="uid://cl5fu1tb50e86"]
 
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_dg4kr"]
+[ext_resource type="Script" uid="uid://bn1f2cau8aok" path="res://misc/Entity/Scripts/MeleeEnemy.gd" id="2_71bgr"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="2_ibsiy"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="3_71bgr"]
 [ext_resource type="Texture2D" uid="uid://bsxyhmdtm2w33" path="res://misc/Entity/Textures/Bosses/Cursed Lord3.png" id="3_nmyqv"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="4_71bgr"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="4_ibsiy"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="5_m5b5d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kd08g"]
+atlas = ExtResource("4_71bgr")
+region = Rect2(48, 112, 16, 16)
+
+[sub_resource type="Resource" id="Resource_br8gg"]
+script = ExtResource("4_ibsiy")
+Damage = 12
+equiped_weapon_sprite = SubResource("AtlasTexture_kd08g")
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
 [sub_resource type="Resource" id="Resource_vdcf1"]
 script = ExtResource("2_ibsiy")
@@ -25,9 +37,6 @@ script = ExtResource("4_ibsiy")
 Atk_speed = 1.6
 equiped_weapon_sprite = SubResource("AtlasTexture_tuabl")
 accuracy_radius = 8.0
-miss_chance_per_unit = 0.07
-critical_radius = 6.0
-critical_chance = 0.15
 icon = SubResource("AtlasTexture_tuabl")
 item_name = "Copper Sword"
 stackable = false
@@ -1440,15 +1449,30 @@ _data = {
 &"Walk": SubResource("Animation_xdby1")
 }
 
-[node name="Creature" unique_id=1251952136 node_paths=PackedStringArray("body_anim", "hand_anim") instance=ExtResource("1_dg4kr")]
+[node name="Creature" unique_id=1251952136 node_paths=PackedStringArray("skin", "body_anim", "hand_anim", "Vfx") instance=ExtResource("1_dg4kr")]
 scale = Vector2(2, 2)
-behavior = 1.0
-sight_radius = 360.0
-fov_half_angle = 180.0
-memory_duration = 8.0
+script = ExtResource("2_71bgr")
+is_boss = true
+walk_offset = 100.0
+offset_interval = 25.0
+line_of_sight = 100.0
+can_fear = false
+attack_parameter = SubResource("Resource_br8gg")
+attack_range = 45.0
+attack_cooldown = 3.0
+speed_multiplier = 10.0
+continue_follow_target = true
+skin = NodePath("Skin")
 body_anim = NodePath("Skin/Body/BodyAnim")
 hand_anim = NodePath("Skin/Body/Hand/AnimationPlayer")
+show_gizmos = true
+sight_color = Color(1, 0.85, 0.2, 1)
+attack_color = Color(1, 0.2, 0.2, 1)
 Entity_stats = SubResource("Resource_vdcf1")
+Vfx = NodePath("VFX")
+enemy_id = "cooperknight"
+invincibility_duration = 0.1
+heavy_hit_ratio = 0.33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" parent_id_path=PackedInt32Array(411889454) index="0" unique_id=2016607736]
 position = Vector2(0, -10.5)
@@ -1462,18 +1486,21 @@ position = Vector2(18.5, -10.5)
 shape = SubResource("RectangleShape2D_dg4kr")
 disabled = true
 
-[node name="HealthBar" parent="." index="7" unique_id=1354189396]
+[node name="CollisionShape2D" parent="." index="3" unique_id=713772618]
+position = Vector2(0, -2)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_0ah42")
+debug_color = Color(0.9902335, 0, 0.2865104, 0.41960785)
+
+[node name="VFX" parent="." index="5" unique_id=304494227 node_paths=PackedStringArray("character")]
+character = NodePath("../Skin")
+
+[node name="HealthBar" parent="." index="8" unique_id=1354189396]
 offset_left = -7.500001
 offset_top = 3.0
 offset_right = 20.5
 offset_bottom = 7.0
 scale = Vector2(0.57266086, 0.57266086)
-
-[node name="CollisionShape2D" parent="." index="8" unique_id=713772618]
-position = Vector2(0, -2)
-rotation = -1.5707964
-shape = SubResource("CapsuleShape2D_0ah42")
-debug_color = Color(0.9902335, 0, 0.2865104, 0.41960785)
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=1375700649]
 

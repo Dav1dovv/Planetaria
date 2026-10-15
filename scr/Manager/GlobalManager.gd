@@ -314,8 +314,8 @@ const QUALITY_COLORS: Array[Color] = [
 
 func _bootstrap_game_feel() -> void:
 	# Порядок важен: ExhibitionManager ищет остальных по имени в _ready()
-	for component in [LanguageSwitcher.new(), SessionTracker.new(), QuestCelebrator.new(), ObjectiveMarker.new(),
-			ElderDirector.new(), EliteDirector.new(), EventDirector.new(), AchievementTracker.new(),
+	for component in [SessionTracker.new(), QuestCelebrator.new(), ObjectiveMarker.new(),
+			EliteDirector.new(), EventDirector.new(), AchievementTracker.new(),
 			TutorialHints.new(), ExhibitionManager.new()]:
 		var node := component as Node
 		node.name = node.get_script().get_global_name()

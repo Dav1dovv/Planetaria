@@ -15,6 +15,7 @@ is_weapon = false
 one_shot_attack = false
 icon = SubResource("AtlasTexture_kbubl")
 item_name = "M.G.M"
+stackable = false
 repair_gold_cost = 17
 repair_amount = 500
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

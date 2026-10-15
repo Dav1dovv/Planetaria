@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://b60d08i8hic0m" path="res://scr/Misc/Planet.gd" id="12_jm7od"]
 [ext_resource type="Texture2D" uid="uid://cld7oj4ax55rv" path="res://Assets/Textures/UI/Title/title2.png" id="12_wk7rc"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="13_fqo0y"]
+[ext_resource type="FontFile" uid="uid://dj2oqg7k2rxlo" path="res://Assets/Fonts/HemiHead-Bold.otf" id="14_2yin0"]
 [ext_resource type="PackedScene" uid="uid://b3xyfsgecbtas" path="res://misc/UI/OptionMenu/option_menu.tscn" id="16_wk7rc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lncde"]
@@ -159,6 +160,11 @@ outline_color = Color(0, 0, 0, 0.13333334)
 shadow_size = 3
 shadow_color = Color(0, 0, 0, 0.227451)
 shadow_offset = Vector2(1, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cdos3"]
+font = ExtResource("14_2yin0")
+font_color = Color(1, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.36862746)
 
 [sub_resource type="Animation" id="Animation_qbvys"]
 resource_name = "But"
@@ -350,7 +356,7 @@ scroll_scale = Vector2(2, 2)
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets" unique_id=1007087873]
 position = Vector2(4.132263, 251.23965)
-rotation = -143.3995
+rotation = -37.393448
 scale = Vector2(4.175082, 4.175082)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -367,7 +373,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=530346119]
 position = Vector2(5.9159737, -41.65517)
-rotation = 197.08214
+rotation = 3103.4504
 scale = Vector2(0.6516362, 0.6516362)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -382,7 +388,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet2" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=684306597]
 position = Vector2(-48.649956, -41.51426)
-rotation = 206.2675
+rotation = 1254.122
 scale = Vector2(0.65163606, 0.65163606)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -393,7 +399,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet2" unique_id=1718899979]
 position = Vector2(-1.5468187, 0.69523215)
-rotation = 204.68842
+rotation = 270.961
 scale = Vector2(0.3292737, 0.3292737)
 texture = ExtResource("11_fqo0y")
 offset = Vector2(66.32508, 12.849968)
@@ -415,7 +421,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet3" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1423906424]
 position = Vector2(-36.936844, 71.13017)
-rotation = 373.77045
+rotation = 754.3321
 scale = Vector2(0.65163606, 0.65163606)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -430,7 +436,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet5" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=543942180]
 position = Vector2(-53.9042, 23.165627)
-rotation = -193.64058
+rotation = 551.8254
 scale = Vector2(0.37224847, 0.37224847)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -449,14 +455,14 @@ scale = Vector2(5.203, 5.203)
 texture = ExtResource("13_fqo0y")
 
 [node name="Marker2D" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=736093489]
-rotation = -144.12094
+rotation = -706.175
 script = ExtResource("12_jm7od")
 rotation_speed = -0.5
 metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="ParallaxBackground/Planets/planet/Marker2D" unique_id=1864340330]
 position = Vector2(110.0839, -3.0646439)
-rotation = -978.6415
+rotation = -4440.988
 scale = Vector2(0.49572185, 0.49572185)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -624,6 +630,15 @@ _min_size = 8
 _current_font_size = 12
 _editor_defaults_set = true
 metadata/_custom_type_script = "uid://bttgnk3bb2a8i"
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect" unique_id=1506719]
+layout_mode = 0
+offset_left = 346.63983
+offset_top = 93.18263
+offset_right = 391.63983
+offset_bottom = 112.18265
+text = "DEMO"
+label_settings = SubResource("LabelSettings_cdos3")
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="CanvasLayer" unique_id=1365783710]
 oversampling_override = 1.0

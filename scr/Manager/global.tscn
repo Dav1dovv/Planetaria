@@ -71,6 +71,7 @@ planets_data = Array[ExtResource("2_0btrw")]([ExtResource("6_3hoy0")])
 resources = [PackedStringArray("SceneRegistry"), [ExtResource("2_ljriy")]]
 
 [node name="SceneManager" parent="." unique_id=1678669278 instance=ExtResource("3_2p3co")]
+min_loading_time = 2.5
 
 [node name="DeveloperConsole" parent="." unique_id=769159530 instance=ExtResource("2_w6mfr")]
 unique_name_in_owner = true

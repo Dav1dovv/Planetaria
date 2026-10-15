@@ -348,23 +348,24 @@ func close_any() -> bool:
 ## Кнопка ✕ в углу и подсказка снизу — игрок всегда видит, как выйти.
 ## Вешаем на $Panel: он виден ровно тогда, когда открыто любое из окон.
 func _build_close_ui() -> void:
-	var close_btn := Button.new()
-	close_btn.name = "CloseButton"
-	close_btn.text = "✕"
-	close_btn.focus_mode = Control.FOCUS_NONE
-	close_btn.custom_minimum_size = Vector2(40, 40)
-	close_btn.tooltip_text = Loc.t("ESC / I — close")
-	close_btn.pressed.connect(close_any)
-	$Panel.add_child(close_btn)
-	close_btn.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_MINSIZE, 16)
+	#var close_btn := Button.new()
+	#close_btn.name = "CloseButton"
+	#close_btn.text = "✕"
+	#close_btn.focus_mode = Control.FOCUS_NONE
+	#close_btn.custom_minimum_size = Vector2(40, 40)
+	#close_btn.tooltip_text = Loc.t("ESC / I — close")
+	#close_btn.pressed.connect(close_any)
+	#$Panel.add_child(close_btn)
+	#close_btn.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_MINSIZE, 16)
 
 	var hint := Label.new()
 	hint.name = "CloseHint"
-	hint.text = Loc.t("ESC / I — close")
+	hint.text = Loc.t("ESC — close")
 	hint.modulate = Color(1, 1, 1, 0.65)
 	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$Panel.add_child(hint)
 	hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE, 12)
+	hint.position += Vector2(0,-20)
 	hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
 
 func toggle_inv():
@@ -382,6 +383,7 @@ func call_inventory():
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
 	$Panel.visible = is_opened
+	$HotBar.visible = true
 	inventory.visible = true
 	smith.visible = false
 	trade_window.visible = false
@@ -400,6 +402,7 @@ func _call_craft_station(station: Control) -> void:
 	$Panel.visible = is_opened
 
 	inventory.visible = false
+	$HotBar.visible = false
 	smith.visible = false
 	barmen.visible = false
 	trade_window.visible = false
@@ -432,6 +435,7 @@ func call_trade(Trader : TraderData):
 	$HBoxContainer.visible = is_opened
 	$Panel.visible = is_opened
 	inventory.visible = false
+	$HotBar.visible = false
 	trade_window.visible = true
 	Cursor.detection_mode(is_opened)
 	if is_opened:
