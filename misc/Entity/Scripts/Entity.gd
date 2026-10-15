@@ -5,6 +5,8 @@ class_name Entity
 @export var Vfx : VFX
 @export var knockback_strength: float = 30.0
 @export var knockback_duration: float = 0.1
+## ID для заданий KILL_ENEMY. Пусто = берётся из имени сцены (Slime2.tscn -> "slime")
+@export var enemy_id: String = ""
 
 # ── Hit-feel настройки ──────────────────────────────────────────
 @export_group("Hit Feel")
@@ -16,6 +18,9 @@ class_name Entity
 @export var screen_shake_duration: float = 0.12
 ## Время неуязвимости после удара (iframes)
 @export var invincibility_duration: float = 0.25
+## «Тяжёлый» удар: доля от max_health, после которой цифра урона крупнее,
+## а хит-стоп и тряска камеры сильнее
+@export_range(0.01, 1.0, 0.01) var heavy_hit_ratio: float = 0.15
 # ────────────────────────────────────────────────────────────────
 
 ## Печатать подробный лог урона в консоль (выключено — print() не бесплатен)
@@ -124,6 +129,8 @@ func take_damage(damage: float, damage_source: Node2D = null, knockback_mod : fl
 	Entity_stats.current_health -= actual_damage
 	emit_signal("health_changed", Entity_stats.current_health)
 
+	_play_hit_feel(actual_damage, damage_source)
+
 	if debug_log_damage:
 		_log_damage(damage, actual_damage, total_reduction)
 
@@ -149,33 +156,12 @@ func take_damage(damage: float, damage_source: Node2D = null, knockback_mod : fl
 
 # ── SCREEN SHAKE ────────────────────────────────────────────────
 func _trigger_screen_shake(is_critical: bool = false) -> void:
-	if screen_shake_strength <= 0:
-		return
-	# Ищем камеру через viewport
-	var cam = _find_camera()
-	if cam == null:
-		return
-	var strength_mult := 1.8 if is_critical else 1.0
-	var origin = cam.offset
-	var tween = create_tween()
-	var steps := int(screen_shake_duration / 0.03)
-	for i in steps:
-		var strength = screen_shake_strength * strength_mult * (1.0 - float(i) / steps)
-		var rand_offset = Vector2(
-			randf_range(-strength, strength),
-			randf_range(-strength, strength)
-		)
-		tween.tween_property(cam, "offset", rand_offset, 0.03)
-	tween.tween_property(cam, "offset", origin, 0.04)
+	GameJuice.shake(screen_shake_strength * (1.8 if is_critical else 1.0), screen_shake_duration)
 
 # ── HIT-STOP ────────────────────────────────────────────────────
+## Безопасен при наложении ударов — время возвращает последний вызов (см. GameJuice).
 func _do_hitstop(is_critical: bool = false) -> void:
-	if hitstop_duration <= 0:
-		return
-	var duration := hitstop_duration * (1.6 if is_critical else 1.0)
-	Engine.time_scale = 0.0
-	await get_tree().create_timer(duration, true, false, true).timeout
-	Engine.time_scale = 1.0
+	GameJuice.hitstop(hitstop_duration * (1.6 if is_critical else 1.0))
 
 # ── IFRAMES ─────────────────────────────────────────────────────
 func _start_invincibility() -> void:
@@ -217,6 +203,53 @@ func apply_knockback(damage_source: Node2D, knockback_multipiler: float) -> void
 		set_collision_mask_value(1, true)
 	)
 
+# ── HIT FEEL / ID ВРАГА ─────────────────────────────────────────
+## Цифры урона + хит-стоп + тряска камеры.
+## Хит-стоп и тряска — только если в ударе участвует игрок (иначе драка мобов
+## между собой замораживала бы игру).
+func _play_hit_feel(actual_damage: float, damage_source: Node) -> void:
+	if actual_damage < 0.5:
+		return
+	var hurt_player := _is_player_node(self)
+	var involves_player := hurt_player or _is_player_node(damage_source)
+	var is_heavy := actual_damage >= Entity_stats.max_health * heavy_hit_ratio
+
+	var color := Color.WHITE
+	if hurt_player:
+		color = Color(1.0, 0.35, 0.3)
+	elif is_heavy:
+		color = Color(1.0, 0.85, 0.25)
+	GameJuice.floating_text(global_position + Vector2(0.0, -14.0), str(roundi(actual_damage)),
+			color, 1.5 if is_heavy else 1.0)
+
+	if involves_player:
+		_do_hitstop(is_heavy)
+		_trigger_screen_shake(is_heavy)
+
+## Узел или один из его трёх ближайших предков — игрок (оружие/хитбокс лежат внутри игрока).
+func _is_player_node(node: Node) -> bool:
+	var current: Node = node
+	for i in 3:
+		if current == null:
+			return false
+		if current.is_in_group("Player"):
+			return true
+		current = current.get_parent()
+	return false
+
+## ID для заданий: enemy_id из Инспектора или имя сцены без цифр и суффикса после "_"
+## (Slime2.tscn -> "slime", Pig_BOs.tscn -> "pig", CooperKnight.tscn -> "cooperknight").
+func get_enemy_id() -> String:
+	if not enemy_id.is_empty():
+		return enemy_id
+	var base := scene_file_path.get_file().get_basename().to_lower()
+	if base.is_empty():
+		base = String(name).to_lower()
+	base = base.split("_")[0]
+	while base.length() > 1 and base[-1].is_valid_int():
+		base = base.left(base.length() - 1)
+	return base
+
 # ── УТИЛИТЫ ─────────────────────────────────────────────────────
 func _find_sprite(node: Node) -> Node:
 	for child in node.get_children():
@@ -249,6 +282,9 @@ func die() -> void:
 	if not is_alive:
 		return
 	is_alive = false
+	# Для заданий KILL_ENEMY, комбо и статистики (игрока не считаем)
+	if not is_in_group("Player"):
+		Global.report_enemy_killed(self)
 	emit_signal("died")
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)

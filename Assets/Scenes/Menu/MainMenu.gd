@@ -71,7 +71,15 @@ func _on_multi_pressed() -> void:
 #  СУЩЕСТВУЮЩАЯ ЛОГИКА (не трогаем)
 # ═════════════════════════════════════════════════════════════════════════════
 
+func _notification(what: int) -> void:
+	# Язык сменили (кнопки РУС / ENG / ՀԱՅ или меню настроек) — берём фразы на новом языке
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		load_splash_texts()
+		set_random_splash_text()
+
+
 func load_splash_texts():
+	splash_json_path = Loc.splash_path()
 	if FileAccess.file_exists(splash_json_path):
 		var file = FileAccess.open(splash_json_path, FileAccess.READ)
 		var json_string = file.get_as_text()

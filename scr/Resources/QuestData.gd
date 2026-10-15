@@ -32,6 +32,11 @@ enum Kind {
 ## ID базы назначения (только для DELIVER_ITEM)
 @export var destination_id: String = ""
 
+## Награда за выполнение (выдаётся QuestCelebrator): монеты, топливо, зелья...
+@export_group("Reward")
+@export var rewards: Array[CraftIngredient] = []
+@export_group("")
+
 var progress: int = 0
 
 

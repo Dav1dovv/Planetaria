@@ -27,12 +27,12 @@ var day_night_cycle: DayNightCycle
 @export var creatures: Array[CreatureConfig] = []
 
 @export_group("Spawn Timing")
-@export var base_spawn_interval: float = 10.0
+@export var base_spawn_interval: float = 14.0
 @export var spawn_interval_variation: float = 3.0
 @export_range(1, 10) var spawn_count_min: int = 1
-@export_range(1, 10) var spawn_count_max: int = 3
+@export_range(1, 10) var spawn_count_max: int = 2
 ## Ночью интервал делится на этот множитель (>1 = чаще)
-@export var night_spawn_multiplier: float = 1.5
+@export var night_spawn_multiplier: float = 1.25
 
 @export_group("Despawn Settings")
 @export var despawn_enabled: bool = true

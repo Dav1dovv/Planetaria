@@ -56,7 +56,7 @@ func _on_delete_pressed() -> void:
 	var shown_name: String = player_name_label.text if player_name_label else slot_name
 
 	var confirm := ConfirmationDialog.new()
-	confirm.dialog_text        = "Вы уверены, что хотите удалить сохранение \"%s\"?\nЭто действие нельзя отменить!" % shown_name
+	confirm.dialog_text        = Loc.t("Вы уверены, что хотите удалить сохранение \"%s\"?\nЭто действие нельзя отменить!") % shown_name
 	confirm.ok_button_text     = "Удалить"
 	confirm.cancel_button_text = "Отмена"
 	confirm.confirmed.connect(_confirm_delete.bind(confirm))

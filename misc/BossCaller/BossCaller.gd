@@ -3,37 +3,28 @@ extends Harvest_item
 @export var Boss : PackedScene
 @export_placeholder("Scare") var boss_name : String = ""
 
-var message_1 := "Evil is awakening"
-var message_2 := "one hit and "
 
-# Переопределяем логику уничтожения из Harvestable
+# Переопределяем логику уничтожения из Harvestable: разрушили объект — проснулся босс
 func _on_tree_exiting() -> void:
-	_spawn_boss_delayed(0.1)  # задержка 2 секунды
+	# Выгрузка сцены / смена локации — не повод звать босса
+	if Global.scene_manager.is_busy():
+		return
+	_spawn_boss()
 
-func _spawn_boss_delayed(delay: float) -> void:
-	print("Started spawn boss")
+
+func _spawn_boss() -> void:
 	if Boss == null:
-		print("Boss not found")
+		push_warning("BossCaller: Boss не назначен в Инспекторе")
+		return
+	if get_parent() == null or get_parent().get_parent() == null:
 		return
 
-	var timer = Timer.new()
-	get_parent().add_child(timer)  # добавляем к родителю, не к себе
-	timer.wait_time = delay
-	timer.one_shot = true
-	timer.start()
-	
-	if durability <= durability / 2:
-		print(message_1)
-	elif durability <= durability /3:
-		print(message_2)
-	
-	var boss_instance = Boss.instantiate()
-	var spawn_pos = Vector2(
-		global_position.x + randf_range(-5, 5),
-		global_position.y + randf_range(-5, 5)
-	)
-	boss_instance.global_position = spawn_pos
+	GameJuice.banner(boss_name.to_upper(), Loc.t("awakens…"), Color(0.85, 0.15, 0.1), 1.8)
+	GameJuice.shake(5.0, 0.6)
 
-	get_parent().get_parent().add_child(boss_instance)
-	print("Boss spawned at : " + str(spawn_pos))
-	timer.queue_free()
+	var boss_instance := Boss.instantiate() as Node2D
+	boss_instance.add_to_group("Boss")  # события и элиты не запускаются во время боя с боссом
+	var spawn_pos := global_position + Vector2(randf_range(-5.0, 5.0), randf_range(-5.0, 5.0))
+	# Объект уже выходит из дерева — добавляем босса на следующем кадре и только потом ставим позицию
+	boss_instance.tree_entered.connect(func() -> void: boss_instance.global_position = spawn_pos, CONNECT_ONE_SHOT)
+	get_parent().get_parent().add_child.call_deferred(boss_instance)

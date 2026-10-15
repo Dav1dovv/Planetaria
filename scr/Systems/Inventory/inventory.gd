@@ -57,6 +57,7 @@ func _ready() -> void:
 	_initialize_slots()
 	_initialize_gold_slot()
 	Global.inventory = self
+	_build_close_ui()
 	Global.developer_console.register_command("all_items_list", _cmd_list, "List all items")
 	Global.developer_console.register_command("add_item", _cmd_add_item, "Usage: add_item [itm_indx] [count]")
 	inventory_changed.connect(_mark_count_cache_dirty)
@@ -329,8 +330,42 @@ func get_save_path() -> String:
 var is_opened: bool = false
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("CallInventory"):
+	if event.is_action_pressed("CallInventory") and not event.is_echo():
 		toggle_inv()
+	elif is_opened and Global.is_escape_event(event):
+		# ESC закрывает ЛЮБОЕ окно: инвентарь, крафт, торговлю
+		close_any()
+		Global.mark_menu_closed()
+		get_viewport().set_input_as_handled()
+
+## Закрывает инвентарь / кузнеца / котёл / торговлю, что бы ни было открыто.
+func close_any() -> bool:
+	if not is_opened:
+		return false
+	call_inventory()
+	return true
+
+## Кнопка ✕ в углу и подсказка снизу — игрок всегда видит, как выйти.
+## Вешаем на $Panel: он виден ровно тогда, когда открыто любое из окон.
+func _build_close_ui() -> void:
+	var close_btn := Button.new()
+	close_btn.name = "CloseButton"
+	close_btn.text = "✕"
+	close_btn.focus_mode = Control.FOCUS_NONE
+	close_btn.custom_minimum_size = Vector2(40, 40)
+	close_btn.tooltip_text = Loc.t("ESC / I — close")
+	close_btn.pressed.connect(close_any)
+	$Panel.add_child(close_btn)
+	close_btn.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_MINSIZE, 16)
+
+	var hint := Label.new()
+	hint.name = "CloseHint"
+	hint.text = Loc.t("ESC / I — close")
+	hint.modulate = Color(1, 1, 1, 0.65)
+	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$Panel.add_child(hint)
+	hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE, 12)
+	hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
 
 func toggle_inv():
 	call_inventory()

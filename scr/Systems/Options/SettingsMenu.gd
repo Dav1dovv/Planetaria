@@ -267,9 +267,9 @@ func _on_performance_selected(index: int) -> void:
 	# на settings_changed (см. WorldGenerator.gd, _apply_performance_preset()).
 
 func _update_custom_labels() -> void:
-	label_render_distance.text = "%d чанков" % int(slider_render_distance.value)
-	label_chunk_batch.text     = "%d чанков/кадр" % int(slider_chunk_batch.value)
-	label_chunk_budget.text    = "%.1f мс" % slider_chunk_budget.value
+	label_render_distance.text = Loc.t("%d чанков") % int(slider_render_distance.value)
+	label_chunk_batch.text     = Loc.t("%d чанков/кадр") % int(slider_chunk_batch.value)
+	label_chunk_budget.text    = Loc.t("%.1f мс") % slider_chunk_budget.value
 
 # ──────────────────────────────────────────
 #  HANDLERS — Переназначение клавиш

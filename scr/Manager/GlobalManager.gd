@@ -19,6 +19,14 @@ var current_save_slot: String = ""
 signal location_changed(location: String)
 ## Прогресс планет загружен из слота
 signal planets_loaded
+## Убит враг (не игрок): ID по Entity.get_enemy_id() и позиция в мире
+signal enemy_killed(enemy_id: String, world_pos: Vector2)
+## Подобран предмет (для достижений)
+signal item_picked(item: ItemData, amount: int)
+## Побеждён элитный враг (аффиксы — массив StringName)
+signal elite_defeated(affixes: Array)
+## Пройдено мировое событие (нашествие, налёт, припасы)
+signal world_event_completed(event_id: String)
 
 var current_location: String = "Land":
 	set(value):
@@ -43,6 +51,24 @@ var pending_exit_walk: Dictionary = {
 # ─────────────────────────────────────────────────────────────────────────────
 
 var is_opened_menu: bool = false
+
+## Кадр, в котором ESC уже что-то закрыл. Меню паузы смотрит на него,
+## чтобы один и тот же ESC не закрыл окно и сразу же не открыл паузу.
+var menu_closed_frame: int = -1
+
+func mark_menu_closed() -> void:
+	menu_closed_frame = Engine.get_process_frames()
+
+func esc_consumed_this_frame() -> bool:
+	return menu_closed_frame == Engine.get_process_frames()
+
+## ESC = нажатие (не повтор). Читаем именно event, а не Input.is_action_*:
+## _input вызывается на КАЖДОЕ событие, и при двух событиях в кадре
+## (мышь + клавиша) polling срабатывал дважды и окно открывалось-закрывалось.
+func is_escape_event(event: InputEvent) -> bool:
+	if event.is_echo():
+		return false
+	return event.is_action_pressed("ui_escape") or event.is_action_pressed("ui_cancel")
 var hotbar
 var inventory: Inventory
 var music_key
@@ -54,12 +80,16 @@ const HINT = preload("uid://wyeldfaexejh")
 
 
 func _init() -> void:
+	# Переводы должны быть зарегистрированы раньше любого UI
+	Loc.setup()
 	Input.set_custom_mouse_cursor(MOUSE_Arrow, Input.CURSOR_ARROW, Vector2.ZERO)
 
 
 func _ready() -> void:
 	if not Engine.has_singleton("Global"):
 		Engine.register_singleton("Global", self)
+	# Компоненты «завершённости» создаются кодом — project.godot менять не нужно
+	_bootstrap_game_feel.call_deferred()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -77,7 +107,7 @@ func set_character_name(new_name: String) -> void:
 #  Инвентарь
 # ─────────────────────────────────────────────────────────────────────────────
 #region inventory
-func pickup_item(item_data: ItemData, amount: int = 1) -> void:
+func pickup_item(item_data: ItemData, amount: int = 1, silent: bool = false) -> void:
 	if not hotbar or not inventory:
 		push_error("[Global] Hotbar or Inventory not found")
 		return
@@ -85,6 +115,8 @@ func pickup_item(item_data: ItemData, amount: int = 1) -> void:
 	if _try_add_to_container(hotbar, item_data, amount) \
 			or _try_add_to_container(inventory, item_data, amount):
 		report_item_picked(item_data, amount)
+		if not silent:
+			_show_pickup_feedback(item_data, amount)
 	else:
 		print("[Global] Inventory full — item lost: ", item_data.item_name)
 
@@ -96,10 +128,10 @@ func _try_add_to_container(container, item_data: ItemData, amount: int) -> bool:
 
 
 func add_initial_items() -> void:
-	pickup_item(preload("uid://r4sg8e1stb8y").duplicate(), 1)
-	pickup_item(preload("uid://bmkdrb4efmfp8").duplicate(), 1)
-	pickup_item(preload("uid://dieok7r238rrp").duplicate(),1)
-	pickup_item(preload("uid://dwmw15dg8pwvd").duplicate(),45)
+	pickup_item(preload("uid://r4sg8e1stb8y").duplicate(), 1, true)
+	pickup_item(preload("uid://bmkdrb4efmfp8").duplicate(), 1, true)
+	pickup_item(preload("uid://dieok7r238rrp").duplicate(),1, true)
+	pickup_item(preload("uid://dwmw15dg8pwvd").duplicate(),45, true)
 
 #endregion
 
@@ -149,6 +181,7 @@ func get_planet(planet_name: String) -> PlanetData:
 ## Предмет подобран — засчитываем во всех планетах, где он есть в заданиях.
 ## Вызывается автоматически из pickup_item().
 func report_item_picked(item: ItemData, amount: int = 1) -> void:
+	item_picked.emit(item, amount)
 	for planet in planets_data:
 		planet.report_item_picked(item, amount)
 
@@ -167,6 +200,32 @@ func report_planet_event(planet_name: String, kind: QuestData.Kind, target_id: S
 	var planet := get_planet(planet_name)
 	if planet:
 		planet.report_event(kind, target_id, amount)
+
+
+## Убит враг — для заданий KILL_ENEMY, комбо и статистики.
+func report_enemy_killed(enemy: Entity) -> void:
+	var id := enemy.get_enemy_id()
+	enemy_killed.emit(id, enemy.global_position)
+	report_planet_event(current_location, QuestData.Kind.KILL_ENEMY, id)
+
+
+## Побеждён босс/«угроза планете» (HELP_LOCALS, target_id = ID босса).
+func report_boss_defeated(boss_id: String) -> void:
+	report_planet_event(current_location, QuestData.Kind.HELP_LOCALS, boss_id)
+
+
+## Для диалогов (Dialogue Manager не любит enum): do Global.report_alliance("elder")
+func report_alliance(race_id: String) -> void:
+	report_planet_event(current_location, QuestData.Kind.ALLIANCE, race_id)
+
+
+## Для условий в диалогах: if Global.is_quest_done("meet_elder")
+func is_quest_done(quest_id: String, planet_name: String = "") -> bool:
+	var planet := get_planet(planet_name if not planet_name.is_empty() else current_location)
+	if planet == null:
+		return false
+	var quest := planet.get_quest(StringName(quest_id))
+	return quest != null and quest.is_completed()
 
 
 func save_last_data() -> void:
@@ -241,4 +300,34 @@ func _on_day_night_phase_changed(is_night: bool) -> void:
 	else:
 		_on_scene_manager_scene_change_finished(music_key)
 
+#endregion
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  «Сочность» и завершённость (Juice / выставка)
+# ─────────────────────────────────────────────────────────────────────────────
+#region Game feel
+const QUALITY_COLORS: Array[Color] = [
+	Color(1.0, 1.0, 1.0), Color(0.75, 1.0, 0.75), Color(0.5, 0.9, 1.0),
+	Color(0.6, 0.7, 1.0), Color(0.85, 0.6, 1.0), Color(1.0, 0.7, 0.3), Color(1.0, 0.45, 0.45),
+]
+
+func _bootstrap_game_feel() -> void:
+	# Порядок важен: ExhibitionManager ищет остальных по имени в _ready()
+	for component in [LanguageSwitcher.new(), SessionTracker.new(), QuestCelebrator.new(), ObjectiveMarker.new(),
+			ElderDirector.new(), EliteDirector.new(), EventDirector.new(), AchievementTracker.new(),
+			TutorialHints.new(), ExhibitionManager.new()]:
+		var node := component as Node
+		node.name = node.get_script().get_global_name()
+		add_child(node)
+
+
+## «+3 Wood» над игроком; цвет — по качеству предмета.
+func _show_pickup_feedback(item_data: ItemData, amount: int) -> void:
+	var player := get_tree().get_first_node_in_group("Player") as Node2D
+	if player == null or amount <= 0:
+		return
+	var color: Color = QUALITY_COLORS[clampi(item_data.quality, 0, QUALITY_COLORS.size() - 1)]
+	GameJuice.floating_text(player.global_position + Vector2(0.0, -22.0),
+			"+%d %s" % [amount, Loc.t(item_data.item_name)], color, 0.85, 1.0, 20.0, 1.3)
 #endregion

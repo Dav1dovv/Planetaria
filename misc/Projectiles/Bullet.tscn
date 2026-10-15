@@ -47,7 +47,7 @@ color_ramp = SubResource("GradientTexture1D_fdh37")
 
 [node name="arrow" type="CharacterBody2D" unique_id=1278925378]
 script = ExtResource("1_wrl06")
-speed = 140.0
+speed = 180.0
 lifetime = 1.0
 damage = 5.0
 max_travel_distance = 400.0

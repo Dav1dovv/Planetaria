@@ -69,7 +69,7 @@ func refresh() -> void:
 
 func _refresh_gold() -> void:
 	if gold_label:
-		gold_label.text = "Золото: %d" % _get_gold()
+		gold_label.text = Loc.t("Золото: %d") % _get_gold()
 
 func _refresh_player_side() -> void:
 	_clear_grid(player_grid)

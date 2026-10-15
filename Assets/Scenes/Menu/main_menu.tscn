@@ -350,7 +350,7 @@ scroll_scale = Vector2(2, 2)
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets" unique_id=1007087873]
 position = Vector2(4.132263, 251.23965)
-rotation = 806.7452
+rotation = -143.3995
 scale = Vector2(4.175082, 4.175082)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -367,7 +367,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=530346119]
 position = Vector2(5.9159737, -41.65517)
-rotation = 4418.195
+rotation = 197.08214
 scale = Vector2(0.6516362, 0.6516362)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -382,7 +382,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet2" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=684306597]
 position = Vector2(-48.649956, -41.51426)
-rotation = 2384.29
+rotation = 206.2675
 scale = Vector2(0.65163606, 0.65163606)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -393,7 +393,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet2" unique_id=1718899979]
 position = Vector2(-1.5468187, 0.69523215)
-rotation = 91.32138
+rotation = 204.68842
 scale = Vector2(0.3292737, 0.3292737)
 texture = ExtResource("11_fqo0y")
 offset = Vector2(66.32508, 12.849968)
@@ -415,7 +415,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet3" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1423906424]
 position = Vector2(-36.936844, 71.13017)
-rotation = 1166.4208
+rotation = 373.77045
 scale = Vector2(0.65163606, 0.65163606)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -430,7 +430,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet5" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=543942180]
 position = Vector2(-53.9042, 23.165627)
-rotation = 1450.1782
+rotation = -193.64058
 scale = Vector2(0.37224847, 0.37224847)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -449,14 +449,14 @@ scale = Vector2(5.203, 5.203)
 texture = ExtResource("13_fqo0y")
 
 [node name="Marker2D" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=736093489]
-rotation = -1113.0054
+rotation = -144.12094
 script = ExtResource("12_jm7od")
 rotation_speed = -0.5
 metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="ParallaxBackground/Planets/planet/Marker2D" unique_id=1864340330]
 position = Vector2(110.0839, -3.0646439)
-rotation = -6708.187
+rotation = -978.6415
 scale = Vector2(0.49572185, 0.49572185)
 texture = ExtResource("11_fqo0y")
 region_enabled = true

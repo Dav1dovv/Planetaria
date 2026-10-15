@@ -238,7 +238,7 @@ chunk_time_budget_ms = 1.0
 [node name="CreatureSpawner" parent="." index="2" unique_id=2003484596 node_paths=PackedStringArray("player")]
 player = NodePath("../Player")
 spawn_distance_max = 350.0
-max_creatures = 15
+max_creatures = 12
 creatures = Array[ExtResource("18_866cm")]([SubResource("Resource_vdqi3"), SubResource("Resource_eu50n"), SubResource("Resource_3gx4s")])
 
 [node name="Player" parent="." index="3" unique_id=1150737309]

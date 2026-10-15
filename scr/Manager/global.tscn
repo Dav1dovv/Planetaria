@@ -5,28 +5,13 @@
 [ext_resource type="Resource" uid="uid://lw4x7f1p1hoe" path="res://scr/Manager/SceneRegistry.tres" id="2_ljriy"]
 [ext_resource type="PackedScene" uid="uid://b0axajdtsw2j4" path="res://misc/UI/DeveloperConsole/developer_console.tscn" id="2_w6mfr"]
 [ext_resource type="PackedScene" uid="uid://cajofw8k5naam" path="res://scr/Manager/scene_manager.tscn" id="3_2p3co"]
-[ext_resource type="Script" uid="uid://c78jhtxa5bydr" path="res://scr/Resources/QuestData.gd" id="3_8or1h"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="4_1hyfg"]
+[ext_resource type="Resource" uid="uid://ctlx2onpmup1i" path="res://common/Resources/PlanetData/Vehana.tres" id="6_3hoy0"]
 [ext_resource type="AudioStream" uid="uid://6suhoapiivyl" path="res://Assets/Audio/BGM/Under PLanetaria.mp3" id="6_8or1h"]
 [ext_resource type="AudioStream" uid="uid://cbka2o7wy5vv8" path="res://Assets/Audio/BGM/Big Sun Message.mp3" id="6_jkut7"]
 [ext_resource type="AudioStream" uid="uid://td6afygdrfo7" path="res://Assets/Audio/BGM/game_over_1 (1).wav" id="16_b8n8i"]
 [ext_resource type="AudioStream" uid="uid://bmcaibnlutm8a" path="res://Assets/Audio/BGM/Game_Over_1.wav" id="18_r4swe"]
 [ext_resource type="AudioStream" uid="uid://74uudk4fnr3r" path="res://Assets/Audio/BGM/Game_Over_2.wav" id="19_kouma"]
 [ext_resource type="Script" uid="uid://dm0fatudshy1s" path="res://scr/Systems/Options/SettingsManager.gd" id="27_ljriy"]
-
-[sub_resource type="Resource" id="Resource_0btrw"]
-script = ExtResource("3_8or1h")
-quest_id = &"V_Kill_Boss"
-title = "Kill Big Roar"
-description = "Activate the statue with old emblem and asdbiasbdisabdd"
-kind = 6
-target_id = "ROAR"
-metadata/_custom_type_script = "uid://c78jhtxa5bydr"
-
-[sub_resource type="Resource" id="Resource_jkut7"]
-script = ExtResource("2_0btrw")
-base_quests = Array[ExtResource("3_8or1h")]([SubResource("Resource_0btrw")])
-metadata/_custom_type_script = "uid://yqpwj1pqrajp"
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_gmsqb"]
 clip_count = 5
@@ -80,7 +65,7 @@ Vector2i(0, 1): {
 
 [node name="Global" type="Node" unique_id=1524236085]
 script = ExtResource("1_37aq7")
-planets_data = Array[ExtResource("2_0btrw")]([SubResource("Resource_jkut7")])
+planets_data = Array[ExtResource("2_0btrw")]([ExtResource("6_3hoy0")])
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="." unique_id=1350348439]
 resources = [PackedStringArray("SceneRegistry"), [ExtResource("2_ljriy")]]

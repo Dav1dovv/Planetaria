@@ -180,6 +180,7 @@ position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_a52v3")
 animation = &"ON"
 autoplay = "ON"
+frame_progress = 0.08508267
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" unique_id=249322329]
 show_behind_parent = true

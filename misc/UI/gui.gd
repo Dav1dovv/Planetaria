@@ -73,6 +73,12 @@ func _set_tracked_planet(planet: PlanetData) -> void:
 
 	_queue_quest_refresh()
 
+## Язык сменили — перерисовываем панель заданий (она собирается из BBCode-строки)
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and _tracked_planet != null:
+		_queue_quest_refresh()
+
+
 func _on_quest_changed(_quest: QuestData) -> void:
 	_queue_quest_refresh()
 
@@ -96,10 +102,10 @@ func _refresh_quest_box() -> void:
 
 	# Заголовок: планета и этап исследования
 	lines.append("[color=%s][b]%s[/b][/color]  %d%%" % [
-		COLOR_TITLE, _tracked_planet.Planet_Name, roundi(ratio * 100.0)])
+		COLOR_TITLE, Loc.t(_tracked_planet.Planet_Name), roundi(ratio * 100.0)])
 
-	_append_quest_group(lines, "Базовые", _tracked_planet.base_quests)
-	_append_quest_group(lines, "Особые", _tracked_planet.unique_quests)
+	_append_quest_group(lines, Loc.t("Базовые"), _tracked_planet.base_quests)
+	_append_quest_group(lines, Loc.t("Особые"), _tracked_planet.unique_quests)
 
 	quest_label.text = "[right]%s[/right]" % "\n".join(lines)
 	quest_progress.value = ratio * 100.0
@@ -113,7 +119,7 @@ func _append_quest_group(lines: PackedStringArray, group_title: String, quests: 
 		lines.append(_format_quest_line(quest))
 
 func _format_quest_line(quest: QuestData) -> String:
-	var title := quest.title if not quest.title.is_empty() else String(quest.quest_id)
+	var title := Loc.t(quest.title) if not quest.title.is_empty() else String(quest.quest_id)
 	title = title.replace("[", "[lb]")
 
 	var text := title

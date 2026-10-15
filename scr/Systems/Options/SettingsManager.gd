@@ -18,6 +18,7 @@ const BUS_SFX    := "SFX"
 const LANGUAGES := [
 	["ru", "Русский"],
 	["en", "English"],
+	["hy", "Հայերեն"],
 ]
 
 const RESOLUTIONS := [

@@ -2,7 +2,179 @@
 
 [ext_resource type="Script" uid="uid://yqpwj1pqrajp" path="res://scr/Resources/PlanetData.gd" id="1_mivi8"]
 [ext_resource type="Script" uid="uid://c78jhtxa5bydr" path="res://scr/Resources/QuestData.gd" id="1_oo82o"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_itemdata"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="3_ingredient"]
+[ext_resource type="Resource" uid="uid://feu6mm5l4c0h" path="res://misc/Content/Items/Artefact_Piece.tres" id="4_piece"]
+[ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://misc/Content/Items/Wood.tres" id="5_wood"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="6_stone"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="7_coin"]
+[ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://misc/Content/Items/Fuel.tres" id="8_fuel"]
+[ext_resource type="Resource" uid="uid://ctocyibpog8vu" path="res://misc/Content/Items/HealthPotion.tres" id="9_potion"]
+
+[sub_resource type="Resource" id="Reward_pieces"]
+script = ExtResource("3_ingredient")
+item = ExtResource("7_coin")
+amount = 50
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_pieces"]
+script = ExtResource("1_oo82o")
+quest_id = &"artefact_pieces"
+title = "Осколки артефакта"
+description = "Свиньи-налётчики растащили осколки древнего артефакта. Собери 10 штук — из них куётся Призыватель."
+target_amount = 10
+target_items = Array[ExtResource("2_itemdata")]([ExtResource("4_piece")])
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_pieces")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
+
+[sub_resource type="Resource" id="Reward_elder"]
+script = ExtResource("3_ingredient")
+item = ExtResource("9_potion")
+amount = 2
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_elder"]
+script = ExtResource("1_oo82o")
+quest_id = &"meet_elder"
+title = "Поговорить со старейшиной"
+description = "Старейшина знает, что происходит с Веханой."
+kind = 3
+target_id = "elder"
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_elder")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
+
+[sub_resource type="Resource" id="Reward_wood"]
+script = ExtResource("3_ingredient")
+item = ExtResource("7_coin")
+amount = 25
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_wood"]
+script = ExtResource("1_oo82o")
+quest_id = &"gather_wood"
+title = "Дрова для лагеря"
+description = "Ночи на Вехане холодные. Принеси дерево."
+kind = 2
+target_amount = 20
+target_items = Array[ExtResource("2_itemdata")]([ExtResource("5_wood")])
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_wood")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
+
+[sub_resource type="Resource" id="Reward_stone"]
+script = ExtResource("3_ingredient")
+item = ExtResource("7_coin")
+amount = 25
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_stone"]
+script = ExtResource("1_oo82o")
+quest_id = &"gather_stone"
+title = "Камень для кузни"
+description = "Берну нужен камень для горна."
+kind = 2
+target_amount = 20
+target_items = Array[ExtResource("2_itemdata")]([ExtResource("6_stone")])
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_stone")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
+
+[sub_resource type="Resource" id="Reward_slime"]
+script = ExtResource("3_ingredient")
+item = ExtResource("9_potion")
+amount = 3
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_slime"]
+script = ExtResource("1_oo82o")
+quest_id = &"slime_cleanup"
+title = "Очистить поляны от слизи"
+description = "Слизь расползлась по округе. Разберись с ней."
+kind = 6
+target_amount = 6
+target_id = "slime"
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_slime")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
+
+[sub_resource type="Resource" id="Reward_pigs"]
+script = ExtResource("3_ingredient")
+item = ExtResource("7_coin")
+amount = 60
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_pigs"]
+script = ExtResource("1_oo82o")
+quest_id = &"pig_raiders"
+title = "Отбить налёт свиней"
+description = "Свиньи-налётчики не дают жителям выйти за ворота."
+kind = 6
+target_amount = 8
+target_id = "pig"
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_pigs")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
+
+[sub_resource type="Resource" id="Reward_elite_coin"]
+script = ExtResource("3_ingredient")
+item = ExtResource("7_coin")
+amount = 80
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_elite"]
+script = ExtResource("1_oo82o")
+quest_id = &"elite_hunt"
+title = "Охотник на элиту"
+description = "Особо сильные враги бродят по Вехане. Выследи и победи двух элитных врагов."
+kind = 6
+target_amount = 2
+target_id = "elite"
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_elite_coin")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
+
+[sub_resource type="Resource" id="Reward_event_potion"]
+script = ExtResource("3_ingredient")
+item = ExtResource("9_potion")
+amount = 3
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Reward_event_coin"]
+script = ExtResource("3_ingredient")
+item = ExtResource("7_coin")
+amount = 50
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_events"]
+script = ExtResource("1_oo82o")
+quest_id = &"event_defender"
+title = "Защитник Ваханы"
+description = "Налёты и нашествия угрожают поселению. Пройди два мировых события."
+kind = 5
+target_amount = 2
+target_id = "world_event"
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_event_potion"), SubResource("Reward_event_coin")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
+
+[sub_resource type="Resource" id="Reward_boss_coin"]
+script = ExtResource("3_ingredient")
+item = ExtResource("7_coin")
+amount = 150
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Reward_boss_fuel"]
+script = ExtResource("3_ingredient")
+item = ExtResource("8_fuel")
+amount = 20
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Quest_boss"]
+script = ExtResource("1_oo82o")
+quest_id = &"defeat_cooper_knight"
+title = "Победить Медного Рыцаря"
+description = "Древний страж проснулся и не узнаёт своих. Останови его."
+kind = 5
+target_id = "cooperknight"
+rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_boss_coin"), SubResource("Reward_boss_fuel")])
+metadata/_custom_type_script = "uid://c78jhtxa5bydr"
 
 [resource]
 script = ExtResource("1_mivi8")
+base_quests = Array[ExtResource("1_oo82o")]([SubResource("Quest_pieces")])
+unique_quests = Array[ExtResource("1_oo82o")]([SubResource("Quest_elder"), SubResource("Quest_wood"), SubResource("Quest_stone"), SubResource("Quest_slime"), SubResource("Quest_pigs"), SubResource("Quest_elite"), SubResource("Quest_events"), SubResource("Quest_boss")])
 metadata/_custom_type_script = "uid://yqpwj1pqrajp"

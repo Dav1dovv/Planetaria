@@ -65,7 +65,7 @@ static func from_craft(item: ItemData) -> CraftRecipe:
 static func from_repair(item: ItemData) -> CraftRecipe:
 	var r := CraftRecipe.new()
 	r.mode = Mode.REPAIR
-	r.recipe_name = "Ремонт: " + item.item_name
+	r.recipe_name = Loc.t("Ремонт: ") + Loc.t(item.item_name)
 	r.description = item.description
 	r.category = item.craft_category
 	r.required_smith_level = item.craft_smith_level
@@ -80,7 +80,7 @@ static func from_repair(item: ItemData) -> CraftRecipe:
 static func from_salvage(item: ItemData) -> CraftRecipe:
 	var r := CraftRecipe.new()
 	r.mode = Mode.DISASSEMBLE
-	r.recipe_name = "Разборка: " + item.item_name
+	r.recipe_name = Loc.t("Разборка: ") + Loc.t(item.item_name)
 	r.description = item.description
 	r.category = item.craft_category
 	r.required_smith_level = item.craft_smith_level

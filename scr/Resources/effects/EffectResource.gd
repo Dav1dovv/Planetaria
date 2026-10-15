@@ -131,50 +131,50 @@ func _remove_direct_effect(target: Node) -> void:
 # ─── Tooltip ──────────────────────────────────────────────────────────────────
 
 func get_tooltip_text() -> String:
-	var text := display_name + "\n" + description + "\n\n"
+	var text := Loc.t(display_name) + "\n" + Loc.t(description) + "\n\n"
 	match effect_type:
 		EffectType.HEALTH_RESTORE:
-			text += "Восстанавливает %d HP" % int(value)
+			text += Loc.t("Восстанавливает %d HP") % int(value)
 		EffectType.REGENERATION:
-			text += "Восстанавливает %.1f HP каждые %.1f сек" % [value, tick_interval]
+			text += Loc.t("Восстанавливает %.1f HP каждые %.1f сек") % [value, tick_interval]
 		EffectType.SPEED_BOOST:
-			text += "Скорость движения +%d%%" % int(value * 100)
+			text += Loc.t("Скорость движения +%d%%") % int(value * 100)
 		EffectType.DAMAGE_BOOST:
-			text += "Урон +%d%%" % int(value * 100)
+			text += Loc.t("Урон +%d%%") % int(value * 100)
 		EffectType.DEFENSE_BOOST:
-			text += "Защита +%d" % int(value)
+			text += Loc.t("Защита +%d") % int(value)
 		EffectType.MINING_SPEED_BOOST:
-			text += "Скорость добычи +%d%%" % int(value * 100)
+			text += Loc.t("Скорость добычи +%d%%") % int(value * 100)
 		EffectType.INVISIBILITY:
-			text += "Духи и одержимые тебя не замечают"
+			text += Loc.t("Духи и одержимые тебя не замечают")
 		EffectType.COLD_IMMUNITY:
-			text += "Иммунитет к DOT заморозки"
+			text += Loc.t("Иммунитет к DOT заморозки")
 		EffectType.INFECTION_RESIST:
-			text += "Накопление заражения ×%.1f" % value
+			text += Loc.t("Накопление заражения ×%.1f") % value
 		EffectType.INVINCIBILITY:
-			text += "Неуязвимость"
+			text += Loc.t("Неуязвимость")
 		EffectType.DOUBLE_LOOT:
-			text += "Шанс двойного лута +%d%%" % int(value * 100)
+			text += Loc.t("Шанс двойного лута +%d%%") % int(value * 100)
 		EffectType.POISON:
-			text += "Яд: %.1f урона каждые %.1f сек" % [value, tick_interval]
+			text += Loc.t("Яд: %.1f урона каждые %.1f сек") % [value, tick_interval]
 		EffectType.BURN:
-			text += "Обжиг: %.1f урона каждые %.1f сек + паника движения" % [value, tick_interval]
+			text += Loc.t("Обжиг: %.1f урона каждые %.1f сек + паника движения") % [value, tick_interval]
 		EffectType.FREEZE:
-			text += "Заморозка: замедление -%d%%, слабый DOT" % int(value * 100)
+			text += Loc.t("Заморозка: замедление -%d%%, слабый DOT") % int(value * 100)
 		EffectType.BLEED:
-			text += "Кровотечение: %.0f%% max HP каждые %.1f сек" % [bleed_percent * 100, tick_interval]
+			text += Loc.t("Кровотечение: %.0f%% max HP каждые %.1f сек") % [bleed_percent * 100, tick_interval]
 		EffectType.CORRUPTION:
-			text += "Заражение: DOT + враг усиливается на %.0f%%" % (corruption_damage_bonus * 100)
+			text += Loc.t("Заражение: DOT + враг усиливается на %.0f%%") % (corruption_damage_bonus * 100)
 		EffectType.SLOW:
-			text += "Замедление -%d%%" % int(value * 100)
+			text += Loc.t("Замедление -%d%%") % int(value * 100)
 		EffectType.PANIC:
-			text += "Потеря контроля движения"
+			text += Loc.t("Потеря контроля движения")
 	if duration > 0:
-		text += "\nДлительность: %.1f сек" % duration
+		text += Loc.t("\nДлительность: %.1f сек") % duration
 	elif duration == 0 and effect_type != EffectType.HEALTH_RESTORE:
-		text += "\nМгновенный"
+		text += Loc.t("\nМгновенный")
 	if max_stacks > 1:
-		text += "\nМакс. стаков: %d" % max_stacks
+		text += Loc.t("\nМакс. стаков: %d") % max_stacks
 	return text
 
 

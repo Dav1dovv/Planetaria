@@ -21,7 +21,7 @@ script = ExtResource("3_b50er")
 equiped_weapon_sprite = SubResource("AtlasTexture_uy7o4")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
-[sub_resource type="Resource" id="Resource_oax6j"]
+[sub_resource type="Resource" id="Resource_xm4pu"]
 resource_local_to_scene = true
 script = ExtResource("2_b50er")
 max_health = 47
@@ -1527,6 +1527,7 @@ _data = {
 
 [node name="Pig" unique_id=1251952136 node_paths=PackedStringArray("skin", "body_anim", "hand_anim", "Vfx") instance=ExtResource("1_ehkkp")]
 script = ExtResource("2_7s0ds")
+is_boss = false
 walk_offset = 2.5
 offset_interval = 1.5
 line_of_sight = 140.0
@@ -1542,9 +1543,8 @@ hand_anim = NodePath("Skin/Body/Hand/AnimationPlayer")
 show_gizmos = true
 sight_color = Color(1, 0.85, 0.2, 1)
 attack_color = Color(1, 0.2, 0.2, 1)
-Entity_stats = SubResource("Resource_oax6j")
+Entity_stats = SubResource("Resource_xm4pu")
 Vfx = NodePath("VFX")
-hitstop_duration = 1.0
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(0, -1.6241417)

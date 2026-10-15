@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://b8ekv73e134mt"]
+[gd_scene format=3 uid="uid://cjsqf04hyqu3p"]
 
 [ext_resource type="Texture2D" uid="uid://bqypjlibbdl0h" path="res://Assets/Textures/SpriteSheets/Houses.png" id="1_1jels"]
 [ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/Textures/Light/GradientLight.png" id="2_2teqn"]
@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2s4nf"]
 size = Vector2(50.94738, 20.418064)
 
-[sub_resource type="Resource" id="Resource_2s4nf"]
+[sub_resource type="Resource" id="Resource_1jels"]
 resource_local_to_scene = true
 script = ExtResource("5_2atsl")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
@@ -61,8 +61,7 @@ position = Vector2(0.38018036, 18.014645)
 shape = SubResource("RectangleShape2D_2s4nf")
 debug_color = Color(0.99958235, 0, 0.12291277, 0.41960785)
 
-[node name="SmithBern" parent="." unique_id=2111811093 node_paths=PackedStringArray("player") instance=ExtResource("4_f71rx")]
+[node name="SmithBern" parent="." unique_id=2111811093 instance=ExtResource("4_f71rx")]
 position = Vector2(14.447778, 34.218422)
 awareness_radius = 30.0
-player = NodePath("")
-Entity_stats = SubResource("Resource_2s4nf")
+Entity_stats = SubResource("Resource_1jels")

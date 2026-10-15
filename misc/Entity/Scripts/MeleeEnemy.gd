@@ -254,7 +254,9 @@ func _on_die():
 		remove_from_group("Creature")
 
 	if is_boss:
-		Global.report_planet_event("Vehana",QuestData.Kind,"ROAR")
+		# Было: report_planet_event("Vehana", QuestData.Kind, "ROAR") — в аргумент kind
+		# уходил весь enum (Dictionary), и при смерти босса игра падала с ошибкой типа.
+		Global.report_boss_defeated(get_enemy_id())
 
 	await get_tree().create_timer(1.5).timeout
 	queue_free()

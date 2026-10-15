@@ -248,7 +248,7 @@ build_place={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://misc/Dialogs/Bern/Bern1.dialogue", "res://misc/Dialogs/Dialogues/Scene1/Yairam.dialogue", "res://misc/Structures/Ruins/Syncer.dialogue")
+locale/translations_pot_files=PackedStringArray("res://misc/Dialogs/Bern/Bern1.dialogue", "res://misc/Dialogs/Dialogues/Scene1/Yairam.dialogue", "res://misc/Structures/Ruins/Syncer.dialogue", "res://misc/Dialogs/Elder/Elder.dialogue")
 
 [layer_names]
 

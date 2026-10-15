@@ -44,8 +44,29 @@ var hunger : int = 100
 #  Инициализация
 # ─────────────────────────────────────────────────────────────────────────────
 
+## Регенерация вне боя: после REGEN_DELAY секунд без урона лечимся REGEN_PER_SEC в секунду.
+## Игрок не «выгорает» к середине забега, но и не отхиливается прямо в драке.
+const REGEN_DELAY := 5.0
+const REGEN_PER_SEC := 1.5
+const MIN_INVINCIBILITY := 0.5
+var _since_damage: float = 0.0
+var _last_health: float = -1.0
+
+func _tick_regen(delta: float) -> void:
+	var hp := Entity_stats.current_health
+	if _last_health >= 0.0 and hp < _last_health:
+		_since_damage = 0.0
+	_last_health = hp
+	_since_damage += delta
+	if _since_damage < REGEN_DELAY or hp >= Entity_stats.max_health:
+		return
+	Entity_stats.current_health = minf(hp + REGEN_PER_SEC * delta, Entity_stats.max_health)
+	_last_health = Entity_stats.current_health
+	health_bar.update_value(Entity_stats.current_health, Entity_stats.max_health, corruption)
+
 func _ready() -> void:
 	super._ready()
+	invincibility_duration = maxf(invincibility_duration, MIN_INVINCIBILITY)
 	Global.hotbar    = get_tree().get_first_node_in_group("Hotbar")    as Hotbar
 	Global.inventory = get_tree().get_first_node_in_group("Inventory") as Inventory
 	get_tree().get_first_node_in_group("DebugObject").update()
@@ -74,6 +95,7 @@ func _physics_process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 
 	if is_alive:
+		_tick_regen(delta)
 		if not combat.is_lunging:
 			velocity = movement.process(delta)
 		_animate()

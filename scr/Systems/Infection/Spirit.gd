@@ -10,7 +10,7 @@ class_name SpiritAltar
 func _ready() -> void:
 	super._ready()
 	interact = _on_interact
-	show_message = "Дух — очистить заражение (%d золота)" % cost
+	show_message = Loc.t("Дух — очистить заражение (%d золота)") % cost
 
 func _on_interact() -> void:
 	var p := get_tree().get_first_node_in_group("Player")
@@ -33,4 +33,4 @@ func _on_interact() -> void:
 		p.full_cure_infection()
 		Global.hint(get_parent(), "Заражение снято")
 	else:
-		Global.hint(get_parent(), "Не хватает золота (%d)" % cost)
+		Global.hint(get_parent(), Loc.t("Не хватает золота (%d)") % cost)

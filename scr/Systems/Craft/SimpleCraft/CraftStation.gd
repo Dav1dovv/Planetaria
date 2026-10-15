@@ -345,7 +345,7 @@ func _preview_repair() -> void:
 
 	# Подсказка о восстановлении прочности
 	if selected_recipe.repair_amount > 0 and gold_label:
-		gold_label.text = "+%d прочности" % selected_recipe.repair_amount
+		gold_label.text = Loc.t("+%d прочности") % selected_recipe.repair_amount
 	elif gold_label:
 		gold_label.text = "Полный ремонт"
 
@@ -541,15 +541,15 @@ func _build_tooltip(recipe: CraftRecipe) -> String:
 	match recipe.mode:
 		CraftRecipe.Mode.CRAFT, CraftRecipe.Mode.REPAIR:
 			for ing in recipe.get_ingredients():
-				lines.append("• %s × %d" % [ing["item"].item_name if ing["item"] else "?", ing["amount"]])
+				lines.append("• %s × %d" % [Loc.t(ing["item"].item_name) if ing["item"] else "?", ing["amount"]])
 			if recipe.gold_cost > 0:
-				lines.append("• Золото × %d" % recipe.gold_cost)
+				lines.append(Loc.t("• Золото × %d") % recipe.gold_cost)
 
 		CraftRecipe.Mode.DISASSEMBLE:
-			lines.append("Разобрать: %s" % (recipe.disassemble_target.item_name if recipe.disassemble_target else "?"))
-			lines.append("Получишь:")
+			lines.append(Loc.t("Разобрать: %s") % (Loc.t(recipe.disassemble_target.item_name) if recipe.disassemble_target else "?"))
+			lines.append(Loc.t("Получишь:"))
 			for res in recipe.get_salvage_results():
-				lines.append("  + %s × %d" % [res["item"].item_name if res["item"] else "?", res["amount"]])
+				lines.append("  + %s × %d" % [Loc.t(res["item"].item_name) if res["item"] else "?", res["amount"]])
 
 	return "\n".join(lines)
 
@@ -567,6 +567,4 @@ func _on_food_tag_pressed()    -> void: category_filter.selected = 3; _refresh()
 func _on_items_tag_pressed()   -> void: category_filter.selected = 4; _refresh()
 
 func _on_close_pressed() -> void:
-	get_parent().get_parent().uncall_craft()
-	Global.is_opened_menu = false
-	Cursor.detection_mode(false)
+	Global.inventory.close_any()

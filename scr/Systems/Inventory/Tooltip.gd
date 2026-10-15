@@ -122,7 +122,7 @@ func _rarity_color(quality: int) -> Color:
 
 func _format_rarity_tag(quality: int) -> String:
 	var q: int = clamp(quality, 0, RARITY_NAMES.size() - 1)
-	var rarity_name: String = RARITY_NAMES[q]
+	var rarity_name: String = Loc.t(RARITY_NAMES[q])
 	var color: String = RARITY_COLORS[q]
 	if q == RARITY_NAMES.size() - 1:
 		# Легендарные предметы — лёгкая волна, чтобы притягивать взгляд
@@ -131,7 +131,7 @@ func _format_rarity_tag(quality: int) -> String:
 
 
 func _stat_line(stat_label: String, value: String, color: String) -> String:
-	return "[color=%s]%s:[/color] [color=%s]%s[/color]\n" % [COLOR_LABEL, stat_label, color, value]
+	return "[color=%s]%s:[/color] [color=%s]%s[/color]\n" % [COLOR_LABEL, Loc.t(stat_label), color, value]
 
 
 func _durability_line(current: int, max_dur: int) -> String:

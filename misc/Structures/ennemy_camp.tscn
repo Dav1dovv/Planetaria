@@ -25,9 +25,9 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 [node name="Camp" parent="." unique_id=265569063 instance=ExtResource("1_xtunk")]
 
 [node name="Creature" parent="." unique_id=2111811093 instance=ExtResource("2_ndko2")]
-position = Vector2(-61, -1)
+position = Vector2(-159.35393, -9.196159)
 Entity_stats = SubResource("Resource_amfqk")
 
 [node name="Creature2" parent="." unique_id=1043371710 instance=ExtResource("2_ndko2")]
-position = Vector2(66, 0)
+position = Vector2(108.3468, 6.830124)
 Entity_stats = SubResource("Resource_xtunk")

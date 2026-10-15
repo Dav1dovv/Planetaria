@@ -12,12 +12,24 @@ var fuel_indx
 func _on_option_button_item_selected(index: int) -> void:
 	location_key = $Panel/VBoxContainer/OptionButton.get_item_text(index)
 	fuel_indx = index
-	trave.text = "TRAVE X" + str(fuel_count[fuel_indx])
+	trave.text = Loc.t("TRAVEL") + " X" + str(fuel_count[fuel_indx])
 
 func _ready() -> void:
 	visible = false
 
+func _input(event: InputEvent) -> void:
+	if is_opened and Global.is_escape_event(event):
+		toogle()
+		Global.mark_menu_closed()
+		get_viewport().set_input_as_handled()
+
 func _on_button_pressed() -> void:
+	if not location_key:
+		GameJuice.banner(Loc.t("Choose a destination"), "", Color(1.0, 0.85, 0.4), 1.5)
+		return
+	if not Global.inventory.has_total_item(FUEL, fuel_count[fuel_indx]):
+		GameJuice.banner(Loc.t("Not enough fuel"), "× %d" % fuel_count[fuel_indx], Color(1.0, 0.5, 0.4), 1.5)
+		return
 	if location_key and Global.inventory.has_total_item(FUEL,fuel_count[fuel_indx]):
 		Global.inventory.remove_from_total(FUEL,fuel_count[fuel_indx])
 		Global.save()

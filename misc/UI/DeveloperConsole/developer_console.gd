@@ -47,7 +47,7 @@ func _ready() -> void:
 	overlay_fade_timer.timeout.connect(_on_overlay_fade_timer_timeout)
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ui_call_debugMenu"):  # Обычно это клавиша ~
+	if event.is_action_pressed("ui_call_debugMenu") and not event.is_echo():  # Обычно это клавиша ~
 		toggle_console()
 
 func toggle_console() -> void:
