@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Effect" format=3]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_scr"]
+[ext_resource type="Texture2D" uid="uid://dkj52eeo80ghu" path="res://Assets/Textures/UI/Effects/Effect2.png" id="2_tex"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="3_pac"]
+
+[resource]
+script = ExtResource("1_scr")
+effect_icon = ExtResource("2_tex")
+effect_type = 2
+value = 0.2
+duration = -1.0
+max_stacks = 2
+particle_color = Color(0.6, 0.2, 0.8, 1.0)
+particle = ExtResource("3_pac")
+display_name = "Forbidden Power"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"

@@ -25,6 +25,10 @@ var _light: PointLight2D = null
 # Флаг активного пассивного эффекта (чтобы не добавлять дважды)
 var _passive_effect_active: bool = false
 
+# Кэш on-hit эффекта текущего оружия
+var _on_hit_cache: Effect = null
+var _on_hit_cache_owner: equip_data = null
+
 # Ресурс эффекта, который сейчас держит текущее оружие (нужен, чтобы снять
 # именно его при смене оружия — EffectManager снимает по effect_type).
 var _current_passive_effect: Effect = null
@@ -59,48 +63,61 @@ func apply_lunge_damage(already_hit: Array, lunge_damage: float) -> void:
 			continue
 		if area.is_in_group("Ennemy") or area.is_in_group("Harvestable"):
 			if body.has_method("take_damage"):
-				body.take_damage(lunge_damage, _player, _current_equip.knockback if _current_equip else 0.0)
+				var final_damage := lunge_damage * maxf(_player.Entity_stats.get_damage_multiplier(), 0.1)
+				var kb: float = _current_equip.knockback if _current_equip else 0.0
+				# Entity.take_damage(damage, source, knockback_mod) — 3 аргумента
+				body.take_damage(final_damage, _player, kb)
 				already_hit.append(body)
+				if is_instance_valid(body):
+					try_apply_on_hit_effect(body)
 
 
-## Вызывается при попадании: из PlayerHitBox (ближний бой) и player_combat.on_weapon_hit (снаряды).
-## Эффект строится из полей equip_data: on_hit_effect / _chance / _duration / _potency / ...
-## Для freeze и slow potency — ПРОЦЕНТЫ замедления (35 = -35% скорости).
+## Вызывается при каждом попадании оружием (ближний бой, снаряды, рывок, взрывы).
+## Читает поля equip_data: on_hit_effect (строка), on_hit_chance, on_hit_duration,
+## on_hit_potency, on_hit_bleed_percent, on_hit_corruption_bonus.
 func try_apply_on_hit_effect(target: Node) -> void:
-	if not _current_equip or not is_instance_valid(target):
+	var eq := _current_equip
+	if eq == null or not is_instance_valid(target) or eq.on_hit_effect == "none":
 		return
-	var kind := _current_equip.on_hit_effect
-	if kind == "none" or randf() > _current_equip.on_hit_chance:
+	if randf() > eq.on_hit_chance:
 		return
 
-	if kind == "heal_on_hit":
+	# Вампиризм: лечит игрока, а не накладывает эффект на цель
+	if eq.on_hit_effect == "heal_on_hit":
 		if _player.has_method("heal"):
-			_player.heal(_current_equip.on_hit_potency)
+			_player.heal(eq.on_hit_potency)
 		return
 
 	if not target.has_method("apply_effect_instance"):
 		return
-	var effect := _build_on_hit_effect(_current_equip)
-	if effect:
-		target.apply_effect_instance(effect)
+	if _on_hit_cache == null or _on_hit_cache_owner != eq:
+		_on_hit_cache = _build_on_hit_effect(eq)
+		_on_hit_cache_owner = eq
+	if _on_hit_cache:
+		target.apply_effect_instance(_on_hit_cache)
 
 
+## Строит Effect из строкового on_hit_effect оружия (результат кэшируется).
 func _build_on_hit_effect(e: equip_data) -> Effect:
-	var dur := e.on_hit_duration
 	match e.on_hit_effect:
-		"burn":       return Effect.create_burn(e.on_hit_potency, dur)
-		"poison":     return Effect.create_poison(e.on_hit_potency, dur)
-		"freeze":     return Effect.create_freeze(e.on_hit_potency / 100.0, dur)
-		"bleed":      return Effect.create_bleed(e.on_hit_bleed_percent, dur)
-		"corruption": return Effect.create_corruption(e.on_hit_potency, e.on_hit_corruption_bonus, dur)
+		"burn":
+			return Effect.create_burn(e.on_hit_potency, e.on_hit_duration)
+		"poison":
+			return Effect.create_poison(e.on_hit_potency, e.on_hit_duration)
+		"freeze":
+			return Effect.create_freeze(e.on_hit_potency, e.on_hit_duration)
+		"bleed":
+			return Effect.create_bleed(e.on_hit_bleed_percent, e.on_hit_duration)
+		"corruption":
+			return Effect.create_corruption(e.on_hit_potency, e.on_hit_corruption_bonus, e.on_hit_duration)
 		"slow":
-			var slow := Effect.new()
-			slow.effect_type = Effect.EffectType.SLOW
-			slow.value = e.on_hit_potency / 100.0
-			slow.duration = dur
-			slow.display_name = "Замедление"
-			slow.particle_color = Color(0.7, 0.8, 0.9)
-			return slow
+			var s := Effect.new()
+			s.effect_type = Effect.EffectType.SLOW
+			s.value = e.on_hit_potency
+			s.duration = e.on_hit_duration
+			s.display_name = "Замедление"
+			s.particle_color = Color(0.6, 0.8, 0.5)
+			return s
 	return null
 
 
@@ -180,6 +197,13 @@ func _build_passive_effect(e: equip_data) -> Effect:
 			eff.value = e.passive_player_potency
 			eff.duration = -1.0
 			return eff
+		"defense_boost":
+			var d := Effect.new()
+			d.effect_type = Effect.EffectType.DEFENSE_BOOST
+			d.value = e.passive_player_potency
+			d.duration = -1.0
+			d.display_name = "Defense"
+			return d
 		"poison":
 			# Оружие-проклятие: тикает урон по владельцу, пока оружие в руках
 			return Effect.create_poison(e.passive_player_potency, -1.0)

@@ -33,19 +33,23 @@ func _ready() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 #region Spawn
 func respawn() -> void:
-	
 	Global.scene_manager.fade()
 	player = get_tree().get_first_node_in_group("Player")
+	if player == null:
+		return
 	player.respawn()
-	Global.save()
+
 	if last_saved_position.is_empty():
+		Global.save()
 		get_tree().reload_current_scene()
-		
-	else:
-		get_tree().call_group("Ennemy", "queue_free")
-		Global.scene_manager.fade()
-		player.respawn()
-		player.position = last_saved_position.front()
+		return
+
+	get_tree().call_group("Ennemy", "queue_free")
+	# back(), а не front(): front() возвращал ПЕРВУЮ точку сохранения за всю игру
+	player.position = last_saved_position.back()
+	Global.save()  # сохраняем уже на точке возрождения, а не на месте смерти
+	# После смерти играла музыка «Game Over» — возвращаем музыку локации
+	Global._on_scene_manager_scene_change_finished(Global.music_key)
 
 
 func set_spawn_point(save_position: Vector2) -> void:
@@ -181,7 +185,3 @@ func _load_harvested() -> void:
 		harvested_positions = data
 		print("[GameManager] Loaded harvested positions for %d locations" % harvested_positions.size())
 #endregion
-
-
-func Die():
-	Global.corruption += 10

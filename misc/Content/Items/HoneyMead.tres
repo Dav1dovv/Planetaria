@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://b5et4tkvvryvl"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_x8w75"]
+[ext_resource type="Resource" uid="uid://bh5ouaf514jvi" path="res://misc/Content/Items/EmptyJar.tres" id="2_p2a11"]
+[ext_resource type="Resource" uid="uid://ch7n76d1j6ww1" path="res://misc/Content/Items/SlimeGel.tres" id="3_d0t47"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="4_kc5ua"]
+[ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/Audio/SFX/Player/Drink.wav" id="5_wyujy"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="6_k52cn"]
+[ext_resource type="Resource" path="res://misc/Content/Effects/MeadSpeed.tres" id="7_pvd1e"]
+[ext_resource type="Resource" path="res://misc/Content/Effects/MeadMining.tres" id="8_15p2v"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="9_1bc1y"]
+[ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://scr/Resources/ItemData/Food_item_data.gd" id="10_gh184"]
+
+[sub_resource type="Resource" id="Resource_10"]
+script = ExtResource("1_x8w75")
+item = ExtResource("2_p2a11")
+
+[sub_resource type="Resource" id="Resource_12"]
+script = ExtResource("1_x8w75")
+item = ExtResource("3_d0t47")
+
+[sub_resource type="Resource" id="Resource_14"]
+script = ExtResource("1_x8w75")
+item = ExtResource("4_kc5ua")
+amount = 12
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("9_1bc1y")
+region = Rect2(160, 64, 16, 16)
+
+[resource]
+script = ExtResource("10_gh184")
+eat_sound = ExtResource("5_wyujy")
+effects = Array[ExtResource("6_k52cn")]([ExtResource("7_pvd1e"), ExtResource("8_15p2v")])
+health_restore = 10.0
+icon = SubResource("AtlasTexture_3")
+play_anim = "Drink"
+item_name = "Honey Mead"
+description = "Faster feet and faster pickaxe for a minute."
+price = 24
+quality = 2
+craft_ingredients = Array[ExtResource("1_x8w75")]([SubResource("Resource_10"), SubResource("Resource_12"), SubResource("Resource_14")])
+craft_category = 2
+metadata/_custom_type_script = "uid://bw7mfbq68vy23"

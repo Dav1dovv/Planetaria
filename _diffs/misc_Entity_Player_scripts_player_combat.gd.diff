@@ -1,0 +1,52 @@
+--- /home/claude/proj/misc/Entity/Player/scripts/player_combat.gd	2026-10-05 19:03:14.000000000 +0000
++++ misc/Entity/Player/scripts/player_combat.gd	2026-10-16 04:22:00.839633079 +0000
+@@ -143,6 +143,8 @@
+ ## Скорострельность задаётся Atk_speed (скорость анимации).
+ 
+ func _begin_shot(equip: equip_data) -> void:
++	if equip.is_broken():
++		return  # сломанное оружие не стреляет (как и в ближнем бою)
+ 	player.is_attack = true
+ 	player.hit_box.look_at(player.mouse_pos)
+ 	player._hand.look_at(player.mouse_pos)
+@@ -179,6 +181,11 @@
+ 	var base_dir : Vector2 = to_mouse.normalized() if to_mouse.length() > 1.0 \
+ 			else Vector2.RIGHT.rotated(marker.global_rotation)
+ 
++	# Баффы/штрафы урона (Rage Elixir, Dark Grimoire, заражение) действуют и на выстрелы
++	var dmg_mult := 1.0
++	if player.Entity_stats:
++		dmg_mult = maxf(player.Entity_stats.get_damage_multiplier(), 0.1)
++
+ 	for i in equip.num_projectiles:
+ 		var bullet := equip.projectile.instantiate() as Projectile
+ 		if bullet == null:
+@@ -192,14 +199,27 @@
+ 		bullet.setup(
+ 			marker.global_position,
+ 			base_dir.rotated((randf() - 0.5) * deg_to_rad(equip.spread_degrees)),
+-			equip.Damage
++			equip.Damage * dmg_mult
+ 		)
++		if equip.projectile_speed > 0.0:
++			bullet.speed = equip.projectile_speed
+ 		player.get_parent().add_child(bullet)
+ 
+ 		# Эффекты «при попадании» (яд, огонь и т.д.) — так же, как у ближнего боя
+ 		if bullet.has_signal("hit_target"):
+ 			bullet.hit_target.connect(on_weapon_hit)
+ 
++	_after_shot(equip)
++
++
++## Износ оружия и расход бомб/колб после залпа.
++func _after_shot(equip: equip_data) -> void:
++	if equip.durability_per_shot > 0:
++		equip.reduce_durability(equip.durability_per_shot)
++		player.hit_box._refresh_hotbar_slot_ui()
++	if equip.consumable:
++		player.hit_box.consume_one_from_selected_slot()
++
+ 
+ func on_weapon_hit(target: Node) -> void:
+ 	if player.weapon_passive:

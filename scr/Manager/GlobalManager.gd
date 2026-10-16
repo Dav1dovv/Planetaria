@@ -207,11 +207,15 @@ func report_enemy_killed(enemy: Entity) -> void:
 	var id := enemy.get_enemy_id()
 	enemy_killed.emit(id, enemy.global_position)
 	report_planet_event(current_location, QuestData.Kind.KILL_ENEMY, id)
+	ContentLoot.enemy_bonus(id, enemy.global_position)
 
 
 ## Побеждён босс/«угроза планете» (HELP_LOCALS, target_id = ID босса).
 func report_boss_defeated(boss_id: String) -> void:
 	report_planet_event(current_location, QuestData.Kind.HELP_LOCALS, boss_id)
+	var p := get_tree().get_first_node_in_group("Player") as Node2D
+	if p:
+		ContentLoot.boss_bonus(boss_id, p.global_position)
 
 
 ## Для диалогов (Dialogue Manager не любит enum): do Global.report_alliance("elder")
@@ -315,7 +319,7 @@ const QUALITY_COLORS: Array[Color] = [
 func _bootstrap_game_feel() -> void:
 	# Порядок важен: ExhibitionManager ищет остальных по имени в _ready()
 	for component in [SessionTracker.new(), QuestCelebrator.new(), ObjectiveMarker.new(),
-			EliteDirector.new(), EventDirector.new(), AchievementTracker.new(),
+			 EliteDirector.new(), EventDirector.new(), AchievementTracker.new(),
 			TutorialHints.new(), ExhibitionManager.new()]:
 		var node := component as Node
 		node.name = node.get_script().get_global_name()

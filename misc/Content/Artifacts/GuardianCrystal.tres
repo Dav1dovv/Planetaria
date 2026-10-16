@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="AccessoryData" format=3]
+
+[ext_resource type="Script" uid="uid://di2yssv3uj7uc" path="res://scr/Resources/ItemData/AcsesoryData.gd" id="1_scr"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_tex"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="4_scr"]
+[ext_resource type="Resource" path="res://misc/Content/Effects/RelicCold.tres" id="5_res"]
+[ext_resource type="Resource" path="res://misc/Content/Effects/RelicDefense8.tres" id="6_res"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("2_tex")
+region = Rect2(96, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_scr")
+icon = SubResource("AtlasTexture_3")
+effects = Array[ExtResource("4_scr")]([ExtResource("5_res"), ExtResource("6_res")])
+item_name = "Guardian Crystal"
+description = "Immune to freezing, +8% defense. Found on relic hunts."
+stackable = false
+max_count = 1
+price = 100
+quality = 4
+metadata/_custom_type_script = "uid://di2yssv3uj7uc"

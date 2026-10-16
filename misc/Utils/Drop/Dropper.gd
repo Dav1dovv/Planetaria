@@ -36,6 +36,13 @@ func _spawn_drop(res: DropResource, root: Node) -> void:
 
 	var amount := res.get_amount()
 
+	# DOUBLE_LOOT (Fortune Ring): шанс удвоить добычу
+	var player := get_tree().get_first_node_in_group("Player")
+	if player and "effect_manager" in player and player.effect_manager:
+		var luck: float = player.effect_manager.get_effect_value(Effect.EffectType.DOUBLE_LOOT, 0.0)
+		if luck > 0.0 and randf() < luck:
+			amount *= 2
+
 	var new_drop = DROP.instantiate()
 	new_drop.update_drop(item, amount)
 

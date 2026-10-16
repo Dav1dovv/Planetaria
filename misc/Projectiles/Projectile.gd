@@ -177,11 +177,14 @@ func _explode() -> void:
 	bodies.append_array(get_tree().get_nodes_in_group("Harvestable"))
 	
 	for body in bodies:
-		if body == owner_player:
-			continue
+		if body == owner_player or body.is_in_group("NPC"):
+			continue  # не бьём себя и мирных жителей
 		if global_position.distance_to(body.global_position) <= explosion_radius:
 			if body.has_method("take_damage"):
 				body.take_damage(damage * 0.8, owner_player)  # 80% урона в AOE
+				# Эффекты оружия (огонь молотова, лёд колбы) — на каждую задетую цель
+				if shot_target == "Ennemy" and is_instance_valid(body):
+					hit_target.emit(body)
 			elif body.has_method("Harvest"):
 				body.Harvest(damage * 0.8, 1, false)
 

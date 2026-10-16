@@ -9,10 +9,10 @@ signal elite_spawned(enemy: Entity, affixes: Array)
 
 ## Кто может стать элитой (ID по Entity.get_enemy_id()). Боссы и звери — нет.
 const ELITE_IDS: Array[String] = ["slime", "pig", "rat", "bee", "enem"]
-const BASE_CHANCE := 0.04
-const MAX_CHANCE := 0.10
+const BASE_CHANCE := 0.09
+const MAX_CHANCE := 0.17
 ## Шанс растёт со временем игры — к концу забега элит больше
-const CHANCE_PER_MINUTE := 0.01
+const CHANCE_PER_MINUTE := 0.03
 const MAX_ALIVE := 1
 const HEALTH_MULT := 2.0
 const SECOND_AFFIX_CHANCE := 0.25
@@ -167,10 +167,7 @@ func _on_elite_died(enemy: Entity, affixes: Array) -> void:
 	LootUtil.drop(LootUtil.COIN, randi_range(8, 14) * (2 if golden else 1), pos)
 	if golden or randf() < 0.35:
 		LootUtil.drop(LootUtil.POTION, 1, pos)
-	# Элита — главный источник кристаллов (ремонт лучшего оружия) и редкая Звезда удачи
-	LootUtil.drop(LootUtil.CRYSTAL_SHARD, randi_range(1, 2) * (2 if golden else 1), pos)
-	if golden and randf() < 0.5:
-		LootUtil.drop(LootUtil.LUCKY_STAR, 1, pos)
+	ContentLoot.elite_bonus(pos, golden)
 
 	Global.report_planet_event(Global.current_location, QuestData.Kind.KILL_ENEMY, "elite")
 	Global.elite_defeated.emit(affixes)

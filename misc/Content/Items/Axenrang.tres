@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://lte20xok1jhe"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_r2llf"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="2_qsuuc"]
+[ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://misc/Content/Items/Wood.tres" id="3_hgu1x"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="4_wd6ig"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_0cxg6"]
+[ext_resource type="PackedScene" uid="uid://4xi3n2b4v2r6" path="res://misc/Projectiles/AxenRang.tscn" id="6_ooaq8"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="7_dju3w"]
+
+[sub_resource type="Resource" id="Resource_7"]
+script = ExtResource("1_r2llf")
+item = ExtResource("2_qsuuc")
+amount = 90
+
+[sub_resource type="Resource" id="Resource_9"]
+script = ExtResource("1_r2llf")
+item = ExtResource("3_hgu1x")
+amount = 12
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_r2llf")
+item = ExtResource("4_wd6ig")
+amount = 20
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("5_0cxg6")
+region = Rect2(32, 112, 16, 16)
+
+[sub_resource type="Resource" id="Resource_15"]
+script = ExtResource("1_r2llf")
+item = ExtResource("3_hgu1x")
+amount = 8
+
+[sub_resource type="Resource" id="Resource_12"]
+script = ExtResource("1_r2llf")
+item = ExtResource("2_qsuuc")
+amount = 45
+
+[sub_resource type="Resource" id="Resource_13"]
+script = ExtResource("1_r2llf")
+item = ExtResource("3_hgu1x")
+amount = 6
+
+[sub_resource type="Resource" id="Resource_14"]
+script = ExtResource("1_r2llf")
+item = ExtResource("4_wd6ig")
+amount = 10
+
+[resource]
+script = ExtResource("7_dju3w")
+max_durability = 120
+Damage = 20
+Atk_speed = 0.9
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+projectile = ExtResource("6_ooaq8")
+knockback = 8.0
+durability_per_shot = 1
+icon = SubResource("AtlasTexture_3")
+play_anim = "Shoot"
+item_name = "Axenrang"
+description = "Throw it. It comes back. Hit things twice."
+stackable = false
+price = 100
+quality = 3
+craft_ingredients = Array[ExtResource("1_r2llf")]([SubResource("Resource_7"), SubResource("Resource_9"), SubResource("Resource_11")])
+salvage = Array[ExtResource("1_r2llf")]([SubResource("Resource_12"), SubResource("Resource_13"), SubResource("Resource_14")])
+repair_ingredients = Array[ExtResource("1_r2llf")]([SubResource("Resource_15")])
+repair_gold_cost = 15
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

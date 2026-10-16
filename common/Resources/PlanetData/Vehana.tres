@@ -28,7 +28,7 @@ quest_id = &"artefact_pieces"
 title = "Осколки артефакта"
 description = "Свиньи-налётчики растащили осколки древнего артефакта. Собери 10 штук — из них куётся Призыватель."
 target_amount = 10
-target_items = Array[ExtResource("2_itemdata")]([ExtResource("4_piece"), ExtResource("6_jr2n0"), ExtResource("7_uxcw0"), ExtResource("8_fgk47"), ExtResource("9_q8o1u"), ExtResource("10_q5upd")])
+target_items = Array[ExtResource("2_itemdata")]([ExtResource("4_piece"), ExtResource("7_uxcw0"), ExtResource("6_jr2n0"), ExtResource("8_fgk47"), ExtResource("9_q8o1u"), ExtResource("10_q5upd")])
 rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_pieces")])
 metadata/_custom_type_script = "uid://c78jhtxa5bydr"
 

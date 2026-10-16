@@ -5,9 +5,9 @@ class_name EventDirector
 ## налёт свиней или падение припасов. Есть цель, таймер, награда. Между
 ## событиями игрок спокойно исследует, строит и крафтит.
 
-const FIRST_EVENT_DELAY := 120.0
-const EVENT_INTERVAL_MIN := 140.0
-const EVENT_INTERVAL_MAX := 200.0
+const FIRST_EVENT_DELAY := 80
+const EVENT_INTERVAL_MIN := 120
+const EVENT_INTERVAL_MAX := 180
 
 const SLIME_SCENES: Array[PackedScene] = [
 	preload("res://misc/Entity/Enemies/slime.tscn"),
@@ -35,6 +35,12 @@ const EVENTS := {
 		"title": "SUPPLY DROP!", "kind": "drop", "scenes": [],
 		"count": 0, "time": 75.0, "weight": 2, "color": Color(0.55, 0.85, 1.0),
 		"coins": 0, "potions": 0, "pieces": 0,
+	},
+	# Охота за реликвией: стрелка ведёт к реликвии, которую ещё не нашёл (см. ContentLoot)
+	&"relic_hunt": {
+		"title": "RELIC HUNT!", "kind": "drop", "scenes": [],
+		"count": 0, "time": 150.0, "weight": 2, "color": Color(1.0, 0.85, 0.3),
+		"coins": 60, "potions": 0, "pieces": 0, "relic": true,
 	},
 }
 
@@ -77,6 +83,8 @@ func _pick_event() -> StringName:
 	for id: StringName in EVENTS:
 		if id == _last_id:
 			continue  # два одинаковых подряд не бывает
+		if EVENTS[id].get("relic", false) and ContentLoot.missing_hunt_relics().is_empty():
+			continue  # все реликвии охоты уже найдены
 		for i in int(EVENTS[id]["weight"]):
 			pool.append(id)
 	return pool.pick_random()
@@ -94,7 +102,7 @@ func _start_event(id: StringName, player: Node2D) -> void:
 	}
 
 	var subtitle := Loc.t("Defeat them all before time runs out") if def["kind"] == "wave" \
-			else Loc.t("Find the supplies — follow the arrow")
+			else (Loc.t("Find the relic — follow the arrow") if def.get("relic", false) else Loc.t("Find the supplies — follow the arrow"))
 	GameJuice.banner(Loc.t(def["title"]), subtitle, def["color"], 2.0)
 	GameJuice.shake(2.0, 0.35)
 
@@ -133,14 +141,19 @@ func _spawn_supplies(_def: Dictionary, player: Node2D) -> void:
 	get_tree().current_scene.add_child(anchor)
 	_event["anchor"] = anchor
 
-	LootUtil.drop(LootUtil.COIN, randi_range(30, 60), pos, 14.0)
-	LootUtil.drop(LootUtil.POTION, 2, pos, 14.0)
-	LootUtil.drop(LootUtil.WOOD, 6, pos, 14.0)
-	LootUtil.drop(LootUtil.STONE, 6, pos, 14.0)
+	var is_relic: bool = _def.get("relic", false)
+	if is_relic:
+		ContentLoot.drop_relic(ContentLoot.next_hunt_relic(), pos)
+	else:
+		LootUtil.drop(LootUtil.COIN, randi_range(30, 60), pos, 14.0)
+		LootUtil.drop(LootUtil.POTION, 2, pos, 14.0)
+		LootUtil.drop(LootUtil.WOOD, 6, pos, 14.0)
+		LootUtil.drop(LootUtil.STONE, 6, pos, 14.0)
+		ContentLoot.supply_bonus(pos)
 
 	var marker := Global.get_node_or_null("ObjectiveMarker") as ObjectiveMarker
 	if marker:
-		_event["marker"] = marker.track(anchor, Loc.t("Supplies"), _def["color"])
+		_event["marker"] = marker.track(anchor, Loc.t("Relic") if is_relic else Loc.t("Supplies"), _def["color"])
 
 
 ## Берём точку у спавнера существ (он умеет отбирать проходимые тайлы).
@@ -191,6 +204,8 @@ func _end_event(success: bool, silent: bool = false) -> void:
 	_event = {}
 	_cooldown = randf_range(EVENT_INTERVAL_MIN, EVENT_INTERVAL_MAX)
 	_show_hud(false)
+	if def.get("relic", false) and not success:
+		ContentLoot.cleanup_relic_drops()  # не оставляем дубликат на карте
 	if silent:
 		return
 
@@ -201,7 +216,7 @@ func _end_event(success: bool, silent: bool = false) -> void:
 		if def["kind"] == "wave":
 			GameJuice.banner(Loc.t("EVENT COMPLETE!"), Loc.t("Event reward!"), Color(0.55, 1.0, 0.6), 1.6)
 		else:
-			GameJuice.toast(Loc.t("Supplies secured!"), Color(0.55, 1.0, 0.6))
+			GameJuice.toast(Loc.t("Relic found!") if def.get("relic", false) else Loc.t("Supplies secured!"), Color(0.55, 1.0, 0.6))
 	else:
 		GameJuice.toast(Loc.t("The event is over"), Color(0.85, 0.85, 0.85))
 
@@ -214,7 +229,7 @@ func _reward(def: Dictionary, _anchor_pos: Vector2) -> void:
 	LootUtil.drop(LootUtil.COIN, int(def["coins"]), pos)
 	LootUtil.drop(LootUtil.POTION, int(def["potions"]), pos)
 	LootUtil.drop(LootUtil.ARTEFACT_PIECE, int(def["pieces"]), pos)
-	LootUtil.drop(LootUtil.GOLD_ORE, randi_range(2, 4), pos)
+	ContentLoot.event_bonus(_last_id, pos)
 	GameJuice.shake(2.0, 0.3)
 
 

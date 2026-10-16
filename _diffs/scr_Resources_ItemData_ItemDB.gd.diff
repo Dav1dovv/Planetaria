@@ -1,0 +1,11 @@
+--- /home/claude/proj/scr/Resources/ItemData/ItemDB.gd	2026-10-08 19:26:26.000000000 +0000
++++ scr/Resources/ItemData/ItemDB.gd	2026-10-16 04:22:16.313811512 +0000
+@@ -3,7 +3,7 @@
+ extends Node
+ 
+ ## Папки с .tres предметами (сканируются рекурсивно). ПОДСТАВЬ СВОИ ПУТИ.
+-const ITEM_FOLDERS: PackedStringArray = ["res://items/", "res://misc/Content/Items/"]
++const ITEM_FOLDERS: PackedStringArray = ["res://items/", "res://misc/Content/Items/", "res://misc/Content/Artifacts/"]
+ 
+ var _items: Dictionary = {}               # item_name -> ItemData
+ var _recipes: Array[CraftRecipe] = []

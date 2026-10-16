@@ -69,7 +69,7 @@ metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ac6fd"]
 atlas = ExtResource("5_h0w0q")
-region = Rect2(0, 16, 16, 16)
+region = Rect2(48, 96, 16, 16)
 
 [sub_resource type="Animation" id="Animation_c3sx8"]
 resource_name = "Attack"

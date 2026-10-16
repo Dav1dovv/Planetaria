@@ -3,7 +3,7 @@
 extends Node
 
 ## Папки с .tres предметами (сканируются рекурсивно). ПОДСТАВЬ СВОИ ПУТИ.
-const ITEM_FOLDERS: PackedStringArray = ["res://items/", "res://misc/Content/Items/"]
+const ITEM_FOLDERS: PackedStringArray = ["res://items/", "res://misc/Content/Items/", "res://misc/Content/Artifacts/"]
 
 var _items: Dictionary = {}               # item_name -> ItemData
 var _recipes: Array[CraftRecipe] = []

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://beweq2pjx625v"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_xgatm"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_wvyn7"]
+[ext_resource type="PackedScene" path="res://misc/Projectiles/FrostFlask.tscn" id="3_p11fa"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="4_fmy87"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("2_wvyn7")
+region = Rect2(96, 112, 16, 16)
+
+[resource]
+script = ExtResource("4_fmy87")
+max_durability = 10
+Damage = 10
+Atk_speed = 0.9
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+projectile = ExtResource("3_p11fa")
+consumable = true
+on_hit_effect = "freeze"
+on_hit_duration = 3.5
+on_hit_potency = 0.45
+icon = SubResource("AtlasTexture_3")
+play_anim = "Shoot"
+item_name = "Frost Flask"
+description = "Shatters into freezing mist, slowing everyone nearby."
+max_count = 20
+price = 14
+quality = 1
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

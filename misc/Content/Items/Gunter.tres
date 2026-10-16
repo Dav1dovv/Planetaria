@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://bcg5vwna4id5n"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r0cw4"]
 atlas = ExtResource("2_wopst")
-region = Rect2(48, 96, 16, 16)
+region = Rect2(64, 96, 16, 16)
 
 [sub_resource type="Resource" id="Resource_lh55g"]
 script = ExtResource("1_s61ob")
@@ -32,7 +32,7 @@ num_projectiles = 6
 one_shot_attack = false
 icon = SubResource("AtlasTexture_r0cw4")
 play_anim = "Shoot"
-item_name = "Laser Gun"
+item_name = "Gunter"
 craft_ingredients = Array[ExtResource("1_s61ob")]([SubResource("Resource_dcsrf")])
 repair_ingredients = Array[ExtResource("1_s61ob")]([SubResource("Resource_lh55g")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

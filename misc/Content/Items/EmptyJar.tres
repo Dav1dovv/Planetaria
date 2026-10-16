@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bh5ouaf514jvi"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_dtsx3"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="2_2t3p4"]
+[ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://misc/Content/Items/Fuel.tres" id="3_uq4qx"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="4_xapk7"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="5_vrcj3"]
+
+[sub_resource type="Resource" id="Resource_6"]
+script = ExtResource("1_dtsx3")
+item = ExtResource("2_2t3p4")
+amount = 3
+
+[sub_resource type="Resource" id="Resource_8"]
+script = ExtResource("1_dtsx3")
+item = ExtResource("3_uq4qx")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("4_xapk7")
+region = Rect2(112, 48, 16, 16)
+
+[resource]
+script = ExtResource("5_vrcj3")
+icon = SubResource("AtlasTexture_3")
+item_name = "Empty Jar"
+description = "Needed for potions and flasks."
+price = 5
+craft_ingredients = Array[ExtResource("1_dtsx3")]([SubResource("Resource_6"), SubResource("Resource_8")])
+craft_amount = 2
+craft_category = 3
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

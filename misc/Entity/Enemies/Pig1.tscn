@@ -32,6 +32,18 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrqgb"]
 size = Vector2(20, 21)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uy7o4"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oax6j"]
+atlas = SubResource("CompressedTexture2D_uy7o4")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="Resource" id="Resource_e2p4o"]
+script = ExtResource("3_b50er")
+equiped_weapon_sprite = SubResource("AtlasTexture_oax6j")
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_4w85q"]
 atlas = ExtResource("4_cfyhe")
 region = Rect2(0, 16, 16, 16)
@@ -39,7 +51,6 @@ region = Rect2(0, 16, 16, 16)
 [sub_resource type="Resource" id="Resource_cfyhe"]
 script = ExtResource("3_b50er")
 Damage = 4
-equiped_weapon_sprite = SubResource("AtlasTexture_4w85q")
 icon = SubResource("AtlasTexture_4w85q")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
@@ -1559,6 +1570,7 @@ shape = SubResource("RectangleShape2D_lrqgb")
 
 [node name="HitBox" parent="." index="2" unique_id=1440497730]
 position = Vector2(0, -0.6241417)
+random_weapons = Array[ExtResource("3_b50er")]([SubResource("Resource_s2tfx"), SubResource("Resource_e2p4o")])
 equip = SubResource("Resource_cfyhe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0" unique_id=757434288]

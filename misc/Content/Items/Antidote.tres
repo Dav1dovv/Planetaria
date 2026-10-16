@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://ce7m4hegc11l7"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_jcviu"]
+[ext_resource type="Resource" uid="uid://bh5ouaf514jvi" path="res://misc/Content/Items/EmptyJar.tres" id="2_pgv4u"]
+[ext_resource type="Resource" uid="uid://ch7n76d1j6ww1" path="res://misc/Content/Items/SlimeGel.tres" id="3_1yesf"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="4_5i8lp"]
+[ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/Audio/SFX/Player/Drink.wav" id="5_745sd"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="6_c8f4b"]
+[ext_resource type="Resource" path="res://misc/Content/Effects/AntidoteResist.tres" id="7_c1i38"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="8_4lady"]
+[ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://scr/Resources/ItemData/Food_item_data.gd" id="9_lojyv"]
+
+[sub_resource type="Resource" id="Resource_9"]
+script = ExtResource("1_jcviu")
+item = ExtResource("2_pgv4u")
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_jcviu")
+item = ExtResource("3_1yesf")
+amount = 3
+
+[sub_resource type="Resource" id="Resource_13"]
+script = ExtResource("1_jcviu")
+item = ExtResource("4_5i8lp")
+amount = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("8_4lady")
+region = Rect2(160, 48, 16, 16)
+
+[resource]
+script = ExtResource("9_lojyv")
+eat_sound = ExtResource("5_745sd")
+effects = Array[ExtResource("6_c8f4b")]([ExtResource("7_c1i38")])
+health_restore = 0.0
+remove_corription = 20
+cure_infection = 40.0
+icon = SubResource("AtlasTexture_3")
+play_anim = "Drink"
+item_name = "Antidote"
+description = "Cleanses infection and halves new infection for 2 minutes."
+price = 30
+quality = 2
+craft_ingredients = Array[ExtResource("1_jcviu")]([SubResource("Resource_9"), SubResource("Resource_11"), SubResource("Resource_13")])
+craft_category = 2
+metadata/_custom_type_script = "uid://bw7mfbq68vy23"

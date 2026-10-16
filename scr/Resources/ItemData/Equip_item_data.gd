@@ -14,18 +14,19 @@ var durability: int = -1  # -1 = не инициализирована
 @export var is_weapon: bool = true
 @export var num_projectiles: int = 1
 @export var spread_degrees: float = 0.0
-@export var projectile_speed: float = 400.0
+## Скорость снаряда. 0 = брать скорость из сцены снаряда (так работали все старые оружия).
+@export var projectile_speed: float = 0.0
 @export var accuracy_radius: float = 20.0
 @export var knockback : float = 5
 
-func _init() -> void:
-	# Прочность — свойство ЭКЗЕМПЛЯРА, поэтому снаряжение не должно стакаться
-	# (иначе два меча делили бы одну прочность, а ремонт чинил бы «стопку»).
-	stackable = false
-	max_count = 1
-
 @export_group("Attack Behavior")
 @export var one_shot_attack: bool = true
+
+## Расходник (бомбы, колбы): каждый бросок тратит 1 шт. из стопки в хотбаре.
+@export var consumable: bool = false
+## Сколько прочности тратит один выстрел/залп. 0 = стрелковое оружие не изнашивается
+## (прежнее поведение). Для нового стрелкового оружия ставим 1.
+@export_range(0, 10) var durability_per_shot: int = 0
 
 # ═══════════════════════════════════════════════════════════════════
 #  LUNGE ATTACK — рывок-атака (тамплиер / рыцарь)
@@ -133,9 +134,6 @@ func reduce_durability(amount: int = 1) -> void:
 	emit_signal("durability_changed", durability, max_durability)
 	if durability <= 0:
 		emit_signal("weapon_broken")
-
-func is_damaged() -> bool:
-	return get_durability() < max_durability
 
 func is_broken() -> bool:
 	return get_durability() <= 0

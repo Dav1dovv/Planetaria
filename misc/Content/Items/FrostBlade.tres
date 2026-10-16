@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://co4ta487qihgf"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_wedgw"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="2_xpqvk"]
+[ext_resource type="Resource" uid="uid://feu6mm5l4c0h" path="res://misc/Content/Items/Artefact_Piece.tres" id="3_o236r"]
+[ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://misc/Content/Items/Fuel.tres" id="4_o0xbl"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_bjox2"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="6_voc33"]
+
+[sub_resource type="Resource" id="Resource_6"]
+script = ExtResource("1_wedgw")
+item = ExtResource("2_xpqvk")
+amount = 95
+
+[sub_resource type="Resource" id="Resource_8"]
+script = ExtResource("1_wedgw")
+item = ExtResource("3_o236r")
+amount = 2
+
+[sub_resource type="Resource" id="Resource_10"]
+script = ExtResource("1_wedgw")
+item = ExtResource("4_o0xbl")
+amount = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("5_bjox2")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="Resource" id="Resource_13"]
+script = ExtResource("1_wedgw")
+item = ExtResource("4_o0xbl")
+amount = 5
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_wedgw")
+item = ExtResource("2_xpqvk")
+amount = 47
+
+[sub_resource type="Resource" id="Resource_12"]
+script = ExtResource("1_wedgw")
+item = ExtResource("4_o0xbl")
+amount = 4
+
+[resource]
+script = ExtResource("6_voc33")
+max_durability = 130
+Damage = 13
+hit_distance = 13.0
+Atk_speed = 1.15
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+on_hit_effect = "freeze"
+on_hit_chance = 0.4
+on_hit_potency = 0.35
+icon = SubResource("AtlasTexture_3")
+item_name = "Frost Blade"
+description = "Chills enemies, slowing them down."
+stackable = false
+price = 105
+quality = 3
+craft_ingredients = Array[ExtResource("1_wedgw")]([SubResource("Resource_6"), SubResource("Resource_8"), SubResource("Resource_10")])
+salvage = Array[ExtResource("1_wedgw")]([SubResource("Resource_11"), SubResource("Resource_12")])
+repair_ingredients = Array[ExtResource("1_wedgw")]([SubResource("Resource_13")])
+repair_gold_cost = 15
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

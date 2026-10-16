@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://b72oigcc7yiv4"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_ic8un"]
+[ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://misc/Content/Items/Wood.tres" id="2_k7ge1"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="3_g8uto"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="4_j4ern"]
+[ext_resource type="PackedScene" path="res://misc/Projectiles/SlimeGlob.tscn" id="5_g41o1"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="6_gi31j"]
+
+[sub_resource type="Resource" id="Resource_7"]
+script = ExtResource("1_ic8un")
+item = ExtResource("2_k7ge1")
+amount = 8
+
+[sub_resource type="Resource" id="Resource_9"]
+script = ExtResource("1_ic8un")
+item = ExtResource("3_g8uto")
+amount = 6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("4_j4ern")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="Resource" id="Resource_12"]
+script = ExtResource("1_ic8un")
+item = ExtResource("2_k7ge1")
+amount = 6
+
+[sub_resource type="Resource" id="Resource_10"]
+script = ExtResource("1_ic8un")
+item = ExtResource("2_k7ge1")
+amount = 4
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_ic8un")
+item = ExtResource("3_g8uto")
+amount = 3
+
+[resource]
+script = ExtResource("6_gi31j")
+max_durability = 120
+Damage = 6
+Atk_speed = 1.5
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+projectile = ExtResource("5_g41o1")
+spread_degrees = 6.0
+knockback = 3.0
+one_shot_attack = false
+durability_per_shot = 1
+on_hit_effect = "slow"
+on_hit_chance = 0.5
+on_hit_duration = 2.0
+on_hit_potency = 0.3
+icon = SubResource("AtlasTexture_3")
+play_anim = "Shoot"
+item_name = "Slingshot"
+description = "Fires slime globs. Slows enemies. Cheap and cheerful."
+stackable = false
+price = 14
+craft_ingredients = Array[ExtResource("1_ic8un")]([SubResource("Resource_7"), SubResource("Resource_9")])
+salvage = Array[ExtResource("1_ic8un")]([SubResource("Resource_10"), SubResource("Resource_11")])
+repair_ingredients = Array[ExtResource("1_ic8un")]([SubResource("Resource_12")])
+repair_gold_cost = 3
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

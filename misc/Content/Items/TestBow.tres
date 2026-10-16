@@ -1,33 +1,29 @@
 [gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://dieok7r238rrp"]
 
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_1r6ro"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_8ud4d"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_dl7qs"]
 [ext_resource type="PackedScene" uid="uid://cfhe0ka5wyk3r" path="res://misc/Projectiles/Bullet.tscn" id="2_dl7qs"]
-[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="rf1_2977"]
-[ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://misc/Content/Items/Wood.tres" id="rf2_9375"]
-[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="rf4_8120"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="4_cvsiq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r0cw4"]
 atlas = ExtResource("1_dl7qs")
 region = Rect2(48, 96, 16, 16)
 
-[sub_resource type="Resource" id="RfIng_3"]
-script = ExtResource("rf1_2977")
-item = ExtResource("rf2_9375")
-amount = 5
-
-[sub_resource type="Resource" id="RfIng_5"]
-script = ExtResource("rf1_2977")
-item = ExtResource("rf4_8120")
+[sub_resource type="Resource" id="Resource_nsf3t"]
+script = ExtResource("1_8ud4d")
+item = ExtResource("4_cvsiq")
+amount = 25
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
 
 [resource]
 script = ExtResource("1_1r6ro")
-max_durability = 60
+max_durability = 20
 equiped_weapon_sprite = SubResource("AtlasTexture_r0cw4")
 projectile = ExtResource("2_dl7qs")
 one_shot_attack = false
 icon = SubResource("AtlasTexture_r0cw4")
 play_anim = "Shoot"
-item_name = "WEap"
-repair_ingredients = Array[ExtResource("rf1_2977")]([SubResource("RfIng_3"), SubResource("RfIng_5")])
+item_name = "Test Bow"
+repair_ingredients = Array[ExtResource("1_8ud4d")]([SubResource("Resource_nsf3t")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

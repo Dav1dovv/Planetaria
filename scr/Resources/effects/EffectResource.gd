@@ -142,7 +142,7 @@ func get_tooltip_text() -> String:
 		EffectType.DAMAGE_BOOST:
 			text += Loc.t("Урон +%d%%") % int(value * 100)
 		EffectType.DEFENSE_BOOST:
-			text += Loc.t("Защита +%d") % int(value)
+			text += Loc.t("Защита +%d%%") % int(value * 100)
 		EffectType.MINING_SPEED_BOOST:
 			text += Loc.t("Скорость добычи +%d%%") % int(value * 100)
 		EffectType.INVISIBILITY:

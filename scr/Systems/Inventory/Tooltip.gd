@@ -71,7 +71,7 @@ func set_data(item: ItemData, amount: int = 1) -> void:
 		hide_tooltip()
 		return
 
-	name_label.text = Loc.t(item.item_name)
+	name_label.text = item.item_name
 	if amount > 1:
 		name_label.text += " (x" + str(amount) + ")"
 	name_label.add_theme_color_override("font_color", _rarity_color(item.quality))
@@ -86,33 +86,53 @@ func set_data(item: ItemData, amount: int = 1) -> void:
 	if item is equip_data:
 		bb += _stat_line("DMG", str(item.Damage), COLOR_DAMAGE)
 		bb += _stat_line("LVL", str(item.lvl), COLOR_LEVEL)
-		bb += _stat_line("SPD", "%.2f" % item.Atk_speed, COLOR_LEVEL)
-		if item.projectile == null:
-			bb += _stat_line("Reach", "%d" % item.hit_distance, COLOR_LEVEL)
-		if item.num_projectiles > 1:
-			bb += _stat_line("Projectiles", "%d" % item.num_projectiles, COLOR_LEVEL)
-		if item.on_hit_effect != "none":
-			bb += _stat_line("On hit", _on_hit_summary(item), COLOR_FOOD)
-		if item.passive_emits_light:
-			bb += _stat_line("While held", Loc.t("Emits light"), COLOR_DEFENSE)
-		if item.passive_player_effect in ["poison", "burn"]:
-			bb += _stat_line("While held", Loc.t("Drains health"), COLOR_DURABILITY_LOW)
-		if item.max_durability > 0:
+		if item.max_durability > 0 and not item.consumable:
 			bb += _durability_line(item.get_durability(), item.max_durability)
 	elif item is FoodData:
-		if item.health_restore > 0.0:
-			bb += _stat_line("Heals", "%d" % item.health_restore, COLOR_FOOD)
-		if item.cure_infection > 0.0:
-			bb += _stat_line("Cures infection", "%d%%" % item.cure_infection, COLOR_FOOD)
-		for e in item.effects:
-			bb += _stat_line(Loc.t(e.display_name), _effect_duration(e), COLOR_FOOD)
-	elif item is AccessoryData:
-		for e in item.effects:
-			bb += _stat_line("Hotbar", Loc.t(e.display_name), COLOR_DEFENSE)
+		bb += _stat_line("Restore", "%d" % item.health_restore, COLOR_FOOD)
+
+	bb += _extra_lines(item)
 
 	desc_label.text = bb
 	# Видимость НЕ трогаем здесь — её включает/выключает InventorySlot
 	# на mouse_entered / mouse_exited. set_data только обновляет контент.
+
+
+const ON_HIT_NAMES := {
+	"slow": "Slow", "burn": "Burn", "poison": "Poison", "freeze": "Freeze",
+	"bleed": "Bleed", "corruption": "Corruption", "heal_on_hit": "Heal on hit",
+}
+
+## Дополнительные строки: эффект при ударе, пассивы, эффекты напитков и реликвий.
+func _extra_lines(item: ItemData) -> String:
+	var s := ""
+	if item is equip_data:
+		if item.on_hit_effect != "none":
+			s += _stat_line("On hit", "%s %d%%" % [Loc.t(ON_HIT_NAMES.get(item.on_hit_effect, item.on_hit_effect)), int(item.on_hit_chance * 100)], COLOR_FOOD)
+		if item.lunge_enabled:
+			s += _stat_line("Lunge", "+", COLOR_LEVEL)
+		if item.passive_emits_light:
+			s += _stat_line("Passive", Loc.t("Emits light"), COLOR_LEVEL)
+		match item.passive_player_effect:
+			"poison":
+				s += _stat_line("Passive", Loc.t("Holder takes poison"), COLOR_DURABILITY_LOW)
+			"defense_boost":
+				s += _stat_line("Defense", "+%d%%" % int(item.passive_player_potency * 100), COLOR_DEFENSE)
+		if item.consumable:
+			s += _stat_line("Consumable", "x", COLOR_LABEL)
+	elif item is FoodData or item is AccessoryData:
+		if item is AccessoryData:
+			s += "[color=%s]%s[/color]\n" % [COLOR_LABEL, Loc.t("Works from hotbar")]
+		for e in item.effects:
+			s += "[color=%s]%s[/color]\n" % [COLOR_FOOD, _effect_summary(e)]
+	return s
+
+
+func _effect_summary(e: Effect) -> String:
+	var full := e.get_tooltip_text()
+	var parts := full.split("\n\n", true, 1)
+	var detail := parts[1].strip_edges().replace("\n", " · ") if parts.size() > 1 else ""
+	return "%s — %s" % [Loc.t(e.display_name), detail] if detail != "" else Loc.t(e.display_name)
 
 
 func show_tooltip(item_name: String, text: String) -> void:
@@ -151,18 +171,6 @@ func _format_rarity_tag(quality: int) -> String:
 
 func _stat_line(stat_label: String, value: String, color: String) -> String:
 	return "[color=%s]%s:[/color] [color=%s]%s[/color]\n" % [COLOR_LABEL, Loc.t(stat_label), color, value]
-
-
-func _on_hit_summary(item: equip_data) -> String:
-	var kind := {"burn": "Burn", "poison": "Poison", "freeze": "Freeze", "bleed": "Bleed",
-		"corruption": "Corruption", "slow": "Slow", "heal_on_hit": "Heals"}.get(item.on_hit_effect, item.on_hit_effect) as String
-	return "%s %d%%" % [Loc.t(kind), int(round(item.on_hit_chance * 100.0))]
-
-
-func _effect_duration(e: Effect) -> String:
-	if e.duration > 0.0:
-		return "%d s" % int(round(e.duration))
-	return ""
 
 
 func _durability_line(current: int, max_dur: int) -> String:

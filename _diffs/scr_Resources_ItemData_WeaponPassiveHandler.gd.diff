@@ -1,0 +1,114 @@
+--- /home/claude/proj/scr/Resources/ItemData/WeaponPassiveHandler.gd	2026-09-04 23:02:58.000000000 +0000
++++ scr/Resources/ItemData/WeaponPassiveHandler.gd	2026-10-16 04:22:16.143633989 +0000
+@@ -25,6 +25,10 @@
+ # Флаг активного пассивного эффекта (чтобы не добавлять дважды)
+ var _passive_effect_active: bool = false
+ 
++# Кэш on-hit эффекта текущего оружия
++var _on_hit_cache: Effect = null
++var _on_hit_cache_owner: equip_data = null
++
+ # Ресурс эффекта, который сейчас держит текущее оружие (нужен, чтобы снять
+ # именно его при смене оружия — EffectManager снимает по effect_type).
+ var _current_passive_effect: Effect = null
+@@ -59,39 +63,62 @@
+ 			continue
+ 		if area.is_in_group("Ennemy") or area.is_in_group("Harvestable"):
+ 			if body.has_method("take_damage"):
+-				var is_crit := false
+-				var final_damage := lunge_damage
+-				var poise_dmg := 0.0
+-				if _current_equip:
+-					is_crit = randf() < _current_equip.critical_chance
+-					if is_crit:
+-						final_damage *= _current_equip.critical_multiplier
+-					poise_dmg = _current_equip.poise_damage * 0.6  # рывок стаггерит слабее прямого удара
+-
+-				body.take_damage(final_damage, _player, is_crit, poise_dmg)
++				var final_damage := lunge_damage * maxf(_player.Entity_stats.get_damage_multiplier(), 0.1)
++				var kb: float = _current_equip.knockback if _current_equip else 0.0
++				# Entity.take_damage(damage, source, knockback_mod) — 3 аргумента
++				body.take_damage(final_damage, _player, kb)
+ 				already_hit.append(body)
++				if is_instance_valid(body):
++					try_apply_on_hit_effect(body)
+ 
+ 
+-## Вызывается из player_combat.gd → on_weapon_hit() при обычном ударе (не рывке).
+-## Ожидает на equip_data необязательные поля:
+-##   on_hit_effect: Effect  — какой эффект накладывать на цель
+-##   on_hit_effect_chance: float — шанс срабатывания 0..1 (по умолчанию 1.0, если поля нет)
+-## ВНИМАНИЕ: у меня нет исходника equip_data.gd, поэтому имена полей — предположение.
+-## Если у тебя они называются иначе, поправь два .get() ниже (или пришли equip_data.gd).
++## Вызывается при каждом попадании оружием (ближний бой, снаряды, рывок, взрывы).
++## Читает поля equip_data: on_hit_effect (строка), on_hit_chance, on_hit_duration,
++## on_hit_potency, on_hit_bleed_percent, on_hit_corruption_bonus.
+ func try_apply_on_hit_effect(target: Node) -> void:
+-	if not _current_equip or not is_instance_valid(target):
++	var eq := _current_equip
++	if eq == null or not is_instance_valid(target) or eq.on_hit_effect == "none":
++		return
++	if randf() > eq.on_hit_chance:
+ 		return
+ 
+-	var on_hit_effect = _current_equip.get("on_hit_effect")
+-	if on_hit_effect == null or not (on_hit_effect is Effect):
++	# Вампиризм: лечит игрока, а не накладывает эффект на цель
++	if eq.on_hit_effect == "heal_on_hit":
++		if _player.has_method("heal"):
++			_player.heal(eq.on_hit_potency)
+ 		return
+ 
+-	var chance = _current_equip.get("on_hit_effect_chance")
+-	if chance == null:
+-		chance = 1.0
++	if not target.has_method("apply_effect_instance"):
++		return
++	if _on_hit_cache == null or _on_hit_cache_owner != eq:
++		_on_hit_cache = _build_on_hit_effect(eq)
++		_on_hit_cache_owner = eq
++	if _on_hit_cache:
++		target.apply_effect_instance(_on_hit_cache)
++
+ 
+-	if randf() <= float(chance) and target.has_method("apply_effect_instance"):
+-		target.apply_effect_instance(on_hit_effect)
++## Строит Effect из строкового on_hit_effect оружия (результат кэшируется).
++func _build_on_hit_effect(e: equip_data) -> Effect:
++	match e.on_hit_effect:
++		"burn":
++			return Effect.create_burn(e.on_hit_potency, e.on_hit_duration)
++		"poison":
++			return Effect.create_poison(e.on_hit_potency, e.on_hit_duration)
++		"freeze":
++			return Effect.create_freeze(e.on_hit_potency, e.on_hit_duration)
++		"bleed":
++			return Effect.create_bleed(e.on_hit_bleed_percent, e.on_hit_duration)
++		"corruption":
++			return Effect.create_corruption(e.on_hit_potency, e.on_hit_corruption_bonus, e.on_hit_duration)
++		"slow":
++			var s := Effect.new()
++			s.effect_type = Effect.EffectType.SLOW
++			s.value = e.on_hit_potency
++			s.duration = e.on_hit_duration
++			s.display_name = "Замедление"
++			s.particle_color = Color(0.6, 0.8, 0.5)
++			return s
++	return null
+ 
+ 
+ # ─── Внутренняя логика ────────────────────────────────────────────────────────
+@@ -170,6 +197,13 @@
+ 			eff.value = e.passive_player_potency
+ 			eff.duration = -1.0
+ 			return eff
++		"defense_boost":
++			var d := Effect.new()
++			d.effect_type = Effect.EffectType.DEFENSE_BOOST
++			d.value = e.passive_player_potency
++			d.duration = -1.0
++			d.display_name = "Defense"
++			return d
+ 		"poison":
+ 			# Оружие-проклятие: тикает урон по владельцу, пока оружие в руках
+ 			return Effect.create_poison(e.passive_player_potency, -1.0)

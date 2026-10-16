@@ -176,11 +176,46 @@ func _on_died() -> void:
 	gui.call_death()
 
 func respawn() -> void:
-	Entity_stats.current_health = Entity_stats.max_health / 3.0
-	_on_health_changed(Entity_stats.current_health)
+	# 1. Entity.die() выключает слой/маску 1 — без возврата игрок проваливается сквозь стены
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
+	$CollisionShape2D.disabled = false
+	if _hurt_col:
+		_hurt_col.disabled = false
+
+	# 2. Снимаем временные эффекты (яд, ожог, баффы). Постоянные — от реликвий и
+	#    оружия в руках — остаются, иначе после возрождения они молча пропадут.
+	for type in effect_manager.active_effects.keys().duplicate():
+		if not effect_manager.active_effects[type].permanent:
+			effect_manager.remove_effect(type)
+
+	# 3. Порча: если она >= HP после возрождения, игрок умирал заново от любого удара
+	corruption = minf(corruption, Entity_stats.max_health * 0.15)
+
+	# 4. Состояние боя: умер посреди атаки → is_attack залипал и бить/стрелять было нельзя
+	is_attack = false
+	_hand.rotation = 0
+	combat.is_lunging = false
 	movement.current_velocity = Vector2.ZERO
-	combat.is_lunging          = false
-	is_alive                   = true
+	velocity = Vector2.ZERO
+	_since_damage = 0.0
+
+	# 5. Здоровье — ПОСЛЕ is_alive, иначе проверка смерти в _on_health_changed не сработает как надо
+	is_alive = true
+	Entity_stats.current_health = Entity_stats.max_health / 3.0
+	_last_health = Entity_stats.current_health
+	BodyAnimator.play("Idle")
+	emit_signal("health_changed", Entity_stats.current_health)
+	health_bar.update_value(Entity_stats.current_health, Entity_stats.max_health, corruption)
+
+	_grant_respawn_invincibility()
+
+
+## 2 секунды неуязвимости, чтобы не умереть сразу на месте возрождения.
+func _grant_respawn_invincibility(seconds: float = 2.0) -> void:
+	is_invincible = true
+	await get_tree().create_timer(seconds).timeout
+	is_invincible = false
 
 
 #region infection

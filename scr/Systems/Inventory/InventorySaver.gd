@@ -125,31 +125,19 @@ func _unpack_container(container: Array[InventorySlotData], packed: Array) -> vo
 		slot_data.slot_node.ammount = slot_data.amount
 		slot_data.slot_node.update_ui()
 
-## Предмет известен ItemDB → берём ПОЛНУЮ копию шаблона и накладываем только то, что
-## реально меняется в игре (прочность, качество). Иначе после загрузки теряются поля, которых
-## нет в словаре сохранения: эффекты при ударе, свет, веер стрел, cure_infection, цена, рецепты.
-func _restore_from_template(data: Dictionary) -> ItemData:
-	var item_name: String = data.get("item_name", "")
-	if item_name == "" or not is_instance_valid(ItemDB):
-		return null
-	var template: ItemData = ItemDB.get_item(item_name)
-	if template == null or _get_item_type(template) != data.get("type"):
-		return null
-	var quality: int = data.get("quality", 0)
-	# Бафы еды/аксессуаров масштабируются на месте → для них копия глубокая, чтобы не портить шаблон
-	var item: ItemData = template.duplicate(quality > 0 and not (template is equip_data))
-	if quality > 0 and item.has_method("apply_quality_multiplier"):
-		item.apply_quality_multiplier(quality)
-	if item is equip_data:
-		var e := item as equip_data
-		e.durability = clampi(int(data.get("durability", e.max_durability)), 0, e.max_durability)
-	return item
-
-
 func _create_item_from_dict(data: Dictionary) -> ItemData:
-	var restored := _restore_from_template(data)
-	if restored:
-		return restored
+	# ── Новый путь: берём предмет из реестра по имени, а в рантайме восстанавливаем
+	# только то, что меняется в игре (прочность, качество). Так не теряются
+	# num_projectiles, on-hit эффекты, свет, рывок, эффекты аксессуаров и т.д.
+	var template: ItemData = ItemDB.get_item(data.get("item_name", ""))
+	if template != null:
+		var fresh: ItemData = template.duplicate()
+		if fresh is equip_data:
+			fresh.durability = data.get("durability", fresh.max_durability)
+		fresh.quality = data.get("quality", fresh.quality)
+		return fresh
+
+	# ── Старый путь (предмета нет в реестре): реконструкция из словаря ──
 	var item: ItemData
 	match data.get("type"):
 		"equip_data":

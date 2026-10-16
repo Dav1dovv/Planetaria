@@ -129,12 +129,12 @@ func apply_damage(area: Area2D, damage: float) -> void:
 
 
 		if equip is equip_data:
-			target.take_damage(equip.Damage, self,equip.knockback)
+			# damage уже включает баффы/штрафы (Rage Elixir, заражение и т.д.)
+			target.take_damage(damage, self, equip.knockback)
+			# On-hit эффекты оружия (яд, огонь, лёд, кровь, вампиризм)
+			if is_instance_valid(target) and owner and owner.get("weapon_passive"):
+				owner.weapon_passive.try_apply_on_hit_effect(target)
 			equip.reduce_durability(1)
-			# Эффекты оружия при ударе (яд, огонь, заморозка...) — раньше для ближнего боя не вызывались
-			var passive = owner.get("weapon_passive") if owner else null
-			if passive:
-				passive.try_apply_on_hit_effect(target)
 		return
 	# ────────────────────────────────────────────────────────────────────────
 
@@ -142,16 +142,33 @@ func apply_damage(area: Area2D, damage: float) -> void:
 ## Множитель к исходящему урону игрока — читает Entity_stats.damage_modifier
 ## (куда PlayerInfection пишет -0.5 при заражении 50-79%). Минимум 0.1x —
 ## чтобы урон не мог уйти в ноль/отрицательное значение при стакании дебаффов.
-func _get_outgoing_damage_multiplier() -> float:
-	if owner and "Entity_stats" in owner and owner.Entity_stats:
-		return maxf(1.0 + owner.Entity_stats.damage_modifier, 0.1)
-	return 1.0
-
-
-## Бонус эффекта MINING_SPEED_BOOST (напр. Медаль шахтёра) к урону по ресурсам
+## Множитель скорости добычи (MINING_SPEED_BOOST: Honey Mead, Miner's Medal).
 func _get_mining_multiplier() -> float:
 	if owner and "effect_manager" in owner and owner.effect_manager:
 		return 1.0 + owner.effect_manager.get_effect_value(Effect.EffectType.MINING_SPEED_BOOST, 0.0)
+	return 1.0
+
+
+## Тратит 1 шт. из выбранного слота хотбара (бомбы, колбы). Пустой слот очищается.
+func consume_one_from_selected_slot() -> void:
+	if not hotbar: return
+	var slot_data := hotbar.slots[hotbar.selected_index]
+	if slot_data.item == null or slot_data.amount <= 0:
+		return
+	slot_data.amount -= 1
+	slot_data.slot_node.ammount = slot_data.amount
+	slot_data.slot_node.update_ui()
+	if slot_data.amount <= 0:
+		slot_data.item = null
+		slot_data.slot_node.item = null
+		slot_data.slot_node.update_ui()
+		update_equip(null)
+	hotbar.emit_signal("hotbar_changed")
+
+
+func _get_outgoing_damage_multiplier() -> float:
+	if owner and "Entity_stats" in owner and owner.Entity_stats:
+		return maxf(1.0 + owner.Entity_stats.damage_modifier, 0.1)
 	return 1.0
 
 
@@ -198,6 +215,10 @@ func _apply_food_effects(food: FoodData) -> void:
 	for effect in food.effects:
 		if p.has_method("apply_effect_instance"):
 			p.apply_effect_instance(effect)
+		if effect.effect_type == 0:
+			if p.has_method("heal"):
+				p.heal(effect.value)
+				p.heal(food.health_restore)
 
 	if p.has_method("heal"):
 		p.heal(food.health_restore)

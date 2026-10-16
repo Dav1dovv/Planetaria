@@ -1,0 +1,21 @@
+--- /home/claude/proj/scr/Systems/Inventory/InventorySaver.gd	2026-08-06 23:14:58.000000000 +0000
++++ scr/Systems/Inventory/InventorySaver.gd	2026-10-16 04:22:16.311633999 +0000
+@@ -126,6 +126,18 @@
+ 		slot_data.slot_node.update_ui()
+ 
+ func _create_item_from_dict(data: Dictionary) -> ItemData:
++	# ── Новый путь: берём предмет из реестра по имени, а в рантайме восстанавливаем
++	# только то, что меняется в игре (прочность, качество). Так не теряются
++	# num_projectiles, on-hit эффекты, свет, рывок, эффекты аксессуаров и т.д.
++	var template: ItemData = ItemDB.get_item(data.get("item_name", ""))
++	if template != null:
++		var fresh: ItemData = template.duplicate()
++		if fresh is equip_data:
++			fresh.durability = data.get("durability", fresh.max_durability)
++		fresh.quality = data.get("quality", fresh.quality)
++		return fresh
++
++	# ── Старый путь (предмета нет в реестре): реконструкция из словаря ──
+ 	var item: ItemData
+ 	match data.get("type"):
+ 		"equip_data":

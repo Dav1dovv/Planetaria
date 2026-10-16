@@ -1,0 +1,10 @@
+--- /home/claude/proj/scr/Systems/Content/EliteDirector.gd	2026-10-16 02:21:04.000000000 +0000
++++ scr/Systems/Content/EliteDirector.gd	2026-10-16 04:23:23.770624902 +0000
+@@ -167,6 +167,7 @@
+ 	LootUtil.drop(LootUtil.COIN, randi_range(8, 14) * (2 if golden else 1), pos)
+ 	if golden or randf() < 0.35:
+ 		LootUtil.drop(LootUtil.POTION, 1, pos)
++	ContentLoot.elite_bonus(pos, golden)
+ 
+ 	Global.report_planet_event(Global.current_location, QuestData.Kind.KILL_ENEMY, "elite")
+ 	Global.elite_defeated.emit(affixes)
