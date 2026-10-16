@@ -10,6 +10,9 @@ const POTION: ItemData = preload("res://misc/Content/Items/HealthPotion.tres")
 const WOOD: ItemData = preload("res://misc/Content/Items/Wood.tres")
 const STONE: ItemData = preload("res://misc/Content/Items/Stone.tres")
 const ARTEFACT_PIECE: ItemData = preload("res://misc/Content/Items/Artefact_Piece.tres")
+const GOLD_ORE: ItemData = preload("res://misc/Content/Items/Gold_Ore.tres")
+const CRYSTAL_SHARD: ItemData = preload("res://misc/Content/Items/Crystal_Shard.tres")
+const LUCKY_STAR: ItemData = preload("res://misc/Content/Items/Potion_LuckyStar.tres")
 
 
 ## Положить на землю amount штук предмета рядом с pos (подбирается магнитом, как обычный дроп).

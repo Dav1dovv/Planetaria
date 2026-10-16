@@ -1530,6 +1530,7 @@ _data = {
 [node name="Pig" unique_id=1251952136 node_paths=PackedStringArray("skin", "body_anim", "hand_anim", "Vfx") instance=ExtResource("1_w3ikb")]
 scale = Vector2(1.35, 1.35)
 script = ExtResource("2_nfqrk")
+is_boss = false
 walk_offset = 2.5
 offset_interval = 60.0
 line_of_sight = 160.0

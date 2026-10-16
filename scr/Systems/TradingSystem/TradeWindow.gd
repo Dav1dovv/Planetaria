@@ -147,7 +147,8 @@ func _on_trader_slot_clicked(slot: TradeSlot) -> void:
 	if not _change_gold(-entry.price):
 		return
 
-	inventory.add_item(entry.item, 1)
+	# .duplicate(): у каждой купленной вещи своя прочность, а запас торговца не изнашивается
+	inventory.add_item(entry.item.duplicate(), 1)
 
 	if entry.stock > 0:
 		entry.stock -= 1

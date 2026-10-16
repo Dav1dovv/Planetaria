@@ -22,10 +22,6 @@ resources_spreadsheet_view/resource_cell_label_mode=1
 resources_spreadsheet_view/freeze_first_column=true
 ss2d/version="3.3.1"
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="Planetoria"

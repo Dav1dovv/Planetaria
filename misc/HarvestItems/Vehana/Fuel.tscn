@@ -44,7 +44,6 @@ position = Vector2(-0.77386093, -2.934204)
 texture = ExtResource("5_v71a4")
 offset = Vector2(-0.23476791, -12.020668)
 hframes = 3
-frame = 1
 script = ExtResource("5_qt5sa")
 frame_weights = Array[float]([1.0, 1.0, 1.0])
 

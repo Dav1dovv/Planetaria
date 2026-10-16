@@ -15,6 +15,9 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfjqq"]
 size = Vector2(39, 19)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2ukr"]
+size = Vector2(33, 4)
+
 [sub_resource type="Animation" id="Animation_u6aou"]
 resource_name = "Hide"
 tracks/0/type = "value"
@@ -517,23 +520,52 @@ _data = {
 &"Walk": SubResource("Animation_totrt")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2ukr"]
-size = Vector2(33, 4)
-
 [node name="Snail" unique_id=2111811093 node_paths=PackedStringArray("body_anim") instance=ExtResource("1_u6aou")]
 position = Vector2(-1, 0)
 script = ExtResource("2_38abt")
 behavior = -0.78
+can_flee = false
 flee_threshold = 0.112
+flee_on_hit = false
+use_fear = false
 fear_per_damage = 2.405
 fear_proximity_radius = 95.26
 fear_proximity_rate = 1.435
+fear_decay_rate = 0.05
 fear_flee_threshold = 1.0
 fear_calm_threshold = 0.694
 hides_when_scared = true
 hide_duration = 0.22
 hide_damage_reduction = 0.535
+fear_sound = null
+fear_sound_pitch_variance = 0.08
+flee_speed_multiplier = 1.6
+pack_group = ""
+pack_alert_radius = 300.0
+hear_radius = 60.0
 sight_radius = 360.0
+fov_half_angle = 60.0
+use_los_check = true
+wall_collision_mask = 1
+memory_duration = 3.0
+wander_interval_min = 2.0
+wander_interval_max = 5.0
+wander_radius = 100.0
+turn_speed = 12.0
+patrol_points = Array[NodePath]([])
+chase_weave_enabled = true
+chase_weave_amplitude = 14.0
+chase_weave_frequency = 0.8
+ray_length = 40.0
+avoidance_strength = 1.8
+attack_damage = 10.0
+attack_radius = 28.0
+attack_cooldown = 1.2
+max_poise = 100.0
+poise_decay_rate = 15.0
+poise_decay_delay = 1.0
+stagger_duration = 1.0
+vulnerable_damage_multiplier = 1.5
 body_anim = NodePath("Skin/AnimationPlayer")
 Entity_stats = SubResource("Resource_38abt")
 
@@ -550,6 +582,10 @@ visible = false
 position = Vector2(-3, -10.5)
 shape = SubResource("RectangleShape2D_tfjqq")
 disabled = true
+
+[node name="CollisionShape2D" parent="." index="3" unique_id=713772618]
+position = Vector2(-2.5, -3)
+shape = SubResource("RectangleShape2D_u2ukr")
 
 [node name="Skin" type="Node2D" parent="." index="7" unique_id=1451036635]
 
@@ -579,14 +615,10 @@ region_rect = Rect2(209, 70, 19, 17)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Skin" index="3" unique_id=1101735219]
 libraries/ = SubResource("AnimationLibrary_d65i2")
 
-[node name="HealthBar" parent="." index="8" unique_id=1354189396]
+[node name="HealthBar" parent="." index="9" unique_id=1354189396]
 offset_left = -23.0
 offset_top = 3.0
 offset_right = 23.0
 offset_bottom = 5.0
-
-[node name="CollisionShape2D" parent="." index="9" unique_id=713772618]
-position = Vector2(-2.5, -3)
-shape = SubResource("RectangleShape2D_u2ukr")
 
 [connection signal="health_changed" from="." to="." method="_on_Damaged"]

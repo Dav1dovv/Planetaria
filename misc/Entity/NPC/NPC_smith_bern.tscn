@@ -2,10 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://ct5em2x7b3mbs" path="res://misc/Entity/NPC/NPC_Barmen.tscn" id="1_uue0a"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="2_njn4u"]
-[ext_resource type="Script" uid="uid://defn11cdggnnf" path="res://scr/Misc/ShowDialog.gd" id="3_k6uyc"]
-[ext_resource type="Resource" uid="uid://37etl711645b" path="res://misc/Dialogs/Bern/Bern1.dialogue" id="4_7w438"]
 
-[sub_resource type="Resource" id="Resource_k6uyc"]
+[sub_resource type="Resource" id="Resource_uue0a"]
 resource_local_to_scene = true
 script = ExtResource("2_njn4u")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
@@ -14,13 +12,12 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 size = Vector2(22.851265, 24.919147)
 
 [node name="SmithRedji" unique_id=2111811093 instance=ExtResource("1_uue0a")]
-show_ui = "Weapon"
 awareness_radius = 40.0
 wander_interval_min = 4.0
 wander_interval_max = 7.0
 wander_radius = 30.0
 turn_speed = 48.0
-Entity_stats = SubResource("Resource_k6uyc")
+Entity_stats = SubResource("Resource_uue0a")
 
 [node name="interaction_area" parent="." index="7" unique_id=1236577010]
 position = Vector2(-0.2456932, 0)
@@ -49,8 +46,3 @@ region_rect = Rect2(33, 53, 2, 6)
 [node name="RightHand" parent="Skin/Body" index="4" unique_id=1754363545]
 offset = Vector2(-0.055, 2.855)
 region_rect = Rect2(33, 53, 2, 6)
-
-[node name="show_dialog" type="Node" parent="." index="12" unique_id=1014314433]
-script = ExtResource("3_k6uyc")
-dialog_path = ExtResource("4_7w438")
-metadata/_custom_type_script = "uid://defn11cdggnnf"

@@ -18,6 +18,12 @@ var durability: int = -1  # -1 = не инициализирована
 @export var accuracy_radius: float = 20.0
 @export var knockback : float = 5
 
+func _init() -> void:
+	# Прочность — свойство ЭКЗЕМПЛЯРА, поэтому снаряжение не должно стакаться
+	# (иначе два меча делили бы одну прочность, а ремонт чинил бы «стопку»).
+	stackable = false
+	max_count = 1
+
 @export_group("Attack Behavior")
 @export var one_shot_attack: bool = true
 
@@ -127,6 +133,9 @@ func reduce_durability(amount: int = 1) -> void:
 	emit_signal("durability_changed", durability, max_durability)
 	if durability <= 0:
 		emit_signal("weapon_broken")
+
+func is_damaged() -> bool:
+	return get_durability() < max_durability
 
 func is_broken() -> bool:
 	return get_durability() <= 0

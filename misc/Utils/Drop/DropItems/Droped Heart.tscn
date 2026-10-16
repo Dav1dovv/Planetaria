@@ -18,7 +18,7 @@ shader_parameter/sine_speed = Vector2(0.2, 1.3)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nfhsv"]
 atlas = ExtResource("3_wl450")
-region = Rect2(80, 64, 16, 16)
+region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nfhsv"]
 radius = 38.013157
@@ -198,7 +198,6 @@ autostart = true
 stream = SubResource("AudioStreamRandomizer_p6xfw")
 max_distance = 150.0
 max_polyphony = 10
-bus = &"SFX"
 
 [connection signal="body_entered" from="PickZone" to="." method="_on_pick_zone_body_entered"]
 [connection signal="body_exited" from="PickZone" to="." method="_on_pick_zone_body_exited"]

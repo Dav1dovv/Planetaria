@@ -59,39 +59,49 @@ func apply_lunge_damage(already_hit: Array, lunge_damage: float) -> void:
 			continue
 		if area.is_in_group("Ennemy") or area.is_in_group("Harvestable"):
 			if body.has_method("take_damage"):
-				var is_crit := false
-				var final_damage := lunge_damage
-				var poise_dmg := 0.0
-				if _current_equip:
-					is_crit = randf() < _current_equip.critical_chance
-					if is_crit:
-						final_damage *= _current_equip.critical_multiplier
-					poise_dmg = _current_equip.poise_damage * 0.6  # рывок стаггерит слабее прямого удара
-
-				body.take_damage(final_damage, _player, is_crit, poise_dmg)
+				body.take_damage(lunge_damage, _player, _current_equip.knockback if _current_equip else 0.0)
 				already_hit.append(body)
 
 
-## Вызывается из player_combat.gd → on_weapon_hit() при обычном ударе (не рывке).
-## Ожидает на equip_data необязательные поля:
-##   on_hit_effect: Effect  — какой эффект накладывать на цель
-##   on_hit_effect_chance: float — шанс срабатывания 0..1 (по умолчанию 1.0, если поля нет)
-## ВНИМАНИЕ: у меня нет исходника equip_data.gd, поэтому имена полей — предположение.
-## Если у тебя они называются иначе, поправь два .get() ниже (или пришли equip_data.gd).
+## Вызывается при попадании: из PlayerHitBox (ближний бой) и player_combat.on_weapon_hit (снаряды).
+## Эффект строится из полей equip_data: on_hit_effect / _chance / _duration / _potency / ...
+## Для freeze и slow potency — ПРОЦЕНТЫ замедления (35 = -35% скорости).
 func try_apply_on_hit_effect(target: Node) -> void:
 	if not _current_equip or not is_instance_valid(target):
 		return
-
-	var on_hit_effect = _current_equip.get("on_hit_effect")
-	if on_hit_effect == null or not (on_hit_effect is Effect):
+	var kind := _current_equip.on_hit_effect
+	if kind == "none" or randf() > _current_equip.on_hit_chance:
 		return
 
-	var chance = _current_equip.get("on_hit_effect_chance")
-	if chance == null:
-		chance = 1.0
+	if kind == "heal_on_hit":
+		if _player.has_method("heal"):
+			_player.heal(_current_equip.on_hit_potency)
+		return
 
-	if randf() <= float(chance) and target.has_method("apply_effect_instance"):
-		target.apply_effect_instance(on_hit_effect)
+	if not target.has_method("apply_effect_instance"):
+		return
+	var effect := _build_on_hit_effect(_current_equip)
+	if effect:
+		target.apply_effect_instance(effect)
+
+
+func _build_on_hit_effect(e: equip_data) -> Effect:
+	var dur := e.on_hit_duration
+	match e.on_hit_effect:
+		"burn":       return Effect.create_burn(e.on_hit_potency, dur)
+		"poison":     return Effect.create_poison(e.on_hit_potency, dur)
+		"freeze":     return Effect.create_freeze(e.on_hit_potency / 100.0, dur)
+		"bleed":      return Effect.create_bleed(e.on_hit_bleed_percent, dur)
+		"corruption": return Effect.create_corruption(e.on_hit_potency, e.on_hit_corruption_bonus, dur)
+		"slow":
+			var slow := Effect.new()
+			slow.effect_type = Effect.EffectType.SLOW
+			slow.value = e.on_hit_potency / 100.0
+			slow.duration = dur
+			slow.display_name = "Замедление"
+			slow.particle_color = Color(0.7, 0.8, 0.9)
+			return slow
+	return null
 
 
 # ─── Внутренняя логика ────────────────────────────────────────────────────────

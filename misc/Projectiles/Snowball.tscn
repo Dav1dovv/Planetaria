@@ -55,7 +55,6 @@ script = ExtResource("1_ysfnw")
 speed = 200.0
 lifetime = 4.0
 damage = 8.0
-projectile_type = "normal"
 explode_on_hit = false
 max_travel_distance = 200.0
 

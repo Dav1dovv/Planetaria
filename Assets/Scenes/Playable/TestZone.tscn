@@ -167,20 +167,25 @@ Entity_stats = SubResource("Resource_u4jf3")
 
 [node name="Pig2" parent="." index="10" unique_id=2124978405 instance=ExtResource("8_wwern")]
 position = Vector2(-514.56586, 153.1806)
+is_boss = false
 Entity_stats = SubResource("Resource_dpt3g")
 
 [node name="Pig3" parent="." index="11" unique_id=29157946 instance=ExtResource("8_wwern")]
 position = Vector2(-304.10437, 482.51392)
+is_boss = false
 Entity_stats = SubResource("Resource_11b3f")
 
 [node name="Pig4" parent="." index="12" unique_id=81558667 instance=ExtResource("8_wwern")]
 position = Vector2(68.10071, 609.18054)
+is_boss = false
 Entity_stats = SubResource("Resource_t3xwd")
 
 [node name="Pig5" parent="." index="13" unique_id=656774119 instance=ExtResource("9_ntyta")]
 position = Vector2(-686.0526, 488.36005)
+is_boss = false
 Entity_stats = SubResource("Resource_s2eu7")
 
 [node name="Pig6" parent="." index="14" unique_id=2047291074 instance=ExtResource("9_ntyta")]
 position = Vector2(-220.89966, -417.62805)
+is_boss = false
 Entity_stats = SubResource("Resource_micpe")

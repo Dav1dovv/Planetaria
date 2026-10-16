@@ -71,7 +71,7 @@ func set_data(item: ItemData, amount: int = 1) -> void:
 		hide_tooltip()
 		return
 
-	name_label.text = item.item_name
+	name_label.text = Loc.t(item.item_name)
 	if amount > 1:
 		name_label.text += " (x" + str(amount) + ")"
 	name_label.add_theme_color_override("font_color", _rarity_color(item.quality))
@@ -79,17 +79,36 @@ func set_data(item: ItemData, amount: int = 1) -> void:
 	var bb := _format_rarity_tag(item.quality) + "\n"
 
 	if item.description and item.description != "":
-		bb += "[color=%s]%s[/color]\n" % [COLOR_DESC, item.description]
+		bb += "[color=%s]%s[/color]\n" % [COLOR_DESC, Loc.t(item.description)]
 
 	bb += "\n"
 
 	if item is equip_data:
 		bb += _stat_line("DMG", str(item.Damage), COLOR_DAMAGE)
 		bb += _stat_line("LVL", str(item.lvl), COLOR_LEVEL)
+		bb += _stat_line("SPD", "%.2f" % item.Atk_speed, COLOR_LEVEL)
+		if item.projectile == null:
+			bb += _stat_line("Reach", "%d" % item.hit_distance, COLOR_LEVEL)
+		if item.num_projectiles > 1:
+			bb += _stat_line("Projectiles", "%d" % item.num_projectiles, COLOR_LEVEL)
+		if item.on_hit_effect != "none":
+			bb += _stat_line("On hit", _on_hit_summary(item), COLOR_FOOD)
+		if item.passive_emits_light:
+			bb += _stat_line("While held", Loc.t("Emits light"), COLOR_DEFENSE)
+		if item.passive_player_effect in ["poison", "burn"]:
+			bb += _stat_line("While held", Loc.t("Drains health"), COLOR_DURABILITY_LOW)
 		if item.max_durability > 0:
 			bb += _durability_line(item.get_durability(), item.max_durability)
 	elif item is FoodData:
-		bb += _stat_line("Restore", "%d" % item.health_restore, COLOR_FOOD)
+		if item.health_restore > 0.0:
+			bb += _stat_line("Heals", "%d" % item.health_restore, COLOR_FOOD)
+		if item.cure_infection > 0.0:
+			bb += _stat_line("Cures infection", "%d%%" % item.cure_infection, COLOR_FOOD)
+		for e in item.effects:
+			bb += _stat_line(Loc.t(e.display_name), _effect_duration(e), COLOR_FOOD)
+	elif item is AccessoryData:
+		for e in item.effects:
+			bb += _stat_line("Hotbar", Loc.t(e.display_name), COLOR_DEFENSE)
 
 	desc_label.text = bb
 	# Видимость НЕ трогаем здесь — её включает/выключает InventorySlot
@@ -132,6 +151,18 @@ func _format_rarity_tag(quality: int) -> String:
 
 func _stat_line(stat_label: String, value: String, color: String) -> String:
 	return "[color=%s]%s:[/color] [color=%s]%s[/color]\n" % [COLOR_LABEL, Loc.t(stat_label), color, value]
+
+
+func _on_hit_summary(item: equip_data) -> String:
+	var kind := {"burn": "Burn", "poison": "Poison", "freeze": "Freeze", "bleed": "Bleed",
+		"corruption": "Corruption", "slow": "Slow", "heal_on_hit": "Heals"}.get(item.on_hit_effect, item.on_hit_effect) as String
+	return "%s %d%%" % [Loc.t(kind), int(round(item.on_hit_chance * 100.0))]
+
+
+func _effect_duration(e: Effect) -> String:
+	if e.duration > 0.0:
+		return "%d s" % int(round(e.duration))
+	return ""
 
 
 func _durability_line(current: int, max_dur: int) -> String:

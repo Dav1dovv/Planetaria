@@ -30,6 +30,8 @@ func handle_input(event: InputEvent) -> void:
 
 		# Стрелковое оружие — отдельная ветка (см. раздел «Стрельба» ниже)
 		if equip.play_anim == "Shoot":
+			if equip.is_broken():
+				return  # сломанный лук/арбалет не стреляет (как и сломанный меч не бьёт)
 			_begin_shot(equip)
 			return
 
@@ -169,8 +171,17 @@ func _start_shot_cooldown(one_shot: bool) -> void:
 func shoot() -> void:
 	## Вызывается из анимации "Shoot" (Call Method Track) в момент вылета снаряда.
 	var equip := player.hit_box.equip as equip_data
-	if not equip or not equip.projectile:
+	if not equip or not equip.projectile or equip.is_broken():
 		return
+
+	# Один выстрел (даже веером) = один износ. Раньше дальнобой не изнашивался вообще.
+	equip.reduce_durability(1)
+	player.hit_box._refresh_hotbar_slot_ui()
+
+	# Бафы/штрафы урона (зелья, заражение) работают и для снарядов — как в ближнем бою
+	var dmg_mult := 1.0
+	if "Entity_stats" in player and player.Entity_stats:
+		dmg_mult = maxf(1.0 + player.Entity_stats.damage_modifier, 0.1)
 
 	var marker = shot_marker
 
@@ -192,7 +203,7 @@ func shoot() -> void:
 		bullet.setup(
 			marker.global_position,
 			base_dir.rotated((randf() - 0.5) * deg_to_rad(equip.spread_degrees)),
-			equip.Damage
+			equip.Damage * dmg_mult
 		)
 		player.get_parent().add_child(bullet)
 

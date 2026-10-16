@@ -51,17 +51,21 @@ enum StationRestriction {
 ## Пусто = ремонт недоступен
 @export var repair_ingredients: Array[CraftIngredient] = []
 @export var repair_gold_cost: int = 0
-## Сколько прочности восстанавливается (0 = полный ремонт)
+## УСТАРЕЛО: ремонт в игре ВСЕГДА полный, значение игнорируется (см. CraftRecipe.from_repair).
+## Поле оставлено только чтобы не ломать старые .tres.
 @export var repair_amount: int = 0
+## Где можно чинить предмет (отдельно от места покупки: чинить удобно и в лагере, и у кузнеца)
+@export var repair_station: StationRestriction = StationRestriction.ANY
 
 func has_craft_recipe() -> bool:
-	return not craft_ingredients.is_empty()
+	# Покупка только за монеты (без ингредиентов) — тоже полноценный рецепт.
+	return not craft_ingredients.is_empty() or craft_gold_cost > 0
 
 func has_salvage_recipe() -> bool:
 	return not salvage.is_empty()
 
 func has_repair_recipe() -> bool:
-	return not repair_ingredients.is_empty()
+	return not repair_ingredients.is_empty() or repair_gold_cost > 0
 
 # ─────────────────────────────────────────────────────────────────
 #  КАЧЕСТВО (без изменений)

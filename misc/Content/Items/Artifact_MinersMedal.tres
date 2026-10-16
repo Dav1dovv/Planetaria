@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="AccessoryData" format=3 uid="uid://bckon5ghp15pl"]
+
+[ext_resource type="Script" uid="uid://di2yssv3uj7uc" path="res://scr/Resources/ItemData/AcsesoryData.gd" id="1_11824"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_4241"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="4_2def"]
+[ext_resource type="Texture2D" uid="uid://b64un2hdo8wht" path="res://Assets/Textures/UI/Effects/Effect1.png" id="5_117f4"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="6_e66b"]
+[ext_resource type="Resource" uid="uid://diu71r8rm5e0e" path="res://misc/Content/Items/Gold_Ore.tres" id="8_1698c"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="9_5d79"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="11_1a0f"]
+
+[sub_resource type="Resource" id="Resource_10"]
+script = ExtResource("9_5d79")
+item = ExtResource("8_1698c")
+amount = 4
+
+[sub_resource type="Resource" id="Resource_12"]
+script = ExtResource("9_5d79")
+item = ExtResource("11_1a0f")
+amount = 10
+
+[sub_resource type="Resource" id="Resource_7"]
+script = ExtResource("4_2def")
+effect_icon = ExtResource("5_117f4")
+effect_type = 5
+value = 0.25
+duration = -1.0
+particle = ExtResource("6_e66b")
+display_name = "Mining Speed"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("2_4241")
+region = Rect2(176, 48, 16, 16)
+
+[resource]
+script = ExtResource("1_11824")
+effects = Array[ExtResource("4_2def")]([SubResource("Resource_7")])
+icon = SubResource("AtlasTexture_3")
+item_name = "Miner's Medal"
+description = "Keep it in your hotbar: mine faster."
+max_count = 1
+stackable = false
+price = 45
+craft_ingredients = Array[ExtResource("9_5d79")]([SubResource("Resource_10"), SubResource("Resource_12")])
+craft_gold_cost = 45
+craft_category = 4
+craft_smith_level = 2

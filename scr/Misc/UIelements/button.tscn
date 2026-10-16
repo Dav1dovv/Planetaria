@@ -14,12 +14,10 @@ script = ExtResource("1_e3xi5")
 [node name="Accept" type="AudioStreamPlayer" parent="." unique_id=217328601]
 stream = ExtResource("2_8u74a")
 pitch_scale = 1.28
-bus = &"SFX"
 
 [node name="Decline" type="AudioStreamPlayer" parent="." unique_id=137418604]
 stream = ExtResource("3_stp65")
 pitch_scale = 0.64
-bus = &"SFX"
 
 [node name="Hover" type="AudioStreamPlayer" parent="." unique_id=13286914]
 stream = ExtResource("4_oy3jc")

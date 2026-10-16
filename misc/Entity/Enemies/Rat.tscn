@@ -8,12 +8,13 @@
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_owdma"]
 [ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://misc/Projectiles/Arrow.tscn" id="5_dh3r4"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_h0w0q"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="6_7g834"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="6_8ksjs"]
 [ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="7_h6rqw"]
 [ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="8_8ksjs"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="9_7g834"]
 
-[sub_resource type="Resource" id="Resource_8ksjs"]
+[sub_resource type="Resource" id="Resource_gd51a"]
 resource_local_to_scene = true
 script = ExtResource("3_h6rqw")
 max_health = 30
@@ -1571,7 +1572,7 @@ skin = NodePath("Skin")
 show_gizmos = true
 sight_color = Color(1, 0.85, 0.2, 1)
 attack_color = Color(1, 0.2, 0.2, 1)
-Entity_stats = SubResource("Resource_8ksjs")
+Entity_stats = SubResource("Resource_gd51a")
 Vfx = NodePath("VFX")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]

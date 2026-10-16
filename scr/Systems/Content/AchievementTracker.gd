@@ -47,6 +47,7 @@ var _sfx: AudioStreamPlayer
 func _ready() -> void:
 	_sfx = AudioStreamPlayer.new()
 	_sfx.stream = SFX
+	_sfx.pitch_scale = 2.5
 	add_child(_sfx)
 
 	Global.enemy_killed.connect(_on_enemy_killed)

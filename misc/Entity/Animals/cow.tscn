@@ -976,11 +976,47 @@ _data = {
 script = ExtResource("2_xjoh7")
 behavior = -0.7
 can_flee = true
+flee_threshold = 0.25
 flee_on_hit = true
+use_fear = false
 fear_per_damage = 100.0
+fear_proximity_radius = 60.0
+fear_proximity_rate = 0.08
+fear_decay_rate = 0.05
 fear_flee_threshold = 1.0
 fear_calm_threshold = 0.565
+hides_when_scared = false
+hide_duration = 1.5
+hide_damage_reduction = 0.0
+fear_sound = null
+fear_sound_pitch_variance = 0.08
 flee_speed_multiplier = 10.0
+pack_group = ""
+pack_alert_radius = 300.0
+hear_radius = 60.0
+sight_radius = 180.0
+fov_half_angle = 60.0
+use_los_check = true
+wall_collision_mask = 1
+memory_duration = 3.0
+wander_interval_min = 2.0
+wander_interval_max = 5.0
+wander_radius = 100.0
+turn_speed = 12.0
+patrol_points = Array[NodePath]([])
+chase_weave_enabled = true
+chase_weave_amplitude = 14.0
+chase_weave_frequency = 0.8
+ray_length = 40.0
+avoidance_strength = 1.8
+attack_damage = 10.0
+attack_radius = 28.0
+attack_cooldown = 1.2
+max_poise = 100.0
+poise_decay_rate = 15.0
+poise_decay_delay = 1.0
+stagger_duration = 1.0
+vulnerable_damage_multiplier = 1.5
 body_anim = NodePath("Skin/AnimationPlayer")
 Entity_stats = SubResource("Resource_jksjw")
 
@@ -992,14 +1028,14 @@ position = Vector2(0.34671402, -9.708061)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_2y5go")
 
-[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
-stream = SubResource("AudioStreamRandomizer_ppuy5")
-pitch_scale = 1.0
-
-[node name="CollisionShape2D" parent="." index="8" unique_id=713772618]
+[node name="CollisionShape2D" parent="." index="3" unique_id=713772618]
 position = Vector2(0.34671402, -9.708061)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_2y5go")
+
+[node name="DamageSFX" parent="." index="7" unique_id=2033228583]
+stream = SubResource("AudioStreamRandomizer_ppuy5")
+pitch_scale = 1.0
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=345415011]
 scale = Vector2(1.2308128, 1.2308128)

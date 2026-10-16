@@ -17,11 +17,10 @@ shader_parameter/color_over = Color(0, 0, 0, 1)
 atlas = ExtResource("20_e20lw")
 region = Rect2(32, 32, 16, 16)
 
-[node name="SaveLoadUI" type="CanvasLayer" unique_id=266179224 node_paths=PackedStringArray("new_save_panel", "player_name_input", "skin_selector", "create_button")]
+[node name="SaveLoadUI" type="CanvasLayer" unique_id=266179224 node_paths=PackedStringArray("new_save_panel", "player_name_input", "create_button")]
 script = ExtResource("1_k8yma")
 new_save_panel = NodePath("NewSavePanel")
 player_name_input = NodePath("NewSavePanel/NameBox/LineEdit")
-skin_selector = NodePath("")
 create_button = NodePath("NewSavePanel/HBoxContainer/Create")
 save_slot_template = ExtResource("2_mhc1p")
 

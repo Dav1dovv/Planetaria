@@ -199,7 +199,6 @@ autostart = true
 stream = SubResource("AudioStreamRandomizer_p6xfw")
 max_distance = 150.0
 max_polyphony = 10
-bus = &"SFX"
 
 [connection signal="body_entered" from="PickZone" to="." method="_on_pick_zone_body_entered"]
 [connection signal="body_exited" from="PickZone" to="." method="_on_pick_zone_body_exited"]

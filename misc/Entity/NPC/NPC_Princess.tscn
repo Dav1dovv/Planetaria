@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://bm4t556e173qv" path="res://misc/Dialogs/Princess/Princess.dialogue" id="3_6bfo4"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="3_xvhg3"]
 
-[sub_resource type="Resource" id="Resource_ufita"]
+[sub_resource type="Resource" id="Resource_xvhg3"]
 resource_local_to_scene = true
 script = ExtResource("2_m2hsy")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
@@ -18,7 +18,7 @@ dialogue_start = "start"
 quest_id = &"princess"
 marker_interval = 1.6
 awareness_radius = 40.0
-Entity_stats = SubResource("Resource_ufita")
+Entity_stats = SubResource("Resource_xvhg3")
 
 [node name="Body" parent="Skin" parent_id_path=PackedInt32Array(1878994847) index="0" unique_id=1621133311]
 region_rect = Rect2(44, 116, 7, 8)

@@ -343,11 +343,138 @@ func _preview_repair() -> void:
 	if selected_recipe.gold_cost > 0 and gold_item:
 		_add_row(gold_item, selected_recipe.gold_cost, "Злт")
 
-	# Подсказка о восстановлении прочности
-	if selected_recipe.repair_amount > 0 and gold_label:
-		gold_label.text = Loc.t("+%d прочности") % selected_recipe.repair_amount
-	elif gold_label:
-		gold_label.text = "Полный ремонт"
+	# Ремонт всегда полный; если чинить нечего — говорим почему
+	if gold_label:
+		match selected_recipe.get_repair_blocker(inventory):
+			"missing": gold_label.text = Loc.t("Bring the item to repair it")
+			"intact":  gold_label.text = Loc.t("Item is not damaged")
+			_:         gold_label.text = Loc.t("Full repair")
+
+# ── Разборка ─────────────────────────────────────────────────────
+
+#func _preview_disassemble() -> void:
+	## Показываем целевой предмет (что разбираем)
+	#result_slot.item = selected_recipe.disassemble_target
+	#result_slot.ammount = 1
+	#result_slot.update_ui()
+#
+	#if gold_label:
+		#gold_label.text = "Получишь:"
+#
+	## Список того, что вернётся
+	#for res in selected_recipe.get_salvage_results():
+		#_add_row(res["item"], res["amount"], "", true)
+#
+	## Предупреждение: есть ли предмет в инвентаре?
+	#if selected_recipe.disassemble_target:
+		#var have := inventory.get_total_item_count(selected_recipe.disassemble_target) if inventory else 0
+		#if have == 0:
+			#_add_warning_row("Предмет отсутствует в инвентаре")
+
+# ─────────────────────────────────────────────────────────────────
+#  СТРОКИ ИНГРЕДИЕНТОВ
+# ─────────────────────────────────────────────────────────────────
+
+## prefix — лейбл перед именем ("Злт", "" и т.д.)
+## is_output — зелёный цвет (это результат, не расход)
+#func _add_row(item: ItemData, amount: int, prefix: String = "", is_output: bool = false) -> void:
+	#var hbox := HBoxContainer.new()
+#
+	#var icon := TextureRect.new()
+	#icon.texture = item.icon if item else null
+	#icon.custom_minimum_size = Vector2(16, 16)
+	#icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+#
+	#var have := inventory.get_total_item_count(item) if inventory else 0
+	#var enough := have >= amount
+#
+	#var lbl := Label.new()
+	#var item_name := item.item_name if item else "?"
+	#var display := prefix if prefix != "" else item_name
+	#if is_output:
+		#lbl.text = "%s × %d" % [item_name, amount]
+		#lbl.modulate = Color(0.4, 1.0, 0.6)
+	#else:
+		#lbl.text = "%s: %d/%d" % [display, have, amount]
+		#lbl.modulate = Color(0.2, 1.0, 0.4) if enough else Color(1.0, 0.35, 0.35)
+#
+	#lbl.add_theme_font_size_override("font_size", 7)
+#
+	#hbox.add_child(icon)
+	#hbox.add_child(lbl)
+	#ingredients_list.add_child(hbox)
+#
+#func _add_warning_row(text: String) -> void:
+	#var lbl := Label.new()
+	#lbl.text = "⚠ " + text
+	#lbl.modulate = Color(1.0, 0.8, 0.2)
+	#lbl.add_theme_font_size_override("font_size", 7)
+	#ingredients_list.add_child(lbl)
+
+# ─────────────────────────────────────────────────────────────────
+#  ВЫПОЛНЕНИЕ ДЕЙСТВИЯ
+# ─────────────────────────────────────────────────────────────────
+
+#func _on_action_pressed() -> void:
+	#if not selected_recipe or not selected_recipe.can_craft(inventory, gold_item):
+		#return
+	#_execute(1)
+#
+#func _on_action_max_pressed() -> void:
+	#if not selected_recipe: return
+	#var max_count := selected_recipe.max_craftable(inventory, gold_item)
+	#if max_count > 0:
+		#_execute(max_count)
+#
+#func _execute(times: int) -> void:
+	#if not selected_recipe or not inventory: return
+#
+	#match selected_recipe.mode:
+		#CraftRecipe.Mode.CRAFT:
+			#_do_craft(times)
+		#CraftRecipe.Mode.REPAIR:
+			#_do_repair()
+		#CraftRecipe.Mode.DISASSEMBLE:
+			#_do_disassemble()
+
+# ── Крафт ────────────────────────────────────────────────────────
+#
+#func _do_craft(times: int) -> void:
+	#for ing in selected_recipe.get_ingredients():
+		#inventory.remove_from_total(ing["item"], ing["amount"] * times)
+#
+	#if selected_recipe.gold_cost > 0 and gold_item:
+		#inventory.remove_from_total(gold_item, selected_recipe.gold_cost * times)
+#
+	#inventory.add_item(
+		#selected_recipe.result_item.duplicate(),
+		#selected_recipe.result_amount * times
+	#)
+#
+	#_refresh()
+#
+## ── Ремонт ───────────────────────────────────────────────────────
+#
+#func _do_repair() -> void:
+	## Сначала находим, ЧТО чиним: ресурсы списываются только если цель есть и повреждена.
+	#var broken := CraftRecipe.find_damaged_copy(inventory, selected_recipe.repair_target)
+	#if broken == null:
+		#return
+#
+	## Чиним ДО списания ресурсов: списание шлёт hotbar_changed, и PlayerHitBox
+	## должен уже увидеть целый предмет (иначе спрайт в руке останется серым).
+	#broken.durability = broken.max_durability
+	#broken.emit_signal("durability_changed", broken.durability, broken.max_durability)
+#
+	#for ing in selected_recipe.get_ingredients():
+		#inventory.remove_from_total(ing["item"], ing["amount"])
+	#if selected_recipe.gold_cost > 0 and gold_item:
+		#inventory.remove_from_total(gold_item, selected_recipe.gold_cost)
+#
+	#if inventory.hotbar:
+		#inventory.hotbar.emit_signal("hotbar_changed")
+	#inventory.emit_signal("inventory_changed")
+	#_refresh()
 
 # ── Разборка ─────────────────────────────────────────────────────
 

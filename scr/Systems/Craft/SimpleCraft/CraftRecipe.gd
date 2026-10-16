@@ -69,10 +69,10 @@ static func from_repair(item: ItemData) -> CraftRecipe:
 	r.description = item.description
 	r.category = item.craft_category
 	r.required_smith_level = item.craft_smith_level
-	r.station_restriction = item.craft_station
+	r.station_restriction = item.repair_station
 	r.result_item = item
 	r.repair_target = item
-	r.repair_amount = item.repair_amount
+	r.repair_amount = 0  # ремонт всегда полный
 	r.gold_cost = item.repair_gold_cost
 	r._ingredients = _to_dicts(item.repair_ingredients)
 	return r
@@ -89,6 +89,31 @@ static func from_salvage(item: ItemData) -> CraftRecipe:
 	r._salvage = _to_dicts(item.salvage)
 	return r
 
+# ── Ремонт: поиск повреждённой копии ─────────────────────────────
+## Самая сильно изношенная копия target в инвентаре и хотбаре (или null).
+static func find_damaged_copy(inventory: Inventory, target: ItemData) -> equip_data:
+	if not inventory or not target:
+		return null
+	var slots: Array[InventorySlotData] = inventory.items.duplicate()
+	if inventory.hotbar:
+		slots.append_array(inventory.hotbar.slots)
+	var worst: equip_data = null
+	for slot in slots:
+		var it := slot.item as equip_data
+		if it == null or it.item_name != target.item_name or not it.is_damaged():
+			continue
+		if worst == null or it.get_durability_ratio() < worst.get_durability_ratio():
+			worst = it
+	return worst
+
+## "" — можно чинить; "missing" — предмета нет; "intact" — предмет цел.
+func get_repair_blocker(inventory: Inventory) -> String:
+	if mode != Mode.REPAIR:
+		return ""
+	if find_damaged_copy(inventory, repair_target) != null:
+		return ""
+	return "intact" if inventory.has_total_item(repair_target, 1) else "missing"
+
 # ── Логика (как была) ────────────────────────────────────────────
 func get_ingredients() -> Array[Dictionary]:
 	return _ingredients
@@ -101,6 +126,8 @@ func can_craft(inventory: Inventory, gold_item: ItemData = null) -> bool:
 		return false
 	match mode:
 		Mode.CRAFT, Mode.REPAIR:
+			if mode == Mode.REPAIR and get_repair_blocker(inventory) != "":
+				return false
 			for ing in _ingredients:
 				if not inventory.has_total_item(ing["item"], ing["amount"]):
 					return false

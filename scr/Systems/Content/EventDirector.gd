@@ -214,6 +214,7 @@ func _reward(def: Dictionary, _anchor_pos: Vector2) -> void:
 	LootUtil.drop(LootUtil.COIN, int(def["coins"]), pos)
 	LootUtil.drop(LootUtil.POTION, int(def["potions"]), pos)
 	LootUtil.drop(LootUtil.ARTEFACT_PIECE, int(def["pieces"]), pos)
+	LootUtil.drop(LootUtil.GOLD_ORE, randi_range(2, 4), pos)
 	GameJuice.shake(2.0, 0.3)
 
 

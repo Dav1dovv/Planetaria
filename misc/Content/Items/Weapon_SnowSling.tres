@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://dnqmpwl41gbk4"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_15988"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_4241"]
+[ext_resource type="PackedScene" uid="uid://d05er26oijlnt" path="res://misc/Projectiles/Snowball.tscn" id="4_c770"]
+[ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://misc/Content/Items/Wood.tres" id="5_3d05"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="6_5d79"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="8_1a0f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("2_4241")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="Resource" id="Resource_7"]
+script = ExtResource("6_5d79")
+item = ExtResource("5_3d05")
+amount = 3
+
+[sub_resource type="Resource" id="Resource_9"]
+script = ExtResource("6_5d79")
+item = ExtResource("8_1a0f")
+
+[resource]
+script = ExtResource("1_15988")
+max_durability = 70
+Damage = 5
+Atk_speed = 1.2
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+projectile = ExtResource("4_c770")
+knockback = 2.0
+one_shot_attack = false
+on_hit_effect = "slow"
+on_hit_chance = 0.6
+on_hit_duration = 2.0
+on_hit_potency = 20.0
+icon = SubResource("AtlasTexture_3")
+play_anim = "Shoot"
+item_name = "Snow Sling"
+description = "Flings chilly snowballs that slow enemies."
+max_count = 1
+stackable = false
+price = 30
+craft_gold_cost = 30
+craft_station = 1
+repair_ingredients = Array[ExtResource("6_5d79")]([SubResource("Resource_7"), SubResource("Resource_9")])

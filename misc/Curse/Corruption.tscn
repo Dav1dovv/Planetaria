@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bcojg2oc8uiw0" path="res://misc/Curse/corruption.gd" id="2_hvmba"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_b6k8d"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_xgs0l"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="4_xgs0l"]
 
 [sub_resource type="Resource" id="Resource_5vj5a"]
 script = ExtResource("3_xgs0l")
@@ -123,7 +124,48 @@ _data = {
 script = ExtResource("2_hvmba")
 corupt = 7
 behavior = 1.0
+can_flee = false
+flee_threshold = 0.25
+flee_on_hit = false
+use_fear = false
+fear_per_damage = 0.05
+fear_proximity_radius = 60.0
+fear_proximity_rate = 0.08
+fear_decay_rate = 0.05
+fear_flee_threshold = 0.6
+fear_calm_threshold = 0.25
+hides_when_scared = false
+hide_duration = 1.5
+hide_damage_reduction = 0.0
+fear_sound = null
+fear_sound_pitch_variance = 0.08
+flee_speed_multiplier = 1.6
+pack_group = ""
+pack_alert_radius = 300.0
+hear_radius = 60.0
+sight_radius = 180.0
+fov_half_angle = 60.0
+use_los_check = true
+wall_collision_mask = 1
+memory_duration = 3.0
+wander_interval_min = 2.0
+wander_interval_max = 5.0
+wander_radius = 100.0
+turn_speed = 12.0
+patrol_points = Array[NodePath]([])
+chase_weave_enabled = true
+chase_weave_amplitude = 14.0
+chase_weave_frequency = 0.8
+ray_length = 40.0
+avoidance_strength = 1.8
+attack_damage = 10.0
 attack_radius = 1.0
+attack_cooldown = 1.2
+max_poise = 100.0
+poise_decay_rate = 15.0
+poise_decay_delay = 1.0
+stagger_duration = 1.0
+vulnerable_damage_multiplier = 1.5
 Entity_stats = SubResource("Resource_5vj5a")
 
 [node name="HitBox" parent="." index="2" unique_id=1440497730]
@@ -133,7 +175,7 @@ equip = SubResource("Resource_cdos3")
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_cdos3")
 
-[node name="HealthBar" parent="." index="7" unique_id=1354189396]
+[node name="HealthBar" parent="." index="8" unique_id=1354189396]
 visible = false
 
 [node name="Skin" type="Node2D" parent="." index="10" unique_id=1976922875]

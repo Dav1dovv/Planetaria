@@ -112,7 +112,7 @@ func apply_damage(area: Area2D, damage: float) -> void:
 		#area.Harvest(damage, equip.lvl, equip.is_weapon)
 		#DebugLog.log("area is harvestable: " + area.get_parent().name)
 		if equip is equip_data:
-			area.Harvest(damage, equip.lvl, equip.is_weapon)
+			area.Harvest(damage * _get_mining_multiplier(), equip.lvl, equip.is_weapon)
 			#DebugLog.log("area is harvestable: " + area.get_parent().name)
 			if equip.lvl >= area.harvest_tool_lvl:
 				equip.reduce_durability(1)
@@ -131,6 +131,10 @@ func apply_damage(area: Area2D, damage: float) -> void:
 		if equip is equip_data:
 			target.take_damage(equip.Damage, self,equip.knockback)
 			equip.reduce_durability(1)
+			# Эффекты оружия при ударе (яд, огонь, заморозка...) — раньше для ближнего боя не вызывались
+			var passive = owner.get("weapon_passive") if owner else null
+			if passive:
+				passive.try_apply_on_hit_effect(target)
 		return
 	# ────────────────────────────────────────────────────────────────────────
 
@@ -141,6 +145,13 @@ func apply_damage(area: Area2D, damage: float) -> void:
 func _get_outgoing_damage_multiplier() -> float:
 	if owner and "Entity_stats" in owner and owner.Entity_stats:
 		return maxf(1.0 + owner.Entity_stats.damage_modifier, 0.1)
+	return 1.0
+
+
+## Бонус эффекта MINING_SPEED_BOOST (напр. Медаль шахтёра) к урону по ресурсам
+func _get_mining_multiplier() -> float:
+	if owner and "effect_manager" in owner and owner.effect_manager:
+		return 1.0 + owner.effect_manager.get_effect_value(Effect.EffectType.MINING_SPEED_BOOST, 0.0)
 	return 1.0
 
 
@@ -187,10 +198,6 @@ func _apply_food_effects(food: FoodData) -> void:
 	for effect in food.effects:
 		if p.has_method("apply_effect_instance"):
 			p.apply_effect_instance(effect)
-		if effect.effect_type == 0:
-			if p.has_method("heal"):
-				p.heal(effect.value)
-				p.heal(food.health_restore)
 
 	if p.has_method("heal"):
 		p.heal(food.health_restore)

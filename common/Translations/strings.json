@@ -1598,5 +1598,560 @@
   "en": "Not enough fuel",
   "ru": "Не хватает топлива",
   "hy": "Վառելիքը բավարար չէ"
+ },
+ "Gold Ore": {
+  "en": "Gold Ore",
+  "ru": "Золотая руда",
+  "hy": "Ոսկու հանքաքար"
+ },
+ "Crystal Shard": {
+  "en": "Crystal Shard",
+  "ru": "Осколок кристалла",
+  "hy": "Բյուրեղի բեկոր"
+ },
+ "Cactus Club": {
+  "en": "Cactus Club",
+  "ru": "Кактусовая дубина",
+  "hy": "Կակտուսե մահակ"
+ },
+ "Iron Longsword": {
+  "en": "Iron Longsword",
+  "ru": "Железный длинный меч",
+  "hy": "Երկաթե երկար սուր"
+ },
+ "Glint Dagger": {
+  "en": "Glint Dagger",
+  "ru": "Сверкающий кинжал",
+  "hy": "Շողացող դաշույն"
+ },
+ "Moon Spear": {
+  "en": "Moon Spear",
+  "ru": "Лунное копьё",
+  "hy": "Լուսնային նիզակ"
+ },
+ "Bone Scimitar": {
+  "en": "Bone Scimitar",
+  "ru": "Костяной ятаган",
+  "hy": "Ոսկրե ղիլիչ"
+ },
+ "Morning Star": {
+  "en": "Morning Star",
+  "ru": "Моргенштерн",
+  "hy": "Մորգենշտերն"
+ },
+ "Sunblade": {
+  "en": "Sunblade",
+  "ru": "Солнечный клинок",
+  "hy": "Արևի շեղբ"
+ },
+ "Frost Blade": {
+  "en": "Frost Blade",
+  "ru": "Ледяной клинок",
+  "hy": "Սառցե շեղբ"
+ },
+ "Ruby Blade": {
+  "en": "Ruby Blade",
+  "ru": "Рубиновый клинок",
+  "hy": "Սուտակե շեղբ"
+ },
+ "Battle Axe": {
+  "en": "Battle Axe",
+  "ru": "Боевой топор",
+  "hy": "Մարտական կացին"
+ },
+ "Abyss Blade": {
+  "en": "Abyss Blade",
+  "ru": "Клинок Бездны",
+  "hy": "Անդունդի շեղբ"
+ },
+ "Crystal Sword": {
+  "en": "Crystal Sword",
+  "ru": "Кристальный меч",
+  "hy": "Բյուրեղե սուր"
+ },
+ "Crystal Battle Axe": {
+  "en": "Crystal Battle Axe",
+  "ru": "Кристальный боевой топор",
+  "hy": "Բյուրեղե մարտական կացին"
+ },
+ "Snow Sling": {
+  "en": "Snow Sling",
+  "ru": "Снежная рогатка",
+  "hy": "Ձնագնդի պարսատիկ"
+ },
+ "Nightshade Bow": {
+  "en": "Nightshade Bow",
+  "ru": "Ядовитый лук",
+  "hy": "Թունավոր աղեղ"
+ },
+ "Moon Bow": {
+  "en": "Moon Bow",
+  "ru": "Лунный лук",
+  "hy": "Լուսնային աղեղ"
+ },
+ "Crystal Crossbow": {
+  "en": "Crystal Crossbow",
+  "ru": "Кристальный арбалет",
+  "hy": "Բյուրեղե աղեղնազեն"
+ },
+ "Webcaster": {
+  "en": "Webcaster",
+  "ru": "Паутинник",
+  "hy": "Սարդոստայնանետ"
+ },
+ "Axe-rang": {
+  "en": "Axe-rang",
+  "ru": "Топор-бумеранг",
+  "hy": "Կացին-բումերանգ"
+ },
+ "Bomb Sack": {
+  "en": "Bomb Sack",
+  "ru": "Мешок бомб",
+  "hy": "Ռումբերի պարկ"
+ },
+ "Stonebreaker Hammer": {
+  "en": "Stonebreaker Hammer",
+  "ru": "Кувалда-камнеруб",
+  "hy": "Քարաջարդ մուրճ"
+ },
+ "Golden Pickaxe": {
+  "en": "Golden Pickaxe",
+  "ru": "Золотая кирка",
+  "hy": "Ոսկե քլունգ"
+ },
+ "Regrowth Tonic": {
+  "en": "Regrowth Tonic",
+  "ru": "Тоник регенерации",
+  "hy": "Վերականգնող թուրմ"
+ },
+ "Warrior's Tonic": {
+  "en": "Warrior's Tonic",
+  "ru": "Тоник воина",
+  "hy": "Մարտիկի թուրմ"
+ },
+ "Heart Jar": {
+  "en": "Heart Jar",
+  "ru": "Банка сердца",
+  "hy": "Սրտի ամանը"
+ },
+ "Frostfire Elixir": {
+  "en": "Frostfire Elixir",
+  "ru": "Эликсир льда и огня",
+  "hy": "Սառնակրակ էլիքսիր"
+ },
+ "Honey Draught": {
+  "en": "Honey Draught",
+  "ru": "Медовый отвар",
+  "hy": "Մեղրային ըմպելիք"
+ },
+ "Shade Elixir": {
+  "en": "Shade Elixir",
+  "ru": "Эликсир тени",
+  "hy": "Ստվերի էլիքսիր"
+ },
+ "Slime Antidote": {
+  "en": "Slime Antidote",
+  "ru": "Слизевое противоядие",
+  "hy": "Լորձային հակաթույն"
+ },
+ "Fire Grog": {
+  "en": "Fire Grog",
+  "ru": "Огненный грог",
+  "hy": "Կրակե գրոգ"
+ },
+ "Lucky Star": {
+  "en": "Lucky Star",
+  "ru": "Звезда удачи",
+  "hy": "Հաջողության աստղ"
+ },
+ "Horned Helm": {
+  "en": "Horned Helm",
+  "ru": "Рогатый шлем",
+  "hy": "Եղջյուրավոր սաղավարտ"
+ },
+ "Crystal Amulet": {
+  "en": "Crystal Amulet",
+  "ru": "Кристальный амулет",
+  "hy": "Բյուրեղե ամուլետ"
+ },
+ "Wanderer's Ring": {
+  "en": "Wanderer's Ring",
+  "ru": "Кольцо странника",
+  "hy": "Թափառականի մատանի"
+ },
+ "Sonamir Tome": {
+  "en": "Sonamir Tome",
+  "ru": "Фолиант Сонамира",
+  "hy": "Սոնամիրի մատյան"
+ },
+ "Miner's Medal": {
+  "en": "Miner's Medal",
+  "ru": "Медаль шахтёра",
+  "hy": "Հանքագործի մեդալ"
+ },
+ "Heavy and shiny. Needed to mend better gear.": {
+  "en": "Heavy and shiny. Needed to mend better gear.",
+  "ru": "Тяжёлая и блестящая. Нужна, чтобы чинить хорошее снаряжение.",
+  "hy": "Ծանր ու փայլուն։ Անհրաժեշտ է լավ սարքավորումը նորոգելու համար։"
+ },
+ "Hums faintly. Master smiths mend with it.": {
+  "en": "Hums faintly. Master smiths mend with it.",
+  "ru": "Тихо звенит. Мастера чинят им лучшее оружие.",
+  "hy": "Թույլ թնդում է։ Վարպետները դրանով են նորոգում լավագույն զենքերը։"
+ },
+ "Prickly and cheap. Shoves foes back hard.": {
+  "en": "Prickly and cheap. Shoves foes back hard.",
+  "ru": "Колючая и дешёвая. Сильно отбрасывает врагов.",
+  "hy": "Փշոտ և էժան։ Թշնամիներին ուժեղ հետ է շպրտում։"
+ },
+ "A steady blade with a little extra reach.": {
+  "en": "A steady blade with a little extra reach.",
+  "ru": "Надёжный клинок с чуть большим радиусом.",
+  "hy": "Հուսալի սայր՝ մի փոքր ավելի երկար հասողությամբ։"
+ },
+ "Hold the button for a flurry of quick stabs.": {
+  "en": "Hold the button for a flurry of quick stabs.",
+  "ru": "Зажми кнопку — и посыплется град быстрых уколов.",
+  "hy": "Պահիր կոճակը՝ արագ խոցումների տարափի համար։"
+ },
+ "Long reach: poke them before they poke you.": {
+  "en": "Long reach: poke them before they poke you.",
+  "ru": "Длинный выпад: ударь раньше, чем ударят тебя.",
+  "hy": "Երկար հասողություն՝ խոցիր նախքան քեզ կխոցեն։"
+ },
+ "Curved blade that leaves foes bleeding.": {
+  "en": "Curved blade that leaves foes bleeding.",
+  "ru": "Изогнутый клинок. Враги истекают кровью.",
+  "hy": "Կորացած սայր։ Թշնամիները արյունահոսում են։"
+ },
+ "Heavy swings send enemies flying.": {
+  "en": "Heavy swings send enemies flying.",
+  "ru": "Тяжёлые удары отправляют врагов в полёт.",
+  "hy": "Ծանր հարվածները թշնամիներին օդ են նետում։"
+ },
+ "Glows warmly. Perfect for dark nights and caves.": {
+  "en": "Glows warmly. Perfect for dark nights and caves.",
+  "ru": "Тёплое сияние. Идеален для ночей и пещер.",
+  "hy": "Տաք լույս է արձակում։ Իդեալական է գիշերների և քարանձավների համար։"
+ },
+ "Chilling strikes slow enemies down.": {
+  "en": "Chilling strikes slow enemies down.",
+  "ru": "Ледяные удары замедляют врагов.",
+  "hy": "Սառցե հարվածները դանդաղեցնում են թշնամիներին։"
+ },
+ "Sets enemies ablaze. They panic and run in circles!": {
+  "en": "Sets enemies ablaze. They panic and run in circles!",
+  "ru": "Поджигает врагов — они в панике бегают кругами!",
+  "hy": "Այրում է թշնամիներին. նրանք խուճապահար պտտվում են։"
+ },
+ "Slow and mighty. Make every swing count.": {
+  "en": "Slow and mighty. Make every swing count.",
+  "ru": "Медленный и мощный. Каждый взмах на счету.",
+  "hy": "Դանդաղ ու հզոր։ Յուրաքանչյուր հարված կարևոր է։"
+ },
+ "Huge power, but its dark hunger drains your health.": {
+  "en": "Huge power, but its dark hunger drains your health.",
+  "ru": "Огромная сила, но тёмный голод тянет твоё здоровье.",
+  "hy": "Հսկայական ուժ, բայց մութ քաղցը քամում է քո առողջությունը։"
+ },
+ "Singing crystal edge. Glows and chills.": {
+  "en": "Singing crystal edge. Glows and chills.",
+  "ru": "Поющее кристальное лезвие. Светится и морозит.",
+  "hy": "Երգող բյուրեղե շեղբ։ Լուսավորում և սառեցնում է։"
+ },
+ "The heaviest hit in the game. Mind the swing speed.": {
+  "en": "The heaviest hit in the game. Mind the swing speed.",
+  "ru": "Самый тяжёлый удар в игре. Следи за скоростью.",
+  "hy": "Խաղի ամենածանր հարվածը։ Հետևիր արագությանդ։"
+ },
+ "Flings chilly snowballs that slow enemies.": {
+  "en": "Flings chilly snowballs that slow enemies.",
+  "ru": "Метает ледяные снежки, замедляющие врагов.",
+  "hy": "Նետում է սառը ձնագնդեր, որոնք դանդաղեցնում են թշնամիներին։"
+ },
+ "Poisoned arrows. Tick, tick, gone.": {
+  "en": "Poisoned arrows. Tick, tick, gone.",
+  "ru": "Отравленные стрелы. Тик-так — и готово.",
+  "hy": "Թունավոր նետեր։ Թիկ-թակ՝ և վերջ։"
+ },
+ "Fires three arrows in a fan.": {
+  "en": "Fires three arrows in a fan.",
+  "ru": "Выпускает три стрелы веером.",
+  "hy": "Արձակում է երեք նետ՝ հովհարաձև։"
+ },
+ "Slow to reload, hits like a truck.": {
+  "en": "Slow to reload, hits like a truck.",
+  "ru": "Медленная перезарядка, удар как таран.",
+  "hy": "Դանդաղ է լիցքավորվում, հարվածում է ամուր։"
+ },
+ "Tangles foes in sticky webs.": {
+  "en": "Tangles foes in sticky webs.",
+  "ru": "Опутывает врагов липкой паутиной.",
+  "hy": "Թշնամիներին փաթաթում է կպչուն սարդոստայնով։"
+ },
+ "Throw it, it comes back. Catch it!": {
+  "en": "Throw it, it comes back. Catch it!",
+  "ru": "Брось — вернётся. Лови!",
+  "hy": "Նետիր՝ կվերադառնա։ Բռնիր։"
+ },
+ "Each swing throws a bomb. Refill at the smith.": {
+  "en": "Each swing throws a bomb. Refill at the smith.",
+  "ru": "Каждый бросок — бомба. Пополни у кузнеца.",
+  "hy": "Յուրաքանչյուր նետում՝ ռումբ։ Համալրիր դարբնի մոտ։"
+ },
+ "Smashes rocks in huge blows. Slow but satisfying.": {
+  "en": "Smashes rocks in huge blows. Slow but satisfying.",
+  "ru": "Крушит камни огромными ударами. Медленно, но приятно.",
+  "hy": "Քարերը ջարդում է հզոր հարվածներով։ Դանդաղ է, բայց հաճելի։"
+ },
+ "Digs the toughest ore in a blink.": {
+  "en": "Digs the toughest ore in a blink.",
+  "ru": "Добывает самую крепкую руду в мгновение ока.",
+  "hy": "Ամենակարծր հանքաքարը հանում է աչքթարթելու ընթացքում։"
+ },
+ "Slowly knits your wounds back together.": {
+  "en": "Slowly knits your wounds back together.",
+  "ru": "Медленно затягивает раны.",
+  "hy": "Դանդաղ սպիացնում է վերքերդ։"
+ },
+ "A bold sip: hit harder for a while.": {
+  "en": "A bold sip: hit harder for a while.",
+  "ru": "Смелый глоток: бей сильнее какое-то время.",
+  "hy": "Համարձակ կում՝ որոշ ժամանակ ավելի ուժեղ հարվածիր։"
+ },
+ "A big instant heal in a jar.": {
+  "en": "A big instant heal in a jar.",
+  "ru": "Большое мгновенное лечение в банке.",
+  "hy": "Մեծ ակնթարթային բուժում ամանում։"
+ },
+ "Toughens your skin: take less damage.": {
+  "en": "Toughens your skin: take less damage.",
+  "ru": "Закаляет кожу: получаешь меньше урона.",
+  "hy": "Կարծրացնում է մաշկդ՝ ավելի քիչ վնաս ես ստանում։"
+ },
+ "Sweet and zippy. Run faster for a while.": {
+  "en": "Sweet and zippy. Run faster for a while.",
+  "ru": "Сладкий и бодрящий. Бегай быстрее.",
+  "hy": "Քաղցր և աշխույժ։ Որոշ ժամանակ ավելի արագ վազիր։"
+ },
+ "Spirits and the possessed lose track of you.": {
+  "en": "Spirits and the possessed lose track of you.",
+  "ru": "Духи и одержимые теряют тебя из виду.",
+  "hy": "Ոգիներն ու բռնվածները կորցնում են քեզ։"
+ },
+ "Calms the infection inside you.": {
+  "en": "Calms the infection inside you.",
+  "ru": "Усмиряет заражение внутри тебя.",
+  "hy": "Հանգստացնում է քո ներսի վարակը։"
+ },
+ "Warm belly, no frostbite. Perfect for the North.": {
+  "en": "Warm belly, no frostbite. Perfect for the North.",
+  "ru": "Тепло внутри — никакого обморожения. Для Севера.",
+  "hy": "Տաք փոր՝ առանց ցրտահարության։ Հյուսիսի համար։"
+ },
+ "A rare find. Makes you untouchable for a moment.": {
+  "en": "A rare find. Makes you untouchable for a moment.",
+  "ru": "Редкая находка. На миг делает тебя неуязвимым.",
+  "hy": "Հազվագյուտ գտածո։ Մի պահ անխոցելի է դարձնում։"
+ },
+ "Keep it in your hotbar: take less damage.": {
+  "en": "Keep it in your hotbar: take less damage.",
+  "ru": "Держи в хотбаре: получаешь меньше урона.",
+  "hy": "Պահիր արագ գոտում՝ ավելի քիչ վնաս ես ստանում։"
+ },
+ "Keep it in your hotbar: slowly regain health.": {
+  "en": "Keep it in your hotbar: slowly regain health.",
+  "ru": "Держи в хотбаре: здоровье медленно восстанавливается.",
+  "hy": "Պահիր արագ գոտում՝ առողջությունդ դանդաղ վերականգնվում է։"
+ },
+ "Keep it in your hotbar: walk a bit faster.": {
+  "en": "Keep it in your hotbar: walk a bit faster.",
+  "ru": "Держи в хотбаре: ходишь чуть быстрее.",
+  "hy": "Պահիր արագ գոտում՝ մի փոքր ավելի արագ ես քայլում։"
+ },
+ "Keep it in your hotbar: infection creeps in slower.": {
+  "en": "Keep it in your hotbar: infection creeps in slower.",
+  "ru": "Держи в хотбаре: заражение накапливается медленнее.",
+  "hy": "Պահիր արագ գոտում՝ վարակը ավելի դանդաղ է կուտակվում։"
+ },
+ "Keep it in your hotbar: mine faster.": {
+  "en": "Keep it in your hotbar: mine faster.",
+  "ru": "Держи в хотбаре: добываешь быстрее.",
+  "hy": "Պահիր արագ գոտում՝ ավելի արագ ես արդյունահանում։"
+ },
+ "Heals over time.": {
+  "en": "Heals over time.",
+  "ru": "Лечит со временем.",
+  "hy": "Բուժում է ժամանակի ընթացքում։"
+ },
+ "Attack Up": {
+  "en": "Attack Up",
+  "ru": "Усиление атаки",
+  "hy": "Հարձակման աճ"
+ },
+ "Hit harder.": {
+  "en": "Hit harder.",
+  "ru": "Бей сильнее.",
+  "hy": "Հարվածիր ավելի ուժեղ։"
+ },
+ "Defense Up": {
+  "en": "Defense Up",
+  "ru": "Усиление защиты",
+  "hy": "Պաշտպանության աճ"
+ },
+ "Take less damage.": {
+  "en": "Take less damage.",
+  "ru": "Меньше получаемый урон.",
+  "hy": "Ավելի քիչ վնաս։"
+ },
+ "Speed Up": {
+  "en": "Speed Up",
+  "ru": "Ускорение",
+  "hy": "Արագացում"
+ },
+ "Move faster.": {
+  "en": "Move faster.",
+  "ru": "Двигайся быстрее.",
+  "hy": "Շարժվիր ավելի արագ։"
+ },
+ "Invisibility": {
+  "en": "Invisibility",
+  "ru": "Невидимость",
+  "hy": "Անտեսանելիություն"
+ },
+ "Spirits and the possessed ignore you.": {
+  "en": "Spirits and the possessed ignore you.",
+  "ru": "Духи и одержимые тебя не замечают.",
+  "hy": "Ոգիներն ու բռնվածները քեզ չեն նկատում։"
+ },
+ "Infection Resist": {
+  "en": "Infection Resist",
+  "ru": "Сопротивление заражению",
+  "hy": "Վարակի դիմադրություն"
+ },
+ "Infection builds up slower.": {
+  "en": "Infection builds up slower.",
+  "ru": "Заражение копится медленнее.",
+  "hy": "Վարակը ավելի դանդաղ է կուտակվում։"
+ },
+ "Cold Immunity": {
+  "en": "Cold Immunity",
+  "ru": "Иммунитет к холоду",
+  "hy": "Սառնամանիքի անձեռնմխելիություն"
+ },
+ "Frost can't slow you.": {
+  "en": "Frost can't slow you.",
+  "ru": "Мороз тебя не замедлит.",
+  "hy": "Ցրտահարությունը քեզ չի դանդաղեցնի։"
+ },
+ "Invincibility": {
+  "en": "Invincibility",
+  "ru": "Неуязвимость",
+  "hy": "Անխոցելիություն"
+ },
+ "Nothing can touch you. Briefly.": {
+  "en": "Nothing can touch you. Briefly.",
+  "ru": "Ничто не может тебя коснуться. Ненадолго.",
+  "hy": "Ոչինչ չի կարող քեզ դիպչել։ Կարճ ժամանակով։"
+ },
+ "Mining Speed": {
+  "en": "Mining Speed",
+  "ru": "Скорость добычи",
+  "hy": "Արդյունահանման արագություն"
+ },
+ "SPD": {
+  "en": "SPD",
+  "ru": "СКР",
+  "hy": "ԱՐԳ"
+ },
+ "Reach": {
+  "en": "Reach",
+  "ru": "Дальность",
+  "hy": "Հասողություն"
+ },
+ "On hit": {
+  "en": "On hit",
+  "ru": "При ударе",
+  "hy": "Հարվածի ժամանակ"
+ },
+ "While held": {
+  "en": "While held",
+  "ru": "В руках",
+  "hy": "Ձեռքում"
+ },
+ "Emits light": {
+  "en": "Emits light",
+  "ru": "Излучает свет",
+  "hy": "Լույս է արձակում"
+ },
+ "Projectiles": {
+  "en": "Projectiles",
+  "ru": "Снарядов",
+  "hy": "Արկեր"
+ },
+ "Cures infection": {
+  "en": "Cures infection",
+  "ru": "Лечит заражение",
+  "hy": "Բուժում է վարակը"
+ },
+ "Heals": {
+  "en": "Heals",
+  "ru": "Лечит",
+  "hy": "Բուժում է"
+ },
+ "Hotbar": {
+  "en": "Hotbar",
+  "ru": "Хотбар",
+  "hy": "Արագ գոտի"
+ },
+ "Freeze": {
+  "en": "Freeze",
+  "ru": "Заморозка",
+  "hy": "Սառեցում"
+ },
+ "Burn": {
+  "en": "Burn",
+  "ru": "Обжиг",
+  "hy": "Այրում"
+ },
+ "Bleed": {
+  "en": "Bleed",
+  "ru": "Кровотечение",
+  "hy": "Արյունահոսություն"
+ },
+ "Corruption": {
+  "en": "Corruption",
+  "ru": "Заражение",
+  "hy": "Ապականում"
+ },
+ "Slow": {
+  "en": "Slow",
+  "ru": "Замедление",
+  "hy": "Դանդաղեցում"
+ },
+ "Drains health": {
+  "en": "Drains health",
+  "ru": "Тянет здоровье",
+  "hy": "Քամում է առողջությունը"
+ },
+ "Full repair": {
+  "en": "Full repair",
+  "ru": "Полный ремонт",
+  "hy": "Լրիվ նորոգում"
+ },
+ "Item is not damaged": {
+  "en": "Item is not damaged",
+  "ru": "Предмет не повреждён",
+  "hy": "Իրը վնասված չէ"
+ },
+ "Bring the item to repair it": {
+  "en": "Bring the item to repair it",
+  "ru": "Принеси предмет для ремонта",
+  "hy": "Բեր իրը նորոգելու համար"
+ },
+ "Durability": {
+  "en": "Durability",
+  "ru": "Прочность",
+  "hy": "Դիմացկունություն"
  }
 }

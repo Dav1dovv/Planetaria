@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://cwnup5vbgiahx"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_15988"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_4241"]
+[ext_resource type="Resource" uid="uid://dqyp4etjlrbse" path="res://misc/Content/Items/Pickaxe_LVL3.tres" id="4_ae90"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="5_5d79"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://misc/Content/Items/Stone.tres" id="7_1a0f"]
+[ext_resource type="Resource" uid="uid://diu71r8rm5e0e" path="res://misc/Content/Items/Gold_Ore.tres" id="9_1698c"]
+
+[sub_resource type="Resource" id="Resource_6"]
+script = ExtResource("5_5d79")
+item = ExtResource("4_ae90")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("2_4241")
+region = Rect2(96, 96, 16, 16)
+
+[sub_resource type="Resource" id="Resource_8"]
+script = ExtResource("5_5d79")
+item = ExtResource("7_1a0f")
+amount = 10
+
+[sub_resource type="Resource" id="Resource_10"]
+script = ExtResource("5_5d79")
+item = ExtResource("9_1698c")
+amount = 3
+
+[resource]
+script = ExtResource("1_15988")
+lvl = 4
+max_durability = 220
+Damage = 20
+Atk_speed = 1.8
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+is_weapon = false
+knockback = 4.0
+one_shot_attack = false
+can_deflect_curse = false
+icon = SubResource("AtlasTexture_3")
+item_name = "Golden Pickaxe Sord"
+description = "Digs the toughest ore in a blink."
+max_count = 1
+stackable = false
+price = 90
+craft_ingredients = Array[ExtResource("5_5d79")]([SubResource("Resource_6")])
+craft_gold_cost = 90
+craft_category = 1
+craft_smith_level = 4
+craft_station = 1
+repair_ingredients = Array[ExtResource("5_5d79")]([SubResource("Resource_8"), SubResource("Resource_10")])
