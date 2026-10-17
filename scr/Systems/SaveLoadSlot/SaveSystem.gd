@@ -1,7 +1,7 @@
 extends Node
 class_name SaveLoadSystem
 
-#   user://Saves/{slot}/save_data.json      — мета-данные слота (имя, скин)
+#   user://Saves/{slot}/save_data.json      — мета-данные слота (имя, скин, налёт, даты) — из них рисуется пропуск
 #   user://Saves/{slot}/player_data.char    — здоровье, экипировка
 #   user://Saves/{slot}/worldsave/world_seeds.json
 #   user://Saves/{slot}/worldsave/harvested.json
@@ -20,6 +20,10 @@ const PLANETS_FILE    := "worldsave/planets.json"
 
 # Расстояние «склейки» добытых позиций (0 = точное совпадение)
 const HARVEST_SNAP: float = 0.0
+
+# Налёт (время в игре) считаем как «накопленное в слоте + текущая сессия».
+var _session_started_ms: int = -1
+var _session_base_playtime: int = 0
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -68,9 +72,36 @@ func get_save_slots() -> Array:
 func load_slot_meta(slot: String) -> Dictionary:
 	return _read_json(_meta_path(slot))
 
+## Обновляет мета-данные текущего слота при каждом сохранении:
+## время последнего входа, налёт и скин (−1 = оставить как было).
+## Читаем-меняем-пишем, поэтому лишние поля (в том числе от будущих версий) не теряются.
+func touch_slot_meta(skin_index: int = -1, head_index: int = -1) -> void:
+	var slot: String = Global.current_save_slot
+	if slot.is_empty():
+		return
+	var meta := load_slot_meta(slot)
+	if meta.is_empty():
+		return
+
+	# Слот открыт без load_save (например, сцена игры запущена из редактора): начинаем счёт сейчас
+	if _session_started_ms < 0:
+		_session_started_ms    = Time.get_ticks_msec()
+		_session_base_playtime = int(meta.get("playtime_sec", 0))
+
+	var now := int(Time.get_unix_time_from_system())
+	meta["last_save_time"] = now
+	meta["playtime_sec"]   = _session_base_playtime + int((Time.get_ticks_msec() - _session_started_ms) / 1000.0)
+	if not meta.has("created_time"):
+		meta["created_time"] = now  # старые слоты, созданные до появления пропусков
+	if skin_index >= 0:
+		meta["skin_index"] = skin_index
+	if head_index >= 0:
+		meta["head_index"] = head_index
+	_write_json(_meta_path(slot), meta)
+
 ## Создаёт новый слот. Если такое имя уже занято — добавляет _1, _2 …
 ## Возвращает имя созданного слота или "" при ошибке.
-func create_new_save(player_name: String, location: String) -> String:
+func create_new_save(player_name: String, location: String, skin_index: int = 0, head_index: int = 0) -> String:
 	var dir := DirAccess.open(SAVE_DIR)
 	if not dir:
 		push_error("[SaveSystem] Cannot open SAVE_DIR")
@@ -86,9 +117,15 @@ func create_new_save(player_name: String, location: String) -> String:
 	_ensure_dir(SAVE_DIR + folder)
 	_ensure_dir(SAVE_DIR + folder + "/worldsave")
 
+	var now := int(Time.get_unix_time_from_system())
 	var meta := {
-		"player_name": player_name,
-		"location":    location,
+		"player_name":   player_name,
+		"location":      location,
+		"created_time":  now,
+		"last_save_time": now,
+		"playtime_sec":  0,
+		"skin_index":    skin_index,
+		"head_index":    head_index,
 	}
 	if not _write_json(_meta_path(folder), meta):
 		push_error("[SaveSystem] Failed to write meta for slot: %s" % folder)
@@ -96,7 +133,7 @@ func create_new_save(player_name: String, location: String) -> String:
 
 	return folder
 
-## Загружает слот в Global (имя, скины) и запоминает текущий слот.
+## Загружает слот в Global (имя, скины, счётчик налёта) и запоминает текущий слот.
 ## Возвращает true при успехе.
 func load_save(slot: String) -> bool:
 	var data := load_slot_meta(slot)
@@ -104,7 +141,11 @@ func load_save(slot: String) -> bool:
 		return false
 
 	Global.player_name              = data.get("player_name", "Player")
+	Global.player_skin_index        = int(data.get("skin_index", 0))
+	Global.player_skin_head_index   = int(data.get("head_index", 0))
 	Global.current_save_slot        = slot
+	_session_started_ms             = Time.get_ticks_msec()
+	_session_base_playtime          = int(data.get("playtime_sec", 0))
 	Global.load_planets_data()
 	return true
 
@@ -136,7 +177,15 @@ func save_player(player: Node) -> bool:
 		},
 		"timestamp": Time.get_datetime_string_from_system(),
 	}
-	return _write_json(_player_path(slot), data)
+	if not _write_json(_player_path(slot), data):
+		return false
+	# Актуализируем «пропуск»: время входа, налёт и внешний вид (PlayerSkin – источник правды)
+	var skin := player.get_node_or_null("Skin") as PlayerSkin
+	touch_slot_meta(
+		skin.skin_index if skin != null else -1,
+		skin.head_inex  if skin != null else -1
+	)
+	return true
 
 ## Загружает состояние игрока из player_data.char.
 func load_player(player: Node) -> bool:

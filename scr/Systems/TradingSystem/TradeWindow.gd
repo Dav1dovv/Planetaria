@@ -17,8 +17,16 @@ var gold_slot: GoldSlot        # ссылка на GoldSlot для баланс�
 
 const TRADE_SLOT_SCENE := preload("uid://dts1ot2trd001")
 
+@onready var hint_label: Label = get_node_or_null("Panel/VBoxContainer/HintLabel")
+
+var _detail_label: Label       # название и описание выбранного товара
+var _detail_owner: TradeSlot
+
 func _ready() -> void:
 	visible = false
+	if hint_label:
+		InputHints.bind_label(hint_label, InputHints.trade_hint)
+	_build_detail_label()
 	# Ждём кадр, чтобы Inventory/GoldSlot успели зарегистрироваться
 	await get_tree().process_frame
 	inventory = Global.inventory
@@ -35,6 +43,9 @@ func open(p_trader_data: TraderData) -> void:
 	visible = true
 	Cursor.detection_mode(true)
 	refresh()
+	# С геймпада/клавиатуры сразу есть за что взяться: фокус на первый товар
+	if InputHints.device() == InputHints.Device.GAMEPAD:
+		_focus_first_slot()
 
 func close() -> void:
 	visible = false
@@ -86,6 +97,8 @@ func _refresh_player_side() -> void:
 		slot.set_data(slot_data.item, slot_data.amount, sell_price)
 		slot.source_inventory_slot = slot_data
 		slot.slot_clicked.connect(_on_player_slot_clicked)
+		slot.highlighted.connect(_on_slot_highlighted)
+		slot.unhighlighted.connect(_on_slot_unhighlighted)
 
 func _refresh_trader_side() -> void:
 	_clear_grid(trader_grid)
@@ -103,11 +116,71 @@ func _refresh_trader_side() -> void:
 		var display_amount := entry.stock if entry.stock >= 0 else 1
 		slot.set_data(entry.item, display_amount, entry.price)
 		slot.source_trade_entry = entry
+		# Товар не по карману виден ещё до клика
+		slot.set_affordable(_get_gold() >= entry.price)
 		slot.slot_clicked.connect(_on_trader_slot_clicked)
+		slot.highlighted.connect(_on_slot_highlighted)
+		slot.unhighlighted.connect(_on_slot_unhighlighted)
 
+## remove_child + queue_free: старые слоты пропадают сразу, а не в конце кадра,
+## иначе в сетке на миг лежат и старые, и новые, и индексы/фокус плывут.
 func _clear_grid(grid: GridContainer) -> void:
+	_clear_detail()
 	for child in grid.get_children():
+		grid.remove_child(child)
 		child.queue_free()
+
+# ─────────────────────────────────────────────────────────────────
+#  СТРОКА ОПИСАНИЯ: что это за предмет и сколько стоит
+# ─────────────────────────────────────────────────────────────────
+func _build_detail_label() -> void:
+	var box := get_node_or_null("Panel/VBoxContainer") as Control
+	if box == null or hint_label == null:
+		return
+	_detail_label = Label.new()
+	_detail_label.name = "DetailLabel"
+	_detail_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_detail_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_detail_label.custom_minimum_size = Vector2(0, 22)
+	_detail_label.add_theme_font_size_override("font_size", 6)
+	_detail_label.add_theme_color_override("font_color", Color("c8d0dc"))
+	_detail_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(_detail_label)
+	box.move_child(_detail_label, hint_label.get_index())
+
+func _on_slot_highlighted(slot: TradeSlot) -> void:
+	if _detail_label == null or slot.item == null:
+		return
+	_detail_owner = slot
+	var title := slot.item.item_name
+	if slot.amount > 1:
+		title += "  x%d" % slot.amount
+	_detail_label.text = "%s\n%s" % [title, slot.item.description]
+
+func _on_slot_unhighlighted(slot: TradeSlot) -> void:
+	if slot == _detail_owner:
+		_clear_detail()
+
+func _clear_detail() -> void:
+	_detail_owner = null
+	if _detail_label:
+		_detail_label.text = ""
+
+## Перерисовать окно и вернуть фокус на «тот же» слот. Без этого после каждой покупки
+## фокус пропадал, и геймпадом/стрелками нельзя было купить две вещи подряд.
+func _refresh_keep_focus(slot: TradeSlot) -> void:
+	var grid := slot.get_parent() as GridContainer
+	var index := slot.get_index()
+	var had_focus := slot.has_focus()
+	refresh()
+	if had_focus and grid != null and grid.get_child_count() > 0:
+		(grid.get_child(clampi(index, 0, grid.get_child_count() - 1)) as Control).grab_focus()
+
+func _focus_first_slot() -> void:
+	for grid in [trader_grid, player_grid]:
+		if grid.get_child_count() > 0:
+			(grid.get_child(0) as Control).grab_focus()
+			return
 
 ## "Базовая" цена предмета для расчёта продажи игроком.
 ## Предполагается поле item.price (int). Если его нет — используем 1.
@@ -155,7 +228,7 @@ func _on_trader_slot_clicked(slot: TradeSlot) -> void:
 		if entry.stock == 0:
 			trader_data.items.erase(entry)
 
-	refresh()
+	_refresh_keep_focus(slot)
 
 # ─────────────────────────────────────────────────────────────────
 #  ПРОДАЖА (клик по предмету игрока)
@@ -180,11 +253,15 @@ func _on_player_slot_clicked(slot: TradeSlot) -> void:
 
 	_change_gold(sell_price)
 
-	refresh()
+	_refresh_keep_focus(slot)
 
 # ─────────────────────────────────────────────────────────────────
 #  ПРОЧЕЕ
 # ─────────────────────────────────────────────────────────────────
+## Сообщение игроку: баннер сверху и мигание золота (раньше текст уходил только в консоль,
+## и игрок не понимал, почему клик «ничего не делает»).
 func _show_message(text: String) -> void:
-	print("[Trade] %s" % text)
-	# Замени на свой UI-тултип/нотификацию при желании.
+	GameJuice.banner(Loc.t(text), "", Color(1.0, 0.5, 0.4), 1.4)
+	if gold_label:
+		gold_label.modulate = Color(1.0, 0.35, 0.35)
+		create_tween().tween_property(gold_label, "modulate", Color.WHITE, 0.6)

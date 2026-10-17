@@ -83,12 +83,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Back"
 
-[node name="New Character" type="Button" parent="Panel/VBoxContainer/HBoxContainer" unique_id=759001353]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "New Character"
-
 [node name="Blur" type="ColorRect" parent="." unique_id=158068657]
 unique_name_in_owner = true
 visible = false
@@ -173,7 +167,6 @@ theme_override_font_sizes/font_size = 12
 text = "Create Character"
 
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/New Character" to="." method="_on_new_save_pressed"]
 [connection signal="text_changed" from="NewSavePanel/NameBox/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="pressed" from="NewSavePanel/NameBox/Button" to="." method="_on_random_name_pressed"]
 [connection signal="pressed" from="NewSavePanel/HBoxContainer/Back" to="." method="_on_Craft_back_pressed"]

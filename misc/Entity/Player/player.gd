@@ -172,7 +172,6 @@ func _on_died() -> void:
 	BodyAnimator.play("Death")
 	$CollisionShape2D.disabled = false
 	$Dropper._drop_items()
-	await get_tree().create_timer(10).timeout
 	gui.call_death()
 
 func respawn() -> void:
@@ -182,6 +181,7 @@ func respawn() -> void:
 	$CollisionShape2D.disabled = false
 	if _hurt_col:
 		_hurt_col.disabled = false
+	gui.call_respawn()
 
 	# 2. Снимаем временные эффекты (яд, ожог, баффы). Постоянные — от реликвий и
 	#    оружия в руках — остаются, иначе после возрождения они молча пропадут.

@@ -80,7 +80,7 @@ script = ExtResource("8_bn1vh")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_esqkm"]
-size = Vector2(45.882828, 23.143417)
+size = Vector2(96.14679, 26.44114)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_orgpe"]
 texture = ExtResource("4_dssul")
@@ -240,7 +240,7 @@ color = Color(0, 0, 0, 1)
 [node name="planet" type="Sprite2D" parent="." unique_id=2019414403]
 z_index = -22
 position = Vector2(-392.0532, 370.4174)
-rotation = 47.128017
+rotation = -143.90236
 scale = Vector2(2.819653, 2.819653)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -257,7 +257,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="planet" unique_id=121156737]
 position = Vector2(5.9159737, -41.65517)
-rotation = 144.29182
+rotation = 626.5809
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(60, 80, 12, 12)
@@ -266,7 +266,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet2" type="Sprite2D" parent="planet" unique_id=819972865]
 position = Vector2(-48.649956, -41.51426)
-rotation = 78.75563
+rotation = -10.01083
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(49, 50, 19, 19)
@@ -276,7 +276,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet3" type="Sprite2D" parent="planet" unique_id=93638243]
 position = Vector2(-36.936844, 71.13017)
-rotation = -158.16588
+rotation = 177.43839
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(57, 9, 32, 32)
@@ -286,7 +286,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="planet" unique_id=1727818982]
 position = Vector2(-66.099815, -28.727964)
-rotation = -246.42552
+rotation = 17.573856
 scale = Vector2(0.32927373, 0.32927373)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -297,7 +297,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet5" type="Sprite2D" parent="planet" unique_id=649481990]
 position = Vector2(-53.9042, 23.165627)
-rotation = 5.9880834
+rotation = 398.44733
 scale = Vector2(0.57125205, 0.57125205)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -308,7 +308,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet6" type="Sprite2D" parent="planet" unique_id=1327664183]
 position = Vector2(43.515324, 82.038666)
-rotation = -318.66364
+rotation = 172.6451
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(104, 8, 17, 17)
@@ -317,7 +317,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="planet" unique_id=866645813]
 position = Vector2(110.08391, -3.0646362)
-rotation = 268.1304
+rotation = 857.44775
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(112, 51, 13, 13)
@@ -368,15 +368,23 @@ script = ExtResource("13_n85m3")
 interact_object = NodePath("PlanerChooser")
 metadata/_custom_type_script = "uid://btxho8sqg8tnx"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction" unique_id=658283047]
-position = Vector2(-1.372406, -9.957344)
-shape = SubResource("RectangleShape2D_esqkm")
+[node name="Sprite2D3" type="Sprite2D" parent="interaction" unique_id=192049157]
+position = Vector2(65.61876, -7.658783)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("4_dssul")
+region_enabled = true
+region_rect = Rect2(51, 109, 26, 19)
 
-[node name="PlanerChooser" parent="interaction" unique_id=415163601 instance=ExtResource("14_lc6k5")]
-visible = false
+[node name="Sprite2D" type="Sprite2D" parent="interaction/Sprite2D3" unique_id=1400948718]
+modulate = Color(0.14901961, 0.15686275, 0.12156863, 0.34509805)
+show_behind_parent = true
+position = Vector2(0, 7.370186)
+scale = Vector2(2.5328865, 0.8789091)
+texture = ExtResource("15_dssul")
 
 [node name="Sprite2D" type="Sprite2D" parent="interaction" unique_id=864979521]
-position = Vector2(-1.6299591, -9.197296)
+position = Vector2(38.35861, -9.197296)
+scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("4_dssul")
 region_enabled = true
 region_rect = Rect2(81, 104, 30, 24)
@@ -388,63 +396,27 @@ position = Vector2(0, 8.338913)
 scale = Vector2(2.5328865, 1)
 texture = ExtResource("15_dssul")
 
-[node name="interaction2" type="Area2D" parent="." unique_id=1296027666 node_paths=PackedStringArray("interact_object")]
-position = Vector2(107.99337, 184.91902)
-scale = Vector2(1.1856871, 1.1856871)
-collision_layer = 128
-collision_mask = 256
-script = ExtResource("13_n85m3")
-interact_object = NodePath("PlanerChooser")
-metadata/_custom_type_script = "uid://btxho8sqg8tnx"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction2" unique_id=131470459]
-position = Vector2(-1.372406, -9.957344)
-shape = SubResource("RectangleShape2D_esqkm")
-
-[node name="PlanerChooser" parent="interaction2" unique_id=1350671168 instance=ExtResource("14_lc6k5")]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="interaction2" unique_id=192049157]
-position = Vector2(-1.6299591, -9.197296)
+[node name="Sprite2D2" type="Sprite2D" parent="interaction" unique_id=711176107]
+position = Vector2(11.641605, -7.658783)
+scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("4_dssul")
 region_enabled = true
 region_rect = Rect2(51, 109, 26, 19)
 
-[node name="Sprite2D" type="Sprite2D" parent="interaction2/Sprite2D" unique_id=1400948718]
+[node name="Sprite2D" type="Sprite2D" parent="interaction/Sprite2D2" unique_id=1401563094]
 modulate = Color(0.14901961, 0.15686275, 0.12156863, 0.34509805)
 show_behind_parent = true
 position = Vector2(0, 7.370186)
 scale = Vector2(2.5328865, 0.8789091)
 texture = ExtResource("15_dssul")
 
-[node name="interaction3" type="Area2D" parent="." unique_id=453746803 node_paths=PackedStringArray("interact_object")]
-position = Vector2(159.57268, 185.66223)
-scale = Vector2(1.1856871, 1.1856871)
-collision_layer = 128
-collision_mask = 256
-script = ExtResource("13_n85m3")
-interact_object = NodePath("PlanerChooser")
-metadata/_custom_type_script = "uid://btxho8sqg8tnx"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction3" unique_id=2034295116]
-position = Vector2(-1.372406, -9.957344)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction" unique_id=658283047]
+position = Vector2(39.967846, -8.582184)
+scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_esqkm")
 
-[node name="PlanerChooser" parent="interaction3" unique_id=1974934846 instance=ExtResource("14_lc6k5")]
+[node name="PlanerChooser" parent="interaction" unique_id=415163601 instance=ExtResource("14_lc6k5")]
 visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="interaction3" unique_id=711176107]
-position = Vector2(-1.6299591, -9.197296)
-texture = ExtResource("4_dssul")
-region_enabled = true
-region_rect = Rect2(51, 109, 26, 19)
-
-[node name="Sprite2D" type="Sprite2D" parent="interaction3/Sprite2D" unique_id=1401563094]
-modulate = Color(0.14901961, 0.15686275, 0.12156863, 0.34509805)
-show_behind_parent = true
-position = Vector2(0, 7.370186)
-scale = Vector2(2.5328865, 0.8789091)
-texture = ExtResource("15_dssul")
 
 [node name="ShipTiles" type="Node2D" parent="." unique_id=2038448683]
 y_sort_enabled = true

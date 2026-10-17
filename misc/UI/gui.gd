@@ -28,6 +28,8 @@ func _ready() -> void:
 	quest_progress.step = 0.1
 
 	hud.visibility_changed.connect(_queue_quest_refresh)
+	# Кнопки «инвентарь» и «меню» для сенсорного экрана (на ПК скрыты)
+	hud.add_child(TouchHudButtons.new())
 	Global.location_changed.connect(_on_location_changed)
 	Global.planets_loaded.connect(_on_planets_loaded)
 	_on_location_changed(Global.current_location)

@@ -2243,5 +2243,95 @@
 		"en": "Test Bow",
 		"ru": "Тестовый лук",
 		"hy": "Փորձնական աղեղ"
+	},
+	"CREW ID": {
+		"en": "CREW ID",
+		"ru": "ЭКИПАЖ",
+		"hy": "ԱՆՁՆԱԿԱԶՄ"
+	},
+	"NAME": {
+		"en": "NAME",
+		"ru": "ИМЯ",
+		"hy": "ԱՆՈՒՆ"
+	},
+	"LAST LOGIN": {
+		"en": "LAST LOGIN",
+		"ru": "ПОСЛ. ВХОД",
+		"hy": "ՎԵՐՋ. ՄՈՒՏՔ"
+	},
+	"FLIGHT": {
+		"en": "FLIGHT",
+		"ru": "НАЛЁТ",
+		"hy": "ԹՌԻՉՔ"
+	},
+	"%dh %02dm": {
+		"en": "%dh %02dm",
+		"ru": "%dч %02dм",
+		"hy": "%dժ %02dր"
+	},
+	"ISSUE NEW ID": {
+		"en": "ISSUE NEW ID",
+		"ru": "ВЫПИСАТЬ ПРОПУСК",
+		"hy": "ՆՈՐ ԹՈՒՅԼՏՎՈՒԹՅՈՒՆ"
+	},
+	"ACCESS GRANTED": {
+		"en": "ACCESS GRANTED",
+		"ru": "ДОПУСК РАЗРЕШЁН",
+		"hy": "ՄՈՒՏՔԸ ԹՈՒՅԼԱՏՐՎԱԾ Է"
+	},
+	"REVOKE ID?": {
+		"en": "REVOKE ID?",
+		"ru": "АННУЛИРОВАТЬ?",
+		"hy": "ՉԵՂԱՐԿԵ՞Լ"
+	},
+	"KEEP": {
+		"en": "KEEP",
+		"ru": "ОСТАВИТЬ",
+		"hy": "ՄՆԱԼ"
+	},
+	"REVOKE": {
+		"en": "REVOKE",
+		"ru": "АННУЛИРОВАТЬ",
+		"hy": "ՉԵՂԱՐԿԵԼ"
+	},
+	"REVOKED": {
+		"en": "REVOKED",
+		"ru": "АННУЛИРОВАНО",
+		"hy": "ՉԵՂԱՐԿՎԱԾ"
+	},
+	"ISSUED": {
+		"en": "ISSUED",
+		"ru": "ВЫДАН",
+		"hy": "ՏՐՎԱԾ"
+	},
+	"Enter - enter   |   Del - revoke   |   Esc - back": {
+		"en": "Enter - enter   |   Del - revoke   |   Esc - back",
+		"ru": "Enter - войти   |   Del - аннулировать   |   Esc - назад",
+		"hy": "Enter - մուտք   |   Del - չեղարկել   |   Esc - հետ"
+	},
+	"ESC — close": {
+		"en": "ESC — close",
+		"ru": "ESC — закрыть",
+		"hy": "ESC — փակել"
+	},
+	"B — close": {
+		"en": "B — close",
+		"ru": "B — закрыть",
+		"hy": "B — փակել"
+	},
+	"A — buy / sell 1 pc.   |   B — close": {
+		"en": "A — buy / sell 1 pc.   |   B — close",
+		"ru": "A — купить / продать 1 шт.   |   B — закрыть",
+		"hy": "A — գնել / վաճառել 1 հատ   |   B — փակել"
+	},
+	"Tap — buy / sell 1 pc.": {
+		"en": "Tap — buy / sell 1 pc.",
+		"ru": "Тап — купить / продать 1 шт.",
+		"hy": "Հպել — գնել / վաճառել 1 հատ"
+	},
+	"A - enter   |   Y - revoke   |   B - back": {
+		"en": "A - enter   |   Y - revoke   |   B - back",
+		"ru": "A - войти   |   Y - аннулировать   |   B - назад",
+		"hy": "A - մուտք   |   Y - չեղարկել   |   B - հետ"
 	}
 }

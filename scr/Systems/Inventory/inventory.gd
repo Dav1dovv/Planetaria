@@ -345,28 +345,29 @@ func close_any() -> bool:
 	call_inventory()
 	return true
 
-## Кнопка ✕ в углу и подсказка снизу — игрок всегда видит, как выйти.
-## Вешаем на $Panel: он виден ровно тогда, когда открыто любое из окон.
+## Кнопка ✕ в углу и подсказка снизу: игрок всегда видит, как выйти.
+## ✕ нужен прежде всего на телефоне (там нет Esc), на ПК он дублирует Esc.
+## Подсказка снизу подстраивается под устройство (Esc / B / ничего на телефоне).
 func _build_close_ui() -> void:
-	#var close_btn := Button.new()
-	#close_btn.name = "CloseButton"
-	#close_btn.text = "✕"
-	#close_btn.focus_mode = Control.FOCUS_NONE
-	#close_btn.custom_minimum_size = Vector2(40, 40)
-	#close_btn.tooltip_text = Loc.t("ESC / I — close")
-	#close_btn.pressed.connect(close_any)
-	#$Panel.add_child(close_btn)
-	#close_btn.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_MINSIZE, 16)
+	# Крестик – последний ребёнок корня, чтобы лежать поверх любого окна и получать клики
+	var close_btn := WindowCloseButton.new()
+	close_btn.name = "CloseButton"
+	close_btn.visible = false
+	close_btn.pressed.connect(close_any)
+	add_child(close_btn)
+	close_btn.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_KEEP_SIZE, 8)
+	# $Panel виден ровно тогда, когда открыто любое из окон
+	$Panel.visibility_changed.connect(func() -> void: close_btn.visible = $Panel.visible)
 
 	var hint := Label.new()
 	hint.name = "CloseHint"
-	hint.text = Loc.t("ESC — close")
 	hint.modulate = Color(1, 1, 1, 0.65)
 	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$Panel.add_child(hint)
 	hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE, 12)
-	hint.position += Vector2(0,-20)
+	hint.position += Vector2(0, -20)
 	hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	InputHints.bind_label(hint, InputHints.close_hint)
 
 func toggle_inv():
 	call_inventory()

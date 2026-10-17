@@ -1,3 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+Assets/Scenes/Menu/main_menu.tscn
+Assets/Scenes/Menu/main_menu.tscn
