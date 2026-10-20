@@ -119,6 +119,7 @@ func pickup_item(item_data: ItemData, amount: int = 1, silent: bool = false) -> 
 			_show_pickup_feedback(item_data, amount)
 	else:
 		print("[Global] Inventory full — item lost: ", item_data.item_name)
+		GameJuice.banner(Loc.t("Inventory full"), Loc.t(item_data.item_name), Color(1.0, 0.5, 0.4), 1.4)
 
 
 func _try_add_to_container(container, item_data: ItemData, amount: int) -> bool:

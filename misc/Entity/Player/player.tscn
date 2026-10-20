@@ -1906,6 +1906,8 @@ script = ExtResource("22_o7e8x")
 metadata/_custom_type_script = "uid://n6l13isgrtjd"
 
 [node name="GUI" parent="." index="10" unique_id=1874703344 instance=ExtResource("25_5fsrh")]
+metadata/_edit_vertical_guides_ = [472.49283]
+metadata/_edit_horizontal_guides_ = [10.946903]
 
 [node name="DamageVFX" parent="." index="11" unique_id=1460921651 instance=ExtResource("30_pg7r4")]
 position = Vector2(0, -10.982764)

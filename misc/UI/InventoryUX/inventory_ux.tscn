@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scr/Systems/Inventory/inventory_ux.gd" id="1_gfbkf"]
+[ext_resource type="Script" path="res://scr/Systems/Inventory/hotbar_overlay.gd" id="2_bcv03"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mp0a3"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.16, 0.14, 0.14, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.68, 0.76, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmu3r"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.3, 0.26, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4gew7"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.24, 0.22, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnq2s"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.16, 0.14, 0.14, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.3, 0.33, 1)
+
+[node name="InventoryUX" type="Node" unique_id=1162056908]
+script = ExtResource("1_gfbkf")
+
+[node name="HotbarOverlay" type="Control" parent="." unique_id=1947222345]
+unique_name_in_owner = true
+top_level = true
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("2_bcv03")
+
+[node name="CapacityLabel" type="Label" parent="." unique_id=1791402363]
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 7
+text = "Bag 0/15"
+
+[node name="SortButton" type="Button" parent="." unique_id=2146596367]
+unique_name_in_owner = true
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_mp0a3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mmu3r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4gew7")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qnq2s")
+theme_override_font_sizes/font_size = 7
+text = "Sort"
+
+[node name="HintLabel" type="Label" parent="." unique_id=1695918230]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.55)
+theme_override_font_sizes/font_size = 6
+text = "Shift+click - quick move  |  Shift+drag - split stack  |  Drag to bin - discard"
+horizontal_alignment = 1

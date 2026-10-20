@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://bes0yp1rfj1q3" path="res://Assets/Textures/UI/Icons.png" id="2_kscpg"]
 [ext_resource type="Script" uid="uid://bnl813ev2w7bk" path="res://scr/Systems/Infection/InfectionVignette.gd" id="3_my3yu"]
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="4_01dxt"]
-[ext_resource type="Script" uid="uid://bobl8s2gcvn4x" path="res://scr/Resources/effects/EffectDsplayUI.gd" id="5_01dxt"]
 [ext_resource type="PackedScene" uid="uid://xi525y36l0mn" path="res://scr/Systems/Inventory/Inventory.tscn" id="5_my3yu"]
 [ext_resource type="Script" uid="uid://brgbxkb6l0dem" path="res://scr/Misc/health_bar.gd" id="5_yfmxh"]
 [ext_resource type="PackedScene" uid="uid://bhugp3d5bopwb" path="res://misc/UI/Death/death_menu.tscn" id="6_yfmxh"]
 [ext_resource type="PackedScene" uid="uid://b0mf3l56dvooj" path="res://misc/UI/Pause/pause_menu.tscn" id="7_2v76w"]
+[ext_resource type="PackedScene" uid="uid://52127now6ld4" path="res://misc/UI/QuestTerminal/quest_terminal.tscn" id="10_my3yu"]
+[ext_resource type="PackedScene" path="res://misc/UI/Effects/effect_display.tscn" id="11_yfmxh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cdos3"]
 shader = ExtResource("2_01dxt")
@@ -35,34 +36,6 @@ texture_margin_top = 1.0
 texture_margin_right = 1.0
 texture_margin_bottom = 1.0
 modulate_color = Color(0.82638633, 0, 0.065350935, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_my3yu"]
-texture = SubResource("AtlasTexture_po7el")
-texture_margin_left = 1.0
-texture_margin_top = 1.0
-texture_margin_right = 1.0
-texture_margin_bottom = 1.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_my3yu"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yfmxh"]
-atlas = ExtResource("4_01dxt")
-region = Rect2(64, 112, 64, 16)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2v76w"]
-texture = SubResource("AtlasTexture_yfmxh")
-texture_margin_left = 1.0
-texture_margin_top = 1.0
-texture_margin_right = 1.0
-texture_margin_bottom = 1.0
-modulate_color = Color(0.5456216, 1.790464e-05, 0.4052836, 1)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rpipr"]
-load_path = "res://.godot/imported/Icons.png-a24332a59a427aaf04ec263d25c271be.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_npi0j"]
-atlas = SubResource("CompressedTexture2D_rpipr")
-region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="Curve" id="Curve_2v76w"]
 _data = [Vector2(0.42628205, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -97,8 +70,8 @@ turbulence_influence_max = 0.15
 
 [node name="GUI" type="CanvasLayer" unique_id=1874703344]
 script = ExtResource("1_7myg7")
-metadata/_edit_vertical_guides_ = [472.49283]
-metadata/_edit_horizontal_guides_ = [10.946903]
+metadata/_edit_vertical_guides_ = [472.49283, 10.0]
+metadata/_edit_horizontal_guides_ = [10.946903, 25.0]
 
 [node name="HUD" type="Control" parent="." unique_id=1608603810]
 layout_mode = 3
@@ -144,19 +117,6 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EffectDisplayUI" type="HBoxContainer" parent="HUD" unique_id=1570758857]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -41.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("5_01dxt")
-
 [node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=1844046137]
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 0
@@ -172,45 +132,9 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_yfmxh")
 theme_override_styles/fill = SubResource("StyleBoxTexture_01dxt")
 show_percentage = false
 script = ExtResource("5_yfmxh")
-
-[node name="DelayedBar" type="ProgressBar" parent="HUD/HealthBar" unique_id=1548220911]
-z_index = -1
-custom_minimum_size = Vector2(100, 10)
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 10.0
-size_flags_horizontal = 0
-size_flags_vertical = 1
-localize_numeral_system = false
-mouse_filter = 2
-theme_override_styles/fill = SubResource("StyleBoxTexture_my3yu")
-show_percentage = false
-
-[node name="CurseBar" type="ProgressBar" parent="HUD/HealthBar" unique_id=2069860655]
-custom_minimum_size = Vector2(100, 10)
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 10.0
-size_flags_horizontal = 0
-size_flags_vertical = 1
-localize_numeral_system = false
-mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxEmpty_my3yu")
-theme_override_styles/fill = SubResource("StyleBoxTexture_2v76w")
-show_percentage = false
-
-[node name="HeartIcon" type="TextureRect" parent="HUD/HealthBar" unique_id=1537346670]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 1
-offset_left = -8.000001
-offset_top = -5.0000005
-offset_right = 15.999999
-offset_bottom = 19.0
-scale = Vector2(0.7601346, 0.7601346)
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-texture = SubResource("AtlasTexture_npi0j")
+heal_fill_speed = 3.0
+heartbeat_calm = 0.5
+curse_alert = 34.0
 
 [node name="Corruption Effect" type="GPUParticles2D" parent="HUD/HealthBar" unique_id=1448438442]
 z_index = -1
@@ -232,38 +156,13 @@ visible = false
 visible = false
 mouse_filter = 2
 
-[node name="QUESTBOX" type="HBoxContainer" parent="." unique_id=1986954953]
-visible = false
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -163.06137
-offset_top = -95.13147
-offset_right = -8.061371
-offset_bottom = 20.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_constants/separation = 5
+[node name="QuestTerminal" parent="." unique_id=1649877434 instance=ExtResource("10_my3yu")]
 
-[node name="RichTextLabel" type="RichTextLabel" parent="QUESTBOX" unique_id=1692568047]
-custom_minimum_size = Vector2(140, 60)
-layout_mode = 2
-text = "QUEST 1
-QUEST 2
-QUEST 3
-Quest 4
-........"
-horizontal_alignment = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="QUESTBOX" unique_id=1590408497]
-custom_minimum_size = Vector2(10, 70)
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-value = 25.0
-fill_mode = 3
-show_percentage = false
+[node name="EffectDisplay" parent="." unique_id=1618294836 instance=ExtResource("11_yfmxh")]
+offset_left = 10.0
+offset_top = 25.0
+offset_right = 11.0
+offset_bottom = 36.0
 
 [connection signal="visibility_changed" from="HUD/Inventory" to="." method="_on_inventory_visibility_changed"]
 [connection signal="visibility_changed" from="DeathMenu" to="." method="_on_death_menu_visibility_changed"]

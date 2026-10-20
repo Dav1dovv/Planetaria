@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlanetInfo" format=3]
+
+[ext_resource type="Script" path="res://scr/Resources/planet_info.gd" id="1_j4tbm"]
+
+[resource]
+script = ExtResource("1_j4tbm")
+id = "Vehana"
+tint = Color(0.37254903, 0.827451, 0.5529412, 1)
+icon_region = Rect2i(76, 52, 25, 25)
+type_key = "HABITABLE"
+description_key = "A settlement under threat: pig raids, slime creeping over the glades and an awakened ancient guardian."

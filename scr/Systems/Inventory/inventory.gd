@@ -63,7 +63,7 @@ func _ready() -> void:
 	inventory_changed.connect(_mark_count_cache_dirty)
 	if hotbar:
 		hotbar.hotbar_changed.connect(_mark_count_cache_dirty)
-	add_child(InventoryUX.new())
+	#add_child(InventoryUX.new())
 
 # ─────────────────────────────────────────────────────────────────
 #  ИНИЦИАЛИЗАЦИЯ

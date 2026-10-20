@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Gradient_1ctr0"]
+offsets = PackedFloat32Array(0.45, 1)
+colors = PackedColorArray(0.7, 0, 0.03, 0, 0.75, 0, 0.04, 0.7)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m60np"]
+gradient = SubResource("Gradient_1ctr0")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[node name="HealthVignette" type="CanvasLayer" unique_id=1972452231]
+layer = 48
+
+[node name="Rect" type="TextureRect" parent="." unique_id=648857820]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_m60np")
+expand_mode = 1

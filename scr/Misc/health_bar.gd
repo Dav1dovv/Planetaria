@@ -22,11 +22,40 @@ enum NumberMode { AUTO, ALWAYS, NEVER }
 @export var number_mode: NumberMode = NumberMode.AUTO
 ## Ниже этой доли здоровья включается тревога (пульс, сердцебиение, виньетка).
 @export_range(0.05, 0.6, 0.01) var low_hp_threshold: float = 0.25
-@export var low_hp_vignette: bool = true
+@export var low_hp_vignette: bool = true  # (включает/выключает виньетку целиком)
 @export var fill_color: Color = Color(0.83, 0.0, 0.065)
 @export var trail_color: Color = Color(1.0, 0.86, 0.62)
 @export var heal_color: Color = Color(0.55, 1.0, 0.6)
 @export var curse_color: Color = Color(0.62, 0.1, 0.72)
+
+@export_group("Анимация")
+## Сколько секунд «след» потерянного здоровья стоит на месте, прежде чем съедаться.
+@export_range(0.0, 1.0, 0.05) var trail_hold_time: float = 0.3
+## Скорость, с которой «след» съедается.
+@export_range(0.5, 10.0, 0.5) var trail_speed: float = 3.5
+## Скорость наполнения при лечении.
+@export_range(1.0, 20.0, 0.5) var heal_fill_speed: float = 9.0
+## Сила тряски при уроне (0 = без тряски).
+@export_range(0.0, 3.0, 0.1) var shake_strength: float = 1.0
+## Сколько секунд висят цифры после изменения здоровья (режим AUTO).
+@export_range(0.5, 8.0, 0.5) var number_time: float = 2.5
+## Через сколько HP ставить засечки на полоске.
+@export_range(1.0, 100.0, 1.0) var tick_step_hp: float = 10.0
+## Частота сердцебиения (ударов в секунду): при полном здоровье и при нуле.
+@export_range(0.3, 3.0, 0.1) var heartbeat_calm: float = 0.9
+@export_range(0.5, 5.0, 0.1) var heartbeat_panic: float = 2.6
+## С какого значения проклятия (0–100) запускаются частицы Corruption Effect и пульсирует полоска.
+@export_range(0.0, 100.0, 1.0) var curse_alert: float = 70.0
+
+@export_group("Рамка и фон")
+@export var frame_color: Color = Color("12080c")
+@export var back_color: Color = Color("2b0b10")
+
+@export_group("Виньетка при низком здоровье")
+## Сцена виньетки (health_vignette.tscn). Пусто = без виньетки.
+@export var vignette_scene: PackedScene = preload("res://misc/UI/HealthBar/health_vignette.tscn")
+@export_range(0.0, 1.0, 0.05) var vignette_alpha_min: float = 0.3
+@export_range(0.0, 1.0, 0.05) var vignette_alpha_max: float = 0.6
 
 # Поля оставлены для совместимости со старым кодом
 var max_health: float = 0.0
@@ -42,9 +71,6 @@ const HEART_ROWS: Array[String] = [
 	"...XXX...",
 	"....X....",
 ]
-const FRAME := Color("12080c")
-const BACK := Color("2b0b10")
-const NUMBER_TIME := 2.5   ## сколько висят цифры после изменения
 
 var _display: float = 0.0       ## то, что реально нарисовано (догоняет value при лечении)
 var _trail: float = 0.0         ## «след» потерянного здоровья
@@ -88,29 +114,14 @@ func _ready() -> void:
 		_build_vignette()
 
 
-## Красная виньетка по краям экрана: радиальный градиент, без шейдеров.
+## Красная виньетка по краям экрана — отдельная сцена health_vignette.tscn (градиент правится в инспекторе).
 func _build_vignette() -> void:
-	var gradient := Gradient.new()
-	gradient.offsets = PackedFloat32Array([0.45, 1.0])
-	gradient.colors = PackedColorArray([Color(0.7, 0.0, 0.03, 0.0), Color(0.75, 0.0, 0.04, 0.7)])
-	var tex := GradientTexture2D.new()
-	tex.gradient = gradient
-	tex.fill = GradientTexture2D.FILL_RADIAL
-	tex.fill_from = Vector2(0.5, 0.5)
-	tex.fill_to = Vector2(1.0, 1.0)
-	tex.width = 128
-	tex.height = 128
-	_vignette = CanvasLayer.new()
-	_vignette.layer = 48
+	if vignette_scene == null:
+		return
+	_vignette = vignette_scene.instantiate()
+	_vignette_rect = _vignette.get_node("%Rect")
 	_vignette.visible = false
-	_vignette_rect = TextureRect.new()
-	_vignette_rect.texture = tex
-	_vignette_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_vignette_rect.stretch_mode = TextureRect.STRETCH_SCALE
-	_vignette_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_vignette_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_vignette_rect.modulate.a = 0.0
-	_vignette.add_child(_vignette_rect)
 	add_child(_vignette)
 
 
@@ -133,15 +144,15 @@ func update_value(new_value: float, new_max_value: float, curse: float) -> void:
 
 	if new_value < old - 0.001:  # урон
 		_trail = maxf(_trail, old)
-		_trail_hold = 0.3
+		_trail_hold = trail_hold_time
 		var hit := (old - new_value) / maxf(max_value, 1.0)
 		_hit_flash = 1.0
 		_shake = clampf(0.3 + hit * 4.0, 0.3, 1.0)  # сильный удар — сильнее тряска
-		_number_timer = NUMBER_TIME
+		_number_timer = number_time
 	elif new_value > old + 0.001:  # лечение
 		_heal_from = old
 		_heal_flash = 1.0
-		_number_timer = NUMBER_TIME
+		_number_timer = number_time
 
 	value = new_value
 	health = new_value
@@ -149,7 +160,7 @@ func update_value(new_value: float, new_max_value: float, curse: float) -> void:
 
 	_curse_target = clampf(curse, 0.0, 100.0)
 	if _corruption_effect:
-		var active := _curse_target >= 70.0
+		var active := _curse_target >= curse_alert
 		_corruption_effect.set("visible", active)
 		_corruption_effect.set("emitting", active)
 	queue_redraw()
@@ -165,12 +176,12 @@ func _process(delta: float) -> void:
 	if value < _display:
 		_display = value
 	else:
-		_display += (value - _display) * minf(1.0, delta * 9.0)
+		_display += (value - _display) * minf(1.0, delta * heal_fill_speed)
 
 	if _trail_hold > 0.0:
 		_trail_hold -= delta
 	else:
-		_trail += (_display - _trail) * minf(1.0, delta * 3.5)
+		_trail += (_display - _trail) * minf(1.0, delta * trail_speed)
 	_trail = maxf(_trail, _display)
 
 	_hit_flash = maxf(0.0, _hit_flash - delta * 6.0)
@@ -198,7 +209,7 @@ func _update_vignette(delta: float) -> void:
 	if low_hp_vignette and _is_low() and not get_tree().paused:
 		var danger := 1.0 - _ratio(value) / low_hp_threshold  # 0 на границе, 1 при нуле
 		var rate := lerpf(1.0, 2.2, danger)
-		target = 0.3 + 0.3 * (0.5 + 0.5 * sin(_t * TAU * rate))
+		target = vignette_alpha_min + (vignette_alpha_max - vignette_alpha_min) * (0.5 + 0.5 * sin(_t * TAU * rate))
 	_vignette_alpha += (target - _vignette_alpha) * minf(1.0, delta * 6.0)
 	_vignette.visible = _vignette_alpha > 0.01
 	_vignette_rect.modulate.a = _vignette_alpha
@@ -215,7 +226,7 @@ func _draw() -> void:
 	# Тряска при уроне (целые пиксели — пиксель-арт не «плывёт»)
 	var shake_offset := Vector2.ZERO
 	if _shake > 0.0:
-		shake_offset = Vector2(roundf(sin(_t * 90.0) * _shake * 1.6), roundf(cos(_t * 77.0) * _shake * 0.9))
+		shake_offset = Vector2(roundf(sin(_t * 90.0) * _shake * 1.6 * shake_strength), roundf(cos(_t * 77.0) * _shake * 0.9 * shake_strength))
 	draw_set_transform(shake_offset)
 
 	var heart_w := 0.0
@@ -224,9 +235,9 @@ func _draw() -> void:
 
 	var outer := Rect2(heart_w, 0.0, s.x - heart_w, s.y)
 	var inner := outer.grow(-1.0)
-	var frame_color := FRAME.lerp(Color(0.9, 0.1, 0.12), pulse * 0.8) if low else FRAME
+	var frame_color := frame_color.lerp(Color(0.9, 0.1, 0.12), pulse * 0.8) if low else frame_color
 	draw_rect(outer, frame_color)
-	draw_rect(inner, BACK)
+	draw_rect(inner, back_color)
 
 	var fill_w := roundf(inner.size.x * _ratio(_display))
 	var trail_w := roundf(inner.size.x * _ratio(_trail))
@@ -251,7 +262,7 @@ func _draw() -> void:
 					Color(heal_color, 0.85 * _heal_flash))
 
 	# Засечки по 10 HP (на больших максимумах реже, чтобы не превращать бар в расчёску)
-	var step := 10.0
+	var step := tick_step_hp
 	while max_value / step > 20.0:
 		step *= 2.0
 	var k := 1
@@ -265,7 +276,7 @@ func _draw() -> void:
 		var ch := maxf(2.0, roundf(inner.size.y * 0.28))
 		var cy := inner.end.y - ch
 		draw_rect(Rect2(inner.position.x, cy, inner.size.x, ch), Color(0, 0, 0, 0.4))
-		var cc := curse_color.lightened(0.25 * pulse) if _curse_display >= 70.0 else curse_color
+		var cc := curse_color.lightened(0.25 * pulse) if _curse_display >= curse_alert else curse_color
 		draw_rect(Rect2(inner.position.x, cy, roundf(inner.size.x * _curse_display / 100.0), ch), cc)
 
 	# Белая вспышка удара
@@ -303,7 +314,7 @@ func _draw_heart(s: Vector2, low: bool) -> float:
 	var origin := Vector2(1.0, roundf((s.y - h) * 0.5))
 
 	# Сердцебиение: чаще, когда плохо
-	var rate := lerpf(0.9, 2.6, 1.0 - _ratio(value))
+	var rate := lerpf(heartbeat_calm, heartbeat_panic, 1.0 - _ratio(value))
 	var phase := fmod(_t * rate, 1.0)
 	var beat := exp(-phase * 8.0)  # резкий «удар» и затухание
 	var dead := value <= 0.0
@@ -322,7 +333,7 @@ func _draw_heart(s: Vector2, low: bool) -> float:
 			_heart_cells(origin + dir * px, px, Color(body, 0.25 * beat))
 	# Тёмная обводка
 	for dir in [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]:
-		_heart_cells(origin + dir * px, px, FRAME)
+		_heart_cells(origin + dir * px, px, frame_color)
 	_heart_cells(origin, px, body)
 	# Блик
 	draw_rect(Rect2(origin + Vector2(1, 1) * px, Vector2(px, px)), body.lightened(0.5))

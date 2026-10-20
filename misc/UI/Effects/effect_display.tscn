@@ -1,0 +1,62 @@
+[gd_scene format=3]
+
+[ext_resource type="Theme" path="res://common/Themes/terminal_theme.tres" id="1_ow0ep"]
+[ext_resource type="Script" path="res://scr/Resources/effects/EffectDsplayUI.gd" id="2_4x3n2"]
+[ext_resource type="PackedScene" path="res://misc/UI/Effects/effect_slot.tscn" id="3_dk563"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect1.png" id="4_gi8nu"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect2.png" id="5_731dv"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect3.png" id="6_g0cbj"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect4.png" id="7_rl6v6"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect5.png" id="8_fhxex"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect6.png" id="9_b14bj"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect7.png" id="10_mpe3e"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect8.png" id="11_ysdup"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect9.png" id="12_mljv1"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect10.png" id="13_feojw"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect11.png" id="14_xgl3k"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect12.png" id="15_idehc"]
+
+[node name="EffectDisplay" type="HBoxContainer" unique_id=1618294836]
+mouse_filter = 2
+theme = ExtResource("1_ow0ep")
+script = ExtResource("2_4x3n2")
+slot_scene = ExtResource("3_dk563")
+debuff_types = Array[int]([8, 10, 11, 16, 17, 9, 18])
+type_icons = Dictionary[int, Texture2D]({
+0: ExtResource("12_mljv1"),
+1: ExtResource("4_gi8nu"),
+2: ExtResource("5_731dv"),
+3: ExtResource("6_g0cbj"),
+4: ExtResource("7_rl6v6"),
+6: ExtResource("8_fhxex"),
+8: ExtResource("9_b14bj"),
+9: ExtResource("13_feojw"),
+10: ExtResource("10_mpe3e"),
+11: ExtResource("11_ysdup"),
+16: ExtResource("14_xgl3k"),
+17: ExtResource("15_idehc")
+})
+
+[node name="Stack" type="VBoxContainer" parent="." unique_id=1425488192]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="RowMain" type="HBoxContainer" parent="Stack" unique_id=1880789240]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="RowPassive" type="HBoxContainer" parent="Stack" unique_id=1795639683]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="Toast" type="Label" parent="Stack" unique_id=284004322]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TerminalAmber"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4

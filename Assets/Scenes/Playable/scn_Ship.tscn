@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://skjvwfk2f5ut" path="res://misc/Entity/NPC/NPC_Princess.tscn" id="11_cwcch"]
 [ext_resource type="PackedScene" uid="uid://g42tx2egaq3a" path="res://misc/Entity/NPC/NPC_smith_bern.tscn" id="12_y7y6r"]
 [ext_resource type="Script" uid="uid://gyp540t0og1d" path="res://scr/Misc/ShowChild.gd" id="13_n85m3"]
-[ext_resource type="PackedScene" uid="uid://ddf0srh1jj7e6" path="res://misc/UI/PlanetChooser/planer_chooser.tscn" id="14_lc6k5"]
+[ext_resource type="PackedScene" uid="uid://ddf0srh1jj7e6" path="res://misc/UI/PlanetChooser/planet_chooser.tscn" id="14_lc6k5"]
 [ext_resource type="PackedScene" uid="uid://doewb5iqg3g7d" path="res://misc/Structures/Doors/door.tscn" id="15_2dmd6"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="15_dssul"]
 [ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/Textures/Light/GradientLight.png" id="18_w2c1c"]

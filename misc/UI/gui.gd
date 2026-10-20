@@ -7,10 +7,10 @@ var player
 @onready var death_menu: Control = $DeathMenu
 @onready var pause_menu: Control = $PauseMenu
 
-# Панель заданий (справа по центру): список заданий + шкала исследования планеты
-@onready var quest_box: HBoxContainer = $QUESTBOX
-@onready var quest_label: RichTextLabel = $QUESTBOX/RichTextLabel
-@onready var quest_progress: ProgressBar = $QUESTBOX/ProgressBar
+## Панель заданий (справа по центру): список заданий + шкала исследования планеты
+#@onready var quest_box: HBoxContainer = $QUESTBOX
+#@onready var quest_label: RichTextLabel = $QUESTBOX/RichTextLabel
+#@onready var quest_progress: ProgressBar = $QUESTBOX/ProgressBar
 
 const COLOR_DONE := "#6fdc6f"
 const COLOR_TITLE := "#ffd966"
@@ -20,12 +20,12 @@ var _refresh_queued: bool = false
 
 
 func _ready() -> void:
-	quest_label.bbcode_enabled = true
-	quest_label.fit_content = true
-	quest_label.scroll_active = false
-	quest_progress.min_value = 0.0
-	quest_progress.max_value = 100.0
-	quest_progress.step = 0.1
+	#quest_label.bbcode_enabled = true
+	#quest_label.fit_content = true
+	#quest_label.scroll_active = false
+	#quest_progress.min_value = 0.0
+	#quest_progress.max_value = 100.0
+	#quest_progress.step = 0.1
 
 	hud.visibility_changed.connect(_queue_quest_refresh)
 	# Кнопки «инвентарь» и «меню» для сенсорного экрана (на ПК скрыты)
@@ -34,8 +34,8 @@ func _ready() -> void:
 	Global.planets_loaded.connect(_on_planets_loaded)
 	_on_location_changed(Global.current_location)
 	
-	quest_box.visible = false
-	add_child(QuestTerminal.new())
+	#quest_box.visible = false
+	#add_child(QuestTerminal.new())
 
 #func _on_inventory_visibility_changed() -> void:
 	#if inventory.visible:
@@ -102,7 +102,7 @@ func _refresh_quest_box() -> void:
 	_refresh_queued = false
 
 	if _tracked_planet == null or _tracked_planet.max_explore_value == 0:
-		quest_box.visible = false
+		#quest_box.visible = false
 		return
 
 	var ratio := _tracked_planet.get_progress_ratio()
@@ -115,8 +115,8 @@ func _refresh_quest_box() -> void:
 	_append_quest_group(lines, Loc.t("Базовые"), _tracked_planet.base_quests)
 	_append_quest_group(lines, Loc.t("Особые"), _tracked_planet.unique_quests)
 
-	quest_label.text = "[right]%s[/right]" % "\n".join(lines)
-	quest_progress.value = ratio * 100.0
+	#quest_label.text = "[right]%s[/right]" % "\n".join(lines)
+	#quest_progress.value = ratio * 100.0
 	#quest_box.visible = hud.visible
 
 func _append_quest_group(lines: PackedStringArray, group_title: String, quests: Array[QuestData]) -> void:
