@@ -19,7 +19,15 @@ display_name = "Ship"
 music_key = "Ship"
 metadata/_custom_type_script = "uid://dahsqqqv7jj4q"
 
+[sub_resource type="Resource" id="Resource_bv473"]
+script = ExtResource("1_d63od")
+key = "Anelim"
+scene_path = "uid://cqciqq8bbw1wu"
+display_name = "Anelim"
+music_key = "Vehana"
+metadata/_custom_type_script = "uid://dahsqqqv7jj4q"
+
 [resource]
 script = ExtResource("2_bcnq4")
-scenes = Array[ExtResource("1_d63od")]([SubResource("Resource_xu2h1"), SubResource("Resource_bv3vm")])
+scenes = Array[ExtResource("1_d63od")]([SubResource("Resource_xu2h1"), SubResource("Resource_bv3vm"), SubResource("Resource_bv473")])
 metadata/_custom_type_script = "uid://b7mb22r6p1vpu"

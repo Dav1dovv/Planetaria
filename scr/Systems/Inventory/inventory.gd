@@ -63,6 +63,7 @@ func _ready() -> void:
 	inventory_changed.connect(_mark_count_cache_dirty)
 	if hotbar:
 		hotbar.hotbar_changed.connect(_mark_count_cache_dirty)
+	add_child(InventoryUX.new())
 
 # ─────────────────────────────────────────────────────────────────
 #  ИНИЦИАЛИЗАЦИЯ
@@ -384,6 +385,7 @@ func call_inventory():
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
 	$Panel.visible = is_opened
+	$SCOREBAR.visible = !is_opened
 	$HotBar.visible = true
 	inventory.visible = true
 	smith.visible = false
@@ -401,6 +403,7 @@ func _call_craft_station(station: Control) -> void:
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
 	$Panel.visible = is_opened
+	$SCOREBAR.visible = true
 
 	inventory.visible = false
 	$HotBar.visible = false
@@ -418,6 +421,7 @@ func _call_craft_station(station: Control) -> void:
 ## Наковальня — рецепты с station_restriction = SMITH_ONLY / ANY
 func call_smith() -> void:
 	_call_craft_station(smith)
+	
 
 ## Котёл — вся еда (category = Food), независимо от station_restriction
 func call_cauldron() -> void:
@@ -438,6 +442,7 @@ func call_trade(Trader : TraderData):
 	inventory.visible = false
 	$HotBar.visible = false
 	trade_window.visible = true
+	$SCOREBAR.visible = true
 	Cursor.detection_mode(is_opened)
 	if is_opened:
 		trade_window.open(Trader)

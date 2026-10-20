@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bhikixmfqyo2d" path="res://scr/Systems/SaveLoadSlot/save_load_button.gd" id="1_fq7x7"]
 
-[node name="CrewBadge" type="Button"]
+[node name="CrewBadge" type="Button" unique_id=2052791051]
 script = ExtResource("1_fq7x7")

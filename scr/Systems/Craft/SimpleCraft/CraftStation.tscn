@@ -73,7 +73,7 @@ custom_minimum_size = Vector2(70, 18)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 12
-text = "SHOP"
+text = "Craft"
 
 [node name="TabRepair" type="Button" parent="Craft/TabBar" unique_id=1285823383]
 custom_minimum_size = Vector2(70, 18)
@@ -88,7 +88,7 @@ custom_minimum_size = Vector2(70, 18)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 12
-text = "Diassemble"
+text = "Disassemble"
 
 [node name="Body" type="HBoxContainer" parent="Craft" unique_id=610005097]
 layout_mode = 1
@@ -112,13 +112,6 @@ layout_mode = 2
 [node name="Control" type="Control" parent="Craft/Body/Left" unique_id=523425576]
 layout_mode = 2
 
-[node name="SearchBox" type="LineEdit" parent="Craft/Body/Left" unique_id=1533321336]
-custom_minimum_size = Vector2(100, 5)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 4
-placeholder_text = "Search"
-
 [node name="Control2" type="Control" parent="Craft/Body/Left" unique_id=741299862]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
@@ -140,7 +133,7 @@ popup/item_3/text = "Food"
 popup/item_3/id = 3
 popup/item_4/text = "Materials"
 popup/item_4/id = 4
-popup/item_5/text = "Acsesories"
+popup/item_5/text = "Accessories"
 popup/item_5/id = 5
 
 [node name="Scroll" type="ScrollContainer" parent="Craft/Body/Left" unique_id=1651807817]
@@ -258,7 +251,7 @@ text = "MAX"
 
 [node name="GoldLabel" type="Label" parent="Craft/Body/Right" unique_id=59422489]
 layout_mode = 2
-text = "GOLD LABEL"
+text = ""
 
 [node name="IngredientsList" type="VBoxContainer" parent="Craft/Body/Right" unique_id=1368680222]
 custom_minimum_size = Vector2(0, 75)

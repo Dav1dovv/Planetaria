@@ -63,6 +63,9 @@ const SKIN_PATHS: Array[String] = [
 	"res://misc/Entity/Player/Textures/Skin3.png",
 	"res://misc/Entity/Player/Textures/Skin4.png",
 	"res://misc/Entity/Player/Textures/Skin5.png",
+	"res://misc/Entity/Player/Textures/Skin6.png",
+	"res://misc/Entity/Player/Textures/Skin7.png",
+	"res://misc/Entity/Player/Textures/Skin8.png",
 ]
 ## Где на листе скина лежат шлем и комбинезон (тот же лист, что у PlayerSkin)
 const SRC_HEAD := Rect2(8, 10, 16, 9)

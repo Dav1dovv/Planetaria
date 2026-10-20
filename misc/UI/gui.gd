@@ -33,7 +33,9 @@ func _ready() -> void:
 	Global.location_changed.connect(_on_location_changed)
 	Global.planets_loaded.connect(_on_planets_loaded)
 	_on_location_changed(Global.current_location)
-
+	
+	quest_box.visible = false
+	add_child(QuestTerminal.new())
 
 #func _on_inventory_visibility_changed() -> void:
 	#if inventory.visible:
@@ -47,6 +49,10 @@ func call_death():
 	pause_menu.visible = false
 	pause_menu.anotherMenuOpened = true
 
+func call_respawn():
+	hud.visible = true
+	pause_menu.visible = true
+	pause_menu.anotherMenuOpened = false
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Панель заданий
@@ -111,7 +117,7 @@ func _refresh_quest_box() -> void:
 
 	quest_label.text = "[right]%s[/right]" % "\n".join(lines)
 	quest_progress.value = ratio * 100.0
-	quest_box.visible = hud.visible
+	#quest_box.visible = hud.visible
 
 func _append_quest_group(lines: PackedStringArray, group_title: String, quests: Array[QuestData]) -> void:
 	if quests.is_empty():

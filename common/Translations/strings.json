@@ -2333,5 +2333,295 @@
 		"en": "A - enter   |   Y - revoke   |   B - back",
 		"ru": "A - войти   |   Y - аннулировать   |   B - назад",
 		"hy": "A - մուտք   |   Y - չեղարկել   |   B - հետ"
+	},
+	"Controls": {
+		"en": "Controls",
+		"ru": "Управление",
+		"hy": "Կառավարում"
+	},
+	"Move": {
+		"en": "Move",
+		"ru": "Движение",
+		"hy": "Շարժվել"
+	},
+	"Attack": {
+		"en": "Attack",
+		"ru": "Атака",
+		"hy": "Հարձակում"
+	},
+	"Interact with an object": {
+		"en": "Interact with an object",
+		"ru": "Взаимодействие с объектом",
+		"hy": "Փոխազդել առարկայի հետ"
+	},
+	"Inventory and crafting": {
+		"en": "Inventory and crafting",
+		"ru": "Инвентарь и крафт",
+		"hy": "Գույք և պատրաստում"
+	},
+	"Select item": {
+		"en": "Select item",
+		"ru": "Выбор предмета",
+		"hy": "Ընտրել իրը"
+	},
+	"1-9  /  mouse wheel": {
+		"en": "1-9  /  mouse wheel",
+		"ru": "1-9  /  колёсико мыши",
+		"hy": "1-9  /  մկնիկի անիվ"
+	},
+	"Pause / back": {
+		"en": "Pause / back",
+		"ru": "Пауза / назад",
+		"hy": "Դադար / հետ"
+	},
+	"Return to main menu?": {
+		"en": "Return to main menu?",
+		"ru": "Вернуться в главное меню?",
+		"hy": "Վերադառնա՞լ գլխավոր ցանկ"
+	},
+	"Your progress will be saved automatically.": {
+		"en": "Your progress will be saved automatically.",
+		"ru": "Прогресс сохранится автоматически.",
+		"hy": "Առաջընթացը կպահպանվի ավտոմատ կերպով։"
+	},
+	"Stay": {
+		"en": "Stay",
+		"ru": "Остаться",
+		"hy": "Մնալ"
+	},
+	"Next goal:": {
+		"en": "Next goal:",
+		"ru": "Следующая цель:",
+		"hy": "Հաջորդ նպատակը՝"
+	},
+	"All goals complete!": {
+		"en": "All goals complete!",
+		"ru": "Все цели выполнены!",
+		"hy": "Բոլոր նպատակները կատարված են։"
+	},
+	"you're too far": {
+		"en": "you're too far",
+		"ru": "слишком далеко",
+		"hy": "շատ հեռու է"
+	},
+	"Left stick": {
+		"en": "Left stick",
+		"ru": "Левый стик",
+		"hy": "Ձախ սթիք"
+	},
+	"Right stick": {
+		"en": "Right stick",
+		"ru": "Правый стик",
+		"hy": "Աջ սթիք"
+	},
+	"MMB": {
+		"en": "MMB",
+		"ru": "СКМ",
+		"hy": "ՄՄԿ"
+	},
+	"Bring the item to repair it": {
+		"en": "Bring the item to repair it",
+		"ru": "Принесите предмет, чтобы починить его",
+		"hy": "Բերեք իրը՝ այն վերանորոգելու համար"
+	},
+	"Full repair": {
+		"en": "Full repair",
+		"ru": "Полный ремонт",
+		"hy": "Լիարժեք վերանորոգում"
+	},
+	"Item is not damaged": {
+		"en": "Item is not damaged",
+		"ru": "Предмет не повреждён",
+		"hy": "Իրը վնասված չէ"
+	},
+	"QUEST TERMINAL": {
+		"en": "QUEST TERMINAL",
+		"ru": "ТЕРМИНАЛ ЗАДАНИЙ",
+		"hy": "ԱՌԱՋԱԴՐԱՆՔՆԵՐԻ ՏԵՐՄԻՆԱԼ"
+	},
+	"%s: hold - show, tap - pin": {
+		"en": "%s: hold - show, tap - pin",
+		"ru": "%s: удерживать - показать, нажать - закрепить",
+		"hy": "%s՝ պահել - ցույց տալ, սեղմել - ամրացնել"
+	},
+	"%s - all orders": {
+		"en": "%s - all orders",
+		"ru": "%s - все задания",
+		"hy": "%s - բոլոր առաջադրանքները"
+	},
+	"ALL ORDERS COMPLETE": {
+		"en": "ALL ORDERS COMPLETE",
+		"ru": "ВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ",
+		"hy": "ԲՈԼՈՐ ԱՌԱՋԱԴՐԱՆՔՆԵՐԸ ԿԱՏԱՐՎԱԾ ԵՆ"
+	},
+	"more": {
+		"en": "more",
+		"ru": "ещё",
+		"hy": "ևս"
+	},
+	"NAVIGATION CONSOLE": {
+		"en": "NAVIGATION CONSOLE",
+		"ru": "НАВИГАЦИОННАЯ КОНСОЛЬ",
+		"hy": "ՆԱՎԻԳԱՑԻՈՆ ՎԱՀԱՆԱԿ"
+	},
+	"DESTINATIONS": {
+		"en": "DESTINATIONS",
+		"ru": "НАПРАВЛЕНИЯ",
+		"hy": "ՈՒՂՂՈՒԹՅՈՒՆՆԵՐ"
+	},
+	"SCAN DATA": {
+		"en": "SCAN DATA",
+		"ru": "ДАННЫЕ СКАНЕРА",
+		"hy": "ՍԿԱՆԻ ՏՎՅԱԼՆԵՐ"
+	},
+	"Up/Down - select  |  Enter - launch  |  Esc - close": {
+		"en": "Up/Down - select  |  Enter - launch  |  Esc - close",
+		"ru": "Вверх/Вниз - выбор  |  Enter - запуск  |  Esc - закрыть",
+		"hy": "Վերև/Ներքև - ընտրել  |  Enter - թռիչք  |  Esc - փակել"
+	},
+	"Close": {
+		"en": "Close",
+		"ru": "Закрыть",
+		"hy": "Փակել"
+	},
+	"NO SIGNAL": {
+		"en": "NO SIGNAL",
+		"ru": "НЕТ СИГНАЛА",
+		"hy": "ԱԶԴԱՆՇԱՆ ՉԿԱ"
+	},
+	"YOU ARE HERE": {
+		"en": "YOU ARE HERE",
+		"ru": "ВЫ ЗДЕСЬ",
+		"hy": "ԴՈՒՔ ԱՅՍՏԵՂ ԵՔ"
+	},
+	"EXPLORED": {
+		"en": "EXPLORED",
+		"ru": "ИЗУЧЕНО",
+		"hy": "ՀԵՏԱԶՈՏՎԱԾ"
+	},
+	"CURRENT POSITION": {
+		"en": "CURRENT POSITION",
+		"ru": "ТЕКУЩАЯ ПОЗИЦИЯ",
+		"hy": "ԸՆԹԱՑԻԿ ԴԻՐՔ"
+	},
+	"LAUNCH": {
+		"en": "LAUNCH",
+		"ru": "ЗАПУСК",
+		"hy": "ԹՌԻՉՔ"
+	},
+	"Route not charted yet": {
+		"en": "Route not charted yet",
+		"ru": "Маршрут ещё не проложен",
+		"hy": "Երթուղին դեռ գծված չէ"
+	},
+	"ORDERS": {
+		"en": "ORDERS",
+		"ru": "ЗАДАНИЯ",
+		"hy": "ԱՌԱՋԱԴՐԱՆՔՆԵՐ"
+	},
+	"FUEL REQUIRED": {
+		"en": "FUEL REQUIRED",
+		"ru": "НУЖНО ТОПЛИВА",
+		"hy": "ՊԱՀԱՆՋՎՈՂ ՎԱՌԵԼԻՔ"
+	},
+	"FUEL ON BOARD": {
+		"en": "FUEL ON BOARD",
+		"ru": "ТОПЛИВА НА БОРТУ",
+		"hy": "ՎԱՌԵԼԻՔ ՆԱՎՈՒՄ"
+	},
+	"READY FOR JUMP": {
+		"en": "READY FOR JUMP",
+		"ru": "К ПРЫЖКУ ГОТОВ",
+		"hy": "ՊԱՏՐԱՍՏ Է ԹՌԻՉՔԻՆ"
+	},
+	"ENGAGING HYPERDRIVE...": {
+		"en": "ENGAGING HYPERDRIVE...",
+		"ru": "ЗАПУСК ГИПЕРДВИГАТЕЛЯ...",
+		"hy": "ՄԻԱՑՆՈՒՄ ԵՆՔ ՀԻՊԵՐՇԱՐԺԻՉԸ..."
+	},
+	"PLANET FILE": {
+		"en": "PLANET FILE",
+		"ru": "ДОСЬЕ ПЛАНЕТЫ",
+		"hy": "ՄԱՐՄՆԻ ԱՐԽԻՎ"
+	},
+	"TYPE": {
+		"en": "TYPE",
+		"ru": "ТИП",
+		"hy": "ՏԵՍԱԿ"
+	},
+	"HABITABLE": {
+		"en": "HABITABLE",
+		"ru": "ОБИТАЕМАЯ",
+		"hy": "ԲՆԱԿՎԱԾ"
+	},
+	"ARID": {
+		"en": "ARID",
+		"ru": "ЗАСУШЛИВАЯ",
+		"hy": "ԱՆԱՊԱՏԱՅԻՆ"
+	},
+	"OCEANIC": {
+		"en": "OCEANIC",
+		"ru": "ОКЕАНИЧЕСКАЯ",
+		"hy": "ՕԶԵԱՆԱԿԱՆ"
+	},
+	"No survey data available.": {
+		"en": "No survey data available.",
+		"ru": "Данных разведки нет.",
+		"hy": "Հետախուզական տվյալներ չկան։"
+	},
+	"A settlement under threat: pig raids, slime creeping over the glades and an awakened ancient guardian.": {
+		"en": "A settlement under threat: pig raids, slime creeping over the glades and an awakened ancient guardian.",
+		"ru": "Поселение под угрозой: налёты свиней, слизь на полянах и проснувшийся древний страж.",
+		"hy": "Բնակավայրը վտանգի տակ է՝ խոզերի հարձակումներ, մարգագետիններին տարածվող լորձ և արթնացած հին պահապան։"
+	},
+	"%s ended": {
+		"en": "%s ended",
+		"ru": "Закончилось: %s",
+		"hy": "Ավարտվեց՝ %s"
+	},
+	"BUFF": {
+		"en": "BUFF",
+		"ru": "БАФФ",
+		"hy": "ՈՒԺԵՂԱՑՈՒՄ"
+	},
+	"DEBUFF": {
+		"en": "DEBUFF",
+		"ru": "ДЕБАФФ",
+		"hy": "ԹՈՒԼԱՑՈՒՄ"
+	},
+	"EQUIPPED": {
+		"en": "EQUIPPED",
+		"ru": "ЭКИПИРОВАНО",
+		"hy": "ՀԱԳՆՎԱԾ"
+	},
+	"Time left: %d s": {
+		"en": "Time left: %d s",
+		"ru": "Осталось: %d с",
+		"hy": "Մնաց՝ %d վ"
+	},
+	"Bag": {
+		"en": "Bag",
+		"ru": "Сумка",
+		"hy": "Պայուսակ"
+	},
+	"Sort": {
+		"en": "Sort",
+		"ru": "Сорт.",
+		"hy": "Դաս."
+	},
+	"FULL": {
+		"en": "FULL",
+		"ru": "ПОЛНО",
+		"hy": "ԼՑՎԱԾ"
+	},
+	"Inventory full": {
+		"en": "Inventory full",
+		"ru": "Инвентарь полон",
+		"hy": "Գույքը լիքն է"
+	},
+	"Shift+click - quick move  |  Shift+drag - split stack  |  Drag to bin - discard": {
+		"en": "Shift+click - quick move  |  Shift+drag - split stack  |  Drag to bin - discard",
+		"ru": "Shift+клик - переложить  |  Shift+перетаскивание - половина стака  |  В корзину - выбросить",
+		"hy": "Shift+սեղմում - տեղափոխել  |  Shift+քաշել - կեսը կույտից  |  Աղբարկղ - դեն նետել"
 	}
 }

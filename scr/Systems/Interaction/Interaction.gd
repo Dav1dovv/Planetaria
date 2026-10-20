@@ -33,20 +33,18 @@ func try_interact() -> void:
 	if player == null:
 		return
 	if global_position.distance_to(player.global_position) >= 60:
-		Global.hint(get_parent(), "you're too far")
+		Global.hint(get_parent(), Loc.t("you're too far"))
 		emit_signal("far")
 	else:
 		interact.call()
 
 
 func _on_area_entered(area: Area2D) -> void:
-	print("mouse_entered")  # Исправлено: опечатка "mouse_enetered" → "mouse_entered"
 	Cursor.Help_hint(icon_help)
 	is_in_zone = true
 
 
 func _on_area_exited(area: Area2D) -> void:
-	print("mouse_exited")
 	Input.set_custom_mouse_cursor(Global.MOUSE_Arrow, Input.CURSOR_ARROW, Vector2(0, 0))
 	is_in_zone = false
 	Cursor.Help_hint(null)

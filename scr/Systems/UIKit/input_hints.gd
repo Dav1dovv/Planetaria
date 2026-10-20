@@ -109,3 +109,10 @@ static func save_screen_hint() -> String:
 		Device.GAMEPAD: return Loc.t("A - enter   |   Y - revoke   |   B - back")
 		Device.TOUCH: return ""
 		_: return Loc.t("Enter - enter   |   Del - revoke   |   Esc - back")
+
+
+## Подсказка про вкладки станции крафта: нужна только геймпаду (мышь/касание видят вкладки сами).
+static func craft_hint() -> String:
+	match device():
+		Device.GAMEPAD: return Loc.t("LB / RB — switch tab   |   A — select")
+		_: return ""
