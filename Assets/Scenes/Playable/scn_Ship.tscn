@@ -82,6 +82,10 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_esqkm"]
 size = Vector2(96.14679, 26.44114)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cdos3"]
+radius = 6.7471313
+height = 77.59216
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_orgpe"]
 texture = ExtResource("4_dssul")
 0:0/0 = 0
@@ -267,7 +271,7 @@ color = Color(0, 0, 0, 1)
 [node name="planet" type="Sprite2D" parent="." unique_id=2019414403]
 z_index = -22
 position = Vector2(-392.0532, 370.4174)
-rotation = 105.071846
+rotation = 71.808846
 scale = Vector2(2.819653, 2.819653)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -284,7 +288,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="planet" unique_id=121156737]
 position = Vector2(5.9159737, -41.65517)
-rotation = -218.32353
+rotation = -65.69491
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(60, 80, 12, 12)
@@ -293,7 +297,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet2" type="Sprite2D" parent="planet" unique_id=819972865]
 position = Vector2(-48.649956, -41.51426)
-rotation = 284.52692
+rotation = -113.6831
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(49, 50, 19, 19)
@@ -303,7 +307,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet3" type="Sprite2D" parent="planet" unique_id=93638243]
 position = Vector2(-36.936844, 71.13017)
-rotation = -277.0565
+rotation = -92.0323
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(57, 9, 32, 32)
@@ -313,7 +317,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="planet" unique_id=1727818982]
 position = Vector2(-66.099815, -28.727964)
-rotation = -210.95876
+rotation = -190.25015
 scale = Vector2(0.32927373, 0.32927373)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -324,7 +328,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet5" type="Sprite2D" parent="planet" unique_id=649481990]
 position = Vector2(-53.9042, 23.165627)
-rotation = 309.13376
+rotation = 256.7027
 scale = Vector2(0.57125205, 0.57125205)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -335,7 +339,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet6" type="Sprite2D" parent="planet" unique_id=1327664183]
 position = Vector2(43.515324, 82.038666)
-rotation = 364.15457
+rotation = 154.48692
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(104, 8, 17, 17)
@@ -344,7 +348,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="planet" unique_id=866645813]
 position = Vector2(110.08391, -3.0646362)
-rotation = 453.97415
+rotation = 381.05127
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(112, 51, 13, 13)
@@ -445,6 +449,16 @@ shape = SubResource("RectangleShape2D_esqkm")
 
 [node name="PlanerChooser" parent="interaction" unique_id=415163601 instance=ExtResource("14_lc6k5")]
 visible = false
+
+[node name="RapierStaticBody2D" type="StaticBody2D" parent="interaction" unique_id=677822684]
+script = ExtResource("19_bn1vh")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction/RapierStaticBody2D" unique_id=1659367593]
+position = Vector2(38.28107, -4.365229)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_cdos3")
+debug_color = Color(0.9999555, 0, 0.111179434, 0.41960785)
 
 [node name="ShipTiles" type="Node2D" parent="." unique_id=2038448683]
 y_sort_enabled = true

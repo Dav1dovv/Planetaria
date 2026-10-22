@@ -62,6 +62,7 @@ var _last_hit_time : float = -999.0
 
 var is_rich_vein : bool = false
 var is_corrupted : bool = false
+var corupt_lvl : int = 0
 
 @export_group("Corruption")
 ## Отладка: принудительно сделать ЭТОТ ресурс заражённым, чтобы проверить логику
@@ -236,3 +237,13 @@ func _tween_fade(target_alpha: float) -> void:
 		fade_duration
 	)
 #endregion
+
+
+func _on_timer_timeout() -> void:
+	if is_corrupted:
+		var cor = CORRUPTION.instantiate()
+		add_child(cor)
+
+func add_infection(value):
+	$Corruption.emitting = true
+	is_corrupted = true

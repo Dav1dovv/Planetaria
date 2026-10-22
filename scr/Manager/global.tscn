@@ -7,19 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://cajofw8k5naam" path="res://scr/Manager/scene_manager.tscn" id="3_2p3co"]
 [ext_resource type="Resource" uid="uid://ctlx2onpmup1i" path="res://common/Resources/PlanetData/Vehana.tres" id="6_3hoy0"]
 [ext_resource type="AudioStream" uid="uid://6suhoapiivyl" path="res://Assets/Audio/BGM/Under PLanetaria.mp3" id="6_8or1h"]
-[ext_resource type="AudioStream" uid="uid://dldusv2uujd8g" path="res://Assets/Audio/BGM/Vehana.mp3" id="8_0btrw"]
+[ext_resource type="AudioStream" uid="uid://c7q7aoqgc2ip3" path="res://Assets/Audio/BGM/VehanaRemix.mp3" id="8_tgb6n"]
+[ext_resource type="AudioStream" uid="uid://bo8lkmlbnha2s" path="res://Assets/Audio/BGM/Ship.mp3" id="12_tgb6n"]
 [ext_resource type="AudioStream" uid="uid://td6afygdrfo7" path="res://Assets/Audio/BGM/game_over_1 (1).wav" id="16_b8n8i"]
 [ext_resource type="AudioStream" uid="uid://bmcaibnlutm8a" path="res://Assets/Audio/BGM/Game_Over_1.wav" id="18_r4swe"]
 [ext_resource type="AudioStream" uid="uid://74uudk4fnr3r" path="res://Assets/Audio/BGM/Game_Over_2.wav" id="19_kouma"]
 [ext_resource type="Script" uid="uid://dm0fatudshy1s" path="res://scr/Systems/Options/SettingsManager.gd" id="27_ljriy"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_gmsqb"]
-clip_count = 5
+clip_count = 6
 clip_0/name = &"Main Menu"
 clip_0/stream = ExtResource("6_8or1h")
 clip_0/auto_advance = 0
-clip_1/name = &"Forest"
-clip_1/stream = ExtResource("8_0btrw")
+clip_1/name = &"Vehana"
+clip_1/stream = ExtResource("8_tgb6n")
 clip_1/auto_advance = 0
 clip_2/name = &"Game Over 1"
 clip_2/stream = ExtResource("16_b8n8i")
@@ -30,12 +31,15 @@ clip_3/auto_advance = 0
 clip_4/name = &"Game Over 3"
 clip_4/stream = ExtResource("19_kouma")
 clip_4/auto_advance = 0
+clip_5/name = &"Ship"
+clip_5/stream = ExtResource("12_tgb6n")
+clip_5/auto_advance = 0
 _transitions = {
 Vector2i(-1, -1): {
-"fade_beats": 2.0,
-"fade_mode": 2,
+"fade_beats": 2.5,
+"fade_mode": 3,
 "from_time": 1,
-"to_time": 2
+"to_time": 0
 },
 Vector2i(-1, 2): {
 "fade_beats": 1.5,

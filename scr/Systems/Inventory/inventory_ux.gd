@@ -1,86 +1,59 @@
-extends Node
+# inventory_ux.gd
+## Надстройка над инвентарём и хотбаром: удобство и обратная связь, логику слотов НЕ трогает.
+## Подключение — одна строка в Inventory._ready() (в конце):   add_child(InventoryUX.new())
+##
+## ХОТБАР (виден всегда):
+##  * номера клавиш 1–9 видны на всех слотах, а не только на пустых;
+##  * выбранный слот подсвечен пульсирующей рамкой — в том числе сразу при старте
+##    (раньше первый слот не подсвечивался, пока игрок не переключится);
+##  * название выбранного предмета всплывает над хотбаром при выборе и пропадает через пару секунд;
+##  * слот коротко вспыхивает, когда в него положили предмет или добавили в стак;
+##  * прочность ≤ 25% — красная пульсирующая рамка и «!»: оружие сломается, ещё не поздно починить;
+##  * все 24 слота заняты — над хотбаром мигает «FULL» (раньше предметы терялись молча).
+## ИНВЕНТАРЬ:
+##  * цвет редкости под иконкой (серый → голубой → фиолетовый → … → золотой) — ценное видно сразу;
+##  * счётчик заполнения «12/15» (янтарный от 80%, красный когда полно);
+##  * кнопка «Sort»: склеивает стаки и раскладывает по типу, редкости и имени;
+##  * Shift+клик по слоту — быстро перенести стак между инвентарём и хотбаром;
+##  * подсказка по скрытым приёмам (Shift+клик, Shift+перетаскивание = половина стака, мусорка).
 class_name InventoryUX
-## Надстройка над инвентарём и хотбаром (сцена misc/UI/InventoryUX/inventory_ux.tscn).
-## Логику слотов НЕ трогает. ПОДКЛЮЧЕНИЕ БЕЗ КОДА: в редакторе открой Inventory.tscn →
-## ПКМ по корневому узлу Inventory → «Instantiate Child Scene» → выбери inventory_ux.tscn. Всё.
-##
-## ХОТБАР (узел HotbarOverlay): номера клавиш, рамка выбранного слота, название предмета,
-##   вспышка при получении, тревога при низкой прочности, «FULL» когда всё занято.
-## ИНВЕНТАРЬ: цвет редкости под иконкой, счётчик «Bag 7/15» (CapacityLabel), кнопка «Sort» (SortButton),
-##   Shift+клик — быстро перенести стак между инвентарём и хотбаром, подсказка (HintLabel).
-##
-## ЧТО ГДЕ МЕНЯТЬ (без кода):
-##  * шрифты, цвета, стили кнопки и подписей — прямо в узлах сцены (Theme Overrides в инспекторе);
-##  * что показывать на хотбаре и тайминги — настройки узла HotbarOverlay;
-##  * где стоят счётчик, кнопка Sort и подсказка в окне инвентаря — группа «Положение» ниже;
-##  * цвета редкости и тексты — группы ниже.
+extends Node
 
-@export_group("Редкость")
-## Цвет подложки под иконкой по качеству предмета (индекс = item.quality).
-@export var quality_colors: Array[Color] = [
+## Цвета редкости — те же, что в Tooltip.gd (индекс = item.quality).
+const QUALITY_COLORS: Array[Color] = [
 	Color("9e9e9e"), Color("5cc2ff"), Color("9b6bff"), Color("ff5ca0"),
 	Color("ff9d3c"), Color("ffd24c"), Color("ffd24c"),
 ]
-## Прозрачность подложки. 0 = выключить.
-@export_range(0.0, 1.0, 0.02) var rarity_alpha: float = 0.34
-
-@export_group("Положение виджетов в окне инвентаря")
-@export var capacity_anchor: Control.LayoutPreset = Control.PRESET_TOP_LEFT
-@export var capacity_margin: int = 6
-@export var sort_anchor: Control.LayoutPreset = Control.PRESET_TOP_RIGHT
-@export var sort_margin: int = 6
-## Подсказка стоит над строкой «ESC — close»: смещение от нижнего центра экрана.
-@export var hint_offset: Vector2 = Vector2(0, -46)
-
-@export_group("Предупреждения заполнения")
-## С какой доли заполнения счётчик становится янтарным.
-@export_range(0.3, 1.0, 0.05) var warn_ratio: float = 0.8
-@export var color_normal: Color = Color(0.62, 0.68, 0.76)
-@export var color_warn: Color = Color(1.0, 0.85, 0.3)
-@export var color_full: Color = Color(1.0, 0.32, 0.3)
-
-@export_group("Тексты (ключи перевода)")
-@export var bag_key: String = "Bag"
-@export var sort_key: String = "Sort"
-@export var full_key: String = "FULL"
-@export var damage_key: String = "DMG"
-
-@onready var _overlay: HotbarOverlay = %HotbarOverlay
-@onready var _capacity: Label = %CapacityLabel
-@onready var _sort_button: Button = %SortButton
-@onready var _hint: Label = %HintLabel
-
+const NAME_TIME := 2.2          ## сколько висит название выбранного предмета
+const FLASH_TIME := 0.35        ## вспышка слота при получении предмета
+const LOW_DURABILITY := 0.25    ## порог тревоги по прочности
 const REFRESH_PERIOD := 0.25    ## как часто пересчитываем бейджи/счётчик (подстраховка к сигналам)
+
+const COL_AMBER := Color(1.0, 0.85, 0.3)
+const COL_RED := Color(1.0, 0.32, 0.3)
+const COL_DIM := Color(0.62, 0.68, 0.76)
 
 var _inv: Inventory
 var _hotbar: Hotbar
+var _overlay: _HudOverlay
+var _capacity: Label
+var _hint: Label
+var _sort_button: Button
 var _since_refresh: float = 0.0
 
 
 func _ready() -> void:
 	_inv = get_parent() as Inventory
 	if _inv == null:
-		push_warning("InventoryUX: добавь эту сцену ребёнком узла Inventory")
+		push_warning("InventoryUX: добавляй этот узел ребёнком Inventory")
 		return
 	_hotbar = _inv.hotbar
 
-	# Оверлей — в Inventory сразу после хотбара (поверх него, под окнами инвентаря)
-	_overlay.ux = self
-	_overlay.reparent(_inv, false)
-	_inv.move_child(_overlay, _hotbar.get_index() + 1)
+	_overlay = _HudOverlay.new(self)
+	_inv.add_child(_overlay)
+	_inv.move_child(_overlay, _hotbar.get_index() + 1)  # поверх хотбара, под окнами инвентаря
 
-	# Виджеты — в панель окна инвентаря
-	var panel: Control = _inv.inventory
-	_capacity.reparent(panel, false)
-	_capacity.set_anchors_and_offsets_preset(capacity_anchor, Control.PRESET_MODE_MINSIZE, capacity_margin)
-	_sort_button.reparent(panel, false)
-	_sort_button.set_anchors_and_offsets_preset(sort_anchor, Control.PRESET_MODE_MINSIZE, sort_margin)
-	_sort_button.pressed.connect(sort_inventory)
-	# Подсказка — на общем затемнении под окном, рядом с «ESC — close»
-	_hint.reparent(_inv.get_node("Panel"), false)
-	_hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE, 12)
-	_hint.position += hint_offset
-	_hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_build_inventory_widgets()
 
 	_inv.inventory_changed.connect(_refresh)
 	_hotbar.hotbar_changed.connect(_refresh)
@@ -100,11 +73,59 @@ func _process(delta: float) -> void:
 	_since_refresh += delta
 	if _since_refresh >= REFRESH_PERIOD:
 		_refresh()
-	# Виджеты окна показываем только когда открыт именно инвентарь (не кузнец / торговец)
+	# Виджеты окна инвентаря показываем только когда открыт именно инвентарь (не кузнец / торговец)
 	var show_widgets := _inv.is_opened and _inv.inventory.is_visible_in_tree()
 	_hint.visible = show_widgets
 	_capacity.visible = show_widgets
 	_sort_button.visible = show_widgets
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  Виджеты окна инвентаря
+# ─────────────────────────────────────────────────────────────────────────────
+func _build_inventory_widgets() -> void:
+	var panel: Control = _inv.inventory
+
+	_capacity = Label.new()
+	_capacity.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_capacity.add_theme_font_size_override("font_size", 7)
+	panel.add_child(_capacity)
+	_capacity.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT, Control.PRESET_MODE_MINSIZE, 6)
+
+	_sort_button = Button.new()
+	_sort_button.text = "Sort"
+	_sort_button.focus_mode = Control.FOCUS_NONE
+	_sort_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	_sort_button.add_theme_font_size_override("font_size", 7)
+	_sort_button.add_theme_stylebox_override("normal", _button_style(Color(0.16, 0.14, 0.14), COL_DIM))
+	_sort_button.add_theme_stylebox_override("hover", _button_style(Color(0.24, 0.22, 0.2), COL_AMBER))
+	_sort_button.add_theme_stylebox_override("pressed", _button_style(Color(0.3, 0.26, 0.2), COL_AMBER))
+	_sort_button.add_theme_stylebox_override("disabled", _button_style(Color(0.16, 0.14, 0.14), Color(0.3, 0.3, 0.33)))
+	_sort_button.pressed.connect(sort_inventory)
+	panel.add_child(_sort_button)
+	_sort_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_MINSIZE, 6)
+
+	# Подсказка — на общем затемнении под окном, рядом с «ESC — close»
+	_hint = Label.new()
+	_hint.text = "Shift+click - quick move  |  Shift+drag - split stack  |  Drag to bin - discard"
+	_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hint.modulate = Color(1, 1, 1, 0.55)
+	_hint.add_theme_font_size_override("font_size", 6)
+	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var dim := _inv.get_node("Panel")
+	dim.add_child(_hint)
+	_hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE, 12)
+	_hint.position += Vector2(0, -34)
+	_hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
+
+
+func _button_style(fill: Color, edge: Color) -> StyleBoxFlat:
+	var s := StyleBoxFlat.new()
+	s.bg_color = fill
+	s.border_color = edge
+	s.set_border_width_all(1)
+	s.set_content_margin_all(2.0)
+	return s
 
 
 ## Бейджи редкости, счётчик заполнения, доступность кнопки Sort.
@@ -121,14 +142,14 @@ func _refresh() -> void:
 		_paint_rarity(data)
 
 	var total := _inv.items.size()
-	_capacity.text = "%s %d/%d" % [Loc.t(bag_key), used, total]
-	var color := color_normal
+	_capacity.text = "%s %d/%d" % [Loc.t("Bag"), used, total]
+	var color := COL_DIM
 	if used >= total:
-		color = color_full
-	elif used >= int(ceil(total * warn_ratio)):
-		color = color_warn
+		color = COL_RED
+	elif used >= int(ceil(total * 0.8)):
+		color = COL_AMBER
 	_capacity.add_theme_color_override("font_color", color)
-	_sort_button.text = Loc.t(sort_key)
+	_sort_button.text = Loc.t("Sort")
 	_sort_button.disabled = used < 2
 
 
@@ -138,10 +159,10 @@ func _paint_rarity(data: InventorySlotData) -> void:
 	if border == null:
 		return
 	var q: int = data.item.quality if data.item != null else 0
-	border.visible = data.item != null and q > 0 and rarity_alpha > 0.0
+	border.visible = data.item != null and q > 0
 	border.z_index = 0  # со z=-1 подложка пряталась за тёмной панелью окна инвентаря
 	if border.visible:
-		border.color = Color(quality_colors[clampi(q, 0, quality_colors.size() - 1)], rarity_alpha)
+		border.color = Color(QUALITY_COLORS[clampi(q, 0, QUALITY_COLORS.size() - 1)], 0.34)
 
 
 ## Заняты ли все слоты (инвентарь + хотбар).
@@ -168,7 +189,7 @@ func _on_slot_pressed(slot: InventorySlot) -> void:
 	if src == null or src.item == null:
 		return
 	var targets: Array[InventorySlotData] = _inv.items if from_hotbar else _hotbar.slots
-	if _quick_move(src, targets) == 0 and from_hotbar:
+	if _quick_move(src, targets) == 0:
 		_overlay.deny(slot)  # некуда класть — слот мигнёт красным
 
 
@@ -274,6 +295,9 @@ func _kind_rank(item: ItemData) -> int:
 	return 3
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  Общие помощники
+# ─────────────────────────────────────────────────────────────────────────────
 func _sync(data: InventorySlotData) -> void:
 	data.slot_node.item = data.item
 	data.slot_node.ammount = data.amount
@@ -285,3 +309,152 @@ func _emit_changed() -> void:
 	_hotbar.emit_signal("hotbar_changed")
 	_hotbar._recalculate_accessories()
 	_hotbar._update_equip()
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  Слой поверх хотбара
+# ═════════════════════════════════════════════════════════════════════════════
+class _HudOverlay extends Control:
+	var ux: InventoryUX
+	var _t: float = 0.0
+	var _name_timer: float = 0.0
+	var _last_selected: int = -1
+	var _last_item: ItemData = null
+	var _last_amount: int = 0
+	var _last_amounts: Array = []     # что лежало в слотах в прошлом кадре
+	var _flash: Dictionary = {}       # индекс слота -> оставшееся время вспышки
+	var _deny: Dictionary = {}        # индекс слота -> время красной вспышки
+
+	func _init(owner_ux: InventoryUX) -> void:
+		ux = owner_ux
+		top_level = true  # рисуем в глобальных координатах экрана, не завися от родителя
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _ready() -> void:
+		_fit()
+		get_viewport().size_changed.connect(_fit)
+
+	func _fit() -> void:
+		position = Vector2.ZERO
+		size = get_viewport_rect().size
+
+	func deny(slot: InventorySlot) -> void:
+		_deny[slot.hotbar_index if slot.hotbar != null else -1] = 0.3
+
+	func _process(delta: float) -> void:
+		_t += delta
+		_name_timer = maxf(0.0, _name_timer - delta)
+		for key in _flash.keys():
+			_flash[key] -= delta
+			if _flash[key] <= 0.0:
+				_flash.erase(key)
+		for key in _deny.keys():
+			_deny[key] -= delta
+			if _deny[key] <= 0.0:
+				_deny.erase(key)
+		_track_changes()
+		queue_redraw()
+
+	## Замечаем: сменился выбранный слот / предмет в нём / в слот что-то положили.
+	func _track_changes() -> void:
+		var hotbar := ux._hotbar
+		if hotbar == null or hotbar.slots.is_empty():
+			return
+		var selected := hotbar.selected_index
+		var data := hotbar.slots[selected]
+		if selected != _last_selected or data.item != _last_item or data.amount != _last_amount:
+			if data.item != null:
+				_name_timer = InventoryUX.NAME_TIME
+			_last_selected = selected
+			_last_item = data.item
+			_last_amount = data.amount
+		if _last_amounts.size() != hotbar.slots.size():
+			_last_amounts.resize(hotbar.slots.size())
+			_last_amounts.fill(-1)
+		for i in hotbar.slots.size():
+			var now := hotbar.slots[i].amount if hotbar.slots[i].item != null else 0
+			var before: int = _last_amounts[i]
+			if before >= 0 and now > before:
+				_flash[i] = InventoryUX.FLASH_TIME  # положили предмет или добавили в стак
+			_last_amounts[i] = now
+
+	func _draw() -> void:
+		var hotbar := ux._hotbar
+		if hotbar == null or not hotbar.is_visible_in_tree() or hotbar.slots.is_empty():
+			return
+		var font := get_theme_default_font()
+		var pulse := 0.5 + 0.5 * sin(_t * 5.0)
+		var bar_rect := Rect2()
+
+		for i in hotbar.slots.size():
+			var data := hotbar.slots[i]
+			var r := data.slot_node.get_global_rect()
+			bar_rect = r if i == 0 else bar_rect.merge(r)
+			var selected := i == hotbar.selected_index
+			if selected:
+				r = r.grow(0.6)
+
+			# Вспышка получения предмета
+			if _flash.has(i):
+				draw_rect(r.grow(-1.0), Color(1, 1, 1, 0.5 * (_flash[i] / InventoryUX.FLASH_TIME)))
+
+			# Низкая прочность: красная пульсирующая рамка и «!»
+			var item := data.item
+			if item is equip_data and item.max_durability > 0 and not item.consumable:
+				var ratio := float(item.get_durability()) / float(item.max_durability)
+				if ratio <= InventoryUX.LOW_DURABILITY:
+					var a := 0.55 + 0.45 * pulse
+					draw_rect(r.grow(0.3), Color(InventoryUX.COL_RED, a), false, 1.0)
+					_text(font, "!", Vector2(r.end.x - 4.0, r.position.y + 6.0), 7, Color(InventoryUX.COL_RED, a))
+
+			# Не вышло перенести (нет места)
+			if _deny.has(i):
+				draw_rect(r, Color(InventoryUX.COL_RED, 0.5 * (_deny[i] / 0.3)))
+
+			# Выбранный слот: янтарная пульсирующая рамка + уголки
+			if selected:
+				var edge := Color(InventoryUX.COL_AMBER, 0.6 + 0.4 * pulse)
+				draw_rect(r.grow(0.4), edge, false, 1.0)
+
+			# Номер клавиши — на всех слотах, где лежит предмет (на пустых он уже есть в слоте)
+			if item != null:
+				var col := InventoryUX.COL_AMBER if selected else Color(1, 1, 1, 0.75)
+				_text(font, str(i + 1), Vector2(r.position.x + 1.5, r.position.y + 5.5), 5, col)
+
+		_draw_name(hotbar, bar_rect, font)
+		_draw_full(hotbar, bar_rect, font, pulse)
+
+	func _draw_name(hotbar: Hotbar, bar_rect: Rect2, font: Font) -> void:
+		if _name_timer <= 0.0 or ux._inv.is_opened:
+			return  # при открытом окне инвентаря название не нужно — есть тултипы
+		var data := hotbar.slots[hotbar.selected_index]
+		if data.item == null:
+			return
+		var alpha := clampf(_name_timer / 0.6, 0.0, 1.0)
+		var q := clampi(data.item.quality, 0, InventoryUX.QUALITY_COLORS.size() - 1)
+		var title := Loc.t(data.item.item_name)
+		if data.amount > 1 and not data.item.is_counter_item:
+			title += "  x%d" % data.amount
+		var cx := bar_rect.get_center().x
+		var y := bar_rect.position.y - 5.0
+		_text(font, title, Vector2(cx, y), 7, Color(InventoryUX.QUALITY_COLORS[q], alpha), true)
+		if data.item is equip_data:
+			var sub := "%s %d" % [Loc.t("DMG"), data.item.Damage]
+			_text(font, sub, Vector2(cx, y - 8.0), 5, Color(InventoryUX.COL_DIM, alpha), true)
+
+	func _draw_full(hotbar: Hotbar, bar_rect: Rect2, font: Font, pulse: float) -> void:
+		if not ux.is_everything_full():
+			return
+		_text(font, Loc.t("FULL"), Vector2(bar_rect.end.x + 4.0, bar_rect.get_center().y + 3.0), 7,
+				Color(InventoryUX.COL_RED, 0.55 + 0.45 * pulse))
+
+	## Текст с чёрной обводкой; centered — по центру вокруг x.
+	func _text(font: Font, text: String, pos: Vector2, fs: int, color: Color, centered: bool = false) -> void:
+		var align := HORIZONTAL_ALIGNMENT_LEFT
+		var width := -1.0
+		if centered:
+			align = HORIZONTAL_ALIGNMENT_CENTER
+			width = 200.0
+			pos.x -= 100.0
+		draw_string_outline(font, pos, text, align, width, fs, 3, Color(0, 0, 0, color.a))
+		draw_string(font, pos, text, align, width, fs, color)

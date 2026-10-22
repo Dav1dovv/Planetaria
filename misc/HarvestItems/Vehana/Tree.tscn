@@ -110,6 +110,30 @@ _data = {
 &"destroy": SubResource("Animation_qinkj")
 }
 
+[sub_resource type="Curve" id="Curve_rcl3v"]
+_data = [Vector2(0, 0.31192666), 0.0, 0.0, 0, 0, Vector2(0.73702425, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_iypyy"]
+curve = SubResource("Curve_rcl3v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d3fsl"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(8, 8, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -100, 0)
+spread = 101.659
+flatness = 1.0
+initial_velocity_max = 22.9
+gravity = Vector3(0, -35, 0)
+scale_min = 1.5
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_iypyy")
+color = Color(0.6039216, 0.18039216, 0.60784316, 1)
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.049999975
+
 [node name="Tree" unique_id=1525282769 instance=ExtResource("1_32v1v")]
 durability = 18.0
 harvest_tool_lvl = 0
@@ -159,12 +183,15 @@ process_material = SubResource("ParticleProcessMaterial_srima")
 [node name="AnimationPlayer" parent="." index="10" unique_id=1799726278]
 libraries/ = SubResource("AnimationLibrary_wwo1s")
 
+[node name="Corruption" parent="." index="11" unique_id=2028233571]
+process_material = SubResource("ParticleProcessMaterial_d3fsl")
+
 [node name="Sprite2D" parent="." index="12" unique_id=308116851]
 position = Vector2(-0.21122742, 0.002216339)
 texture = ExtResource("11_44ll0")
 offset = Vector2(-1.7273712, -30.667759)
 hframes = 4
-frame = 1
+frame = 2
 script = ExtResource("3_hs44r")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
 
@@ -172,3 +199,9 @@ frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
 show_behind_parent = true
 position = Vector2(0.06303787, -0.064971924)
 scale = Vector2(1.8528863, 0.6620634)
+
+[node name="Timer" type="Timer" parent="." index="14" unique_id=759607791]
+wait_time = 8.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

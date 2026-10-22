@@ -32,6 +32,8 @@ var name_gen := SimpleNameGenerator.new()
 var _preview: CrewBadge
 var _preview_skin: int = 0
 var _preview_head: int = 0
+var _preview_colors: SkinColors = null   # null = оригинальные цвета выбранного скина
+var _picker: SkinColorPicker
 var _hint: Label
 var _busy: bool = false      ## идёт сканирование пропуска / создание: ввод игнорируем
 
@@ -240,6 +242,16 @@ func _build_new_pass_preview() -> void:
 	_preview.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	row.add_child(_preview)
 	row.add_child(_make_arrow(button_scene, ">", 1))
+
+	# Выбор цветов справа от пропуска; пропуск меняется вживую
+	var gap := Control.new()
+	gap.custom_minimum_size = Vector2(8, 0)
+	row.add_child(gap)
+	_picker = SkinColorPicker.new()
+	_picker.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	_picker.colors_changed.connect(_on_colors_changed)
+	row.add_child(_picker)
+
 	_preview.setup_preview("", 0, 0)
 
 	# Старая «пружина» под большую пустоту больше не нужна: место занимает превью
@@ -259,7 +271,12 @@ func _make_arrow(button_scene: PackedScene, text: String, step: int) -> Button:
 
 
 func _on_new_save_pressed() -> void:
-	_roll_look()
+	# Начинаем с перекрашиваемого шаблона, чтобы выбор цвета сразу работал.
+	# Готовые цветные скины доступны стрелками.
+	_preview_skin = _first_colorable_style()
+	_preview_head = _preview_skin
+	_preview_colors = null          # каждый новый пропуск начинается с оригинальных цветов
+	_picker.set_colors(null)
 	_list_box.visible = false
 	_hint.visible = false
 	blur.visible = true
@@ -276,7 +293,9 @@ func _on_create_pressed() -> void:
 	if player_name.is_empty():
 		return
 
-	var slot: String = SaveLoad.create_new_save(player_name, "World", _preview_skin, _preview_head)
+	# Цвета сохраняем, только если выбранный стиль вообще перекрашивается
+	var colors: SkinColors = _preview_colors if _picker.is_enabled() else null
+	var slot: String = SaveLoad.create_new_save(player_name, "World", _preview_skin, _preview_head, colors)
 	if slot.is_empty():
 		push_error("[SaveLoadSlot] Failed to create new save")
 		return
@@ -296,7 +315,7 @@ func _on_create_pressed() -> void:
 
 func _on_random_name_pressed() -> void:
 	player_name_input.text = name_gen.generate_name()
-	_roll_look()
+	_roll_look(true)
 	_sync_preview()
 	_preview.bump()
 	_update_create_button()
@@ -316,11 +335,28 @@ func _update_create_button() -> void:
 	create_button.disabled = player_name_input.text.strip_edges().is_empty()
 
 
+func _first_colorable_style() -> int:
+	for i in CrewBadge.skin_count():
+		if SkinColors.is_colorable(CrewBadge.get_skin(i)):
+			return i
+	return 0
+
+
 ## Случайный внешний вид: шлем и комбинезон бросаются независимо, как в мастерской.
-func _roll_look() -> void:
-	var n := CrewBadge.skin_count()
-	_preview_skin = randi() % n
-	_preview_head = randi() % n
+## with_colors: бросаем ещё и цвета; тогда выбираем среди перекрашиваемых стилей,
+## иначе цвета были бы не видны.
+func _roll_look(with_colors: bool = false) -> void:
+	var candidates: Array[int] = []
+	for i in CrewBadge.skin_count():
+		if not with_colors or SkinColors.is_colorable(CrewBadge.get_skin(i)):
+			candidates.append(i)
+	if candidates.is_empty():
+		for i in CrewBadge.skin_count():
+			candidates.append(i)
+	_preview_skin = candidates[randi() % candidates.size()]
+	_preview_head = candidates[randi() % candidates.size()]
+	if with_colors:
+		_picker.randomize_colors()   # сам вызовет _on_colors_changed
 
 
 func _cycle_skin(step: int) -> void:
@@ -332,7 +368,17 @@ func _cycle_skin(step: int) -> void:
 
 
 func _sync_preview() -> void:
-	_preview.set_preview(player_name_input.text, _preview_skin, _preview_head)
+	# Выбор цвета доступен, только если хоть одна из частей нарисована шаблонными цветами
+	var colorable := SkinColors.is_colorable(CrewBadge.get_skin(_preview_skin)) \
+		or SkinColors.is_colorable(CrewBadge.get_skin(_preview_head))
+	_picker.set_enabled(colorable)
+	_preview.set_preview(player_name_input.text, _preview_skin, _preview_head, _preview_colors if colorable else null)
+
+
+func _on_colors_changed(new_colors: SkinColors) -> void:
+	_preview_colors = new_colors
+	_sync_preview()
+	_preview.flash()
 
 
 func _close_new_save_panel() -> void:

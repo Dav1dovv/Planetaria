@@ -14,7 +14,7 @@ const MAX_CHANCE := 0.17
 ## Шанс растёт со временем игры — к концу забега элит больше
 const CHANCE_PER_MINUTE := 0.03
 const MAX_ALIVE := 1
-const HEALTH_MULT := 2.0
+const HEALTH_MULT := 1.5
 const SECOND_AFFIX_CHANCE := 0.25
 const GOLD := Color(1.0, 0.85, 0.3)
 
@@ -84,7 +84,7 @@ func _make_elite(enemy: Entity) -> void:
 				health_mult *= 1.4
 				scale_mult = 1.3
 			&"swift":
-				stats.add_speed_modifier(35.0)
+				stats.add_speed_modifier(1.2)
 			&"armored":
 				stats.armor += 25.0
 

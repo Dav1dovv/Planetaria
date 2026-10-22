@@ -3,15 +3,7 @@ extends Harvest_item
 @export var Boss : PackedScene
 @export_placeholder("Scare") var boss_name : String = ""
 
-
 # Переопределяем логику уничтожения из Harvestable: разрушили объект — проснулся босс
-func _on_tree_exiting() -> void:
-	# Выгрузка сцены / смена локации — не повод звать босса
-	if Global.scene_manager.is_busy():
-		return
-	_spawn_boss()
-
-
 func _spawn_boss() -> void:
 	if Boss == null:
 		push_warning("BossCaller: Boss не назначен в Инспекторе")
@@ -28,3 +20,10 @@ func _spawn_boss() -> void:
 	# Объект уже выходит из дерева — добавляем босса на следующем кадре и только потом ставим позицию
 	boss_instance.tree_entered.connect(func() -> void: boss_instance.global_position = spawn_pos, CONNECT_ONE_SHOT)
 	get_parent().get_parent().add_child.call_deferred(boss_instance)
+
+
+func _on_collected() -> void:
+	# Выгрузка сцены / смена локации — не повод звать босса
+	if Global.scene_manager.is_busy():
+		return
+	_spawn_boss()

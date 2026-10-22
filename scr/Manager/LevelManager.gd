@@ -186,9 +186,6 @@ func get_current_scene_data() -> SceneData:
 
 ## Применяет настройки из SceneData к текущему состоянию мира.
 func _apply_scene_settings(scene_data: SceneData) -> void:
-	if Global.day_night:
-		Global.day_night.visible = not scene_data.is_underground
-
 	var gm := get_tree().get_first_node_in_group("World")
 	if gm and gm.has_method("set_corruption_level"):
 		gm.set_corruption_level(scene_data.corruption_level)  # убрали > 0

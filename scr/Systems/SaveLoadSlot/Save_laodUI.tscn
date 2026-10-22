@@ -64,6 +64,7 @@ theme_override_constants/scrollbar_v_separation = 14
 
 [node name="SaveSlots" type="GridContainer" parent="Panel/VBoxContainer/ScrollContainer" unique_id=665689833]
 custom_minimum_size = Vector2(389.14, 194.485)
+clip_contents = true
 layout_mode = 2
 columns = 4
 

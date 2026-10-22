@@ -25,6 +25,7 @@ func _on_interact() -> void:
 		save()
 		$interaction_area.queue_free()
 		#GameJuice.banner(boss_name.to_upper(), Loc.t("awakens…"), Color(0.85, 0.15, 0.1), 1.8)
+		GameJuice.shake(17,0.3)
 		GameJuice.banner("CHECKPOINT","checkpoint set and progress saved",Color(0.137, 0.412, 0.706, 1.0))
 
 		

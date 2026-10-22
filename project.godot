@@ -123,7 +123,7 @@ movie_writer/movie_file="/home/davit/Документы/CaS/VIDS/ship.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/font_auto_size_labels/plugin.cfg", "res://addons/recipe_merge/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/font_auto_size_labels/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 

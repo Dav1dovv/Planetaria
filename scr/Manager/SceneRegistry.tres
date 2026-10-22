@@ -8,7 +8,7 @@ script = ExtResource("1_d63od")
 key = "Vehana"
 scene_path = "uid://d4hirp0y51hto"
 display_name = "Vehana"
-music_key = "Forest"
+music_key = "Vehana"
 metadata/_custom_type_script = "uid://dahsqqqv7jj4q"
 
 [sub_resource type="Resource" id="Resource_bv3vm"]

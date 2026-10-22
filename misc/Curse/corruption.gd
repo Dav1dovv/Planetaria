@@ -9,6 +9,8 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 		area.get_parent().add_infection(corupt)
 		
 		queue_free()
+	elif area.is_in_group("Harvestable"):
+		area.add_infection(corupt)
 
 
 func _on_timer_timeout() -> void:

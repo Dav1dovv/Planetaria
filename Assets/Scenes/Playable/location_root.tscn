@@ -18,12 +18,12 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 y_sort_enabled = true
 script = ExtResource("1_074my")
 
-[node name="Player" parent="." unique_id=1150737309 instance=ExtResource("6_bd8m6")]
-Entity_stats = SubResource("Resource_wo72l")
-
-[node name="Blaze_camera" type="Camera2D" parent="Player" unique_id=294408334]
+[node name="Blaze_camera" type="Camera2D" parent="." unique_id=294408334]
 position = Vector2(0, -8)
 script = ExtResource("7_2ifnd")
 metadata/_custom_type_script = "uid://cx0477dq0nkws"
+
+[node name="Player" parent="." unique_id=1150737309 instance=ExtResource("6_bd8m6")]
+Entity_stats = SubResource("Resource_wo72l")
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]

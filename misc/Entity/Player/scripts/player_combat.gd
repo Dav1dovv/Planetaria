@@ -208,7 +208,7 @@ func shoot() -> void:
 		# Эффекты «при попадании» (яд, огонь и т.д.) — так же, как у ближнего боя
 		if bullet.has_signal("hit_target"):
 			bullet.hit_target.connect(on_weapon_hit)
-
+	GameJuice.shake(4,0.3)
 	_after_shot(equip)
 
 

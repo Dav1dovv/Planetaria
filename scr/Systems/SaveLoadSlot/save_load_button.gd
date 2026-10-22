@@ -63,9 +63,6 @@ const SKIN_PATHS: Array[String] = [
 	"res://misc/Entity/Player/Textures/Skin3.png",
 	"res://misc/Entity/Player/Textures/Skin4.png",
 	"res://misc/Entity/Player/Textures/Skin5.png",
-	"res://misc/Entity/Player/Textures/Skin6.png",
-	"res://misc/Entity/Player/Textures/Skin7.png",
-	"res://misc/Entity/Player/Textures/Skin8.png",
 ]
 ## Где на листе скина лежат шлем и комбинезон (тот же лист, что у PlayerSkin)
 const SRC_HEAD := Rect2(8, 10, 16, 9)
@@ -99,6 +96,7 @@ var _last_save: int = 0
 var _playtime: int = 0
 var _skin: int = 0
 var _head: int = 0
+var _colors: SkinColors = null   # цвета игрока (palette swap); null = оригинальные цвета скина
 
 # узлы
 var _shadow: Panel
@@ -195,6 +193,7 @@ func setup_slot(save_data: Dictionary) -> void:
 	_playtime   = int(save_data.get("playtime_sec", 0))
 	_skin       = int(save_data.get("skin_index", 0))
 	_head       = int(save_data.get("head_index", 0))
+	_colors     = SkinColors.from_dict(save_data.get("colors"))
 	_build_face()
 	_refresh()
 
@@ -207,18 +206,19 @@ func setup_empty() -> void:
 
 
 ## Превью нового пропуска (экран создания персонажа).
-func setup_preview(player_name: String, skin_index: int, head_index: int) -> void:
+func setup_preview(player_name: String, skin_index: int, head_index: int, colors: SkinColors = null) -> void:
 	_mode = Mode.PREVIEW
 	focus_mode = Control.FOCUS_NONE
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_build_face()
-	set_preview(player_name, skin_index, head_index)
+	set_preview(player_name, skin_index, head_index, colors)
 
 
-func set_preview(player_name: String, skin_index: int, head_index: int) -> void:
+func set_preview(player_name: String, skin_index: int, head_index: int, colors: SkinColors = null) -> void:
 	_name_text = player_name.strip_edges()
 	_skin = skin_index
 	_head = head_index
+	_colors = colors
 	slot_name = ""
 	_clear_stamp()
 	_refresh()
@@ -293,7 +293,7 @@ func reset_state() -> void:
 	_kill(_fx_tween)
 	_state = State.IDLE
 	_set_overlay("scan_strength", 0.0)
-	_apply_theme_state(C_EDGE, _suit_color(_head), _ink_for(_suit_color(_head)), C_ACCENT)
+	_apply_theme_state(C_EDGE, _header_color(), _ink_for(_header_color()), C_ACCENT)
 	_title.text = Loc.t("CREW ID")
 	_hole.visible = true
 	_title.size.x = 40
@@ -508,11 +508,8 @@ func _refresh() -> void:
 		_fit(_empty_label, Loc.t("ISSUE NEW ID"), _empty_label.size.x, 7, 5)
 		return
 
-	var suit := _suit_color(_head)
-	_portrait.body_tex = get_skin(_skin)
-	_portrait.head_tex = get_skin(_head)
-	_portrait.backdrop = _suit_color(_skin).darkened(0.72)
-	_portrait.queue_redraw()
+	var suit := _header_color()
+	_portrait.set_look(get_skin(_head), get_skin(_skin), suit.darkened(0.72), _colors)
 	if _state != State.ACTIVATING:
 		_apply_theme_state(C_EDGE if not _hot else C_EDGE_HOT, suit, _ink_for(suit), C_ACCENT)
 		_title.text = Loc.t("CREW ID")
@@ -540,6 +537,14 @@ func _refresh() -> void:
 		_fit(_confirm_name, _name_text, CARD_SIZE.x - 12, 10, 6)
 		_btn_keep.text = Loc.t("KEEP")
 		_btn_revoke.text = Loc.t("REVOKE")
+
+
+## Цвет шапки: костюм игрока, если он выбрал цвета, иначе основной цвет шлема скина.
+func _header_color() -> Color:
+	if _colors != null and SkinColors.is_colorable(get_skin(_skin)):
+		# Почти чёрный костюм слился бы с фоном карточки: тогда шапка берёт цвет шлема
+		return _colors.suit if _colors.suit.get_luminance() >= 0.06 else _colors.helmet
+	return _suit_color(_head)
 
 
 ## Цвета «шапки» карточки: фон, текст, светодиод и рамка.
@@ -898,28 +903,93 @@ static func _suit_color(skin_index: int) -> Color:
 # ─────────────────────────────────────────────────────────────────────────────
 
 ## Портрет: шлем из одной текстуры, комбинезон из другой – как собирает PlayerSkin.
+## Шлем и костюм – разные слои, потому что у них разные палитры (разные материалы).
 class _Portrait extends Control:
-	var head_tex: Texture2D
-	var body_tex: Texture2D
 	var backdrop: Color = Color("101a2e")
+	var _head: _Layer
+	var _body: _Layer
+	var _scan: _Scan
+	var _helmet_mat: ShaderMaterial
+	var _suit_mat: ShaderMaterial
 
 	func _init() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		clip_contents = true
+		_body = _Layer.new()
+		_head = _Layer.new()
+		_scan = _Scan.new()
+		_head.src = CrewBadge.SRC_HEAD
+		_body.src = CrewBadge.SRC_BODY
+		add_child(_body)
+		add_child(_head)
+		add_child(_scan)
+
+	func set_look(head_tex: Texture2D, body_tex: Texture2D, back: Color, colors: SkinColors) -> void:
+		backdrop = back
+		_head.tex = head_tex
+		_body.tex = body_tex
+		_head.material = _material_for(true, head_tex, colors)
+		_body.material = _material_for(false, body_tex, colors)
+		_layout()
+		queue_redraw()
+		_head.queue_redraw()
+		_body.queue_redraw()
+
+	func _material_for(is_helmet: bool, tex: Texture2D, colors: SkinColors) -> ShaderMaterial:
+		# Готовые цветные скины не перекрашиваем: цвета в них нарисованы руками
+		if colors == null or not SkinColors.is_colorable(tex):
+			return null
+		var mat: ShaderMaterial = _helmet_mat if is_helmet else _suit_mat
+		if mat == null:
+			mat = colors.make_material(is_helmet)
+			if is_helmet:
+				_helmet_mat = mat
+			else:
+				_suit_mat = mat
+		else:
+			colors.apply_to_material(mat, is_helmet)
+		return mat
+
+	func _notification(what: int) -> void:
+		if what == NOTIFICATION_RESIZED:
+			_layout()
+
+	func _layout() -> void:
+		var s := CrewBadge.PORTRAIT_SCALE
+		var head_size := CrewBadge.SRC_HEAD.size * s
+		var body_size := CrewBadge.SRC_BODY.size * s
+		var origin := ((size - head_size - Vector2(0, body_size.y)) / 2.0).floor()
+		_head.position = origin
+		_head.size = head_size
+		_body.position = origin + Vector2(0, head_size.y)
+		_body.size = body_size
+		_scan.size = size
 
 	func _draw() -> void:
 		draw_rect(Rect2(Vector2.ZERO, size), backdrop)
 		draw_rect(Rect2(0, size.y * 0.55, size.x, size.y * 0.45), backdrop.darkened(0.25))
-		var s := CrewBadge.PORTRAIT_SCALE
-		var origin := ((size - CrewBadge.SRC_HEAD.size * s - Vector2(0, CrewBadge.SRC_BODY.size.y * s)) / 2.0).floor()
-		if head_tex != null:
-			draw_texture_rect_region(head_tex, Rect2(origin, CrewBadge.SRC_HEAD.size * s), CrewBadge.SRC_HEAD)
-		if body_tex != null:
-			draw_texture_rect_region(body_tex,
-				Rect2(origin + Vector2(0, CrewBadge.SRC_HEAD.size.y * s), CrewBadge.SRC_BODY.size * s),
-				CrewBadge.SRC_BODY)
-		# Строчная развёртка, как у экрана камеры/сканера
+
+
+## Один слой портрета: кусок листа скина.
+class _Layer extends Control:
+	var tex: Texture2D
+	var src: Rect2
+
+	func _init() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
+		if tex != null:
+			draw_texture_rect_region(tex, Rect2(Vector2.ZERO, size), src)
+
+
+## Строчная развёртка поверх портрета, как у экрана камеры/сканера.
+class _Scan extends Control:
+	func _init() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
 		var y := 0.0
 		while y < size.y:
 			draw_rect(Rect2(0, y, size.x, 1), Color(0, 0, 0, 0.16))

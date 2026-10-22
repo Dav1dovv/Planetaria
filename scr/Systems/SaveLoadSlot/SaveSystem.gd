@@ -73,9 +73,10 @@ func load_slot_meta(slot: String) -> Dictionary:
 	return _read_json(_meta_path(slot))
 
 ## Обновляет мета-данные текущего слота при каждом сохранении:
-## время последнего входа, налёт и скин (−1 = оставить как было).
+## время последнего входа, налёт, скин (−1 = оставить как было) и цвета
+## (update_colors = true: записать colors, null = вернуть оригинальные).
 ## Читаем-меняем-пишем, поэтому лишние поля (в том числе от будущих версий) не теряются.
-func touch_slot_meta(skin_index: int = -1, head_index: int = -1) -> void:
+func touch_slot_meta(skin_index: int = -1, head_index: int = -1, colors: SkinColors = null, update_colors: bool = false) -> void:
 	var slot: String = Global.current_save_slot
 	if slot.is_empty():
 		return
@@ -97,11 +98,16 @@ func touch_slot_meta(skin_index: int = -1, head_index: int = -1) -> void:
 		meta["skin_index"] = skin_index
 	if head_index >= 0:
 		meta["head_index"] = head_index
+	if update_colors:
+		if colors != null:
+			meta["colors"] = colors.to_dict()
+		else:
+			meta.erase("colors")
 	_write_json(_meta_path(slot), meta)
 
 ## Создаёт новый слот. Если такое имя уже занято — добавляет _1, _2 …
 ## Возвращает имя созданного слота или "" при ошибке.
-func create_new_save(player_name: String, location: String, skin_index: int = 0, head_index: int = 0) -> String:
+func create_new_save(player_name: String, location: String, skin_index: int = 0, head_index: int = 0, colors: SkinColors = null) -> String:
 	var dir := DirAccess.open(SAVE_DIR)
 	if not dir:
 		push_error("[SaveSystem] Cannot open SAVE_DIR")
@@ -127,6 +133,8 @@ func create_new_save(player_name: String, location: String, skin_index: int = 0,
 		"skin_index":    skin_index,
 		"head_index":    head_index,
 	}
+	if colors != null:
+		meta["colors"] = colors.to_dict()
 	if not _write_json(_meta_path(folder), meta):
 		push_error("[SaveSystem] Failed to write meta for slot: %s" % folder)
 		return ""
@@ -143,6 +151,7 @@ func load_save(slot: String) -> bool:
 	Global.player_name              = data.get("player_name", "Player")
 	Global.player_skin_index        = int(data.get("skin_index", 0))
 	Global.player_skin_head_index   = int(data.get("head_index", 0))
+	SkinColors.current              = SkinColors.from_dict(data.get("colors"))  # null = оригинальные цвета
 	Global.current_save_slot        = slot
 	_session_started_ms             = Time.get_ticks_msec()
 	_session_base_playtime          = int(data.get("playtime_sec", 0))
@@ -183,7 +192,9 @@ func save_player(player: Node) -> bool:
 	var skin := player.get_node_or_null("Skin") as PlayerSkin
 	touch_slot_meta(
 		skin.skin_index if skin != null else -1,
-		skin.head_inex  if skin != null else -1
+		skin.head_inex  if skin != null else -1,
+		skin.colors if skin != null else null,
+		skin != null
 	)
 	return true
 

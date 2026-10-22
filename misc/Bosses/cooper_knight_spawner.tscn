@@ -43,4 +43,4 @@ show_behind_parent = true
 position = Vector2(0, -5.113716)
 scale = Vector2(3.8576725, 1.3961296)
 
-[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="collected" from="." to="." method="_on_collected"]

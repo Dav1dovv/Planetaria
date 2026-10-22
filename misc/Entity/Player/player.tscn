@@ -1817,7 +1817,7 @@ region_rect = Rect2(12, 19, 7, 7)
 use_parent_material = true
 position = Vector2(-2, 4)
 texture = ExtResource("22_8c2yh")
-offset = Vector2(0, 2)
+offset = Vector2(0, 1.265)
 region_enabled = true
 region_rect = Rect2(12, 26, 3, 4)
 
@@ -1826,7 +1826,7 @@ show_behind_parent = true
 use_parent_material = true
 position = Vector2(2, 4)
 texture = ExtResource("22_8c2yh")
-offset = Vector2(0, 2)
+offset = Vector2(0, 1.23)
 region_enabled = true
 region_rect = Rect2(16, 26, 3, 4)
 
@@ -1834,7 +1834,7 @@ region_rect = Rect2(16, 26, 3, 4)
 use_parent_material = true
 position = Vector2(-0.015625, -4.00781)
 texture = ExtResource("22_8c2yh")
-offset = Vector2(0.589, -9.237)
+offset = Vector2(0.589, -8.917)
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 19)
 
@@ -1927,6 +1927,8 @@ metadata/_custom_type_script = "uid://dovru4rdjmqw6"
 [node name="PlayerMovement" type="Node" parent="." index="14" unique_id=1363744354]
 unique_name_in_owner = true
 script = ExtResource("31_k2mf7")
+acceleration = 0.17
+friction = 0.29000000000000004
 metadata/_custom_type_script = "uid://vc8g8gj2i44s"
 
 [node name="PointLight2D" type="PointLight2D" parent="." index="15" unique_id=409084297]

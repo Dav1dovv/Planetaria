@@ -22,9 +22,6 @@ func _ready() -> void:
 	emit_signal("world_ready")
 	# Day/night управляется SceneManager через SceneData.is_underground,
 	# но на случай если сцена открывается напрямую — применяем локальный флаг
-	if Global.day_night:
-		Global.day_night.start()
-		Global.day_night.visible = not is_underground
 	player = find_child("Player")
 
 

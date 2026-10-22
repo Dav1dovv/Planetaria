@@ -274,7 +274,7 @@ stream_0/stream = ExtResource("10_3sfyk")
 
 [sub_resource type="Animation" id="Animation_h4df7"]
 resource_name = "Walk"
-length = 1.2
+length = 1.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -283,10 +283,10 @@ tracks/0/path = NodePath("Skin/Sprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.33333334, 0.46666667, 0.7, 0.8, 1.2333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.33333334, 0.46666667, 0.7, 0.8, 1.1, 1.2333333, 1.4),
+"transitions": PackedFloat32Array(1, 0.1961461, 1, 0.21022417, 1, 1, 0.35355353, 1, 1),
 "update": 0,
-"values": [Vector2(0, -2.461147), Vector2(0, -2.461147), Vector2(0, -2.461147), Vector2(-2.3841855e-07, -12), Vector2(0, -23.999998), Vector2(0, -23.999998), Vector2(0, -2.461147)]
+"values": [Vector2(0, -2.461147), Vector2(0, -2.461147), Vector2(0, -2.461147), Vector2(-2.3841855e-07, -12), Vector2(0, -23.999998), Vector2(0, -23.999998), Vector2(0, -3), Vector2(0, -2.461147), Vector2(0, -2.461147)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -295,10 +295,10 @@ tracks/1/path = NodePath("Skin/Sprite:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.33333334, 0.46666667, 0.91495925, 1.2333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.33333334, 0.46666667, 0.96666664, 1.1, 1.2333333, 1.4),
+"transitions": PackedFloat32Array(1, 0.1961461, 1, 0.21022417, 2.5491216, 0.35355353, 1, 1),
 "update": 0,
-"values": [0.0, 0.0, 0.0, -0.244533, 0.1736162, 0.0]
+"values": [0.0, 0.0, 0.0, -0.244533, 0.1736162, 0.0, 0.0, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -307,10 +307,10 @@ tracks/2/path = NodePath("Skin/Sprite:scale")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.18930191, 0.26666668, 0.33333334, 0.46666667, 0.91495925, 1.2333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.18930191, 0.26666668, 0.33333334, 0.46666667, 0.96666664, 1.1, 1.2333333, 1.4),
+"transitions": PackedFloat32Array(1, 0.1961461, 0.1961461, 1, 1, 0.21022417, 2.5491216, 0.35355353, 8.5741825, 8.5741825),
 "update": 0,
-"values": [Vector2(1, 0.8952899), Vector2(1, 0.8952899), Vector2(1.3128033, 0.4371732), Vector2(1.3128033, 0.4371732), Vector2(1, 0.8952899), Vector2(0.8550478, 1.0313077), Vector2(0.6841537, 1.1281723), Vector2(1, 0.8952899)]
+"values": [Vector2(1, 0.8952899), Vector2(1, 0.8952899), Vector2(1.3128033, 0.4371732), Vector2(1.3128033, 0.4371732), Vector2(1, 0.8952899), Vector2(0.8550478, 1.0313077), Vector2(0.6841537, 1.1281723), Vector2(1.4276453, 0.4671812), Vector2(1, 0.8952899), Vector2(1, 0.8952899)]
 }
 tracks/3/type = "audio"
 tracks/3/imported = false

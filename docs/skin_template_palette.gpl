@@ -1,0 +1,12 @@
+GIMP Palette
+Name: Planetoria skin template (palette swap keys)
+Columns: 4
+#
+139 147 175	Main (recolored to chosen color)
+109 117 141	Shade
+ 74  84  98	Deep shade
+ 51  57  65	Underlayer
+ 18  32  32	Darkest underlayer
+255 213  65	Accent light (visor/belt)
+249 163  27	Accent dark
+  6   6   8	Outline (never changes)

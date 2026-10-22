@@ -9,9 +9,11 @@
 
 [sub_resource type="Resource" id="Resource_5vj5a"]
 script = ExtResource("3_xgs0l")
-max_health = 5
-base_move_speed = 10.0
+max_health = 3
+base_move_speed = 7.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdos3"]
 
 [sub_resource type="Resource" id="Resource_cdos3"]
 script = ExtResource("3_b6k8d")
@@ -121,6 +123,7 @@ _data = {
 }
 
 [node name="Curse" unique_id=1251952136 instance=ExtResource("1_3j62l")]
+collision_mask = 1
 script = ExtResource("2_hvmba")
 corupt = 7
 behavior = 1.0
@@ -148,17 +151,17 @@ fov_half_angle = 60.0
 use_los_check = true
 wall_collision_mask = 1
 memory_duration = 3.0
-wander_interval_min = 2.0
-wander_interval_max = 5.0
-wander_radius = 100.0
+wander_interval_min = 5.0
+wander_interval_max = 15.0
+wander_radius = 250.0
 turn_speed = 12.0
 patrol_points = Array[NodePath]([])
 chase_weave_enabled = true
-chase_weave_amplitude = 14.0
-chase_weave_frequency = 0.8
+chase_weave_amplitude = 32.0
+chase_weave_frequency = 10.0
 ray_length = 40.0
 avoidance_strength = 1.8
-attack_damage = 10.0
+attack_damage = 7.0
 attack_radius = 1.0
 attack_cooldown = 1.2
 max_poise = 100.0
@@ -168,7 +171,20 @@ stagger_duration = 1.0
 vulnerable_damage_multiplier = 1.5
 Entity_stats = SubResource("Resource_5vj5a")
 
+[node name="optimizer" parent="." index="0" unique_id=1815416353]
+position = Vector2(0, 0)
+
+[node name="HurtBox" parent="." index="1" unique_id=411889454]
+position = Vector2(0, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0" unique_id=216553544]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_cdos3")
+
 [node name="HitBox" parent="." index="2" unique_id=1440497730]
+position = Vector2(0, 10)
+collision_layer = 4096
+collision_mask = 23
 equip = SubResource("Resource_cdos3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0" unique_id=9866221]
@@ -179,7 +195,6 @@ shape = SubResource("CircleShape2D_cdos3")
 visible = false
 
 [node name="Skin" type="Node2D" parent="." index="10" unique_id=1976922875]
-position = Vector2(0, -10)
 
 [node name="Corruption" type="GPUParticles2D" parent="Skin" index="0" unique_id=776316391]
 amount = 48
@@ -201,7 +216,7 @@ libraries/ = SubResource("AnimationLibrary_xgs0l")
 autoplay = &"curse"
 
 [node name="Timer" type="Timer" parent="." index="11" unique_id=2141009598]
-wait_time = 2.0
+wait_time = 6.0
 one_shot = true
 autostart = true
 

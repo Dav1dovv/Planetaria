@@ -2,7 +2,6 @@ extends Node
 
 @onready var developer_console: devconsole = %DeveloperConsole
 @onready var scene_manager: SceneManager    = $SceneManager
-@onready var day_night: DayNightCycle = $DayNight
 @onready var BGM: AudioStreamPlayer         = $AudioStreamPlayer
 @onready var setting_manager: SettingManager = $SettingManager
 
@@ -280,18 +279,9 @@ func _on_scene_manager_scene_change_finished(scene_key: String) -> void:
 	else:
 		match scene_key:
 			"Main Menu":  _switch_bgm(&"Main Menu")
-			"Land":       _switch_bgm(&"Land "      + str(randi_range(1, 4)))
-			"Forest":     _switch_bgm(&"Forest")
+			"Vehana":     _switch_bgm(&"Vehana")
 			"Village":    _switch_bgm(&"Village "   + str(randi_range(1, 2)))
-			"Cave":       _switch_bgm(&"Cave "      + str(randi_range(1, 2)))
-			"Deep Cave":  _switch_bgm(&"Deep Cave " + str(randi_range(1, 2)))
-			"Thundra":    _switch_bgm(&"Thundra 1")
-			"Desert":     _switch_bgm(&"Desert 1")
-			"Corrupted":  _switch_bgm(&"Corrupted " + str(randi_range(1, 2)))
-			"Beach":      _switch_bgm(&"Beach "     + str(randi_range(1, 2)))
-			"Lullaby":    _switch_bgm(&"Lullaby "   + str(randi_range(1, 2)))
-			"World":      _switch_bgm(&"World")
-			"Night":      _switch_bgm(&"Night")
+			"Ship":      _switch_bgm(&"Ship")
 
 
 func play_game_over() -> void:
