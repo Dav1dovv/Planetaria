@@ -13,6 +13,8 @@ const SKIP_KEY := KEY_F1
 const STEP_IDS: Array[StringName] = [&"move", &"attack", &"interact", &"inventory"]
 
 var _index: int = 0
+## Сколько взаимодействий уже было к началу шага «взаимодействие»
+var _interact_baseline: int = 0
 var _step_time: float = 0.0
 var _delay: float = START_DELAY
 var _flash: float = 0.0
@@ -110,6 +112,7 @@ func _process(delta: float) -> void:
 func _show_step() -> void:
 	if _index >= STEP_IDS.size():
 		return
+	_interact_baseline = Cursor.interact_count
 	_label.text = "%s   (%d/%d)" % [_step_text(STEP_IDS[_index]), _index + 1, STEP_IDS.size()]
 	_label.add_theme_color_override("font_color", Color.WHITE)
 	_panel.visible = true
@@ -143,7 +146,8 @@ func _is_step_done(id: StringName) -> bool:
 		&"attack":
 			return InputMap.has_action("LMB") and Input.is_action_just_pressed("LMB")
 		&"interact":
-			return InputMap.has_action("RMB") and Input.is_action_just_released("RMB")
+			# Шаг выполнен, когда игрок реально взаимодействовал с объектом (ЛКМ / RT по объекту)
+			return Cursor.interact_count > _interact_baseline
 		&"inventory":
 			return InputMap.has_action("CallInventory") and Input.is_action_just_pressed("CallInventory")
 	return true
@@ -157,7 +161,7 @@ func _step_text(id: StringName) -> String:
 		&"attack":
 			return Loc.t("%s — attack") % _key("LMB")
 		&"interact":
-			return Loc.t("%s on an object nearby — interact") % _key("RMB")
+			return Loc.t("%s on an object nearby — interact") % _key("LMB")
 		&"inventory":
 			return Loc.t("%s — inventory and crafting") % _key("CallInventory")
 	return ""
@@ -174,6 +178,11 @@ func _has_actions(actions: Array) -> bool:
 func _key(action: String) -> String:
 	if not InputMap.has_action(action):
 		return "?"
+	# На геймпаде показываем кнопку контроллера (A/Cross/B, RT/R2/ZR...), а не клавишу
+	if InputHints.device() == InputHints.Device.GAMEPAD:
+		var glyph = ControllerGlyphs.action_label(action)
+		if not glyph.is_empty():
+			return glyph
 	for event in InputMap.action_get_events(action):
 		var text := event.as_text().replace(" (Physical)", "")
 		text = text.replace("Left Mouse Button", Loc.t("LMB"))

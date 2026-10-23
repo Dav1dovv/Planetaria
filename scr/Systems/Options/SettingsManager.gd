@@ -90,16 +90,21 @@ const CUSTOM_FPS_OPTIONS := [30, 60, 120, 144, 0]
 
 ## Действия, которые можно переназначить.
 ## Ключ — action из InputMap, значение — отображаемое имя.
+## Названия действий — те, что реально лежат в Input Map (раньше здесь были move_up/jump/
+## interact/pause, которых в проекте нет, поэтому переназначение ничего не меняло).
+## Переназначается только клавиатура: кнопки геймпада у действий остаются как есть.
+## Взаимодействие — это ЛКМ / RT (главное действие), отдельной клавиши у него нет.
 const REBINDABLE_ACTIONS := {
-	"move_up"     : "Вверх",
-	"move_down"   : "Вниз",
-	"move_left"   : "Влево",
-	"move_right"  : "Вправо",
-	"jump"        : "Прыжок",
-	"interact"    : "Взаимодействие",
-	"inventory"   : "Инвентарь",
-	"pause"       : "Пауза",
+	"MoveUp"        : "Вверх",
+	"MoveDown"      : "Вниз",
+	"MoveLeft"      : "Влево",
+	"MoveRight"     : "Вправо",
+	"CallInventory" : "Инвентарь",
+	"ShowQuests"    : "Задания",
 }
+
+## Действия-стики: к ним применяется настройка «мёртвая зона геймпада»
+const STICK_ACTIONS := ["MoveLeft", "MoveRight", "MoveUp", "MoveDown", "AimLeft", "AimRight", "AimUp", "AimDown"]
 
 # ──────────────────────────────────────────
 #  DEFAULTS
@@ -126,6 +131,10 @@ const DEFAULTS := {
 	"custom_max_chunks_per_batch" : 12,
 	"custom_chunk_time_budget_ms" : 3.0,
 
+	# Управление
+	"gamepad_deadzone" : 0.2,
+	"vibration"        : true,
+
 	# Язык
 	"language" : "ru",
 }
@@ -137,7 +146,8 @@ const DEFAULTS := {
 ## Текущие настройки (звук, графика, язык)
 var data: Dictionary = {}
 
-## Переназначенные клавиши: { action: scancode }
+## Переназначенные клавиши: { action: physical_keycode }.
+## Физический код, а не символ: WASD должен работать на русской и армянской раскладках.
 var keybinds: Dictionary = {}
 
 signal settings_changed
@@ -238,7 +248,9 @@ func get_key_label(action: String) -> String:
 	var sc: int = keybinds.get(action, 0)
 	if sc == 0:
 		return "—"
-	return OS.get_keycode_string(sc)
+	# Физический код -> символ на текущей раскладке игрока
+	var logical := DisplayServer.keyboard_get_keycode_from_physical(sc)
+	return OS.get_keycode_string(logical if logical != KEY_NONE else sc)
 
 func _default_keybinds() -> Dictionary:
 	var result := {}
@@ -251,7 +263,8 @@ func _get_first_scancode(action: String) -> int:
 		return 0
 	for event in InputMap.action_get_events(action):
 		if event is InputEventKey:
-			return event.keycode
+			# В project.godot клавиши хранятся как physical_keycode (keycode = 0)
+			return event.physical_keycode if event.physical_keycode != 0 else event.keycode
 	return 0
 
 func _apply_keybinds() -> void:
@@ -261,10 +274,21 @@ func _apply_keybinds() -> void:
 func _apply_single_keybind(action: String, scancode: int) -> void:
 	if not InputMap.has_action(action) or scancode == 0:
 		return
+	# Заменяем только ПЕРВУЮ клавишу. Остальное (стрелки, стик, кнопки геймпада)
+	# у действия остаётся: раньше erase_events стирал и геймпад.
+	var events := InputMap.action_get_events(action)
 	InputMap.action_erase_events(action)
 	var ev := InputEventKey.new()
-	ev.keycode = scancode
-	InputMap.action_add_event(action, ev)
+	ev.physical_keycode = scancode
+	var replaced := false
+	for existing in events:
+		if existing is InputEventKey and not replaced:
+			InputMap.action_add_event(action, ev)
+			replaced = true
+		else:
+			InputMap.action_add_event(action, existing)
+	if not replaced:
+		InputMap.action_add_event(action, ev)
 
 # ──────────────────────────────────────────
 #  APPLY  (private)
@@ -312,6 +336,12 @@ func _apply(key: String, value: Variant) -> void:
 			# не влияют, пока он не переключится на "Свою".
 			if get_value("performance_preset") == "custom":
 				Engine.max_fps = get_value("custom_max_fps")
+		"gamepad_deadzone":
+			for stick_action in STICK_ACTIONS:
+				if InputMap.has_action(stick_action):
+					InputMap.action_set_deadzone(stick_action, clampf(value, 0.05, 0.6))
+		"vibration":
+			Rumble.enabled = bool(value)
 		"language":
 			TranslationServer.set_locale(value)
 
@@ -348,6 +378,8 @@ func _section(key: String) -> String:
 			return "Graphics"
 		"performance_preset", "custom_stream_radius_chunks", "custom_max_fps", "custom_max_chunks_per_batch", "custom_chunk_time_budget_ms":
 			return "Performance"
+		"gamepad_deadzone", "vibration":
+			return "Controls"
 		"language":
 			return "Localization"
 	return "General"

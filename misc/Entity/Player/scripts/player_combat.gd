@@ -199,7 +199,7 @@ func shoot() -> void:
 	var marker = shot_marker
 
 	# Направление от дула к курсору. Если курсор почти в самом дуле — стреляем по направлению маркера
-	var to_mouse : Vector2 = player.get_global_mouse_position() - marker.global_position
+	var to_mouse : Vector2 = GamepadAim.aim_world() - marker.global_position
 	var base_dir : Vector2 = to_mouse.normalized() if to_mouse.length() > 1.0 \
 			else Vector2.RIGHT.rotated(marker.global_rotation)
 

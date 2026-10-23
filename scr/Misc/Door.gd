@@ -69,7 +69,8 @@ func _physics_process(_delta: float) -> void:
 		# Совпадение если dot > 0.7 (~45°)
 		move_match = dir.dot(required_direction.normalized()) > 0.7
 
-	var rmb_pressed := Input.is_action_just_pressed("RMB")
+	# GDD: взаимодействие — главное действие (ЛКМ / RT). ПКМ оставлен для совместимости.
+	var rmb_pressed := Input.is_action_just_pressed("LMB") or Input.is_action_just_pressed("RMB")
 
 	if move_match or rmb_pressed:
 		_waiting = false

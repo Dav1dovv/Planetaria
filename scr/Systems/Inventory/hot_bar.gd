@@ -31,6 +31,15 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not visible: return
+
+	# Геймпад (GDD): LB/RB листают предметы. В меню и диалоге не листаем:
+	# там LB/RB переключают вкладки (крафт и т.п.)
+	if event.is_action_pressed("HotbarPrev") and not Global.is_opened_menu and not DialogueLock.is_locked():
+		select_slot(wrapi(selected_index - 1, 0, SIZE))
+		return
+	if event.is_action_pressed("HotbarNext") and not Global.is_opened_menu and not DialogueLock.is_locked():
+		select_slot(wrapi(selected_index + 1, 0, SIZE))
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		for i in range(1, 10):
 			if event.keycode == KEY_1 + i - 1:

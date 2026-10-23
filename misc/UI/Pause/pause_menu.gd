@@ -50,8 +50,10 @@ func _input(event: InputEvent) -> void:
 		return  # настройки закроются сами, а ESC вернёт в паузу
 	if is_opened:
 		_close_pause()
-	elif not Global.is_opened_menu:
-		_open_pause()  # поверх другого окна паузу не открываем
+	elif not Global.is_opened_menu and event.is_action_pressed("ui_escape"):
+		# Открывают паузу только Esc / Start. B на геймпаде (ui_cancel) — «назад»:
+		# в бою он не должен выбрасывать игрока в меню. Поверх другого окна паузу не открываем.
+		_open_pause()
 
 func _on_resume_pressed() -> void:
 	_close_pause()

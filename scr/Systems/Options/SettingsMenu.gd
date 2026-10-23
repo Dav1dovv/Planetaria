@@ -287,7 +287,8 @@ func _finish_rebind(event: InputEventKey) -> void:
 	if _rebinding_action.is_empty():
 		return
 
-	Global.setting_manager.rebind_action(_rebinding_action, event.keycode)
+	# Физический код: переназначение не ломается при смене раскладки (RU/HY)
+	Global.setting_manager.rebind_action(_rebinding_action, event.physical_keycode if event.physical_keycode != 0 else event.keycode)
 	_rebinding_action = ""
 	_refresh_keybind_labels()
 

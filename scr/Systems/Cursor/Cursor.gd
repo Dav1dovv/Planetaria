@@ -42,6 +42,9 @@ var _overlapping_enemy: bool = false
 var _overlapping_interaction: Area2D = null
 var _overlapping_curse: bool = false
 
+## Сколько раз игрок взаимодействовал с объектом (для обучения: «шаг выполнен»)
+var interact_count: int = 0
+
 var _highlighted: CanvasItem = null
 var _highlight_base: Color = Color.WHITE
 var _highlight_time: float = 0.0
@@ -65,7 +68,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	global_position = get_global_mouse_position()
+	# Мышь или виртуальный прицел геймпада — решает GamepadAim
+	global_position = GamepadAim.aim_world()
 	_update_cursor_state()
 	_update_highlight(delta)
 
@@ -86,7 +90,13 @@ func try_interact_primary() -> bool:
 	if target == null or not is_instance_valid(target) or not target.has_method("try_interact"):
 		return false
 	target.try_interact()
+	interact_count += 1
 	return true
+
+
+## Текущее состояние курсора: simple / fight / interact / deflect ... (для перекрестия геймпада)
+func get_state() -> String:
+	return _current_state
 
 
 ## Запасной вход для старого ПКМ-управления (выключен по умолчанию).

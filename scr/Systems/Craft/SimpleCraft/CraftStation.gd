@@ -81,6 +81,12 @@ const C_DIM    := Color("9aa5b8")
 const C_ACCENT := Color("7fe9ee")
 const C_TEXT   := Color("eef2f8")
 
+# Ячейка рецепта: иконки в проекте 16×16, поэтому рисуем ровно вдвое больше (32×32): пиксели
+# остаются чёткими, без размытия. Колонка шириной 138 px вмещает три таких ячейки.
+const CELL_SIZE := 36
+const ICON_SIZE := 32
+const GRID_COLUMNS := 3
+
 # ─────────────────────────────────────────────────────────────────
 #  СОСТОЯНИЕ
 # ─────────────────────────────────────────────────────────────────
@@ -103,6 +109,7 @@ var _title_label:  Label
 var _desc_label:   Label
 var _status_label: Label
 var _pad_hint:     Label
+var _stats_panel:  CraftStatsPanel   # характеристики и сравнение для создаваемого оружия
 var _flash_until_ms: int = 0
 var _flash_token: int = 0   # чтобы старый таймер не погасил более новое сообщение
 var _pulse_tween: Tween
@@ -171,8 +178,19 @@ func _build_detail_ui() -> void:
 	right.add_child(_status_label)
 	right.move_child(_status_label, ingredients_list.get_index() + 1)
 
+	# Левая колонка: сетка рецептов (чуть ниже, чем раньше) + панель характеристик оружия
+	var scroll := recipe_grid.get_parent() as ScrollContainer
+	var left := scroll.get_parent() as VBoxContainer
+	scroll.custom_minimum_size.y = 112   # три ряда крупных ячеек
+	recipe_grid.columns = GRID_COLUMNS
+	recipe_grid.custom_minimum_size = Vector2.ZERO
+	recipe_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL  # ячейки делят ширину, каждая стоит по центру
+	recipe_grid.add_theme_constant_override("h_separation", 0)
+	recipe_grid.add_theme_constant_override("v_separation", 2)
+	_stats_panel = CraftStatsPanel.new()
+	left.add_child(_stats_panel)
+
 	# Подсказка про вкладки – только когда играют с геймпада
-	var left := recipe_grid.get_parent().get_parent() as VBoxContainer
 	_pad_hint = _make_label(5, Color(1, 1, 1, 0.45))
 	left.add_child(_pad_hint)
 	InputHints.bind_label(_pad_hint, InputHints.craft_hint)
@@ -352,7 +370,8 @@ func _rebuild_grid() -> void:
 
 func _make_recipe_button(recipe: CraftRecipe) -> Control:
 	var button := TextureButton.new()
-	button.custom_minimum_size = Vector2(24, 24)
+	button.custom_minimum_size = Vector2(CELL_SIZE, CELL_SIZE)
+	button.size_flags_horizontal = Control.SIZE_EXPAND | Control.SIZE_SHRINK_CENTER
 	button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 	button.ignore_texture_size = true
 
@@ -372,11 +391,19 @@ func _make_recipe_button(recipe: CraftRecipe) -> Control:
 	# Иконка
 	var target_item := _get_display_item(recipe)
 	if target_item:
+		# Иконка занимает ячейку целиком и по центру (раньше висела в левом верхнем углу 16×16)
 		var icon := TextureRect.new()
 		icon.name = "Icon"
 		icon.texture = target_item.icon
-		icon.custom_minimum_size = Vector2(16, 16)
-		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		icon.set_anchors_preset(Control.PRESET_FULL_RECT)
+		var pad := (CELL_SIZE - ICON_SIZE) / 2
+		icon.offset_left = pad
+		icon.offset_top = pad
+		icon.offset_right = -pad
+		icon.offset_bottom = -pad
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(icon)
 
@@ -388,12 +415,26 @@ func _make_recipe_button(recipe: CraftRecipe) -> Control:
 	frame.visible = false
 	button.add_child(frame)
 
+	# Сколько предметов создаётся за раз («×5» у стрел, патронов, еды…)
+	var amount := Label.new()
+	amount.name = "Amount"
+	amount.position = Vector2(0, CELL_SIZE - 10)
+	amount.size = Vector2(CELL_SIZE - 2, 9)
+	amount.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	amount.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	amount.add_theme_font_size_override("font_size", 6)
+	amount.add_theme_color_override("font_color", Color.WHITE)
+	amount.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.95))
+	amount.add_theme_constant_override("outline_size", 3)
+	amount.visible = false
+	button.add_child(amount)
+
 	# Зелёная точка: «это можно создать прямо сейчас»
 	var dot := ColorRect.new()
 	dot.name = "ReadyDot"
 	dot.color = C_OK
 	dot.size = Vector2(3, 3)
-	dot.position = Vector2(19, 2)
+	dot.position = Vector2(CELL_SIZE - 6, 3)
 	dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(dot)
 
@@ -415,6 +456,11 @@ func _update_recipe_button(button: Control, recipe: CraftRecipe) -> void:
 	var dot := button.get_node_or_null("ReadyDot") as Control
 	if dot:
 		dot.visible = can
+	var badge := button.get_node_or_null("Amount") as Label
+	if badge:
+		var count := _result_amount(recipe)
+		badge.visible = count > 1
+		badge.text = "×%d" % count
 	_style_frame(button, recipe)
 
 
@@ -447,6 +493,11 @@ func _style_frame(button: Control, recipe: CraftRecipe) -> void:
 	sb.set_border_width_all(1)
 	sb.anti_aliasing = false
 	frame.add_theme_stylebox_override("panel", sb)
+
+
+## Сколько штук создаётся за один раз (только для крафта; ремонт и разборка – не «создают»).
+func _result_amount(recipe: CraftRecipe) -> int:
+	return recipe.result_amount if recipe.mode == CraftRecipe.Mode.CRAFT else 1
 
 
 ## Иконка для отображения в сетке рецептов
@@ -484,10 +535,24 @@ func _update_preview() -> void:
 	var can := selected_recipe.can_craft(inventory, gold_item)
 	craft_button.disabled = not can
 	craft_max_button.disabled = not can
+	_update_stats()
 	_refresh_status()
 
 
+## Характеристики и вердикт «стоит ли крафтить» – только для создаваемого оружия.
+func _update_stats() -> void:
+	var item: ItemData = null
+	if selected_recipe and selected_recipe.mode == CraftRecipe.Mode.CRAFT:
+		item = selected_recipe.result_item
+	if WeaponStats.is_comparable(item):
+		var weapon := item as equip_data
+		_stats_panel.show_stats(weapon, WeaponStats.best_owned(inventory, weapon))
+	else:
+		_stats_panel.hide_stats()
+
+
 func _clear_preview() -> void:
+	_stats_panel.hide_stats()
 	result_slot.item = null
 	result_slot.ammount = 0
 	result_slot.update_ui()

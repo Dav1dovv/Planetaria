@@ -40,7 +40,7 @@ anchor_bottom = 0.5
 offset_left = -240.0
 offset_top = -134.90901
 offset_right = 54.39212
-offset_bottom = 53.686005
+offset_bottom = 107.686005
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hpr4m")
@@ -146,7 +146,7 @@ layout_mode = 2
 columns = 4
 
 [node name="HSeparator" type="VSeparator" parent="Craft/Body" unique_id=1572969117]
-custom_minimum_size = Vector2(0, 140)
+custom_minimum_size = Vector2(0, 195)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

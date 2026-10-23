@@ -56,6 +56,7 @@ func _tick_regen(delta: float) -> void:
 	var hp := Entity_stats.current_health
 	if _last_health >= 0.0 and hp < _last_health:
 		_since_damage = 0.0
+		Rumble.hit()  # короткая вибрация геймпада при уроне
 	_last_health = hp
 	_since_damage += delta
 	if _since_damage < REGEN_DELAY or hp >= Entity_stats.max_health:
@@ -92,7 +93,8 @@ func _ready() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 
 func _physics_process(delta: float) -> void:
-	mouse_pos = get_global_mouse_position()
+	# Мышь или правый стик геймпада (см. GamepadAim)
+	mouse_pos = GamepadAim.aim_world()
 
 	if is_alive:
 		_tick_regen(delta)
