@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://ctlx2onpmup1i" path="res://common/Resources/PlanetData/Vehana.tres" id="6_3hoy0"]
 [ext_resource type="AudioStream" uid="uid://6suhoapiivyl" path="res://Assets/Audio/BGM/Under PLanetaria.mp3" id="6_8or1h"]
 [ext_resource type="AudioStream" uid="uid://c7q7aoqgc2ip3" path="res://Assets/Audio/BGM/VehanaRemix.mp3" id="8_tgb6n"]
-[ext_resource type="AudioStream" uid="uid://bo8lkmlbnha2s" path="res://Assets/Audio/BGM/Ship.mp3" id="12_tgb6n"]
+[ext_resource type="AudioStream" uid="uid://bltsicobtyx2a" path="res://Assets/Audio/BGM/ship2.mp3" id="12_tgb6n"]
 [ext_resource type="AudioStream" uid="uid://td6afygdrfo7" path="res://Assets/Audio/BGM/game_over_1 (1).wav" id="16_b8n8i"]
 [ext_resource type="AudioStream" uid="uid://bmcaibnlutm8a" path="res://Assets/Audio/BGM/Game_Over_1.wav" id="18_r4swe"]
 [ext_resource type="AudioStream" uid="uid://74uudk4fnr3r" path="res://Assets/Audio/BGM/Game_Over_2.wav" id="19_kouma"]
