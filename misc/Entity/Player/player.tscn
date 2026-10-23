@@ -8,18 +8,10 @@
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="6_xdby1"]
 [ext_resource type="Script" uid="uid://8un4fxvacetp" path="res://misc/Entity/Player/skin.gd" id="9_deyxd"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="10_x7qg1"]
-[ext_resource type="Texture2D" uid="uid://ct8m6e5c8eufi" path="res://misc/Entity/Player/Textures/Skin1.png" id="11_pg7r4"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="11_t4dtc"]
-[ext_resource type="Texture2D" uid="uid://dlmfrdjeohxn7" path="res://misc/Entity/Player/Textures/Skin2.png" id="12_k2mf7"]
 [ext_resource type="Script" uid="uid://d2b3gchtl7jhb" path="res://misc/Utils/Boxes/HurtBox.gd" id="12_utbik"]
-[ext_resource type="Texture2D" uid="uid://pbwycn8yyl31" path="res://misc/Entity/Player/Textures/Skin3.png" id="13_8c2yh"]
-[ext_resource type="Texture2D" uid="uid://bem4amqo6jgxr" path="res://misc/Entity/Player/Textures/Skin4.png" id="14_rpipr"]
-[ext_resource type="Texture2D" uid="uid://0gg8lh2ffu70" path="res://misc/Entity/Player/Textures/Skin5.png" id="15_wa0wy"]
-[ext_resource type="Texture2D" uid="uid://cl8rnkp7ahwsp" path="res://misc/Entity/Player/Textures/Skin6.png" id="16_8c2yh"]
 [ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="17_qyxyk"]
-[ext_resource type="Texture2D" uid="uid://gukvo5n1cfcx" path="res://misc/Entity/Player/Textures/Skin7.png" id="17_rpipr"]
 [ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="17_x7qg1"]
-[ext_resource type="Texture2D" uid="uid://don2uf1xsv8o1" path="res://misc/Entity/Player/Textures/Skin8.png" id="18_wa0wy"]
 [ext_resource type="AudioStream" uid="uid://cgigsrfyxuodb" path="res://Assets/Audio/SFX/Swing.wav" id="19_07yfm"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="19_82esi"]
 [ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Utils/Drop/Dropper.gd" id="20_wyasg"]
@@ -1803,7 +1795,7 @@ current = true
 
 [node name="Skin" type="Node2D" parent="." index="7" unique_id=1375700649 node_paths=PackedStringArray("player_sprites")]
 script = ExtResource("9_deyxd")
-player_skins = Array[Texture]([ExtResource("22_8c2yh"), ExtResource("11_pg7r4"), ExtResource("12_k2mf7"), ExtResource("13_8c2yh"), ExtResource("14_rpipr"), ExtResource("15_wa0wy"), ExtResource("16_8c2yh"), ExtResource("17_rpipr"), ExtResource("18_wa0wy")])
+player_skins = Array[Texture]([ExtResource("22_8c2yh")])
 player_sprites = [NodePath("Body"), NodePath("Body/RightLeg"), NodePath("Body/LeftLeg"), NodePath("Body/Head"), NodePath("Body/Hand/LeftHand"), NodePath("Body/Hand/RightHand")]
 
 [node name="Body" type="Sprite2D" parent="Skin" index="0" unique_id=370932414]

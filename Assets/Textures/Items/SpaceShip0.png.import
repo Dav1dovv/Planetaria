@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ct8m6e5c8eufi"
-path="res://.godot/imported/Skin1.png-0efd412618c1124dbd563ccb233a84c6.ctex"
+uid="uid://c0mfh8ji2vhjr"
+path="res://.godot/imported/SpaceShip0.png-68c98e04e98bbd16e90e220084db29e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://misc/Entity/Player/Textures/Skin1.png"
-dest_files=["res://.godot/imported/Skin1.png-0efd412618c1124dbd563ccb233a84c6.ctex"]
+source_file="res://Assets/Textures/Items/SpaceShip0.png"
+dest_files=["res://.godot/imported/SpaceShip0.png-68c98e04e98bbd16e90e220084db29e0.ctex"]
 
 [params]
 

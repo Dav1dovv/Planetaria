@@ -132,6 +132,7 @@ func add_initial_items() -> void:
 	pickup_item(preload("uid://bmkdrb4efmfp8").duplicate(), 1, true)
 	pickup_item(preload("uid://dieok7r238rrp").duplicate(),1, true)
 	pickup_item(preload("uid://dwmw15dg8pwvd").duplicate(),45, true)
+	pickup_item(preload("res://misc/Content/Items/Teleporter.tres").duplicate(),5,true)
 
 #endregion
 

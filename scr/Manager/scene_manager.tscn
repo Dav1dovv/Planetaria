@@ -7,6 +7,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_6vyuc"]
 font = ExtResource("3_wtyph")
+font_size = 24
 font_color = Color(0.47843137, 1, 1, 1)
 shadow_color = Color(0, 0, 0, 0.18039216)
 shadow_offset = Vector2(0, 1.845)
@@ -232,6 +233,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 45.0
 grow_horizontal = 2
+localize_numeral_system = false
 text = "TEST"
 label_settings = SubResource("LabelSettings_6vyuc")
 horizontal_alignment = 1

@@ -26,6 +26,7 @@ height = 35.436028
 
 [node name="Ship" type="Node2D" unique_id=1200449064]
 y_sort_enabled = true
+scale = Vector2(2, 2)
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=2142861487]
 modulate = Color(0.13333334, 0.14509805, 0.14509805, 0.30980393)
@@ -66,4 +67,4 @@ position = Vector2(0, -14.033714)
 scale = Vector2(0.88065434, 1.1156242)
 energy = 0.5
 texture = ExtResource("3_m2pa7")
-texture_scale = 4.5
+texture_scale = 7.61

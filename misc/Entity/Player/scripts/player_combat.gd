@@ -21,6 +21,15 @@ var _lunge_hit_bodies: Array   = []
 func handle_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("LMB") or player.is_attack or Global.is_opened_menu:
 		return
+	# Диалог идёт — ни ударов, ни использования предметов
+	if DialogueLock.is_locked():
+		return
+
+	# GDD: взаимодействие — то же ЛКМ-действие (RT на геймпаде). Если под курсором
+	# интерактивный объект (и там нет врага), клик взаимодействует, а не бьёт.
+	if Cursor.try_interact_primary():
+		player.get_viewport().set_input_as_handled()
+		return
 
 	var hit_box   = player.hit_box
 	var hand_anim = player.HandAanimator
@@ -49,10 +58,23 @@ func handle_input(event: InputEvent) -> void:
 		hand_anim.play(hit_box.equip.play_anim)
 		call_deferred("_start_eat_cooldown")
 
+	elif hit_box.equip is TeleporterData:
+		_use_teleporter(hit_box.equip as TeleporterData)
+
 	else:
 		player.is_attack = true
 		hand_anim.play(hit_box.equip.play_anim)
 		call_deferred("_start_attack_cooldown", true)
+
+
+## Телепортер в руке: запускаем заряд. Если телепорт сейчас невозможен (уже на корабле или
+## заряд идёт) — анимацию не играем и предмет не трогаем.
+func _use_teleporter(data: TeleporterData) -> void:
+	if TeleportChannel.begin(player, data) == null:
+		return
+	player.is_attack = true
+	player.HandAanimator.play(data.play_anim)
+	call_deferred("_start_eat_cooldown")  # снимает is_attack, когда жест закончится
 
 
 func _start_attack_cooldown(one_shot: bool) -> void:

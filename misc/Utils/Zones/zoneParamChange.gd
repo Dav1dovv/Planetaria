@@ -1,4 +1,6 @@
 extends RapierArea2D
+## change spawner rules when player inside in zone
+class_name Zone
 
 
 @export var new_spawn_config : CreatureConfig

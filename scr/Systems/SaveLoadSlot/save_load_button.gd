@@ -57,12 +57,7 @@ const C_DANGER   := Color("ff5360")
 #  ВАЖНО: порядок должен совпадать с PlayerSkin.player_skins в сцене игрока.
 # ─────────────────────────────────────────────────────────────────────────────
 const SKIN_PATHS: Array[String] = [
-	"res://misc/Entity/Player/Textures/Skin.png",
-	"res://misc/Entity/Player/Textures/Skin1.png",
-	"res://misc/Entity/Player/Textures/Skin2.png",
-	"res://misc/Entity/Player/Textures/Skin3.png",
-	"res://misc/Entity/Player/Textures/Skin4.png",
-	"res://misc/Entity/Player/Textures/Skin5.png",
+	"res://misc/Entity/Player/Textures/Skin.png"
 ]
 ## Где на листе скина лежат шлем и комбинезон (тот же лист, что у PlayerSkin)
 const SRC_HEAD := Rect2(8, 10, 16, 9)

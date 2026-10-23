@@ -70,6 +70,9 @@ var corupt_lvl : int = 0
 ## инспекторе для теста — по умолчанию должно быть false, иначе заражены
 ## будут все ресурсы, использующие этот скрипт.
 @export var force_corrupted : bool = false
+## Шанс, что ресурс родится заражённым. Пока на планете не выполнено задание
+## «Очистить планету от заражения» — потом заражение больше не появляется.
+@export_range(0.0, 1.0, 0.01) var infect_chance : float = 0.3
 
 # ── ОПТИМИЗАЦИЯ: throttle вне экрана ─────────────────────────────
 # В сцене уже есть VisibleOnScreenEnabler2D ("optimizer"), но раньше он не
@@ -80,6 +83,7 @@ var corupt_lvl : int = 0
 # как и у Creature.gd, где этот же паттерн уже применён.
 @export var can_infect : bool = true
 var _is_active: bool = true
+var _is_destroyed: bool = false
 
 func _init() -> void:
 	set_collision_layer_value(2,true)
@@ -106,9 +110,7 @@ func _ready() -> void:
 		$Corruption.emitting = true
 		is_corrupted = true
 	elif can_infect:
-		var max_corrupt_chance := 0.3
-		var corrupt_chance := max_corrupt_chance
-		if randf() < corrupt_chance:
+		if InfectionCleanup.roll_infected(infect_chance):
 			$Corruption.emitting = true
 			is_corrupted = true
 
@@ -180,8 +182,15 @@ func _infect_player() -> void:
 
 
 func _on_destroyed(tool_lvl: int) -> void:
-		
-		
+	# Харвест может прийти дважды за кадр (бомба + удар) — считаем разрушение один раз
+	if _is_destroyed:
+		return
+	_is_destroyed = true
+
+	# Заражённый объект уничтожен — +1 к заданию «Очистить планету от заражения»
+	if is_corrupted:
+		InfectionCleanup.report_cleansed(global_position)
+
 	$CollisionShape2D.disabled = true
 	Dropper_component._drop_items()
 	if animation.has_animation("destroy"):
@@ -245,5 +254,24 @@ func _on_timer_timeout() -> void:
 		add_child(cor)
 
 func add_infection(value):
+	# Излечённая планета больше не заражается (см. InfectionCleanup)
+	if not InfectionCleanup.is_infection_active():
+		return
 	$Corruption.emitting = true
 	is_corrupted = true
+
+
+## Очищает объект от заражения, не ломая его. Вызывается, когда планета излечена.
+func cleanse() -> void:
+	if not is_corrupted:
+		return
+	is_corrupted = false
+	var fx := get_node_or_null("Corruption")
+	if fx != null:
+		fx.set("emitting", false)
+	InfectionCleanup.pop(global_position)
+	var sprite := get_node_or_null("Sprite2D") as CanvasItem
+	if sprite != null:
+		# self_modulate: обычный modulate твинит вспышка урона (VFX)
+		sprite.self_modulate = InfectionCleanup.GREEN
+		create_tween().tween_property(sprite, "self_modulate", Color.WHITE, 0.8)

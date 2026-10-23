@@ -214,6 +214,8 @@ func _end_event(success: bool, silent: bool = false) -> void:
 		Global.world_event_completed.emit(id)
 		Global.report_planet_event(Global.current_location, QuestData.Kind.HELP_LOCALS, "world_event")
 		if def["kind"] == "wave":
+			# Задания «Отбить налёт»: target_id = ID события (pig_raid, slime_rush), пусто = любой
+			Global.report_planet_event(Global.current_location, QuestData.Kind.REPEL_RAID, String(id))
 			GameJuice.banner(Loc.t("EVENT COMPLETE!"), Loc.t("Event reward!"), Color(0.55, 1.0, 0.6), 1.6)
 		else:
 			GameJuice.toast(Loc.t("Relic found!") if def.get("relic", false) else Loc.t("Supplies secured!"), Color(0.55, 1.0, 0.6))

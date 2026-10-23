@@ -30,7 +30,10 @@ metadata/_custom_type_script = "uid://bcg5vwna4id5n"
 [sub_resource type="Resource" id="Resource_d63od"]
 script = ExtResource("1_oo82o")
 quest_id = &"cleanup_infection"
-title = "очистить планету от инфекционого паразита"
+title = "Очистить планету от заражения"
+description = "Заражённые ресурсы расползаются по планете. Уничтожай их — и заражение отступит."
+kind = 11
+target_amount = 15
 rewards = Array[ExtResource("3_ingredient")]([SubResource("Resource_jr2n0"), SubResource("Resource_uxcw0")])
 metadata/_custom_type_script = "uid://c78jhtxa5bydr"
 

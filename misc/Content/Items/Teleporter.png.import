@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bem4amqo6jgxr"
-path="res://.godot/imported/Skin4.png-71f9d644ec6d5f8da9cf124b91284826.ctex"
+uid="uid://bo2jorhjbmr05"
+path="res://.godot/imported/Teleporter.png-5f0b3aa1dcf1e8fe3481b3c915217806.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://misc/Entity/Player/Textures/Skin4.png"
-dest_files=["res://.godot/imported/Skin4.png-71f9d644ec6d5f8da9cf124b91284826.ctex"]
+source_file="res://misc/Content/Items/Teleporter.png"
+dest_files=["res://.godot/imported/Teleporter.png-5f0b3aa1dcf1e8fe3481b3c915217806.ctex"]
 
 [params]
 

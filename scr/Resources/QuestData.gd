@@ -16,6 +16,13 @@ enum Kind {
 	DELIVER_ITEM,      ## Доставить предмет в базу
 	HELP_LOCALS,       ## Помочь жителям (например, от террора)
 	KILL_ENEMY,        ## Убить моба (target_id = ID моба, X = сколько убить)
+	# ── ВАЖНО: новые виды только в КОНЕЦ списка. В .tres тип хранится числом (0, 1, 2...),
+	# поэтому вставка в середину тихо поменяет тип у всех уже написанных заданий.
+	FIND_PLACE,        ## Найти место или след (target_id = ID места; сообщает QuestReporter)
+	REPEL_RAID,        ## Отбить налёт (target_id = ID события EventDirector, пусто = любой налёт)
+	HUNT_RARE,         ## Выследить редкого врага по следам (target_id = hunt_id у HuntTarget)
+	RESCUE_SURVIVOR,   ## Довести выжившего до корабля (target_id = survivor_id у SurvivorRescue)
+	CLEANSE_INFECTION, ## Очистить заражение: уничтожать заражённые объекты (см. InfectionCleanup)
 }
 
 @export var quest_id: StringName = &""

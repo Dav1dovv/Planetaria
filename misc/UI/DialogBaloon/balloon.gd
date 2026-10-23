@@ -37,6 +37,9 @@ var locals: Dictionary = {}
 
 var _locale: String = TranslationServer.get_locale()
 
+## Держит ли этот баллон блокировку управления игрока (см. DialogueLock)
+var _lock_held: bool = false
+
 ## The current line
 var dialogue_line: DialogueLine:
 	set(value):
@@ -45,6 +48,7 @@ var dialogue_line: DialogueLine:
 			apply_dialogue_line()
 		else:
 			# The dialogue has finished so close the balloon
+			_release_lock()
 			if owner == null:
 				queue_free()
 			else:
@@ -109,8 +113,26 @@ func _notification(what: int) -> void:
 			dialogue_label.skip_typing()
 
 
+## Блокируем управление на время диалога; снимаем при конце или удалении баллона
+func _acquire_lock() -> void:
+	if not _lock_held:
+		_lock_held = true
+		DialogueLock.lock()
+
+
+func _release_lock() -> void:
+	if _lock_held:
+		_lock_held = false
+		DialogueLock.unlock()
+
+
+func _exit_tree() -> void:
+	_release_lock()  # на случай удаления баллона посреди диалога (смена сцены)
+
+
 ## Start some dialogue
 func start(with_dialogue_resource: DialogueResource = null, title: String = "", extra_game_states: Array = []) -> void:
+	_acquire_lock()
 	temporary_game_states = [self] + extra_game_states
 	is_waiting_for_input = false
 	if is_instance_valid(with_dialogue_resource):

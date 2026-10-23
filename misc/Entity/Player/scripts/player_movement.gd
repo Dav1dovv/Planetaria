@@ -38,6 +38,12 @@ func process(delta: float) -> Vector2:
 
 
 func _move(delta: float) -> void:
+	# Во время диалога игрок стоит: плавно тормозим и не читаем ввод
+	if DialogueLock.is_locked():
+		player.dir = Vector2.ZERO
+		current_velocity = current_velocity.lerp(Vector2.ZERO, friction)
+		return
+
 	if Global.is_opened_menu:
 		current_velocity = current_velocity.lerp(Vector2.ZERO, friction)
 		return
