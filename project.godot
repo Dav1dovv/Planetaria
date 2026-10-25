@@ -30,7 +30,7 @@ config/name_localized={
 }
 config/description="Explore and explore IDK"
 config/version="0.1.0"
-config/tags=PackedStringArray("in_dev")
+config/tags=PackedStringArray("demo", "in_dev")
 run/main_scene="uid://bntky2x40cdr3"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Planetoria"
@@ -264,7 +264,7 @@ dialogic_default_action={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://misc/Dialogs/Dialogues/Scene1/Yairam.dialogue", "res://misc/Structures/Ruins/Syncer.dialogue", "res://misc/Dialogs/Elder/Elder.dialogue", "res://misc/Dialogs/Princess/Princess.dialogue", "res://misc/Dialogs/Ranger/Ranger.dialogue")
+locale/translations_pot_files=PackedStringArray("res://misc/Dialogs/Dialogues/Scene1/Yairam.dialogue", "res://misc/Dialogs/Elder/Elder.dialogue", "res://misc/Dialogs/Princess/Princess.dialogue", "res://misc/Dialogs/Ranger/Ranger.dialogue")
 
 [layer_names]
 

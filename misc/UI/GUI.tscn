@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b0mf3l56dvooj" path="res://misc/UI/Pause/pause_menu.tscn" id="7_2v76w"]
 [ext_resource type="PackedScene" uid="uid://52127now6ld4" path="res://misc/UI/QuestTerminal/quest_terminal.tscn" id="10_my3yu"]
 [ext_resource type="PackedScene" path="res://misc/UI/Effects/effect_display.tscn" id="11_yfmxh"]
+[ext_resource type="PackedScene" uid="uid://cvytbxkjhijsm" path="res://misc/UI/Achievmentage/AchievementsWindow.tscn" id="12_yfmxh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cdos3"]
 shader = ExtResource("2_01dxt")
@@ -132,7 +133,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_yfmxh")
 theme_override_styles/fill = SubResource("StyleBoxTexture_01dxt")
 show_percentage = false
 script = ExtResource("5_yfmxh")
-heal_fill_speed = 3.0
+heal_fill_speed = 20.0
 heartbeat_calm = 0.5
 curse_alert = 34.0
 
@@ -163,6 +164,8 @@ offset_left = 10.0
 offset_top = 25.0
 offset_right = 11.0
 offset_bottom = 36.0
+
+[node name="AchievementsWindow" parent="." unique_id=386380193 instance=ExtResource("12_yfmxh")]
 
 [connection signal="visibility_changed" from="HUD/Inventory" to="." method="_on_inventory_visibility_changed"]
 [connection signal="visibility_changed" from="DeathMenu" to="." method="_on_death_menu_visibility_changed"]

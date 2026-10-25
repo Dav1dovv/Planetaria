@@ -39,6 +39,25 @@ class_name EnemyBase
 # Смещение точки прицеливания относительно позиции игрока (например (0, -8) — целиться в корпус)
 @export var aim_offset : Vector2 = Vector2.ZERO
 
+@export_group("Idle Wander")
+# Бродить возле своей точки, пока игрока не видно (иначе враг стоит как статуя)
+@export var wander_enabled : bool = true:
+	set(value):
+		wander_enabled = value
+		queue_redraw()
+# Как далеко от «дома» враг может уйти (рисуется зелёным кругом в редакторе)
+@export var wander_radius : float = 40.0:
+	set(value):
+		wander_radius = value
+		queue_redraw()
+# Скорость прогулки: доля от обычной скорости
+@export_range(0.05, 1.0, 0.05) var wander_speed_factor : float = 0.3
+# Сколько секунд враг стоит между прогулками (случайно от и до)
+@export var wander_pause_min : float = 1.0
+@export var wander_pause_max : float = 3.0
+# Шанс оглянуться (развернуться) во время паузы
+@export_range(0.0, 1.0, 0.05) var wander_look_around : float = 0.4
+
 @export_group("nodes")
 @export var skin : Node2D
 
@@ -59,6 +78,9 @@ class_name EnemyBase
 
 var target
 var target_detected : bool = false
+# Модуль «жизни» без цели и прошлое состояние обнаружения (для события «потерял игрока»)
+var _wander : IdleWander
+var _was_detected : bool = false
 
 # Идёт ли сейчас атака (как player.is_attack у игрока)
 var is_attack : bool = false
@@ -87,6 +109,10 @@ func _ready():
 
 	health_changed.connect(_on_health_changed)
 	died.connect(_on_die)
+
+	_wander = IdleWander.new()
+	_wander.configure(wander_radius, wander_pause_min, wander_pause_max, wander_look_around)
+	_wander.set_home(global_position)
 
 	_setup()
 
@@ -142,6 +168,11 @@ func _physics_process(delta: float) -> void:
 	elif not continue_follow_target:
 		target_detected = false
 
+	# Потеряли игрока из виду — новая «домашняя» точка и пауза
+	if _was_detected and not target_detected:
+		_on_target_lost()
+	_was_detected = target_detected
+
 	# Анимация атаки доиграла — заканчиваем атаку
 	if is_attack and not _is_attacking():
 		_finish_attack()
@@ -160,6 +191,10 @@ func _draw() -> void:
 	# Поле зрения: полупрозрачная заливка + контур
 	draw_circle(Vector2.ZERO, line_of_sight, Color(sight_color, 0.12))
 	draw_arc(Vector2.ZERO, line_of_sight, 0.0, TAU, 64, Color(sight_color, 0.8), 1.0)
+
+	# Зона блуждания (вокруг стартовой точки врага)
+	if wander_enabled:
+		draw_arc(Vector2.ZERO, wander_radius, 0.0, TAU, 48, Color(0.4, 1.0, 0.5, 0.7), 1.0)
 
 	# Дистанция атаки
 	if _shows_attack_range():
@@ -275,6 +310,26 @@ func _move_to_target(offset: Vector2 = Vector2.ZERO) -> void:
 	var direction : Vector2 = global_position.direction_to(target.global_position + offset)
 	velocity = direction * _get_speed()
 	_face(velocity.x)
+
+
+## «Жизнь» без цели: враг то стоит, то неспешно бродит возле своей точки и иногда
+## оглядывается. Вызывай из _ai() вместо velocity = Vector2.ZERO, когда игрока не видно.
+func _idle_wander(delta: float) -> void:
+	if not wander_enabled or _wander == null:
+		velocity = Vector2.ZERO
+		return
+	velocity = _wander.update(delta, global_position, _get_speed() * wander_speed_factor)
+	if absf(velocity.x) > 0.01:
+		_face(velocity.x)
+	elif _wander.consume_look_around():
+		var facing_right : bool = not skin or skin.scale.x > 0.0
+		_face(-1.0 if facing_right else 1.0)
+
+
+## Враг потерял игрока из виду (преследование вне зоны видимости выключено)
+func _on_target_lost() -> void:
+	if _wander:
+		_wander.rehome(global_position)
 
 
 ## Убегать от игрока

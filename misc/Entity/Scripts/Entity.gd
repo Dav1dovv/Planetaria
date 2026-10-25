@@ -23,6 +23,19 @@ class_name Entity
 @export_range(0.01, 1.0, 0.01) var heavy_hit_ratio: float = 0.15
 # ────────────────────────────────────────────────────────────────
 
+# ── Terraria-стиль урона ────────────────────────────────────────
+@export_group("Terraria Damage")
+## Разброс урона: ±доля от удара (Terraria: ±15%). 0 = без разброса
+@export_range(0.0, 0.5, 0.01) var damage_variance: float = 0.15
+## Множитель критического удара (Terraria: x2)
+@export var crit_multiplier: float = 2.0
+## Сопротивление отбрасыванию: 0 = обычное, 0.5 = вдвое меньше, 1 = иммунитет (боссы)
+@export_range(0.0, 1.0, 0.05) var knockback_resistance: float = 0.0
+# ────────────────────────────────────────────────────────────────
+
+## Минимальный урон от любого удара (в Terraria удар никогда не бьёт на 0)
+const MIN_DAMAGE: float = 1.0
+
 ## Печатать подробный лог урона в консоль (выключено — print() не бесплатен)
 @export var debug_log_damage: bool = false
 
@@ -107,52 +120,74 @@ func set_invisibility(active: bool) -> void:
 func get_incoming_damage_multiplier() -> float:
 	return 1.0
 
-# ── ПОЛУЧЕНИЕ УРОНА ─────────────────────────────────────────────
-## is_critical      — был ли удар критическим (для VFX/хитстопа)
-## poise_damage     — сколько "стаггера" наносит этот удар (используется Creature.on_hit)
+# ── ПОЛУЧЕНИЕ УРОНА (по формуле Terraria) ───────────────────────
+## Порядок расчёта, как в Terraria:
+##   1) разброс ±damage_variance  2) крит x crit_multiplier
+##   3) минус плоская защита (броня / 2)  4) минус % снижения  5) минимум 1
+## Крит определяет АТАКУЮЩИЙ: если у damage_source есть метод roll_crit() -> bool,
+## он вызывается один раз за удар (см. PlayerHitBox). Нет метода — крита нет
+## (как и у мобов в Terraria).
 func take_damage(damage: float, damage_source: Node2D = null, knockback_mod : float = 0.0) -> void:
 	if not is_alive or is_invincible:
 		return
 
-	var total_reduction = Entity_stats.get_total_damage_reduction()
-	total_reduction = clamp(total_reduction, 0.0, 0.9)
+	var is_critical := _roll_critical(damage_source)
+	var actual_damage := _calculate_damage(damage, is_critical)
 
-	var vulnerability_mult = get_incoming_damage_multiplier()
-	var actual_damage = damage * (1.0 - total_reduction) * vulnerability_mult
-
-	# ── VFX ─────────────────────────────────────────
 	if Vfx != null:
 		Vfx._damage_vfx()
-
-	# ────────────────────────────────────────────────
 
 	Entity_stats.current_health -= actual_damage
 	emit_signal("health_changed", Entity_stats.current_health)
 
-	_play_hit_feel(actual_damage, damage_source)
+	_play_hit_feel(actual_damage, damage_source, is_critical)
 
 	if debug_log_damage:
-		_log_damage(damage, actual_damage, total_reduction)
+		_log_damage(damage, actual_damage, is_critical)
 
-	# ── Реакция существа на удар (страх, стаггер и т.д.) ─────────────
-	#if has_method("on_hit"):
-		#call("on_hit", Vector2.ZERO, is_critical, poise_damage)
-	# ──────────────────────────────────────────────────────────────────
-
-	if damage_source != null:
-		var knockback_power = knockback_strength + randi_range(0, int(damage)) + knockback_mod
+	if damage_source != null and knockback_resistance < 1.0:
+		# Terraria: отбрасывание = сила оружия * (1 - сопротивление цели), без рандома
+		var knockback_power = knockback_strength + knockback_mod
 
 		if Entity_stats.current_health <= Entity_stats.max_health / 35:
 			knockback_power += 40 + damage
 
-		apply_knockback(damage_source, knockback_power)
+		apply_knockback(damage_source, knockback_power * (1.0 - knockback_resistance))
 
 	if Entity_stats.current_health <= 0:
 		die()
 	elif invincibility_duration > 0:
 		_start_invincibility()
 
+## Спрашивает у источника удара, критический ли он.
+func _roll_critical(damage_source: Node) -> bool:
+	if damage_source != null and damage_source.has_method("roll_crit"):
+		return damage_source.roll_crit()
+	return false
 
+## Чистая формула урона — без побочных эффектов, удобно тестировать.
+func _calculate_damage(raw_damage: float, is_critical: bool) -> float:
+	if raw_damage <= 0.0:
+		return 0.0
+
+	var dmg := raw_damage
+
+	# 1) Разброс ±15%
+	if damage_variance > 0.0:
+		dmg *= randf_range(1.0 - damage_variance, 1.0 + damage_variance)
+
+	# 2) Крит
+	if is_critical:
+		dmg *= crit_multiplier
+
+	# 3) Плоская защита (броня / 2)
+	dmg -= Entity_stats.get_flat_defense()
+
+	# 4) Процентное снижение + уязвимость (стаггер у Creature)
+	dmg *= (1.0 - Entity_stats.get_endurance()) * get_incoming_damage_multiplier()
+
+	# 5) Целое число, минимум 1
+	return maxf(MIN_DAMAGE, roundf(dmg))
 
 # ── SCREEN SHAKE ────────────────────────────────────────────────
 func _trigger_screen_shake(is_critical: bool = false) -> void:
@@ -207,20 +242,28 @@ func apply_knockback(damage_source: Node2D, knockback_multipiler: float) -> void
 ## Цифры урона + хит-стоп + тряска камеры.
 ## Хит-стоп и тряска — только если в ударе участвует игрок (иначе драка мобов
 ## между собой замораживала бы игру).
-func _play_hit_feel(actual_damage: float, damage_source: Node) -> void:
+func _play_hit_feel(actual_damage: float, damage_source: Node, is_critical: bool = false) -> void:
 	if actual_damage < 0.5:
 		return
 	var hurt_player := _is_player_node(self)
 	var involves_player := hurt_player or _is_player_node(damage_source)
-	var is_heavy := actual_damage >= Entity_stats.max_health * heavy_hit_ratio
+	var is_heavy := is_critical or actual_damage >= Entity_stats.max_health * heavy_hit_ratio
 
-	var color := Color.WHITE
+	# Цвета как в Terraria: оранжевый — урон по врагу, красный — по игроку, крит — жёлтый и крупнее
+	var color := Color(1.0, 0.63, 0.31)
 	if hurt_player:
-		color = Color(1.0, 0.35, 0.3)
+		color = Color(1.0, 0.31, 0.35)
+	if is_critical:
+		color = Color(1.0, 0.45, 0.1) if hurt_player else Color(1.0, 0.85, 0.2)
+
+	var text_scale := 1.0
+	if is_critical:
+		text_scale = 1.8
 	elif is_heavy:
-		color = Color(1.0, 0.85, 0.25)
+		text_scale = 1.5
+
 	GameJuice.floating_text(global_position + Vector2(0.0, -14.0), str(roundi(actual_damage)),
-			color, 1.5 if is_heavy else 1.0)
+			color, text_scale)
 
 	if involves_player:
 		_do_hitstop(is_heavy)
@@ -265,15 +308,13 @@ func _find_camera() -> Camera2D:
 		return null
 	return vp.get_camera_2d()
 
-func _log_damage(base: float, actual: float, reduction: float, is_critical: bool = false, vulnerability_mult: float = 1.0) -> void:
+func _log_damage(base: float, actual: float, is_critical: bool = false) -> void:
 	print("====================================")
 	print("Получен урон:" + (" [КРИТ!]" if is_critical else ""))
-	print("  Базовый урон: %.1f" % base)
-	print("  Броня: %.1f (%.1f%% снижения)" % [Entity_stats.armor, Entity_stats.get_armor_reduction() * 100])
-	print("  Итоговое снижение: %.1f%%" % (reduction * 100))
-	if vulnerability_mult != 1.0:
-		print("  Уязвимость (стаггер): x%.2f" % vulnerability_mult)
-	print("  Фактический урон: %.1f" % actual)
+	print("  Базовый урон: %.1f (разброс ±%d%%)" % [base, roundi(damage_variance * 100.0)])
+	print("  Броня: %.1f -> плоская защита: -%.1f" % [Entity_stats.armor, Entity_stats.get_flat_defense()])
+	print("  Снижение: %.1f%%" % (Entity_stats.get_endurance() * 100.0))
+	print("  Фактический урон: %.0f" % actual)
 	print("  Осталось HP: %.1f / %.1f" % [Entity_stats.current_health, Entity_stats.max_health])
 	print("====================================")
 

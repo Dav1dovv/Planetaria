@@ -11,6 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://ck8tnuu1blxre" path="res://misc/HarvestItems/SFX/Mining/Stone2.mp3" id="9_paquu"]
 [ext_resource type="AudioStream" uid="uid://c158d8m1quj47" path="res://misc/HarvestItems/SFX/Mining/Stone3.mp3" id="10_6eg6u"]
 [ext_resource type="AudioStream" uid="uid://imuayp8xcd7r" path="res://misc/HarvestItems/SFX/Mining/Stone4.mp3" id="11_jhomw"]
+[ext_resource type="PackedScene" uid="uid://d4dhrx0cb6776" path="res://misc/Particles/SplashParticles.tscn" id="12_6eg6u"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="13_jhomw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ammfx"]
 radius = 3.6076422
@@ -49,6 +51,10 @@ stream_1/stream = ExtResource("9_paquu")
 stream_2/stream = ExtResource("10_6eg6u")
 stream_3/stream = ExtResource("11_jhomw")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmu72"]
+atlas = ExtResource("13_jhomw")
+region = Rect2(17, 3, 14, 11)
+
 [node name="Stone" unique_id=1934415035 instance=ExtResource("1_v8vwc")]
 can_infect = false
 
@@ -67,15 +73,16 @@ drop_resources = Array[ExtResource("2_lncde")]([SubResource("Resource_v8vwc"), S
 position = Vector2(-0.08827186, -5.3210645)
 shape = SubResource("RectangleShape2D_lncde")
 
-[node name="VFX_damage" parent="." index="5" unique_id=2140509907 node_paths=PackedStringArray("character")]
+[node name="VFX_damage" parent="." index="5" unique_id=2140509907 node_paths=PackedStringArray("character", "audio_player", "particles")]
 character = NodePath("../Sprite2D")
+audio_player = NodePath("../AudioStreamPlayer2D")
+particles = NodePath("../GPUParticles2D")
 
 [node name="Sprite2D" parent="." index="8" unique_id=308116851]
 position = Vector2(0.23476791, -4.194992)
 texture = ExtResource("2_ktxes")
 offset = Vector2(-0.23476791, -12.020668)
 hframes = 6
-frame = 5
 script = ExtResource("3_lncde")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 
@@ -86,3 +93,6 @@ scale = Vector2(2.3729024, 0.95385194)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="10" unique_id=7656098]
 stream = SubResource("AudioStreamRandomizer_cdos3")
+
+[node name="GPUParticles2D" parent="." index="11" unique_id=1130400609 instance=ExtResource("12_6eg6u")]
+texture = SubResource("AtlasTexture_vmu72")

@@ -15,3 +15,7 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 
 func _on_timer_timeout() -> void:
 	queue_free()
+
+
+func _on_hurt_box_damage_taken() -> void:
+	queue_free()

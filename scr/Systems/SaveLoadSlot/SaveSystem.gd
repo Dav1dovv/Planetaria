@@ -7,6 +7,24 @@ class_name SaveLoadSystem
 #   user://Saves/{slot}/worldsave/harvested.json
 #   user://Saves/{slot}/worldsave/planets.json
 
+## Находит живой экземпляр системы сохранений по классу, не завися от имени автозагрузки.
+## Ищет среди детей root, затем среди детей Global. null, если не нашёл.
+static var _instance: SaveLoadSystem = null
+static func find_instance(tree: SceneTree) -> SaveLoadSystem:
+	if is_instance_valid(_instance):
+		return _instance
+	for n in tree.root.get_children():
+		if n is SaveLoadSystem:
+			_instance = n
+			return _instance
+		for c in n.get_children():
+			if c is SaveLoadSystem:
+				_instance = c
+				return _instance
+	push_warning("[SaveSystem] экземпляр SaveLoadSystem не найден в дереве")
+	return null
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 #  Константы путей
 # ─────────────────────────────────────────────────────────────────────────────
@@ -17,6 +35,10 @@ const PLAYER_FILE     := "player_data.char"
 const SEEDS_FILE      := "worldsave/world_seeds.json"
 const HARVESTED_FILE  := "worldsave/harvested.json"
 const PLANETS_FILE    := "worldsave/planets.json"
+const ACHIEVEMENTS_FILE := "achievements.json"
+
+# Общий для всех слотов профиль (одноразовые флаги: обучение пройдено и т.п.)
+const PROFILE_PATH := "user://profile.json"
 
 # Расстояние «склейки» добытых позиций (0 = точное совпадение)
 const HARVEST_SNAP: float = 0.0
@@ -24,6 +46,9 @@ const HARVEST_SNAP: float = 0.0
 # Налёт (время в игре) считаем как «накопленное в слоте + текущая сессия».
 var _session_started_ms: int = -1
 var _session_base_playtime: int = 0
+
+var _profile: Dictionary = {}
+var _profile_loaded: bool = false
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -370,6 +395,61 @@ func _delete_dir_recursive(path: String) -> void:
 		name = dir.get_next()
 	dir.list_dir_end()
 	DirAccess.remove_absolute(path)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  Профиль (общий для всех слотов)
+# ─────────────────────────────────────────────────────────────────────────────
+
+func _load_profile() -> void:
+	if _profile_loaded:
+		return
+	_profile = _read_json(PROFILE_PATH)
+	_profile_loaded = true
+
+## Значение из общего профиля. Числа из JSON приходят как float — приводите через int().
+func get_profile_value(key: String, default: Variant = null) -> Variant:
+	_load_profile()
+	return _profile.get(key, default)
+
+## Записывает значение в профиль (на диск только если оно изменилось).
+func set_profile_value(key: String, value: Variant) -> void:
+	_load_profile()
+	if _profile.has(key) and _profile[key] == value:
+		return
+	_profile[key] = value
+	_write_json(PROFILE_PATH, _profile)
+
+## Сбрасывает профиль целиком (отладка / «новая игра»): обучение покажется снова.
+func reset_profile() -> void:
+	_profile = {}
+	_profile_loaded = true
+	_write_json(PROFILE_PATH, _profile)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  Достижения (по слотам)
+# ─────────────────────────────────────────────────────────────────────────────
+
+func _achievements_path(slot: String) -> String:
+	return slot_dir(slot) + ACHIEVEMENTS_FILE
+
+## Сохраняет прогресс достижений слота (пустой slot = текущий).
+## Не пишет в удалённый слот, чтобы отложенное сохранение не воскресило папку.
+func save_achievements(data: Dictionary, slot: String = "") -> bool:
+	if slot.is_empty():
+		slot = Global.current_save_slot
+	if slot.is_empty() or not DirAccess.dir_exists_absolute(slot_dir(slot)):
+		return false
+	return _write_json(_achievements_path(slot), data)
+
+## Загружает прогресс достижений слота. Пустой Dictionary, если файла нет.
+func load_achievements(slot: String = "") -> Dictionary:
+	if slot.is_empty():
+		slot = Global.current_save_slot
+	if slot.is_empty():
+		return {}
+	return _read_json(_achievements_path(slot))
 
 
 # ─────────────────────────────────────────────────────────────────────────────

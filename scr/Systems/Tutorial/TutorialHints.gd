@@ -4,6 +4,8 @@ class_name TutorialHints
 ## Ненавязчивое обучение «через действие»: подсказка исчезает, как только
 ## игрок сделал то, о чём она просит. Названия клавиш берутся из InputMap,
 ## так что подсказки не врут, если раскладку поменяли. F1 — пропустить.
+## Показываются ОДИН раз за всё время: флаг «пройдено» и текущий шаг лежат
+## в общем профиле (SaveLoadSystem.get/set_profile_value), а не в слоте сохранения.
 
 const START_DELAY := 1.5
 const STEP_TIMEOUT := 25.0
@@ -11,6 +13,9 @@ const DONE_FLASH := 0.7
 const SKIP_KEY := KEY_F1
 
 const STEP_IDS: Array[StringName] = [&"move", &"attack", &"interact", &"inventory"]
+
+const PROFILE_DONE := "tutorial_done"
+const PROFILE_STEP := "tutorial_step"
 
 var _index: int = 0
 ## Сколько взаимодействий уже было к началу шага «взаимодействие»
@@ -25,9 +30,32 @@ var _panel: PanelContainer
 var _label: Label
 
 
+## Доступ к общему профилю через SaveLoadSystem (имя автозагрузки не важно).
+func _profile_get(key: String, default: Variant) -> Variant:
+	var saves := SaveLoadSystem.find_instance(get_tree())
+	return saves.get_profile_value(key, default) if saves else default
+
+
+func _profile_set(key: String, value: Variant) -> void:
+	var saves := SaveLoadSystem.find_instance(get_tree())
+	if saves:
+		saves.set_profile_value(key, value)
+
+
 func _ready() -> void:
 	_build_ui()
 	_hide_panel()
+	_load_progress()
+
+
+## Подхватывает прогресс из профиля: уже пройдено — молчим навсегда,
+## закрыли игру на середине — продолжаем с того же шага.
+func _load_progress() -> void:
+	if bool(_profile_get(PROFILE_DONE, false)):
+		_finished = true
+		set_process(false)
+		return
+	_index = clampi(int(_profile_get(PROFILE_STEP, 0)), 0, STEP_IDS.size() - 1)
 
 
 func _build_ui() -> void:
@@ -96,6 +124,7 @@ func _process(delta: float) -> void:
 			if _index >= STEP_IDS.size():
 				_finish()
 			else:
+				_profile_set(PROFILE_STEP, _index)
 				_show_step()
 		return
 
@@ -126,10 +155,20 @@ func _hide_panel() -> void:
 func _finish() -> void:
 	_finished = true
 	_hide_panel()
+	set_process(false)
+	_profile_set(PROFILE_DONE, true)
 
 
-## Начать обучение заново (новый посетитель выставки).
-func reset() -> void:
+## Начать обучение заново. Без force после прохождения ничего не делает —
+## так вызов reset() «на новую сессию» не вернёт подсказки. force = true
+## (например, кнопка «Повторить обучение» в настройках) сбрасывает и сохранённый флаг.
+func reset(force: bool = false) -> void:
+	if _finished and not force:
+		return
+	if force:
+		_profile_set(PROFILE_DONE, false)
+		_profile_set(PROFILE_STEP, 0)
+	set_process(true)
 	_index = 0
 	_step_time = 0.0
 	_delay = START_DELAY

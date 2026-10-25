@@ -1,0 +1,145 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bmx8nax3mor1p" path="res://misc/UI/Achievmentage/AchievementRow.gd" id="1_row"]
+
+[sub_resource type="StyleBoxFlat" id="row_done"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.05, 0.1, 0.18, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85, 0.3, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="row_locked"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.05, 0.1, 0.18, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.62, 0.72, 0.5)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="badge_done"]
+bg_color = Color(1, 0.85, 0.3, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.85, 0.3, 1)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id="badge_locked"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.55, 0.62, 0.72, 1)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id="bar_bg"]
+bg_color = Color(0, 0, 0, 0.5)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="bar_fill"]
+bg_color = Color(0.35, 0.75, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="AchievementRow" type="PanelContainer"]
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("row_locked")
+script = ExtResource("1_row")
+done_style = SubResource("row_done")
+locked_style = SubResource("row_locked")
+done_badge = SubResource("badge_done")
+locked_badge = SubResource("badge_locked")
+
+[node name="Line" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Badge" type="Panel" parent="Line"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("badge_locked")
+
+[node name="Texts" type="VBoxContainer" parent="Line"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="Line/Texts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Achievement"
+
+[node name="DescLabel" type="Label" parent="Line/Texts"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.55, 0.62, 0.72, 1)
+theme_override_font_sizes/font_size = 18
+text = "Description"
+autowrap_mode = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="Line/Texts"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("bar_bg")
+theme_override_styles/fill = SubResource("bar_fill")
+show_percentage = false
+
+[node name="ProgressLabel" type="Label" parent="Line/Texts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.75, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "0 / 10"
+
+[node name="Side" type="VBoxContainer" parent="Line"]
+layout_mode = 2
+alignment = 1
+
+[node name="RewardLabel" type="Label" parent="Line/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "+10"
+horizontal_alignment = 2
+
+[node name="StatusLabel" type="Label" parent="Line/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Locked"
+horizontal_alignment = 2

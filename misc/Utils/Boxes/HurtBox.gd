@@ -2,7 +2,7 @@
 extends RapierArea2D
 class_name HurtBox
 
-
+signal damage_taken
 # NodePath вместо Node2D — безопасно в @tool режиме
 @export var Path_to_stat : NodePath = NodePath("..")
 
@@ -22,3 +22,4 @@ func damaged(area) -> void:
 	get_child(0).disabled = true
 	await get_tree().create_timer(1).timeout
 	get_child(0).disabled = false
+	emit_signal("damage_taken")

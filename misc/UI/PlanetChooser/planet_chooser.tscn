@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" uid="uid://reg4n44efwpd" path="res://misc/UI/PlanetChooser/planet_chooser.gd" id="1_m1pq1"]
 [ext_resource type="Script" uid="uid://o8fvn4w2bv8e" path="res://scr/Resources/planet_info.gd" id="2_6od7q"]
-[ext_resource type="Resource" path="res://common/Resources/PlanetInfo/Vehana.tres" id="3_o8fao"]
-[ext_resource type="Resource" path="res://common/Resources/PlanetInfo/Morva.tres" id="4_y3klw"]
-[ext_resource type="Resource" path="res://common/Resources/PlanetInfo/Rodus.tres" id="5_jvrbk"]
+[ext_resource type="Resource" uid="uid://dwwrmwxgwvasi" path="res://common/Resources/PlanetInfo/Vehana.tres" id="4_y3klw"]
+[ext_resource type="Resource" uid="uid://c1t27ex58x65r" path="res://common/Resources/PlanetInfo/Rodus.tres" id="5_jvrbk"]
 [ext_resource type="PackedScene" path="res://misc/UI/PlanetChooser/planet_row.tscn" id="6_fg1ts"]
 [ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://misc/Content/Items/Fuel.tres" id="7_5xxxk"]
 [ext_resource type="Theme" uid="uid://bfa08vqnic8g6" path="res://common/Themes/terminal_theme.tres" id="8_dv6y0"]
@@ -18,7 +17,7 @@
 [node name="PlanerChooser" type="CanvasLayer" unique_id=775227025]
 layer = 20
 script = ExtResource("1_m1pq1")
-planets = Array[ExtResource("2_6od7q")]([ExtResource("3_o8fao"), ExtResource("4_y3klw"), ExtResource("5_jvrbk")])
+planets = Array[ExtResource("2_6od7q")]([ExtResource("4_y3klw"), ExtResource("5_jvrbk")])
 row_scene = ExtResource("6_fg1ts")
 fuel_item = ExtResource("7_5xxxk")
 

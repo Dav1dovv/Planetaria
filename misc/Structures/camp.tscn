@@ -1,9 +1,29 @@
-[gd_scene format=3 uid="uid://dc6224o6es5o2"]
+[gd_scene format=3 uid="uid://cmn05esa4kh21"]
 
 [ext_resource type="Texture2D" uid="uid://0e258k1bemao" path="res://Assets/Textures/SpriteSheets/Camp.png" id="1_7yhfp"]
 [ext_resource type="Texture2D" uid="uid://f2a2p4mby8u1" path="res://Assets/Textures/Particle/Smoke.png" id="2_oddsj"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="3_ww3wb"]
 [ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="4_7hlqd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yhfp"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oddsj"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ww3wb"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hlqd"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixdmb"]
+atlas = ExtResource("1_7yhfp")
+region = Rect2(96, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0u7hf"]
 atlas = ExtResource("1_7yhfp")
@@ -43,6 +63,26 @@ region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a52v3"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yhfp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oddsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ww3wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hlqd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixdmb")
+}],
+"loop": 1,
+"name": &"Green_ON",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0u7hf")
@@ -88,7 +128,7 @@ particles_anim_v_frames = 1
 particles_anim_loop = true
 
 [sub_resource type="Curve" id="Curve_3sirv"]
-_data = [Vector2(0, 0.011235952), 0.0, 0.0, 0, 0, Vector2(0.57589287, 0.8089888), 0.0, 0.0, 0, 0, Vector2(1, 0.033707857), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.32110095), 0.0, 0.0, 0, 0, Vector2(0.6782007, 0.6422019), 0.0, 0.0, 0, 0, Vector2(1, 0.033707857), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_2a35p"]
@@ -103,8 +143,8 @@ point_count = 7
 curve = SubResource("Curve_ixdmb")
 
 [sub_resource type="Gradient" id="Gradient_gbsbb"]
-offsets = PackedFloat32Array(0, 0.4040404, 0.56565654, 1)
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.486692, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_mnx7f"]
 gradient = SubResource("Gradient_gbsbb")
@@ -128,7 +168,7 @@ scale_max = 1.5
 scale_curve = SubResource("CurveTexture_axuvx")
 scale_over_velocity_min = 0.5
 scale_over_velocity_max = 53.76
-color = Color(0.18717611, 0.18717614, 0.18717608, 1)
+color = Color(0.44551826, 0.3838132, 0.105848305, 1)
 color_ramp = SubResource("GradientTexture1D_mnx7f")
 alpha_curve = SubResource("CurveTexture_2a35p")
 anim_speed_max = 16.0
@@ -178,14 +218,14 @@ y_sort_enabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2036935548]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_a52v3")
-animation = &"ON"
-autoplay = "ON"
-frame_progress = 0.08508267
+animation = &"Green_ON"
+autoplay = "Green_ON"
+frame_progress = 0.73564744
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" unique_id=249322329]
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_ekfnw")
-position = Vector2(3, 0)
+position = Vector2(-1, -2)
 amount = 24
 texture = ExtResource("2_oddsj")
 process_material = SubResource("ParticleProcessMaterial_gaae2")

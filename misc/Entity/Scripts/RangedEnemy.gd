@@ -59,7 +59,8 @@ func _ai(delta: float, distance: float) -> void:
 		_update_offset(delta)
 		_move_to_target(_offset)
 	else:
-		velocity = Vector2.ZERO
+		# Игрока не видно — бродим, а не стоим как статуя
+		_idle_wander(delta)
 
 
 func _get_attack_player() -> AnimationPlayer:

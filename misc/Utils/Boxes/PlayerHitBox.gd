@@ -2,12 +2,21 @@ extends HitBox
 class_name player_HitBox
 
 signal critical_hit(target: Node)
+## Игрок попал по врагу (PlayerSwing ловит это для хитстопа и тряски)
+signal enemy_hit(target: Node)
 
 @export var equip_sprite: Sprite2D
 @export var hand : equip_data
 
 var is_weapon := false
 var play_anim: String = "Attack"
+
+# ── Процедурный замах (PlayerSwing) ──────────────────────────────────────────
+# Значения по умолчанию = поведение как раньше, старые оружия ничего не замечают.
+var swing_active: bool = false
+var damage_multiplier: float = 1.0
+var knockback_multiplier: float = 1.0
+var _swing_targets: Dictionary = {}
 
 @onready var hotbar: Hotbar = get_tree().get_first_node_in_group("Hotbar")
 
@@ -85,6 +94,25 @@ func _on_weapon_broken() -> void:
 	tween.tween_property(equip_sprite, "modulate", Color(0.4, 0.4, 0.4), 0.2)
 
 
+## Начало замаха: сброс списка поражённых целей, множители финишера комбо.
+func begin_swing(dmg_mult: float, kb_mult: float) -> void:
+	swing_active = true
+	_swing_targets.clear()
+	damage_multiplier = dmg_mult
+	knockback_multiplier = kb_mult
+
+
+func end_swing() -> void:
+	swing_active = false
+	damage_multiplier = 1.0
+	knockback_multiplier = 1.0
+
+
+## Включить/выключить зону удара (вместо трека анимации Attack).
+func set_hit_enabled(on: bool) -> void:
+	$CollisionShape2D.set_deferred("disabled", not on)
+
+
 func hit(area: Area2D) -> void:
 	if not is_weapon:
 		return
@@ -92,6 +120,13 @@ func hit(area: Area2D) -> void:
 	if equip is equip_data and equip.is_broken():
 		#DebugLog.log("Оружие сломано — удар не наносится!")
 		return
+
+	# SWING: одна цель получает урон один раз за удар, даже если зона выходит и входит снова
+	if swing_active:
+		var swing_target := area.get_parent()
+		if _swing_targets.has(swing_target):
+			return
+		_swing_targets[swing_target] = true
 
 	apply_damage(area, equip.Damage)
 
@@ -105,6 +140,7 @@ func apply_damage(area: Area2D, damage: float) -> void:
 	# (через EffectManager, тем же путём, что и оружейные баффы урона) — здесь
 	# он просто применяется к фактическому исходящему урону.
 	damage *= _get_outgoing_damage_multiplier()
+	damage *= damage_multiplier  # SWING: усиленный финишер комбо
 	# ─────────────────────────────────────────────────────────────────────────
 
 	# ── Harvestable ──────────────────────────────────────────────────────────
@@ -130,13 +166,26 @@ func apply_damage(area: Area2D, damage: float) -> void:
 
 		if equip is equip_data:
 			# damage уже включает баффы/штрафы (Rage Elixir, заражение и т.д.)
-			target.take_damage(damage, self, equip.knockback)
+			target.take_damage(damage, self, equip.knockback * knockback_multiplier)
+			enemy_hit.emit(target)
 			# On-hit эффекты оружия (яд, огонь, лёд, кровь, вампиризм)
 			if is_instance_valid(target) and owner and owner.get("weapon_passive"):
 				owner.weapon_passive.try_apply_on_hit_effect(target)
 			equip.reduce_durability(1)
 		return
 	# ────────────────────────────────────────────────────────────────────────
+
+
+## Вызывается из Entity.take_damage() у цели — один раз за удар.
+## Шанс = крит игрока (Stats.get_crit_chance, база 4% как в Terraria)
+## + крит самого оружия (необязательное поле crit_chance в equip_data, напр. 0.1 = +10%).
+func roll_crit() -> bool:
+	var chance := 0.04
+	if owner and "Entity_stats" in owner and owner.Entity_stats:
+		chance = owner.Entity_stats.get_crit_chance()
+	if equip and "crit_chance" in equip:
+		chance += equip.crit_chance
+	return randf() < clampf(chance, 0.0, 1.0)
 
 
 ## Множитель к исходящему урону игрока — читает Entity_stats.damage_modifier

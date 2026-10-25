@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="PlanetInfo" format=3]
+[gd_resource type="Resource" script_class="PlanetInfo" format=3 uid="uid://c1t27ex58x65r"]
 
-[ext_resource type="Script" path="res://scr/Resources/planet_info.gd" id="1_pjlvr"]
+[ext_resource type="Script" uid="uid://o8fvn4w2bv8e" path="res://scr/Resources/planet_info.gd" id="1_pjlvr"]
 
 [resource]
 script = ExtResource("1_pjlvr")
 id = "Rodus"
-fuel_cost = 25
+fuel_cost = 50
 tint = Color(0.37254903, 0.7058824, 0.84705883, 1)
 icon_region = Rect2i(57, 9, 32, 32)
-type_key = "OCEANIC"
+type_key = "HOT"
 description_key = "No survey data available."

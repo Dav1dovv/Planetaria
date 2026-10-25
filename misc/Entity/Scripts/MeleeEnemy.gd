@@ -35,6 +35,25 @@ class_name MeleeEnemy
 # Если true — враг, однажды заметив игрока, преследует его и за пределами поля зрения
 @export var continue_follow_target : bool = false
 
+@export_group("Idle Wander")
+# Бродить возле своей точки, пока игрока не видно (иначе враг стоит как статуя)
+@export var wander_enabled : bool = true:
+	set(value):
+		wander_enabled = value
+		queue_redraw()
+# Как далеко от «дома» враг может уйти (рисуется зелёным кругом в редакторе)
+@export var wander_radius : float = 40.0:
+	set(value):
+		wander_radius = value
+		queue_redraw()
+# Скорость прогулки: доля от обычной скорости
+@export_range(0.05, 1.0, 0.05) var wander_speed_factor : float = 0.3
+# Сколько секунд враг стоит между прогулками (случайно от и до)
+@export var wander_pause_min : float = 1.0
+@export var wander_pause_max : float = 3.0
+# Шанс оглянуться (развернуться) во время паузы
+@export_range(0.0, 1.0, 0.05) var wander_look_around : float = 0.4
+
 @export_group("nodes")
 @export var skin : Node2D 
 @export var body_anim : AnimationPlayer
@@ -58,6 +77,8 @@ class_name MeleeEnemy
 
 var target
 var target_detected : bool = false
+var _wander : IdleWander
+var _was_detected : bool = false
 
 # Идёт ли сейчас удар (как player.is_attack у игрока)
 var is_attack : bool = false
@@ -87,6 +108,10 @@ func _ready():
 	health_changed.connect(_on_health_changed)
 	died.connect(_on_die)
 
+	_wander = IdleWander.new()
+	_wander.configure(wander_radius, wander_pause_min, wander_pause_max, wander_look_around)
+	_wander.set_home(global_position)
+
 func _draw() -> void:
 	# Рисуем только в редакторе, в игре зоны не видны
 	if not Engine.is_editor_hint() or not show_gizmos:
@@ -95,6 +120,10 @@ func _draw() -> void:
 	# Поле зрения: полупрозрачная заливка + контур
 	draw_circle(Vector2.ZERO, line_of_sight, Color(sight_color, 0.12))
 	draw_arc(Vector2.ZERO, line_of_sight, 0.0, TAU, 64, Color(sight_color, 0.8), 1.0)
+
+	# Зона блуждания (вокруг стартовой точки врага)
+	if wander_enabled:
+		draw_arc(Vector2.ZERO, wander_radius, 0.0, TAU, 48, Color(0.4, 1.0, 0.5, 0.7), 1.0)
 
 	# Дистанция атаки
 	draw_circle(Vector2.ZERO, attack_range, Color(attack_color, 0.15))
@@ -121,6 +150,11 @@ func _physics_process(delta: float) -> void:
 	elif not continue_follow_target:
 		target_detected = false
 
+	# Потеряли игрока из виду — новая «домашняя» точка и пауза
+	if _was_detected and not target_detected:
+		_wander.rehome(global_position)
+	_was_detected = target_detected
+
 	# Удар уже идёт: стоим на месте, пока не доиграет анимация атаки (как у игрока)
 	if is_attack:
 		if _is_attacking():
@@ -142,10 +176,25 @@ func _physics_process(delta: float) -> void:
 	elif target_detected:
 		_move_to_player(delta)
 	else:
-		velocity = Vector2.ZERO
+		# Игрока не видно — бродим, а не стоим как статуя
+		_idle_wander(delta)
 
 	move_and_slide()
 	_animate()
+
+
+## «Жизнь» без цели: то стоит, то неспешно бродит возле своей точки и иногда оглядывается
+func _idle_wander(delta: float) -> void:
+	if not wander_enabled or _wander == null:
+		velocity = Vector2.ZERO
+		return
+	var walk_speed : float = Entity_stats.move_speed * speed_multiplier * wander_speed_factor
+	velocity = _wander.update(delta, global_position, walk_speed)
+	if absf(velocity.x) > 0.01:
+		_face(velocity.x)
+	elif _wander.consume_look_around():
+		var facing_right : bool = not skin or skin.scale.x > 0.0
+		_face(-1.0 if facing_right else 1.0)
 
 
 func _is_scared() -> bool:

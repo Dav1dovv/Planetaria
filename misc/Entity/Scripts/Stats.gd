@@ -13,7 +13,7 @@ var move_speed: float = 2.0
 @export var base_armor: float = 0.0  # Броня (каждая единица даёт % снижения урона)
 var armor: float = 0.0
 
-@export_range(0, 1, 0.01) var base_defense_modifier: float = 0.0
+@export_range(0, 1, 0.01) var base_defense_modifier: float = 0.15
 var defense_modifier: float = 0.0
 
 # Урон
@@ -28,6 +28,14 @@ var damage_modifier: float = 0.0
 var _speed_modifiers: Array[float] = []
 var _damage_modifiers: Array[float] = []
 var _defense_modifiers: Array[float] = []
+var _crit_modifiers: Array[float] = []
+
+# ── Terraria-стиль: крит и плоская защита ─────────────────────────────────
+## Базовый шанс крита (Terraria: 4%). 0.04 = 4%
+@export_range(0.0, 1.0, 0.01) var base_crit_chance: float = 0.04
+## Какую часть брони вычитаем из урона ПЛОСКО (Terraria: 0.5 -> защита / 2).
+## Пример: 10 брони и 0.5 -> каждый удар слабее на 5.
+@export_range(0.0, 2.0, 0.05) var defense_effectiveness: float = 0.5
 
 # Инициализация
 func _init():
@@ -38,6 +46,7 @@ func reset_to_base_values() -> void:
 	_speed_modifiers.clear()
 	_damage_modifiers.clear()
 	_defense_modifiers.clear()
+	_crit_modifiers.clear()
 	move_speed = base_move_speed
 	defense_modifier = base_defense_modifier
 	damage_modifier = base_damage_modifier
@@ -116,3 +125,27 @@ func _recalculate_defense() -> void:
 	for m in _defense_modifiers:
 		bonus += m
 	defense_modifier = bonus
+
+
+# ── Terraria-стиль ─────────────────────────────────────────────────────────
+## Плоское вычитание из каждого удара: броня * defense_effectiveness (Terraria: защита / 2)
+func get_flat_defense() -> float:
+	return maxf(armor, 0.0) * defense_effectiveness
+
+## Процентное снижение урона (аналог "Damage Reduction" в Terraria). Берётся из defense_modifier.
+func get_endurance() -> float:
+	return clampf(defense_modifier, 0.0, 0.9)
+
+## Итоговый шанс крита (0..1) с учётом баффов/аксессуаров
+func get_crit_chance() -> float:
+	var bonus := 0.0
+	for m in _crit_modifiers:
+		bonus += m
+	return clampf(base_crit_chance + bonus, 0.0, 1.0)
+
+## percent — доля, напр. 0.1 = +10% к шансу крита. Снимать тем же значением.
+func add_crit_modifier(percent: float) -> void:
+	_crit_modifiers.append(percent)
+
+func remove_crit_modifier(percent: float) -> void:
+	_crit_modifiers.erase(percent)

@@ -22,7 +22,7 @@ class_name ContactEnemy
 @export var anim : AnimationPlayer
 
 
-func _ai(_delta: float, distance: float) -> void:
+func _ai(delta: float, distance: float) -> void:
 	# Стрельба (необязательная): в зоне стрельбы, пауза прошла, не убегаем
 	if can_shoot and target_detected and not is_attack and not _is_scared() \
 			and distance <= attack_range and _attack_cooldown_left <= 0.0:
@@ -40,7 +40,8 @@ func _ai(_delta: float, distance: float) -> void:
 		# Идём прямо на игрока, без смещения
 		_move_to_target()
 	else:
-		velocity = Vector2.ZERO
+		# Игрока не видно — бродим, а не стоим как статуя
+		_idle_wander(delta)
 
 
 func _get_attack_player() -> AnimationPlayer:

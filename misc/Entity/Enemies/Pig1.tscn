@@ -26,7 +26,7 @@ resource_local_to_scene = true
 script = ExtResource("2_b50er")
 max_health = 47
 base_move_speed = 2.3
-base_armor = 10.0
+base_armor = 50.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrqgb"]

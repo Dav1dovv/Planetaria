@@ -20,6 +20,7 @@ script = ExtResource("3_h6rqw")
 max_health = 30
 base_move_speed = 2.3
 base_armor = 10.0
+base_defense_modifier = 0.5
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrqgb"]

@@ -9,8 +9,8 @@
 
 [sub_resource type="Resource" id="Resource_5vj5a"]
 script = ExtResource("3_xgs0l")
-max_health = 3
-base_move_speed = 7.0
+max_health = 1
+base_move_speed = 4.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cdos3"]
@@ -122,7 +122,7 @@ _data = {
 &"curse": SubResource("Animation_b6k8d")
 }
 
-[node name="Curse" unique_id=1251952136 instance=ExtResource("1_3j62l")]
+[node name="Curse" unique_id=1251952136 node_paths=PackedStringArray("Vfx") instance=ExtResource("1_3j62l")]
 collision_mask = 1
 script = ExtResource("2_hvmba")
 corupt = 7
@@ -170,6 +170,11 @@ poise_decay_delay = 1.0
 stagger_duration = 1.0
 vulnerable_damage_multiplier = 1.5
 Entity_stats = SubResource("Resource_5vj5a")
+Vfx = NodePath("VFX")
+knockback_strength = 60.0
+enemy_id = "Curse"
+hitstop_duration = 0.01
+screen_shake_strength = 5.0
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353]
 position = Vector2(0, 0)
@@ -220,5 +225,6 @@ wait_time = 6.0
 one_shot = true
 autostart = true
 
+[connection signal="damage_taken" from="HurtBox" to="." method="_on_hurt_box_damage_taken"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
