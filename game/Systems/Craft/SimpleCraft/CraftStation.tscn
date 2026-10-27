@@ -57,6 +57,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hpr4m")
 gold_item = ExtResource("2_rh3au")
+metadata/_edit_horizontal_guides_ = [13.0, 31.0]
 
 [node name="Craft" type="Panel" parent="." unique_id=1859719515]
 custom_minimum_size = Vector2(180, 160)
@@ -136,13 +137,13 @@ custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 
 [node name="Control2" type="Control" parent="Craft/Body/Right" unique_id=1884031409]
-custom_minimum_size = Vector2(0, 3.975)
+custom_minimum_size = Vector2(0, 6.065)
 layout_mode = 2
 
 [node name="TabBar" type="HBoxContainer" parent="Craft/Body/Right" unique_id=559108268]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="TabCraft" type="Button" parent="Craft/Body/Right/TabBar" unique_id=2084197745]

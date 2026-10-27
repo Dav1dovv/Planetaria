@@ -277,7 +277,7 @@ func _update_tab_labels() -> void:
 
 	# Подпись кнопки действия (ключи переводов: Craft / REPAIR / Disassemble)
 	match current_tab:
-		Tab.CRAFT:       craft_button.text = "Craft"
+		Tab.CRAFT:       craft_button.text = "BUY"
 		Tab.REPAIR:      craft_button.text = "REPAIR"
 		Tab.DISASSEMBLE: craft_button.text = "Disassemble"
 

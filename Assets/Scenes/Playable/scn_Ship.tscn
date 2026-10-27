@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="19_bn1vh"]
 [ext_resource type="PackedScene" uid="uid://dnbbpc8i16ijg" path="res://game/content/Entity/NPC/NPC_rangers.tscn" id="20_7qg7c"]
 [ext_resource type="PackedScene" uid="uid://cwfox8l6iabgp" path="res://game/content/Entity/NPC/NPC_Scientits.tscn" id="21_sndvk"]
+[ext_resource type="PackedScene" uid="uid://d3328kgh83ku" path="res://game/content/Entity/NPC/NPC_medic.tscn" id="22_sndvk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ikewk"]
 shader = ExtResource("1_bkg01")
@@ -54,16 +55,6 @@ shader_parameter/comet_speed = 1.4
 shader_parameter/comet_length = 0.14
 shader_parameter/comet_color = Color(0.30588236, 0.27058825, 0.34901962, 0.58431375)
 
-[sub_resource type="Resource" id="Resource_7qg7c"]
-resource_local_to_scene = true
-script = ExtResource("8_bn1vh")
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="Resource" id="Resource_sndvk"]
-resource_local_to_scene = true
-script = ExtResource("8_bn1vh")
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
 [sub_resource type="Resource" id="Resource_cwcch"]
 resource_local_to_scene = true
 script = ExtResource("8_bn1vh")
@@ -75,6 +66,16 @@ script = ExtResource("8_bn1vh")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="Resource" id="Resource_hfqm6"]
+resource_local_to_scene = true
+script = ExtResource("8_bn1vh")
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_jrib2"]
+resource_local_to_scene = true
+script = ExtResource("8_bn1vh")
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_2f1gp"]
 resource_local_to_scene = true
 script = ExtResource("8_bn1vh")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
@@ -227,16 +228,6 @@ size = Vector2(20, 31.570717)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2gf5g"]
 size = Vector2(30.761204, 39.018143)
 
-[sub_resource type="Resource" id="Resource_jrib2"]
-resource_local_to_scene = true
-script = ExtResource("8_bn1vh")
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="Resource" id="Resource_2f1gp"]
-resource_local_to_scene = true
-script = ExtResource("8_bn1vh")
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
 [sub_resource type="Resource" id="Resource_6vmpy"]
 resource_local_to_scene = true
 script = ExtResource("8_bn1vh")
@@ -262,6 +253,16 @@ resource_local_to_scene = true
 script = ExtResource("8_bn1vh")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
+[sub_resource type="Resource" id="Resource_tgh72"]
+resource_local_to_scene = true
+script = ExtResource("8_bn1vh")
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_hhixl"]
+resource_local_to_scene = true
+script = ExtResource("8_bn1vh")
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
 [node name="Ship" type="Node2D" unique_id=85161564]
 y_sort_enabled = true
 
@@ -279,7 +280,7 @@ color = Color(0, 0, 0, 1)
 [node name="planet" type="Sprite2D" parent="." unique_id=2019414403]
 z_index = -22
 position = Vector2(-392.0532, 370.4174)
-rotation = 688.23346
+rotation = 157.37918
 scale = Vector2(2.819653, 2.819653)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -296,7 +297,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="planet" unique_id=121156737]
 position = Vector2(5.9159737, -41.65517)
-rotation = 6047.5913
+rotation = 99.15092
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(60, 80, 12, 12)
@@ -305,7 +306,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet2" type="Sprite2D" parent="planet" unique_id=819972865]
 position = Vector2(-48.649956, -41.51426)
-rotation = 3504.5674
+rotation = -134.24483
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(49, 50, 19, 19)
@@ -315,7 +316,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet3" type="Sprite2D" parent="planet" unique_id=93638243]
 position = Vector2(-36.936844, 71.13017)
-rotation = 1720.7089
+rotation = -45.46192
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(57, 9, 32, 32)
@@ -325,7 +326,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="planet" unique_id=1727818982]
 position = Vector2(-66.099815, -28.727964)
-rotation = 1456.3357
+rotation = -272.80386
 scale = Vector2(0.32927373, 0.32927373)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -336,7 +337,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet5" type="Sprite2D" parent="planet" unique_id=649481990]
 position = Vector2(-53.9042, 23.165627)
-rotation = 1499.5575
+rotation = 315.71915
 scale = Vector2(0.57125205, 0.57125205)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -347,7 +348,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet6" type="Sprite2D" parent="planet" unique_id=1327664183]
 position = Vector2(43.515324, 82.038666)
-rotation = 6348.2344
+rotation = 433.46902
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(104, 8, 17, 17)
@@ -356,7 +357,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="planet" unique_id=866645813]
 position = Vector2(110.08391, -3.0646362)
-rotation = 9311.502
+rotation = 754.6646
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(112, 51, 13, 13)
@@ -376,28 +377,28 @@ metadata/_custom_type_script = "uid://cx0477dq0nkws"
 [node name="Anelim" parent="." unique_id=2111811093 node_paths=PackedStringArray("player") instance=ExtResource("7_w2c1c")]
 position = Vector2(-121.62727, 48.33481)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_7qg7c")
+Entity_stats = SubResource("Resource_cwcch")
 
 [node name="Barmen" parent="." unique_id=1140039009 node_paths=PackedStringArray("player") instance=ExtResource("9_7qg7c")]
 position = Vector2(-193.77676, -179.82373)
 show_ui = "Baff"
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_sndvk")
+Entity_stats = SubResource("Resource_y7y6r")
 
 [node name="Elder" parent="." unique_id=645264185 node_paths=PackedStringArray("player") instance=ExtResource("10_sndvk")]
 position = Vector2(-5.52684, 214.99425)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_cwcch")
+Entity_stats = SubResource("Resource_hfqm6")
 
 [node name="Anelim2" parent="." unique_id=2060350131 node_paths=PackedStringArray("player") instance=ExtResource("11_cwcch")]
 position = Vector2(-176.29652, 44.54435)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_y7y6r")
+Entity_stats = SubResource("Resource_jrib2")
 
 [node name="SmithBern" parent="." unique_id=137651625 node_paths=PackedStringArray("player") instance=ExtResource("12_y7y6r")]
 position = Vector2(-143.77002, -224.65735)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_hfqm6")
+Entity_stats = SubResource("Resource_2f1gp")
 
 [node name="interaction" type="Area2D" parent="." unique_id=660480207 node_paths=PackedStringArray("interact_object")]
 position = Vector2(65.61063, 184.1758)
@@ -621,35 +622,41 @@ shape = SubResource("RectangleShape2D_2gf5g")
 [node name="Ranger" parent="." unique_id=901789702 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
 position = Vector2(-89.91107, 216.29291)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_jrib2")
+Entity_stats = SubResource("Resource_6vmpy")
 
 [node name="Ranger2" parent="." unique_id=1763003008 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
 position = Vector2(-189.64249, 205.45947)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_2f1gp")
+Entity_stats = SubResource("Resource_2gf5g")
 
 [node name="Ranger3" parent="." unique_id=88766178 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
 position = Vector2(-145.99008, 219.79785)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_6vmpy")
+Entity_stats = SubResource("Resource_imghf")
 
 [node name="Ranger4" parent="." unique_id=461436329 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
 position = Vector2(196.3548, 190.84705)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_2gf5g")
+Entity_stats = SubResource("Resource_esqkm")
 
 [node name="Ranger5" parent="." unique_id=795684934 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
 position = Vector2(120.37283, 211.82094)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_imghf")
+Entity_stats = SubResource("Resource_uypxi")
 
 [node name="Ranger6" parent="." unique_id=407019062 node_paths=PackedStringArray("player") instance=ExtResource("20_7qg7c")]
 position = Vector2(164.02524, 226.15932)
 player = NodePath("../Player")
-Entity_stats = SubResource("Resource_esqkm")
+Entity_stats = SubResource("Resource_tgh72")
 
 [node name="SmithRedji" parent="." unique_id=968481433 node_paths=PackedStringArray("player") instance=ExtResource("21_sndvk")]
 position = Vector2(-238.83481, -227.512)
 player = NodePath("../Player")
 awareness_radius = 25.0
-Entity_stats = SubResource("Resource_uypxi")
+Entity_stats = SubResource("Resource_hhixl")
+
+[node name="Creature" parent="." unique_id=627517657 instance=ExtResource("22_sndvk")]
+position = Vector2(-3, 11)
+
+[node name="Creature2" parent="." unique_id=2097943898 instance=ExtResource("22_sndvk")]
+position = Vector2(-234, -154)

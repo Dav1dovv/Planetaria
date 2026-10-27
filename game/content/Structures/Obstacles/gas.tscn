@@ -17,7 +17,7 @@ display_name = "Poison"
 metadata/_custom_type_script = "uid://dj4umu6271nxr"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cdos3"]
-radius = 111.8075
+radius = 80.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1kdp3"]
 particle_flag_disable_z = true

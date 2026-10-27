@@ -1,0 +1,447 @@
+[gd_scene format=3 uid="uid://d3328kgh83ku"]
+
+[ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://game/content/Entity/MISC/creature.tscn" id="1_72w5r"]
+[ext_resource type="Script" uid="uid://ce8ynq25uh3b" path="res://game/content/Entity/NPC/NPC.gd" id="2_snsdu"]
+[ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://Assets/art/cretures/Creatures.png" id="3_1fs1f"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/art/vfx/Shadows/Shadow.png" id="4_rt35j"]
+[ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://game/Systems/Interaction/Interaction.gd" id="5_snsdu"]
+
+[sub_resource type="Animation" id="Animation_t4a62"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.51, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -3.51), Vector2(0, -4.89), Vector2(0, -3.51)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/Hand/LeftHand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.52, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2.8957956, -1.7890259), Vector2(-2.8957956, -3.2217386), Vector2(-2.8957956, -1.7890259)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/Hand/LeftHand:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.52, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.43587998, 0.6588431, 0.43587998]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/Hand/RightHand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.52, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(3.0288048, -1.8472085), Vector2(3.0288048, -3.279921), Vector2(3.0288048, -1.8472085)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body/Hand/RightHand:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.52, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.56449735, -0.9446478, -0.56449735]
+}
+
+[sub_resource type="Animation" id="Animation_romux"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -3.51)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/Hand/LeftHand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.8957956, -1.7890259)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/Hand/LeftHand:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.43587998]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/Hand/RightHand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3.0288048, -1.8472085)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body/Hand/RightHand:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.56449735]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Body:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.9169351, -8)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Body:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.13111055]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Body/Wheel:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.01077652, 6.462845)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Body/Wheel:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Body/Hand:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gl0ly"]
+resource_name = "Walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -4.325)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.9169351, -8), Vector2(0.9169351, -8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.51, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.13111055, 0.095045894, 0.13111055]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/Wheel:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.01077652, 6.462845), Vector2(0.01077652, 6.462845)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body/Wheel:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.2831855]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Body/Hand/LeftHand:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-2.8957956, -1.7890259), Vector2(-2.8957956, -1.7890259)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Body/Hand/LeftHand:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.46, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.43587998, 0.63377094, 0.43587998]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Body/Hand/RightHand:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3.0288048, -1.8472085), Vector2(3.0288048, -1.8472085)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Body/Hand/RightHand:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.46, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.56449735, -0.6138128, -0.56449735]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Body/Hand:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.52, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-0.025165334, -0.8611674), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_leqds"]
+_data = {
+&"Idle": SubResource("Animation_t4a62"),
+&"RESET": SubResource("Animation_romux"),
+&"Walk": SubResource("Animation_gl0ly")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fs1f"]
+
+[node name="Creature" unique_id=627517657 node_paths=PackedStringArray("body_anim", "Vfx") instance=ExtResource("1_72w5r")]
+script = ExtResource("2_snsdu")
+show_ui = "Weapon"
+awareness_radius = 25.0
+face_player_radius = 40.0
+acceleration = 200.0
+pause_time_range = Vector2(5, 7)
+arrive_distance = 4.0
+separation_radius = 24.0
+separation_strength = 0.8
+chat_radius = 48.0
+chat_chance = 0.704
+chat_cooldown_range = Vector2(8, 20)
+chat_duration_range = Vector2(3, 6)
+chat_turn_time = 1.1
+bubble_offset = Vector2(0, -36)
+behavior = 0.0
+can_flee = false
+flee_threshold = 0.25
+flee_on_hit = false
+use_fear = false
+fear_per_damage = 0.05
+fear_proximity_radius = 60.0
+fear_proximity_rate = 0.08
+fear_decay_rate = 0.05
+fear_flee_threshold = 0.6
+fear_calm_threshold = 0.25
+hides_when_scared = false
+hide_duration = 1.5
+hide_damage_reduction = 0.0
+fear_sound = null
+fear_sound_pitch_variance = 0.08
+flee_speed_multiplier = 1.6
+pack_group = ""
+pack_alert_radius = 300.0
+hear_radius = 60.0
+sight_radius = 180.0
+fov_half_angle = 60.0
+use_los_check = true
+wall_collision_mask = 1
+memory_duration = 3.0
+wander_interval_min = 2.0
+wander_interval_max = 5.0
+wander_radius = 100.0
+turn_speed = 12.0
+patrol_points = Array[NodePath]([])
+chase_weave_enabled = true
+chase_weave_amplitude = 14.0
+chase_weave_frequency = 0.8
+ray_length = 40.0
+avoidance_strength = 1.8
+attack_damage = 10.0
+attack_radius = 28.0
+attack_cooldown = 1.2
+max_poise = 100.0
+poise_decay_rate = 15.0
+poise_decay_delay = 1.0
+stagger_duration = 1.0
+vulnerable_damage_multiplier = 1.5
+body_anim = NodePath("Skin/AnimationPlayer")
+Vfx = NodePath("VFX")
+
+[node name="Skin" type="Node2D" parent="." index="10" unique_id=250908822]
+
+[node name="Body" type="Sprite2D" parent="Skin" index="0" unique_id=2051308999]
+position = Vector2(0.9169351, -8)
+rotation = 0.13111055
+texture = ExtResource("3_1fs1f")
+offset = Vector2(0, -3.51)
+region_enabled = true
+region_rect = Rect2(67, 65, 10, 23)
+
+[node name="Wheel" type="Sprite2D" parent="Skin/Body" index="0" unique_id=1790336118]
+show_behind_parent = true
+position = Vector2(0.01077652, 6.462845)
+texture = ExtResource("3_1fs1f")
+region_enabled = true
+region_rect = Rect2(72, 90, 6, 6)
+
+[node name="Hand" type="Node2D" parent="Skin/Body" index="1" unique_id=1853416503]
+y_sort_enabled = true
+
+[node name="LeftHand" type="Sprite2D" parent="Skin/Body/Hand" index="0" unique_id=505489516]
+position = Vector2(-2.8957956, -1.7890259)
+rotation = 0.43587998
+texture = ExtResource("3_1fs1f")
+offset = Vector2(0, 3)
+region_enabled = true
+region_rect = Rect2(64, 87, 3, 9)
+
+[node name="RightHand" type="Sprite2D" parent="Skin/Body/Hand" index="1" unique_id=191619210]
+self_modulate = Color(0.67069, 0.67069, 0.67069, 1)
+z_index = -1
+position = Vector2(3.0288048, -1.8472085)
+rotation = -0.56449735
+texture = ExtResource("3_1fs1f")
+offset = Vector2(0, 3)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(64, 87, 3, 9)
+
+[node name="Shadow" type="Sprite2D" parent="Skin" index="1" unique_id=1376028968]
+self_modulate = Color(0.0392157, 0.0705882, 0.2, 0.388235)
+z_index = -10
+position = Vector2(0, -1.53557)
+scale = Vector2(1, 0.669852)
+texture = ExtResource("4_rt35j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Skin" index="2" unique_id=1939568177]
+libraries/ = SubResource("AnimationLibrary_leqds")
+
+[node name="interaction_area" type="Area2D" parent="." index="11" unique_id=2077377653]
+collision_layer = 128
+collision_mask = 256
+script = ExtResource("5_snsdu")
+metadata/_custom_type_script = "uid://btxho8sqg8tnx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction_area" index="0" unique_id=653331327]
+position = Vector2(0, -10.068649)
+shape = SubResource("RectangleShape2D_1fs1f")

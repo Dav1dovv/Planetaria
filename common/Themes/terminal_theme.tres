@@ -1,5 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://bfa08vqnic8g6"]
 
+[ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/art/ui/UI.png" id="1_63iaw"]
+
 [sub_resource type="StyleBoxFlat" id="SB_scroll_grabber"]
 content_margin_left = 2.0
 content_margin_top = 2.0
@@ -63,6 +65,21 @@ corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6lfd"]
+atlas = ExtResource("1_63iaw")
+region = Rect2(41, 65, 5, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_63iaw"]
+load_path = "res://.godot/imported/UI.png-9040a69280c5cffe4dee5662bdac25e2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmi6c"]
+atlas = SubResource("CompressedTexture2D_63iaw")
+region = Rect2(34, 65, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mc2e"]
+atlas = SubResource("CompressedTexture2D_63iaw")
+region = Rect2(34, 65, 5, 5)
 
 [sub_resource type="StyleBoxFlat" id="SB_popup_hover"]
 bg_color = Color(0.09, 0.2, 0.24, 1)
@@ -329,6 +346,10 @@ corner_radius_bottom_left = 3
 shadow_color = Color(0, 0, 0, 0.55)
 shadow_size = 5
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdala"]
+atlas = ExtResource("1_63iaw")
+region = Rect2(161, 97, 7, 4)
+
 [sub_resource type="StyleBoxEmpty" id="SB_empty"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3j308"]
@@ -447,10 +468,10 @@ PopupMenu/constants/item_end_padding = 3
 PopupMenu/constants/item_start_padding = 3
 PopupMenu/constants/v_separation = 2
 PopupMenu/font_sizes/font_size = 8
-PopupMenu/icons/checked = null
-PopupMenu/icons/radio_checked = null
-PopupMenu/icons/radio_unchecked = null
-PopupMenu/icons/unchecked = null
+PopupMenu/icons/checked = SubResource("AtlasTexture_r6lfd")
+PopupMenu/icons/radio_checked = SubResource("AtlasTexture_r6lfd")
+PopupMenu/icons/radio_unchecked = SubResource("AtlasTexture_mmi6c")
+PopupMenu/icons/unchecked = SubResource("AtlasTexture_8mc2e")
 PopupMenu/styles/hover = SubResource("SB_popup_hover")
 PopupMenu/styles/panel = SubResource("SB_popup_panel")
 TerminalAmber/base_type = &"Label"
@@ -553,7 +574,7 @@ TerminalOption/colors/font_disabled_color = Color(0.3647059, 0.41960785, 0.45098
 TerminalOption/colors/font_hover_color = Color(1, 1, 1, 1)
 TerminalOption/constants/arrow_margin = 3
 TerminalOption/font_sizes/font_size = 8
-TerminalOption/icons/arrow = null
+TerminalOption/icons/arrow = SubResource("AtlasTexture_wdala")
 TerminalOption/styles/disabled = SubResource("SB_cmp_disabled")
 TerminalOption/styles/focus = SubResource("SB_cmp_hover")
 TerminalOption/styles/hover = SubResource("SB_cmp_hover")

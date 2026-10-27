@@ -120,7 +120,7 @@ window/vsync/vsync_mode=0
 [editor]
 
 movie_writer/ogv/encoding_speed=2
-movie_writer/movie_file="/home/davit/Документы/CaS/VIDS/ship.avi"
+movie_writer/movie_file="/home/davit/Документы/CaS/VIDS/clip1.avi"
 
 [editor_plugins]
 
