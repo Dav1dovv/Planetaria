@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlanetInfo" format=3 uid="uid://c1t27ex58x65r"]
 
-[ext_resource type="Script" uid="uid://o8fvn4w2bv8e" path="res://scr/Resources/planet_info.gd" id="1_pjlvr"]
+[ext_resource type="Script" uid="uid://o8fvn4w2bv8e" path="res://data/planet_info.gd" id="1_pjlvr"]
 
 [resource]
 script = ExtResource("1_pjlvr")

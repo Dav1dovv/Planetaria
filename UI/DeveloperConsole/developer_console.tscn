@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://b0axajdtsw2j4"]
+
+[ext_resource type="Script" uid="uid://dha8y8drwhm8t" path="res://UI/DeveloperConsole/developer_console.gd" id="1_k7coc"]
+[ext_resource type="Script" uid="uid://crc3boop7pwkq" path="res://tools/Common/Debug.gd" id="2_5i05f"]
+[ext_resource type="Script" uid="uid://co0lo02vnu10n" path="res://addons/font_auto_size_labels/auto_size_rich_text_label.gd" id="3_3u1hn"]
+[ext_resource type="Theme" uid="uid://bfa08vqnic8g6" path="res://common/Themes/terminal_theme.tres" id="20_term"]
+[ext_resource type="Script" uid="uid://dkvmcj4gp0he5" path="res://game/Systems/Terminal/terminal_led.gd" id="21_led"]
+[ext_resource type="Script" uid="uid://cnrvp1h2t8il2" path="res://game/Systems/Terminal/terminal_scan.gd" id="22_scan"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr76b"]
+bg_color = Color(0.23031491, 0.23031494, 0.23031485, 1)
+
+[node name="DeveloperConsole" type="CanvasLayer" unique_id=2145731850]
+process_mode = 3
+script = ExtResource("1_k7coc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=237320414]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("20_term")
+alignment = 2
+
+[node name="Header" type="PanelContainer" parent="VBoxContainer" unique_id=117216906]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"TerminalConsoleHeader"
+
+[node name="Row" type="HBoxContainer" parent="VBoxContainer/Header" unique_id=1998868431]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Led" type="Control" parent="VBoxContainer/Header/Row" unique_id=513622299]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("21_led")
+color_on = Color(1, 0.78431374, 0.34117648, 1)
+color_off = Color(0.3, 0.235, 0.1, 1)
+period = 1.6
+
+[node name="Title" type="Label" parent="VBoxContainer/Header/Row" unique_id=49209692]
+layout_mode = 2
+theme_type_variation = &"TerminalHeading"
+text = "DEV CONSOLE"
+
+[node name="Spacer" type="Control" parent="VBoxContainer/Header/Row" unique_id=2086571998]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Hint" type="Label" parent="VBoxContainer/Header/Row" unique_id=695829831]
+layout_mode = 2
+theme_type_variation = &"TerminalTiny"
+text = "/help"
+
+[node name="OutPut" type="RichTextLabel" parent="VBoxContainer" unique_id=1366256368]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"TerminalConsoleOutput"
+theme_override_styles/normal = SubResource("StyleBoxFlat_fr76b")
+bbcode_enabled = true
+scroll_following = true
+scroll_following_visible_characters = true
+
+[node name="Scan" type="Control" parent="VBoxContainer/OutPut" unique_id=431953196]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("22_scan")
+line_alpha = 0.1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer" unique_id=964968993]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_type_variation = &"TerminalLineEdit"
+theme_override_font_sizes/font_size = 8
+placeholder_text = "/help — список команд"
+
+[node name="Debug Info" type="Control" parent="." unique_id=2044622842 groups=["DebugObject"]]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_5i05f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Debug Info" unique_id=1135807651]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -166.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Debug Info/HBoxContainer" unique_id=1410851011]
+layout_mode = 2
+theme = ExtResource("20_term")
+theme_type_variation = &"TerminalDebug"
+
+[node name="AutoSizeRichTextLabel" type="RichTextLabel" parent="." unique_id=2012623726]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -121.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("20_term")
+theme_type_variation = &"TerminalOverlay"
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+scroll_following = true
+script = ExtResource("3_3u1hn")
+_max_size = 8
+_current_font_size = 8
+_editor_defaults_set = true
+metadata/_custom_type_script = "uid://co0lo02vnu10n"
+
+[node name="HintTimer" type="Timer" parent="." unique_id=57748515]
+
+[node name="ChatOverlay" type="RichTextLabel" parent="." unique_id=-482962775]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -170.0
+offset_right = 420.0
+offset_bottom = -30.0
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("20_term")
+theme_type_variation = &"TerminalOverlay"
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+scroll_following = true
+
+[node name="OverlayFadeTimer" type="Timer" parent="." unique_id=1720044392]

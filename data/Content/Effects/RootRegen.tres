@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Effect" format=3]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="1_scr"]
+[ext_resource type="Texture2D" uid="uid://bhs2ikxc2auo4" path="res://Assets/art/ui/Icons/Effects/Effect3.png" id="2_tex"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://VFX/Particles/Effect.tscn" id="3_pac"]
+
+[resource]
+script = ExtResource("1_scr")
+effect_icon = ExtResource("2_tex")
+effect_type = 3
+value = 2.0
+duration = 15.0
+particle_color = Color(0.4, 0.8, 0.3, 1.0)
+particle = ExtResource("3_pac")
+display_name = "Root Tonic"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"

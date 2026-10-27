@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://oq4fs5yb67n0"]
+
+[ext_resource type="Script" uid="uid://cc8tgnr3wl4aw" path="res://game/Systems/SaveLoadSlot/save_load_slot.gd" id="1_k8yma"]
+[ext_resource type="PackedScene" uid="uid://cogckxwqu0m7n" path="res://game/Systems/SaveLoadSlot/Save_load_Button.tscn" id="2_mhc1p"]
+[ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://tools/Misc/UIelements/button.tscn" id="3_oxe6j"]
+[ext_resource type="Shader" uid="uid://cpqgkpo83gda7" path="res://Assets/shaders/Blur.gdshader" id="4_63qnd"]
+[ext_resource type="Theme" uid="uid://bmjvsrl7b67cy" path="res://UI/theme.tres" id="5_gaae2"]
+[ext_resource type="Texture2D" uid="uid://bes0yp1rfj1q3" path="res://Assets/art/ui/Icons/Icons.png" id="20_e20lw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yghq4"]
+shader = ExtResource("4_63qnd")
+shader_parameter/blur_amount = 2.8550002306125
+shader_parameter/mix_amount = 0.3430000162925
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e20lw"]
+atlas = ExtResource("20_e20lw")
+region = Rect2(32, 32, 16, 16)
+
+[node name="SaveLoadUI" type="CanvasLayer" unique_id=266179224 node_paths=PackedStringArray("new_save_panel", "player_name_input", "create_button")]
+script = ExtResource("1_k8yma")
+new_save_panel = NodePath("NewSavePanel")
+player_name_input = NodePath("NewSavePanel/NameBox/LineEdit")
+create_button = NodePath("NewSavePanel/HBoxContainer/Create")
+save_slot_template = ExtResource("2_mhc1p")
+
+[node name="Panel" type="Panel" parent="." unique_id=1674953905]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=992745321]
+custom_minimum_size = Vector2(380, 227)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -226.0
+offset_top = -120.5
+offset_right = 223.0
+offset_bottom = 117.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=534385586]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "your characters"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer" unique_id=2041146966]
+custom_minimum_size = Vector2(400, 178.83)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/scrollbar_v_separation = 14
+
+[node name="SaveSlots" type="GridContainer" parent="Panel/VBoxContainer/ScrollContainer" unique_id=665689833]
+custom_minimum_size = Vector2(389.14, 194.485)
+clip_contents = true
+layout_mode = 2
+columns = 4
+
+[node name="Control" type="Control" parent="Panel/VBoxContainer" unique_id=1361587648]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1742851136]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Back" parent="Panel/VBoxContainer/HBoxContainer" unique_id=1903563568 instance=ExtResource("3_oxe6j")]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Back"
+
+[node name="Blur" type="ColorRect" parent="." unique_id=158068657]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_yghq4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="NewSavePanel" type="VBoxContainer" parent="." unique_id=1364592107]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 101.0
+offset_right = -101.0
+grow_horizontal = 2
+grow_vertical = 2
+layout_direction = 1
+alignment = 1
+
+[node name="Label" type="Label" parent="NewSavePanel" unique_id=913014593]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "CREATE NEW CHARACTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="NewSavePanel" unique_id=452255884]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameBox" type="HBoxContainer" parent="NewSavePanel" unique_id=147943176]
+layout_mode = 2
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="NewSavePanel/NameBox" unique_id=1105312655]
+custom_minimum_size = Vector2(160, 5)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("5_gaae2")
+theme_override_font_sizes/font_size = 9
+placeholder_text = "CHARACTER  NAME"
+max_length = 14
+
+[node name="Button" parent="NewSavePanel/NameBox" unique_id=1632295610 instance=ExtResource("3_oxe6j")]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 10
+text = "RANDOM"
+icon = SubResource("AtlasTexture_e20lw")
+flat = true
+
+[node name="Control2" type="Control" parent="NewSavePanel" unique_id=1468163000]
+custom_minimum_size = Vector2(0, 48.695)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewSavePanel" unique_id=1423629478]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="Back" parent="NewSavePanel/HBoxContainer" unique_id=1337246370 instance=ExtResource("3_oxe6j")]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 12
+text = "Back
+"
+
+[node name="Create" parent="NewSavePanel/HBoxContainer" unique_id=581529071 instance=ExtResource("3_oxe6j")]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 12
+text = "Create Character"
+
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="text_changed" from="NewSavePanel/NameBox/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="pressed" from="NewSavePanel/NameBox/Button" to="." method="_on_random_name_pressed"]
+[connection signal="pressed" from="NewSavePanel/HBoxContainer/Back" to="." method="_on_Craft_back_pressed"]
+[connection signal="pressed" from="NewSavePanel/HBoxContainer/Create" to="." method="_on_create_pressed"]

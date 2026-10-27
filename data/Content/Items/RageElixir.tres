@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://d3kmpttf01xna"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_ce6bq"]
+[ext_resource type="Resource" uid="uid://bh5ouaf514jvi" path="res://data/Content/Items/EmptyJar.tres" id="2_3jorq"]
+[ext_resource type="Resource" uid="uid://ch7n76d1j6ww1" path="res://data/Content/Items/SlimeGel.tres" id="3_3mkh4"]
+[ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://data/Content/Items/Fuel.tres" id="4_y78a1"]
+[ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/audio/SFX/Player/Drink.wav" id="5_13pvc"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="6_0w0h2"]
+[ext_resource type="Resource" path="res://data/Content/Effects/RageDamage.tres" id="7_vewtq"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="8_oy52g"]
+[ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://data/ItemData/Food_item_data.gd" id="9_3tbge"]
+
+[sub_resource type="Resource" id="Resource_9"]
+script = ExtResource("1_ce6bq")
+item = ExtResource("2_3jorq")
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_ce6bq")
+item = ExtResource("3_3mkh4")
+amount = 2
+
+[sub_resource type="Resource" id="Resource_13"]
+script = ExtResource("1_ce6bq")
+item = ExtResource("4_y78a1")
+amount = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("8_oy52g")
+region = Rect2(144, 48, 16, 16)
+
+[resource]
+script = ExtResource("9_3tbge")
+eat_sound = ExtResource("5_13pvc")
+effects = Array[ExtResource("6_0w0h2")]([ExtResource("7_vewtq")])
+health_restore = 0.0
+icon = SubResource("AtlasTexture_3")
+play_anim = "Drink"
+item_name = "Rage Elixir"
+description = "+30% damage for 40 seconds."
+price = 28
+quality = 2
+craft_ingredients = Array[ExtResource("1_ce6bq")]([SubResource("Resource_9"), SubResource("Resource_11"), SubResource("Resource_13")])
+craft_category = 2
+metadata/_custom_type_script = "uid://bw7mfbq68vy23"

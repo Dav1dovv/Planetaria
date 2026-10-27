@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://bifneenui2ap0"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_qv268"]
+[ext_resource type="Resource" uid="uid://feu6mm5l4c0h" path="res://data/Content/Items/Artefact_Piece.tres" id="2_2gd18"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="3_qxjnb"]
+[ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://data/Content/Items/Fuel.tres" id="4_3agfx"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_36hwe"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="6_mjbag"]
+
+[sub_resource type="Resource" id="Resource_6"]
+script = ExtResource("1_qv268")
+item = ExtResource("2_2gd18")
+amount = 5
+
+[sub_resource type="Resource" id="Resource_8"]
+script = ExtResource("1_qv268")
+item = ExtResource("3_qxjnb")
+amount = 60
+
+[sub_resource type="Resource" id="Resource_10"]
+script = ExtResource("1_qv268")
+item = ExtResource("4_3agfx")
+amount = 10
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("5_36hwe")
+region = Rect2(96, 80, 16, 16)
+
+[sub_resource type="Resource" id="Resource_13"]
+script = ExtResource("1_qv268")
+item = ExtResource("4_3agfx")
+amount = 6
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_qv268")
+item = ExtResource("3_qxjnb")
+amount = 30
+
+[sub_resource type="Resource" id="Resource_12"]
+script = ExtResource("1_qv268")
+item = ExtResource("4_3agfx")
+amount = 5
+
+[resource]
+script = ExtResource("6_mjbag")
+max_durability = 150
+Damage = 12
+hit_distance = 13.0
+Atk_speed = 1.2
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+passive_emits_light = true
+passive_light_color = Color(1, 0.95, 0.55, 1)
+passive_light_radius = 220.0
+passive_light_energy = 1.1
+icon = SubResource("AtlasTexture_3")
+item_name = "Sword of Light"
+description = "Forged from artefact shards. Lights up the dark."
+stackable = false
+price = 160
+quality = 4
+craft_ingredients = Array[ExtResource("1_qv268")]([SubResource("Resource_6"), SubResource("Resource_8"), SubResource("Resource_10")])
+salvage = Array[ExtResource("1_qv268")]([SubResource("Resource_11"), SubResource("Resource_12")])
+repair_ingredients = Array[ExtResource("1_qv268")]([SubResource("Resource_13")])
+repair_gold_cost = 20
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://derq0cyjib60s"]
+
+[ext_resource type="Script" uid="uid://baspy4tmxquyd" path="res://UI/Terminal/terminal_window.gd" id="1_win"]
+[ext_resource type="Theme" uid="uid://bfa08vqnic8g6" path="res://common/Themes/terminal_theme.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://dkvmcj4gp0he5" path="res://game/Systems/Terminal/terminal_led.gd" id="3_led"]
+[ext_resource type="Script" uid="uid://bkg7ghn3u32iq" path="res://game/Systems/Terminal/terminal_screen.gd" id="4_screen"]
+[ext_resource type="Script" uid="uid://cnrvp1h2t8il2" path="res://game/Systems/Terminal/terminal_scan.gd" id="5_scan"]
+[ext_resource type="Script" uid="uid://nk50qnkkqlgq" path="res://game/Systems/Terminal/terminal_bolts.gd" id="6_bolts"]
+
+[node name="TerminalWindow" type="Control" unique_id=553105189]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_win")
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1450926204]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Bezel" type="PanelContainer" parent="Center" unique_id=1860591607]
+layout_mode = 2
+theme_type_variation = &"TerminalMetal"
+
+[node name="Frame" type="VBoxContainer" parent="Center/Bezel" unique_id=1060554741]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Top" type="HBoxContainer" parent="Center/Bezel/Frame" unique_id=108290513]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Led" type="Control" parent="Center/Bezel/Frame/Top" unique_id=809447265]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("3_led")
+color_off = Color(0.2729412, 0.081176475, 0.09294118, 1)
+
+[node name="Title" type="Label" parent="Center/Bezel/Frame/Top" unique_id=606256700]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TerminalTitle"
+
+[node name="Screen" type="PanelContainer" parent="Center/Bezel/Frame" unique_id=825043518]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_type_variation = &"TerminalScreen"
+script = ExtResource("4_screen")
+
+[node name="Content" type="VBoxContainer" parent="Center/Bezel/Frame/Screen" unique_id=1951748250]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Scan" type="Control" parent="Center/Bezel/Frame/Screen" unique_id=1105407936]
+layout_mode = 2
+script = ExtResource("5_scan")
+
+[node name="Footer" type="Label" parent="Center/Bezel/Frame" unique_id=1801845787]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TerminalTiny"
+
+[node name="Bolts" type="Control" parent="Center/Bezel" unique_id=542089804]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("6_bolts")

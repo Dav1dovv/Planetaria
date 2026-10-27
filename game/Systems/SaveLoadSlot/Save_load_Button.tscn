@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cogckxwqu0m7n"]
+
+[ext_resource type="Script" uid="uid://bhikixmfqyo2d" path="res://game/Systems/SaveLoadSlot/save_load_button.gd" id="1_fq7x7"]
+
+[node name="CrewBadge" type="Button" unique_id=1514251919]
+script = ExtResource("1_fq7x7")

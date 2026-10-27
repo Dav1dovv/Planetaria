@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="QuestData" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="QuestData" format=3]
 
-[ext_resource type="Script" uid="uid://c78jhtxa5bydr" path="res://scr/Resources/QuestData.gd" id="1_quest"]
-[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://scr/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="2_ingr"]
-[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://misc/Content/Items/Coin.tres" id="3_coin"]
+[ext_resource type="Script" uid="uid://c78jhtxa5bydr" path="res://data/QuestData.gd" id="1_quest"]
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="2_ingr"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="3_coin"]
 
 [sub_resource type="Resource" id="Reward_coin"]
 script = ExtResource("2_ingr")

@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://6otwqprhfc6i"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_kwp8p"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://data/Content/Items/Stone.tres" id="2_e2um8"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="3_yktkm"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="4_flmiw"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="5_fc85o"]
+
+[sub_resource type="Resource" id="Resource_6"]
+script = ExtResource("1_kwp8p")
+item = ExtResource("2_e2um8")
+amount = 6
+
+[sub_resource type="Resource" id="Resource_8"]
+script = ExtResource("1_kwp8p")
+item = ExtResource("3_yktkm")
+amount = 18
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("4_flmiw")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_kwp8p")
+item = ExtResource("2_e2um8")
+amount = 5
+
+[sub_resource type="Resource" id="Resource_9"]
+script = ExtResource("1_kwp8p")
+item = ExtResource("2_e2um8")
+amount = 3
+
+[sub_resource type="Resource" id="Resource_10"]
+script = ExtResource("1_kwp8p")
+item = ExtResource("3_yktkm")
+amount = 9
+
+[resource]
+script = ExtResource("5_fc85o")
+max_durability = 140
+Damage = 6
+Atk_speed = 1.8
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+knockback = 1.0
+icon = SubResource("AtlasTexture_3")
+item_name = "Stiletto"
+description = "Tiny, quick, and annoying. Weave in and out."
+stackable = false
+price = 22
+quality = 1
+craft_ingredients = Array[ExtResource("1_kwp8p")]([SubResource("Resource_6"), SubResource("Resource_8")])
+salvage = Array[ExtResource("1_kwp8p")]([SubResource("Resource_9"), SubResource("Resource_10")])
+repair_ingredients = Array[ExtResource("1_kwp8p")]([SubResource("Resource_11")])
+repair_gold_cost = 4
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

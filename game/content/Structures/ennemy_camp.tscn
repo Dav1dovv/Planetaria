@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://b64dwdcktnwd7"]
+
+[ext_resource type="PackedScene" uid="uid://cmn05esa4kh21" path="res://game/content/Structures/camp.tscn" id="1_xtunk"]
+[ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://game/content/Entity/Enemies/Rat.tscn" id="2_ndko2"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://game/content/Entity/Scripts/Stats.gd" id="4_tax3s"]
+[ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://game/content/Entity/Enemies/Pig1.tscn" id="4_xtunk"]
+
+[sub_resource type="Resource" id="Resource_xtunk"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 30
+base_move_speed = 2.3
+base_armor = 10.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_ndko2"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 45
+base_armor = 10.0
+base_defense_modifier = 0.1
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_hvh8g"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 47
+base_move_speed = 2.3
+base_armor = 50.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_tax3s"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 47
+base_move_speed = 2.3
+base_armor = 50.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_k4yuj"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 47
+base_move_speed = 2.3
+base_armor = 50.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_i1s4q"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 47
+base_move_speed = 2.3
+base_armor = 50.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_6i6up"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 47
+base_move_speed = 2.3
+base_armor = 50.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_ek8cj"]
+resource_local_to_scene = true
+script = ExtResource("4_tax3s")
+max_health = 47
+base_move_speed = 2.3
+base_armor = 50.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[node name="Ennemy Camp" type="Node2D" unique_id=1739429471]
+
+[node name="Camp" parent="." unique_id=265569063 instance=ExtResource("1_xtunk")]
+
+[node name="Creature" parent="." unique_id=2111811093 instance=ExtResource("2_ndko2")]
+position = Vector2(-159.35393, -9.196159)
+Entity_stats = SubResource("Resource_xtunk")
+
+[node name="Creature2" parent="." unique_id=1043371710 instance=ExtResource("2_ndko2")]
+position = Vector2(108.3468, 6.830124)
+Entity_stats = SubResource("Resource_ndko2")
+
+[node name="Pig" parent="." unique_id=1251952136 instance=ExtResource("4_xtunk")]
+position = Vector2(55, 75)
+Entity_stats = SubResource("Resource_hvh8g")
+
+[node name="Pig2" parent="." unique_id=557244539 instance=ExtResource("4_xtunk")]
+position = Vector2(-98, 72)
+Entity_stats = SubResource("Resource_tax3s")
+
+[node name="Pig3" parent="." unique_id=1533399781 instance=ExtResource("4_xtunk")]
+position = Vector2(-8, 109)
+Entity_stats = SubResource("Resource_k4yuj")
+
+[node name="Pig4" parent="." unique_id=1294646198 instance=ExtResource("4_xtunk")]
+position = Vector2(5, -96)
+Entity_stats = SubResource("Resource_i1s4q")
+
+[node name="Pig5" parent="." unique_id=907971846 instance=ExtResource("4_xtunk")]
+position = Vector2(-88, -73)
+Entity_stats = SubResource("Resource_6i6up")
+
+[node name="Pig6" parent="." unique_id=2099617066 instance=ExtResource("4_xtunk")]
+position = Vector2(100, -75)
+Entity_stats = SubResource("Resource_ek8cj")

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cnvx0irnmo0k3"]
+
+[ext_resource type="Script" uid="uid://cf6y2qedu6tte" path="res://UI/Effects/effect_slot.gd" id="1_u5ely"]
+[ext_resource type="PackedScene" path="res://UI/Effects/effect_tooltip.tscn" id="2_srsst"]
+
+[node name="EffectSlot" type="Control" unique_id=1281019449]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_u5ely")
+tooltip_scene = ExtResource("2_srsst")

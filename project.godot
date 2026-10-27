@@ -47,13 +47,13 @@ buses/default_bus_layout="uid://dnm5q832g8ngf"
 
 [autoload]
 
-Global="*res://scr/Manager/global.tscn"
+Global="*res://game/core/global.tscn"
 PhantomCameraManager="*uid://duq6jhf6unyis"
-Cursor="*res://scr/Systems/Cursor/cursor.tscn"
-GamepadAim="*res://scr/Systems/Input/GamepadAim.gd"
+Cursor="*res://game/Systems/Cursor/cursor.tscn"
+GamepadAim="*res://game/Systems/Input/GamepadAim.gd"
 DialogueManager="*uid://c3rodes2l3gxb"
 SaveLoad="*uid://6hlspns6ds3w"
-ItemDB="*res://scr/Resources/ItemData/ItemDB.gd"
+ItemDB="*res://data/ItemData/ItemDB.gd"
 
 [dialogic]
 
@@ -103,7 +103,7 @@ layout/default_style="res://misc/UI/DialogBaloon/Dialog.tres"
 
 [dialogue_manager]
 
-runtime/balloon_path="res://misc/UI/DialogBaloon/balloon.tscn"
+runtime/balloon_path="res://UI/DialogBaloon/balloon.tscn"
 
 [display]
 
@@ -130,14 +130,16 @@ enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://add
 
 folder_colors={
 "res://Assets/": "orange",
+"res://UI/": "green",
+"res://VFX/": "teal",
 "res://addons/": "gray",
 "res://common/": "red",
-"res://misc/": "purple",
-"res://misc/Entity/MISC/": "orange",
-"res://misc/Entity/Scripts/": "blue",
-"res://misc/Entity/Textures/": "yellow",
-"res://scr/": "blue",
-"res://scr/Systems/Creautre Spawner Old/": "red"
+"res://data/": "pink",
+"res://game/": "yellow",
+"res://game/content/Entity/MISC/": "orange",
+"res://game/content/Entity/Scripts/": "blue",
+"res://scr/Systems/Creautre Spawner Old/": "red",
+"res://tools/": "purple"
 }
 
 [global_group]
@@ -264,7 +266,7 @@ dialogic_default_action={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://misc/Dialogs/Dialogues/Scene1/Yairam.dialogue", "res://misc/Dialogs/Elder/Elder.dialogue", "res://misc/Dialogs/Princess/Princess.dialogue", "res://misc/Dialogs/Ranger/Ranger.dialogue")
+locale/translations_pot_files=PackedStringArray("res://data/Dialogs/Dialogues/Scene1/Yairam.dialogue", "res://data/Dialogs/Elder/Elder.dialogue", "res://data/Dialogs/Princess/Princess.dialogue", "res://data/Dialogs/Ranger/Ranger.dialogue")
 
 [layer_names]
 

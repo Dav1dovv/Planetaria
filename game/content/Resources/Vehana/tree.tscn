@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://btqq3xje6jaw1"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://game/content/Resources/HarvestRoot.tscn" id="1_6b4ni"]
+[ext_resource type="Texture2D" uid="uid://dn11ly1rieh8w" path="res://game/content/Resources/Vehana/Textures/Oktavian Tree.png" id="2_0chrr"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://game/Utils/Drop/DropRersource.gd" id="2_mgnrg"]
+[ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://tools/Misc/RandomSprite.gd" id="3_m34kx"]
+[ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://data/Content/Items/Wood.tres" id="3_wye70"]
+[ext_resource type="AudioStream" uid="uid://v4sxnpx0ucxs" path="res://Assets/audio/SFX/Environemnt/HarvesstItems/Wood-01.mp3" id="4_m34kx"]
+[ext_resource type="Resource" uid="uid://bft3hsb45rfi8" path="res://game/content/Resources/CoinDrop.tres" id="4_mgnrg"]
+[ext_resource type="AudioStream" uid="uid://drwfryrgniotc" path="res://Assets/audio/SFX/Environemnt/HarvesstItems/Wood-02.mp3" id="5_udxq5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7oeu5"]
+radius = 4.0113077
+height = 14.418564
+
+[sub_resource type="Resource" id="Resource_xpuca"]
+script = ExtResource("2_mgnrg")
+drop_item = ExtResource("3_wye70")
+drop_chance = 1.0
+min_throws = 3
+max_throws = 6
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0cpi8"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0cpi8"]
+random_pitch = 1.0594631
+streams_count = 2
+stream_0/stream = ExtResource("4_m34kx")
+stream_1/stream = ExtResource("5_udxq5")
+
+[sub_resource type="Gradient" id="Gradient_wmu5i"]
+offsets = PackedFloat32Array(0.6460177, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mgnrg"]
+gradient = SubResource("Gradient_wmu5i")
+
+[sub_resource type="Curve" id="Curve_wye70"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.7391304), 0.0, 0.0, 0, 0, Vector2(0.49206346, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_pb3cn"]
+curve = SubResource("Curve_wye70")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jrebk"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 14.35
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, -1, 0)
+spread = 27.628
+flatness = 1.0
+initial_velocity_min = 200.0
+initial_velocity_max = 362.06998
+gravity = Vector3(0, 700, 0)
+damping_min = 100.0
+damping_max = 800.0
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_pb3cn")
+color = Color(0.31764707, 0.17254902, 0.14509805, 1)
+color_ramp = SubResource("GradientTexture1D_mgnrg")
+
+[node name="Tree" unique_id=1934415035 instance=ExtResource("1_6b4ni")]
+durability = 105.0
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
+position = Vector2(0, -4.106221)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_7oeu5")
+
+[node name="optimizer" parent="." index="1" unique_id=2100972979]
+rect = Rect2(-23.635895, -45.379623, 48.99164, 55.379623)
+
+[node name="droper" parent="." index="2" unique_id=1465568748]
+drop_resources = Array[ExtResource("2_mgnrg")]([SubResource("Resource_xpuca"), ExtResource("4_mgnrg")])
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
+shape = SubResource("CircleShape2D_0cpi8")
+
+[node name="VFX_damage" parent="." index="5" unique_id=2140509907 node_paths=PackedStringArray("character", "particles")]
+character = NodePath("../Sprite2D")
+particles = NodePath("../Splash")
+
+[node name="Sprite2D" parent="." index="8" unique_id=308116851]
+position = Vector2(0, -31.777496)
+texture = ExtResource("2_0chrr")
+hframes = 4
+frame = 2
+script = ExtResource("3_m34kx")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
+
+[node name="Shadow" parent="." index="9" unique_id=1322860807]
+scale = Vector2(1.6274891, 0.7902364)
+
+[node name="AudioStreamPlayer2D" parent="." index="10" unique_id=1460454120]
+stream = SubResource("AudioStreamRandomizer_0cpi8")
+
+[node name="Splash" parent="." index="11" unique_id=1130400609]
+process_material = SubResource("ParticleProcessMaterial_jrebk")

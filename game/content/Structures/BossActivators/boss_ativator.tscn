@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://4ac4ogyfkif1"]
+
+[ext_resource type="Texture2D" uid="uid://dw8hujpfuk6cs" path="res://Assets/art/items/Ruin.png" id="1_wk753"]
+[ext_resource type="Script" uid="uid://dyqcha3f57u8y" path="res://game/Systems/BossCaller/BossActivator.gd" id="2_2hhfl"]
+[ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://game/Systems/Interaction/Interaction.gd" id="2_bip7r"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/art/vfx/Shadows/Shadow.png" id="3_2hhfl"]
+[ext_resource type="PackedScene" uid="uid://tthm0e2twv2l" path="res://game/content/Entity/Enemies/Pig_BOs.tscn" id="3_3510r"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_3510r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q5b4"]
+atlas = ExtResource("5_3510r")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdos3"]
+size = Vector2(52.645676, 68.96576)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1kdp3"]
+radius = 12.653404
+height = 42.112427
+
+[node name="BossAtivator" type="Sprite2D" unique_id=1907565181]
+position = Vector2(-0.010284424, -24.273682)
+texture = ExtResource("1_wk753")
+offset = Vector2(0.010284424, -6.5697784)
+region_enabled = true
+region_rect = Rect2(128, 0, 64, 64)
+script = ExtResource("2_2hhfl")
+Boss = ExtResource("3_3510r")
+boss_name = "Great Boar"
+
+[node name="interaction_area" type="Area2D" parent="." unique_id=1256989340]
+position = Vector2(0, -7.1099396)
+script = ExtResource("2_bip7r")
+show_message = "Activate"
+icon_help = SubResource("AtlasTexture_8q5b4")
+metadata/_custom_type_script = "uid://btxho8sqg8tnx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction_area" unique_id=403746369]
+shape = SubResource("RectangleShape2D_cdos3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=222096548]
+position = Vector2(0, -7.1099396)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1483242817]
+position = Vector2(0, 18.959846)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_1kdp3")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1208572719]
+modulate = Color(0.101960786, 0.13333334, 0.13725491, 0.3254902)
+show_behind_parent = true
+position = Vector2(0, 22.909817)
+scale = Vector2(3.2712317, 1)
+texture = ExtResource("3_2hhfl")

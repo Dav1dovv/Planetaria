@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="AccessoryData" format=3]
+
+[ext_resource type="Script" uid="uid://di2yssv3uj7uc" path="res://data/ItemData/AcsesoryData.gd" id="1_scr"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="2_tex"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="4_scr"]
+[ext_resource type="Resource" path="res://data/Content/Effects/RelicLoot.tres" id="5_res"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("2_tex")
+region = Rect2(80, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_scr")
+icon = SubResource("AtlasTexture_3")
+effects = Array[ExtResource("4_scr")]([ExtResource("5_res")])
+item_name = "Fortune Ring"
+description = "20% chance to double loot drops. Found on relic hunts."
+stackable = false
+max_count = 1
+price = 100
+quality = 3
+metadata/_custom_type_script = "uid://di2yssv3uj7uc"

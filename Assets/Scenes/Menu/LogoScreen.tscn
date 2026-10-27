@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bntky2x40cdr3"]
 
 [ext_resource type="Script" uid="uid://yt38gf4blhmb" path="res://Assets/Scenes/Menu/logo_screen.gd" id="1_ammw1"]
-[ext_resource type="Texture2D" uid="uid://v75ue5i1ett2" path="res://Assets/Textures/UI/Blazion/Blazion Text.png" id="3_o4647"]
-[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="3_vqpn1"]
-[ext_resource type="Texture2D" uid="uid://detr105ft2wvs" path="res://Assets/Textures/UI/Blazion/Blazion.png" id="4_rg8vd"]
+[ext_resource type="Texture2D" uid="uid://v75ue5i1ett2" path="res://Assets/art/ui/Logo/Blazion Text.png" id="3_o4647"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/art/vfx/Light/Light.png" id="3_vqpn1"]
+[ext_resource type="Texture2D" uid="uid://detr105ft2wvs" path="res://Assets/art/ui/Logo/Blazion.png" id="4_rg8vd"]
 
 [sub_resource type="Animation" id="Animation_vqpn1"]
 resource_name = "Logo"

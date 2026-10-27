@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://c2yh1h06juesr"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://game/content/Resources/HarvestRoot.tscn" id="1_8ehyo"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://game/Utils/Drop/DropRersource.gd" id="1_lwxs1"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://data/Content/Items/Stone.tres" id="2_xswkk"]
+[ext_resource type="Resource" uid="uid://bft3hsb45rfi8" path="res://game/content/Resources/CoinDrop.tres" id="4_ct14l"]
+[ext_resource type="AudioStream" uid="uid://c4kuni8ctyooh" path="res://Assets/audio/SFX/Environemnt/HarvesstItems/Stone.mp3" id="4_djy7a"]
+[ext_resource type="Texture2D" uid="uid://clb287rvya8vm" path="res://game/content/Resources/Vehana/Textures/Minerals.png" id="5_4frtp"]
+[ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://tools/Misc/RandomSprite.gd" id="6_nllmb"]
+[ext_resource type="AudioStream" uid="uid://d16cd8gkmveq0" path="res://Assets/audio/SFX/Environemnt/HarvesstItems/Stone1.mp3" id="7_lcige"]
+[ext_resource type="AudioStream" uid="uid://ck8tnuu1blxre" path="res://Assets/audio/SFX/Environemnt/HarvesstItems/Stone2.mp3" id="8_hbv8l"]
+[ext_resource type="AudioStream" uid="uid://c158d8m1quj47" path="res://Assets/audio/SFX/Environemnt/HarvesstItems/Stone3.mp3" id="9_ct8oa"]
+[ext_resource type="AudioStream" uid="uid://imuayp8xcd7r" path="res://Assets/audio/SFX/Environemnt/HarvesstItems/Stone4.mp3" id="10_05v08"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="12_qlw0k"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7qdl3"]
+radius = 3.2601004
+
+[sub_resource type="Resource" id="Resource_hlcs1"]
+script = ExtResource("1_lwxs1")
+drop_item = ExtResource("2_xswkk")
+drop_chance = 1.0
+min_throws = 3
+max_throws = 6
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cdos3"]
+radius = 14.466789
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kv24k"]
+random_pitch = 1.122462
+streams_count = 5
+stream_0/stream = ExtResource("4_djy7a")
+stream_1/stream = ExtResource("7_lcige")
+stream_2/stream = ExtResource("8_hbv8l")
+stream_3/stream = ExtResource("9_ct8oa")
+stream_4/stream = ExtResource("10_05v08")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5jy0"]
+atlas = ExtResource("12_qlw0k")
+region = Rect2(16, 0, 16, 16)
+
+[node name="Stone" unique_id=1934415035 instance=ExtResource("1_8ehyo")]
+durability = 140.0
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
+position = Vector2(-1, -4)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_7qdl3")
+
+[node name="optimizer" parent="." index="1" unique_id=2100972979]
+position = Vector2(0, -11)
+rect = Rect2(-22, -14, 44, 28)
+
+[node name="droper" parent="." index="2" unique_id=1465568748]
+drop_resources = Array[ExtResource("1_lwxs1")]([SubResource("Resource_hlcs1"), ExtResource("4_ct14l")])
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
+shape = SubResource("CircleShape2D_cdos3")
+
+[node name="VFX_damage" parent="." index="5" unique_id=2140509907 node_paths=PackedStringArray("character", "particles")]
+character = NodePath("../Sprite2D")
+particles = NodePath("../Splash")
+
+[node name="Sprite2D" parent="." index="8" unique_id=308116851]
+position = Vector2(0, -16)
+texture = ExtResource("5_4frtp")
+hframes = 6
+frame = 3
+script = ExtResource("6_nllmb")
+frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+
+[node name="Shadow" parent="." index="9" unique_id=1322860807]
+position = Vector2(0, -2)
+scale = Vector2(2.375, 0.625)
+
+[node name="AudioStreamPlayer2D" parent="." index="10" unique_id=1460454120]
+stream = SubResource("AudioStreamRandomizer_kv24k")
+
+[node name="Splash" parent="." index="11" unique_id=1130400609]
+texture = SubResource("AtlasTexture_a5jy0")

@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://cqb5pjqlwp3h3"]
 
 [ext_resource type="Script" uid="uid://ysh8w6vpmjfx" path="res://Assets/Scenes/Menu/MainMenu.gd" id="1_xj65m"]
-[ext_resource type="Script" uid="uid://bsetxn1nl0rlt" path="res://scr/Misc/parallax.gd" id="2_qbvys"]
+[ext_resource type="Script" uid="uid://bsetxn1nl0rlt" path="res://tools/Misc/parallax.gd" id="2_qbvys"]
 [ext_resource type="Script" uid="uid://bttgnk3bb2a8i" path="res://addons/font_auto_size_labels/auto_size_label.gd" id="3_bwn3d"]
-[ext_resource type="Shader" uid="uid://c385wv3jtcml3" path="res://Assets/Shader/StarField.gdshader" id="3_y08pf"]
-[ext_resource type="Shader" uid="uid://vrsslnus0n8r" path="res://Assets/Shader/Shine.gdshader" id="4_axoc4"]
-[ext_resource type="Texture2D" uid="uid://dk6hs5so2us68" path="res://Assets/Textures/Items/PlanetX-Sheet.png" id="4_qbvys"]
-[ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://scr/Misc/UIelements/button.tscn" id="5_bwn3d"]
-[ext_resource type="Material" uid="uid://ul06moidsjcy" path="res://misc/Particles/PlanetBG.tres" id="5_wk7rc"]
-[ext_resource type="Theme" uid="uid://bmjvsrl7b67cy" path="res://misc/UI/theme.tres" id="6_tuj82"]
-[ext_resource type="PackedScene" uid="uid://oq4fs5yb67n0" path="res://scr/Systems/SaveLoadSlot/Save_laodUI.tscn" id="7_uc0ha"]
-[ext_resource type="Texture2D" uid="uid://dwlr5t1df26qk" path="res://Assets/Textures/Items/SpaceShip.png" id="9_wk7rc"]
-[ext_resource type="Texture2D" uid="uid://erxt6oh26im8" path="res://Assets/Textures/Items/Planet.png" id="11_fqo0y"]
-[ext_resource type="Script" uid="uid://b60d08i8hic0m" path="res://scr/Misc/Planet.gd" id="12_jm7od"]
-[ext_resource type="Texture2D" uid="uid://cld7oj4ax55rv" path="res://Assets/Textures/UI/Title/title2.png" id="12_wk7rc"]
-[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="13_fqo0y"]
-[ext_resource type="FontFile" uid="uid://dj2oqg7k2rxlo" path="res://Assets/Fonts/HemiHead-Bold.otf" id="14_2yin0"]
-[ext_resource type="PackedScene" uid="uid://b3xyfsgecbtas" path="res://misc/UI/OptionMenu/option_menu.tscn" id="16_wk7rc"]
+[ext_resource type="Shader" uid="uid://c385wv3jtcml3" path="res://Assets/shaders/StarField.gdshader" id="3_y08pf"]
+[ext_resource type="Shader" uid="uid://vrsslnus0n8r" path="res://Assets/shaders/Shine.gdshader" id="4_axoc4"]
+[ext_resource type="Texture2D" uid="uid://dk6hs5so2us68" path="res://Assets/art/items/PlanetX-Sheet.png" id="4_qbvys"]
+[ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://tools/Misc/UIelements/button.tscn" id="5_bwn3d"]
+[ext_resource type="Material" uid="uid://ul06moidsjcy" path="res://VFX/Particles/PlanetBG.tres" id="5_wk7rc"]
+[ext_resource type="Theme" uid="uid://bmjvsrl7b67cy" path="res://UI/theme.tres" id="6_tuj82"]
+[ext_resource type="PackedScene" uid="uid://oq4fs5yb67n0" path="res://game/Systems/SaveLoadSlot/Save_laodUI.tscn" id="7_uc0ha"]
+[ext_resource type="Texture2D" uid="uid://dwlr5t1df26qk" path="res://Assets/art/items/SpaceShip.png" id="9_wk7rc"]
+[ext_resource type="Texture2D" uid="uid://erxt6oh26im8" path="res://Assets/art/items/Planet.png" id="11_fqo0y"]
+[ext_resource type="Script" uid="uid://b60d08i8hic0m" path="res://tools/Misc/Planet.gd" id="12_jm7od"]
+[ext_resource type="Texture2D" uid="uid://cld7oj4ax55rv" path="res://Assets/art/ui/Title.png" id="12_wk7rc"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/art/vfx/Light/Light.png" id="13_fqo0y"]
+[ext_resource type="FontFile" uid="uid://dj2oqg7k2rxlo" path="res://Assets/fonts/HemiHead-Bold.otf" id="14_2yin0"]
+[ext_resource type="PackedScene" uid="uid://b3xyfsgecbtas" path="res://UI/OptionMenu/option_menu.tscn" id="16_wk7rc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lncde"]
 shader = ExtResource("3_y08pf")
@@ -318,7 +318,6 @@ _data = {
 
 [node name="MainMenu" type="ColorRect" unique_id=1265719968]
 y_sort_enabled = true
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

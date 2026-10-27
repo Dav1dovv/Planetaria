@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://b0mf3l56dvooj"]
+
+[ext_resource type="Script" uid="uid://dgpbrmp4fahb" path="res://UI/Pause/pause_menu.gd" id="1_1h2e4"]
+[ext_resource type="Shader" uid="uid://cpqgkpo83gda7" path="res://Assets/shaders/Blur.gdshader" id="1_mjrbq"]
+[ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://tools/Misc/UIelements/button.tscn" id="3_u6emx"]
+[ext_resource type="PackedScene" uid="uid://b3xyfsgecbtas" path="res://UI/OptionMenu/option_menu.tscn" id="4_ryahf"]
+[ext_resource type="PackedScene" uid="uid://derq0cyjib60s" path="res://UI/Terminal/terminal_window.tscn" id="9_console"]
+[ext_resource type="Theme" uid="uid://bfa08vqnic8g6" path="res://common/Themes/terminal_theme.tres" id="10_theme"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1h2e4"]
+shader = ExtResource("1_mjrbq")
+shader_parameter/blur_amount = 9.5e-08
+shader_parameter/mix_amount = 0.350000016625
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_u6emx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4fqp4"]
+resource_name = "blur"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:material:shader_parameter/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [9.5e-08, 2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u6emx"]
+_data = {
+&"RESET": SubResource("Animation_u6emx"),
+&"blur": SubResource("Animation_4fqp4")
+}
+
+[node name="PauseMenu" type="Control" unique_id=896231899]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1h2e4")
+
+[node name="Panel" type="Panel" parent="." unique_id=696575251]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_1h2e4")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Console" parent="Panel" unique_id=1722237525 instance=ExtResource("9_console")]
+layout_mode = 1
+title = "Game Paused"
+
+[node name="Resume" parent="Panel/Console" unique_id=1040872284 instance=ExtResource("3_u6emx")]
+custom_minimum_size = Vector2(110, 16)
+layout_mode = 0
+theme_type_variation = &"TerminalButton"
+text = "Resume"
+
+[node name="Options" parent="Panel/Console" unique_id=1229348218 instance=ExtResource("3_u6emx")]
+custom_minimum_size = Vector2(110, 16)
+layout_mode = 0
+theme_type_variation = &"TerminalButton"
+text = "Options"
+
+[node name="Exit" parent="Panel/Console" unique_id=1362812125 instance=ExtResource("3_u6emx")]
+custom_minimum_size = Vector2(110, 16)
+layout_mode = 0
+theme_type_variation = &"TerminalButton"
+text = "Main Menu"
+
+[node name="LinkButton" type="LinkButton" parent="Panel" unique_id=2074306492]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -14.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("10_theme")
+theme_type_variation = &"TerminalLink"
+text = "Report a bug"
+uri = "https://docs.google.com/forms/d/e/1FAIpQLSet0XvkBd1-Ay8jgNT1lBt_jbAg7Si-_xMukYRDRgzBInfM-g/viewform?usp=dialog"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=229165675]
+libraries/ = SubResource("AnimationLibrary_u6emx")
+
+[node name="OptionMenu" parent="." unique_id=29985923 instance=ExtResource("4_ryahf")]
+visible = false
+
+[connection signal="pressed" from="Panel/Console/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/Console/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Panel/Console/Exit" to="." method="_on_exit_pressed"]
+[connection signal="closed" from="OptionMenu" to="." method="_on_option_menu_closed"]

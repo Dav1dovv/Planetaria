@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://fgmnq4ft82wh"]
 
-[ext_resource type="Script" uid="uid://bdpkv7mxycsja" path="res://scr/Manager/GameManager.gd" id="1_074my"]
-[ext_resource type="PackedScene" uid="uid://qc6y8v64442s" path="res://misc/Entity/Player/player.tscn" id="6_bd8m6"]
-[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="7_1ds54"]
-[ext_resource type="Script" uid="uid://cx0477dq0nkws" path="res://scr/Misc/Blaze_camera.gd" id="7_2ifnd"]
+[ext_resource type="Script" uid="uid://bdpkv7mxycsja" path="res://game/core/GameManager.gd" id="1_074my"]
+[ext_resource type="PackedScene" uid="uid://qc6y8v64442s" path="res://game/content/Entity/Player/player.tscn" id="6_bd8m6"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://game/content/Entity/Scripts/Stats.gd" id="7_1ds54"]
+[ext_resource type="Script" uid="uid://cx0477dq0nkws" path="res://tools/Misc/Blaze_camera.gd" id="7_2ifnd"]
 
 [sub_resource type="Resource" id="Resource_wo72l"]
 resource_local_to_scene = true

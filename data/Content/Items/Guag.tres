@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://bt74ueu8khig4"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_02ixv"]
+[ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://data/Content/Items/Stone.tres" id="2_04xqt"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="3_3qfoo"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="4_cg60f"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="5_gx0tn"]
+
+[sub_resource type="Resource" id="Resource_ex2su"]
+script = ExtResource("1_02ixv")
+item = ExtResource("2_04xqt")
+amount = 30
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7brs"]
+atlas = ExtResource("3_3qfoo")
+region = Rect2(16, 80, 16, 16)
+
+[sub_resource type="Resource" id="Resource_r6112"]
+script = ExtResource("1_02ixv")
+item = ExtResource("4_cg60f")
+amount = 22
+metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[resource]
+script = ExtResource("5_gx0tn")
+Damage = 10
+equiped_weapon_sprite = SubResource("AtlasTexture_l7brs")
+icon = SubResource("AtlasTexture_l7brs")
+item_name = "Guag"
+stackable = false
+craft_ingredients = Array[ExtResource("1_02ixv")]([SubResource("Resource_ex2su")])
+craft_gold_cost = 50
+repair_ingredients = Array[ExtResource("1_02ixv")]([SubResource("Resource_r6112")])
+repair_amount = 100
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

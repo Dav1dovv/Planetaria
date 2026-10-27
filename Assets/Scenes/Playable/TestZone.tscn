@@ -2,13 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://fgmnq4ft82wh" path="res://Assets/Scenes/Playable/location_root.tscn" id="1_5o2qs"]
 [ext_resource type="TileSet" uid="uid://bhhg7klmns5su" path="res://common/Resources/TileSets/PlanetTiles.tres" id="2_5on0c"]
-[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_q68ey"]
-[ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://misc/Entity/Enemies/Pig1.tscn" id="4_n8j6n"]
-[ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://misc/Entity/Enemies/Rat.tscn" id="5_5on0c"]
-[ext_resource type="PackedScene" uid="uid://cu51i2cuo46v0" path="res://misc/Entity/Enemies/slime2.tscn" id="6_n8j6n"]
-[ext_resource type="PackedScene" uid="uid://bu36h4hqr8fy5" path="res://misc/Entity/Enemies/slime.tscn" id="7_jbto0"]
-[ext_resource type="PackedScene" uid="uid://dt8r6w2e04m3f" path="res://misc/Entity/Enemies/Pig2.tscn" id="8_wwern"]
-[ext_resource type="PackedScene" uid="uid://cwojtuw4rlunx" path="res://misc/Entity/Enemies/Pig3.tscn" id="9_ntyta"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://game/content/Entity/Scripts/Stats.gd" id="3_q68ey"]
+[ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://game/content/Entity/Enemies/Pig1.tscn" id="4_n8j6n"]
+[ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://game/content/Entity/Enemies/Rat.tscn" id="5_5on0c"]
+[ext_resource type="PackedScene" uid="uid://cu51i2cuo46v0" path="res://game/content/Entity/Enemies/slime2.tscn" id="6_n8j6n"]
+[ext_resource type="PackedScene" uid="uid://bu36h4hqr8fy5" path="res://game/content/Entity/Enemies/slime.tscn" id="7_jbto0"]
+[ext_resource type="PackedScene" uid="uid://dt8r6w2e04m3f" path="res://game/content/Entity/Enemies/Pig2.tscn" id="8_wwern"]
+[ext_resource type="PackedScene" uid="uid://cwojtuw4rlunx" path="res://game/content/Entity/Enemies/Pig3.tscn" id="9_ntyta"]
 
 [sub_resource type="Resource" id="Resource_wwern"]
 resource_local_to_scene = true

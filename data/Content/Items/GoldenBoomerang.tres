@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://j75f3hb2q1u4"]
+
+[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_piyl5"]
+[ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="2_0w6x7"]
+[ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://data/Content/Items/Wood.tres" id="3_a8amj"]
+[ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://data/Content/Items/Fuel.tres" id="4_c4j46"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_irfd8"]
+[ext_resource type="PackedScene" uid="uid://ci5gno40fiu81" path="res://game/content/Projectiles/Bumerang.tscn" id="6_4ica3"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="7_3dt21"]
+
+[sub_resource type="Resource" id="Resource_7"]
+script = ExtResource("1_piyl5")
+item = ExtResource("2_0w6x7")
+amount = 70
+
+[sub_resource type="Resource" id="Resource_9"]
+script = ExtResource("1_piyl5")
+item = ExtResource("3_a8amj")
+amount = 8
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_piyl5")
+item = ExtResource("4_c4j46")
+amount = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("5_irfd8")
+region = Rect2(96, 96, 16, 16)
+
+[sub_resource type="Resource" id="Resource_15"]
+script = ExtResource("1_piyl5")
+item = ExtResource("3_a8amj")
+amount = 6
+
+[sub_resource type="Resource" id="Resource_12"]
+script = ExtResource("1_piyl5")
+item = ExtResource("2_0w6x7")
+amount = 35
+
+[sub_resource type="Resource" id="Resource_13"]
+script = ExtResource("1_piyl5")
+item = ExtResource("3_a8amj")
+amount = 4
+
+[sub_resource type="Resource" id="Resource_14"]
+script = ExtResource("1_piyl5")
+item = ExtResource("4_c4j46")
+amount = 2
+
+[resource]
+script = ExtResource("7_3dt21")
+max_durability = 150
+Damage = 12
+equiped_weapon_sprite = SubResource("AtlasTexture_3")
+projectile = ExtResource("6_4ica3")
+knockback = 4.0
+durability_per_shot = 1
+icon = SubResource("AtlasTexture_3")
+play_anim = "Shoot"
+item_name = "Golden Boomerang"
+description = "Light and quick. Always returns."
+stackable = false
+price = 70
+quality = 2
+craft_ingredients = Array[ExtResource("1_piyl5")]([SubResource("Resource_7"), SubResource("Resource_9"), SubResource("Resource_11")])
+salvage = Array[ExtResource("1_piyl5")]([SubResource("Resource_12"), SubResource("Resource_13"), SubResource("Resource_14")])
+repair_ingredients = Array[ExtResource("1_piyl5")]([SubResource("Resource_15")])
+repair_gold_cost = 10
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
