@@ -3,14 +3,24 @@
 [ext_resource type="Texture2D" uid="uid://dw8hujpfuk6cs" path="res://Assets/art/items/Ruin.png" id="1_7jfkx"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://tools/Misc/RandomSprite.gd" id="2_h0ha0"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/art/vfx/Shadows/Shadow.png" id="3_7yqb2"]
+[ext_resource type="PackedScene" uid="uid://tthm0e2twv2l" path="res://game/content/Entity/Enemies/Pig_BOs.tscn" id="4_k30hm"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://game/content/Entity/Scripts/Stats.gd" id="5_ocukn"]
+
+[sub_resource type="Resource" id="Resource_7ogqb"]
+resource_local_to_scene = true
+script = ExtResource("5_ocukn")
+base_move_speed = 1.5
+base_armor = 20.0
+metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [node name="Ruin1" type="Node2D" unique_id=187901231]
 
 [node name="RandomSprite2D" type="Sprite2D" parent="." unique_id=800856646]
-position = Vector2(-45.564194, -60.98593)
+position = Vector2(-80, -80)
+scale = Vector2(1.268796, 1.268796)
 texture = ExtResource("1_7jfkx")
 hframes = 6
-frame = 1
+frame = 5
 script = ExtResource("2_h0ha0")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
@@ -23,9 +33,11 @@ scale = Vector2(2.4064283, 1)
 texture = ExtResource("3_7yqb2")
 
 [node name="RandomSprite2D2" type="Sprite2D" parent="." unique_id=601033943]
-position = Vector2(-101.25957, -19.40422)
+position = Vector2(-142, 28.999996)
+scale = Vector2(1.268796, 1.268796)
 texture = ExtResource("1_7jfkx")
 hframes = 6
+frame = 4
 script = ExtResource("2_h0ha0")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
@@ -38,7 +50,8 @@ scale = Vector2(2.4064283, 1)
 texture = ExtResource("3_7yqb2")
 
 [node name="RandomSprite2D3" type="Sprite2D" parent="." unique_id=812733664]
-position = Vector2(-40.974625, 28.963928)
+position = Vector2(-27, 99.99999)
+scale = Vector2(1.268796, 1.268796)
 texture = ExtResource("1_7jfkx")
 hframes = 6
 frame = 4
@@ -54,10 +67,11 @@ scale = Vector2(2.4064283, 1)
 texture = ExtResource("3_7yqb2")
 
 [node name="RandomSprite2D4" type="Sprite2D" parent="." unique_id=1110958269]
-position = Vector2(48.40132, 43.334167)
+position = Vector2(130, 71)
+scale = Vector2(1.268796, 1.268796)
 texture = ExtResource("1_7jfkx")
 hframes = 6
-frame = 5
+frame = 2
 script = ExtResource("2_h0ha0")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
@@ -70,7 +84,8 @@ scale = Vector2(2.4064283, 1)
 texture = ExtResource("3_7yqb2")
 
 [node name="RandomSprite2D5" type="Sprite2D" parent="." unique_id=63464913]
-position = Vector2(97.47044, -30.970528)
+position = Vector2(181, -47)
+scale = Vector2(1.268796, 1.268796)
 texture = ExtResource("1_7jfkx")
 hframes = 6
 frame = 4
@@ -86,9 +101,11 @@ scale = Vector2(2.4064283, 1)
 texture = ExtResource("3_7yqb2")
 
 [node name="RandomSprite2D6" type="Sprite2D" parent="." unique_id=1276903459]
-position = Vector2(13.351929, -88.45152)
+position = Vector2(10, -115.00001)
+scale = Vector2(1.268796, 1.268796)
 texture = ExtResource("1_7jfkx")
 hframes = 6
+frame = 3
 script = ExtResource("2_h0ha0")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
@@ -99,3 +116,8 @@ show_behind_parent = true
 position = Vector2(-5.4200745, 28.83316)
 scale = Vector2(2.4064283, 1)
 texture = ExtResource("3_7yqb2")
+
+[node name="Pig" parent="." unique_id=1251952136 instance=ExtResource("4_k30hm")]
+scale = Vector2(1.6886854, 1.6886854)
+Entity_stats = SubResource("Resource_7ogqb")
+enemy_id = "PigBoss"

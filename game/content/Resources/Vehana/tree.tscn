@@ -88,7 +88,6 @@ particles = NodePath("../Splash")
 position = Vector2(0, -31.777496)
 texture = ExtResource("2_0chrr")
 hframes = 4
-frame = 2
 script = ExtResource("3_m34kx")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
 
@@ -100,3 +99,9 @@ stream = SubResource("AudioStreamRandomizer_0cpi8")
 
 [node name="Splash" parent="." index="11" unique_id=1130400609]
 process_material = SubResource("ParticleProcessMaterial_jrebk")
+
+[node name="Timer" type="Timer" parent="." index="12" unique_id=568577999]
+wait_time = 6.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -5,11 +5,8 @@
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="3_7l8ac"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="4_dv512"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://game/content/Entity/Scripts/Stats.gd" id="5_l43em"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_s2fnv"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/art/vfx/Light/Light.png" id="6_gwn36"]
-
-[sub_resource type="Resource" id="Resource_6eg6u"]
-script = ExtResource("4_dv512")
-metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
 [sub_resource type="Resource" id="Resource_5vj5a"]
 script = ExtResource("5_l43em")
@@ -126,28 +123,53 @@ _data = {
 &"curse": SubResource("Animation_b6k8d")
 }
 
-[node name="Curse" unique_id=1251952136 node_paths=PackedStringArray("skin", "Vfx") instance=ExtResource("1_ck8bg")]
+[node name="Curse" unique_id=1251952136 node_paths=PackedStringArray("Vfx") instance=ExtResource("1_ck8bg")]
 collision_mask = 1
 script = ExtResource("2_3te72")
 corupt = 7
-line_of_sight = 30.0
-continue_follow_target = false
-can_fear = false
-speed_multiplier = 10.0
-attack_parameter = SubResource("Resource_6eg6u")
-attack_range = 20.0
-attack_cooldown = 0.5
-aim_offset = Vector2(0, 0)
-wander_enabled = true
-wander_radius = 250.0
-wander_speed_factor = 1.0
-wander_pause_min = 10.0
-wander_pause_max = 10.0
-wander_look_around = 1.0
-skin = NodePath("Skin")
-show_gizmos = true
-sight_color = Color(1, 0.85, 0.2, 1)
-attack_color = Color(1, 0.2, 0.2, 1)
+behavior = 1.0
+can_flee = false
+flee_threshold = 0.25
+flee_on_hit = false
+use_fear = false
+fear_per_damage = 0.05
+fear_proximity_radius = 60.0
+fear_proximity_rate = 0.08
+fear_decay_rate = 0.05
+fear_flee_threshold = 0.6
+fear_calm_threshold = 0.25
+hides_when_scared = false
+hide_duration = 1.5
+hide_damage_reduction = 0.0
+fear_sound = null
+fear_sound_pitch_variance = 0.08
+flee_speed_multiplier = 1.6
+pack_group = ""
+pack_alert_radius = 300.0
+hear_radius = 60.0
+sight_radius = 180.0
+fov_half_angle = 60.0
+use_los_check = true
+wall_collision_mask = 1
+memory_duration = 3.0
+wander_interval_min = 7.0
+wander_interval_max = 10.0
+wander_radius = 500.0
+turn_speed = 12.0
+patrol_points = Array[NodePath]([])
+chase_weave_enabled = true
+chase_weave_amplitude = 30.0
+chase_weave_frequency = 3.0
+ray_length = 40.0
+avoidance_strength = 1.8
+attack_damage = 4.0
+attack_radius = 28.0
+attack_cooldown = 1.2
+max_poise = 100.0
+poise_decay_rate = 15.0
+poise_decay_delay = 1.0
+stagger_duration = 1.0
+vulnerable_damage_multiplier = 1.5
 Entity_stats = SubResource("Resource_5vj5a")
 Vfx = NodePath("VFX")
 knockback_strength = 60.0
@@ -158,7 +180,7 @@ screen_shake_strength = 5.0
 [node name="optimizer" parent="." index="0" unique_id=1815416353]
 position = Vector2(0, 0)
 
-[node name="HurtBox" parent="." index="1" unique_id=411889454]
+[node name="HurtBox" parent="." index="1" unique_id=411889454 groups=["corruption"]]
 position = Vector2(0, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0" unique_id=216553544]

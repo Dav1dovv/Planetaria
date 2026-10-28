@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="2_xqe6h"]
 [ext_resource type="Resource" uid="uid://ch7n76d1j6ww1" path="res://data/Content/Items/SlimeGel.tres" id="3_i0u70"]
 [ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://data/Content/Items/Wood.tres" id="4_owi7e"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_egsd3"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_g28po"]
 [ext_resource type="PackedScene" uid="uid://jl6w7073r4nv" path="res://game/content/Projectiles/Web.tscn" id="6_dk2qe"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="7_2wkrm"]
@@ -22,6 +23,14 @@ amount = 6
 script = ExtResource("1_6b2ou")
 item = ExtResource("4_owi7e")
 amount = 6
+
+[sub_resource type="Resource" id="Resource_8fex8"]
+script = ExtResource("5_egsd3")
+on_hit_effect = "slow"
+on_hit_chance = 0.35
+on_hit_duration = 4.0
+on_hit_potency = 11.2
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("5_g28po")
@@ -66,4 +75,5 @@ craft_ingredients = Array[ExtResource("1_6b2ou")]([SubResource("Resource_7"), Su
 salvage = Array[ExtResource("1_6b2ou")]([SubResource("Resource_12"), SubResource("Resource_13")])
 repair_ingredients = Array[ExtResource("1_6b2ou")]([SubResource("Resource_14")])
 repair_gold_cost = 10
+craft_properties = Array[ExtResource("5_egsd3")]([SubResource("Resource_8fex8")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

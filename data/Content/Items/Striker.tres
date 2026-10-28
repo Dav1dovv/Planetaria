@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_cf8nc"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="2_c28s2"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="3_d3sbc"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="3_e0acq"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="4_45mwk"]
 [ext_resource type="PackedScene" uid="uid://cd70fd4bmg10c" path="res://game/content/Projectiles/RedBullet.tscn" id="4_c28s2"]
@@ -13,6 +14,10 @@ script = ExtResource("1_cf8nc")
 item = ExtResource("2_c28s2")
 amount = 67
 metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Resource_g56gl"]
+script = ExtResource("3_d3sbc")
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7brs"]
 atlas = ExtResource("3_e0acq")
@@ -41,4 +46,5 @@ icon = SubResource("AtlasTexture_l7brs")
 item_name = "Striker"
 craft_ingredients = Array[ExtResource("1_cf8nc")]([SubResource("Resource_1nw2f")])
 repair_ingredients = Array[ExtResource("1_cf8nc")]([SubResource("Resource_drxg7"), SubResource("Resource_3l7xi")])
+craft_properties = Array[ExtResource("3_d3sbc")]([SubResource("Resource_g56gl")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

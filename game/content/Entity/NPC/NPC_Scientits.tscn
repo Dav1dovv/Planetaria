@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://defn11cdggnnf" path="res://tools/Misc/ShowDialog.gd" id="3_51dka"]
 [ext_resource type="Script" uid="uid://dbs4435dsf3ry" path="res://addons/dialogue_manager/dialogue_resource.gd" id="4_sxkgd"]
 
-[sub_resource type="Resource" id="Resource_q5e5k"]
+[sub_resource type="Resource" id="Resource_gilaa"]
 resource_local_to_scene = true
 script = ExtResource("2_peoby")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
@@ -121,7 +121,7 @@ wander_interval_min = 4.0
 wander_interval_max = 7.0
 wander_radius = 30.0
 turn_speed = 48.0
-Entity_stats = SubResource("Resource_q5e5k")
+Entity_stats = SubResource("Resource_gilaa")
 
 [node name="interaction_area" parent="." index="7" unique_id=1236577010]
 position = Vector2(-0.2456932, 0)

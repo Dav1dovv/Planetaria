@@ -31,6 +31,8 @@ const MOUSE_Gather   = preload("uid://lw5xb5cynpia")
 @export var legacy_rmb_interact: bool = false
 
 @onready var hint: Sprite2D = $Hint
+## Круг заполнения при удержании (Interaction.hold_to_interact). Положение и вид правятся в cursor.tscn
+@onready var hold_ring: HoldRing = $HoldRing
 
 var _player: Node = null
 var _hotbar: Node = null
@@ -90,8 +92,27 @@ func try_interact_primary() -> bool:
 	if target == null or not is_instance_valid(target) or not target.has_method("try_interact"):
 		return false
 	target.try_interact()
-	interact_count += 1
+	# Объекты с удержанием засчитываются, когда круг заполнился (см. Interaction._complete_hold)
+	if not target.get("hold_to_interact"):
+		interact_count += 1
 	return true
+
+
+## Объект с зоной взаимодействия, который сейчас под курсором (или null).
+func get_hovered_interaction() -> Area2D:
+	if _overlapping_interaction != null and is_instance_valid(_overlapping_interaction):
+		return _overlapping_interaction
+	return null
+
+
+## Interaction вызывает каждый кадр удержания: ratio 0..1.
+func hold_progress(ratio: float) -> void:
+	hold_ring.set_progress(ratio)
+
+
+## Удержание закончилось: completed = круг заполнился, иначе — прервано.
+func hold_end(completed: bool) -> void:
+	hold_ring.finish(completed)
 
 
 ## Текущее состояние курсора: simple / fight / interact / deflect ... (для перекрестия геймпада)
@@ -284,5 +305,6 @@ func change_curosr(type: String) -> void:
 func detection_mode(mode: bool) -> void:
 	$CollisionShape2D.disabled = mode
 	if mode:
+		hold_ring.finish(false)
 		_clear_highlight()
 		_apply_cursor_state("simple")

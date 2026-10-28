@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di2yssv3uj7uc" path="res://data/ItemData/AcsesoryData.gd" id="1_11824"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="2_4241"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="3_71yk4"]
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="4_2def"]
 [ext_resource type="Texture2D" uid="uid://c04w0fs4kr4ao" path="res://Assets/art/ui/Icons/Effects/Effect8.png" id="5_4f5e"]
 [ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://VFX/Particles/Effect.tscn" id="5_r0tqo"]

@@ -4,12 +4,25 @@
 [ext_resource type="Resource" uid="uid://feu6mm5l4c0h" path="res://data/Content/Items/Artefact_Piece.tres" id="2_o6uvl"]
 [ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://data/ItemData/ItemData.gd" id="2_yrek7"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="3_j5keg"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="3_vkp67"]
 
 [sub_resource type="Resource" id="Resource_j5keg"]
 script = ExtResource("1_o243y")
 item = ExtResource("2_o6uvl")
 amount = 10
 metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Resource_tpq0w"]
+script = ExtResource("3_vkp67")
+damage_mult = 1.51
+speed_mult = 0.8200000000000001
+durability_mult = 1.3299999999999998
+knockback_add = 1.0
+grants_light = true
+light_color = Color(0.54901963, 0.9490196, 0.15686275, 1)
+passive_player_effect = "defense_boost"
+passive_player_potency = 6.5
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6uvl"]
 atlas = ExtResource("3_j5keg")
@@ -21,4 +34,5 @@ icon = SubResource("AtlasTexture_o6uvl")
 item_name = "Boss Caller"
 stackable = false
 craft_ingredients = Array[ExtResource("1_o243y")]([SubResource("Resource_j5keg")])
+craft_properties = Array[ExtResource("3_vkp67")]([SubResource("Resource_tpq0w")])
 metadata/_custom_type_script = "uid://wm1t8anytdyq"

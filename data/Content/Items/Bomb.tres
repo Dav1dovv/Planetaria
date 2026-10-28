@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://data/Content/Items/Fuel.tres" id="3_1ner6"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="4_fiy66"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_fcjis"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_hko4l"]
 [ext_resource type="PackedScene" uid="uid://dp5snq7fa0jqr" path="res://game/content/Projectiles/Bomb.tscn" id="6_2jb1g"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="7_r4jl0"]
 
@@ -22,6 +23,11 @@ amount = 4
 script = ExtResource("1_gr5qy")
 item = ExtResource("4_fiy66")
 amount = 6
+
+[sub_resource type="Resource" id="Resource_nidmc"]
+script = ExtResource("5_hko4l")
+on_hit_effect = "burn"
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("5_fcjis")
@@ -43,4 +49,5 @@ max_count = 20
 price = 8
 craft_ingredients = Array[ExtResource("1_gr5qy")]([SubResource("Resource_7"), SubResource("Resource_9"), SubResource("Resource_11")])
 craft_amount = 3
+craft_properties = Array[ExtResource("5_hko4l")]([SubResource("Resource_nidmc")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

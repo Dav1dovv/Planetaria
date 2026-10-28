@@ -137,6 +137,7 @@ offset_right = 11.0
 offset_bottom = 36.0
 
 [node name="AchievementsWindow" parent="." unique_id=386380193 instance=ExtResource("12_yfmxh")]
+visible = false
 scale = Vector2(0.8106667, 0.8106667)
 transform = Transform2D(0.8106667, 0, 0, 0.8106667, 0, 0)
 

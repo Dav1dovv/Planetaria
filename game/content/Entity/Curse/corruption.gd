@@ -1,4 +1,4 @@
-extends EnemyBase
+extends Creature
 class_name corruption
 
 @export var corupt : int = 7
@@ -11,11 +11,10 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 		queue_free()
 	elif area.is_in_group("Harvestable"):
 		area.add_infection(corupt)
+	
+	elif area.is_in_group("Ennemy") and !area.is_in_group("corruption"):
+		area.get_parent().queue_free()
 
 
 func _on_timer_timeout() -> void:
-	queue_free()
-
-
-func _on_hurt_box_damage_taken() -> void:
 	queue_free()

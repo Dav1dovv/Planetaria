@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b64dwdcktnwd7"]
 
-[ext_resource type="PackedScene" uid="uid://cmn05esa4kh21" path="res://game/content/Structures/camp.tscn" id="1_xtunk"]
+[ext_resource type="PackedScene" uid="uid://cmn05esa4kh21" path="res://game/content/Structures/Camp/camp.tscn" id="1_xtunk"]
 [ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://game/content/Entity/Enemies/Rat.tscn" id="2_ndko2"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://game/content/Entity/Scripts/Stats.gd" id="4_tax3s"]
 [ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://game/content/Entity/Enemies/Pig1.tscn" id="4_xtunk"]

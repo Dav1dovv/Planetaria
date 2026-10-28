@@ -2,7 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_etifv"]
 [ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://data/ItemData/ItemData.gd" id="2_fycpm"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="2_oxria"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="2_u5c30"]
+
+[sub_resource type="Resource" id="Resource_ddfov"]
+script = ExtResource("2_oxria")
+damage_mult = 1.44
+durability_mult = 1.39
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u5c30"]
 atlas = ExtResource("2_u5c30")
@@ -12,4 +19,5 @@ region = Rect2(16, 32, 16, 16)
 script = ExtResource("2_fycpm")
 icon = SubResource("AtlasTexture_u5c30")
 item_name = "ArtefactPiece"
+craft_properties = Array[ExtResource("2_oxria")]([SubResource("Resource_ddfov")])
 metadata/_custom_type_script = "uid://wm1t8anytdyq"

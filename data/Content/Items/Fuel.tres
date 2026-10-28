@@ -4,12 +4,25 @@
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="1_8vd08"]
 [ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://data/ItemData/ItemData.gd" id="2_1mdmi"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="2_dctef"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="3_a30ee"]
 
 [sub_resource type="Resource" id="Resource_07dhm"]
 script = ExtResource("1_1mdmi")
 item = ExtResource("2_dctef")
 amount = 3
 metadata/_custom_type_script = "uid://bcg5vwna4id5n"
+
+[sub_resource type="Resource" id="Resource_qw7t5"]
+script = ExtResource("3_a30ee")
+damage_mult = 0.91
+speed_mult = 1.18
+range_mult = 0.69
+knockback_add = -2.5
+on_hit_effect = "burn"
+on_hit_chance = 0.58
+on_hit_duration = 3.5
+on_hit_potency = 28.5
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cdos3"]
 atlas = ExtResource("1_8vd08")
@@ -25,4 +38,5 @@ is_counter_item = true
 craft_ingredients = Array[ExtResource("1_1mdmi")]([SubResource("Resource_07dhm")])
 craft_amount = 3
 craft_category = 2
+craft_properties = Array[ExtResource("3_a30ee")]([SubResource("Resource_qw7t5")])
 metadata/_custom_type_script = "uid://wm1t8anytdyq"

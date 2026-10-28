@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://data/ItemData/Food_item_data.gd" id="1_82d3"]
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_eklit"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="2_4241"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="2_bx4qh"]
 [ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/audio/SFX/Player/Drink.wav" id="4_43a0"]
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="5_2def"]
 [ext_resource type="Texture2D" uid="uid://b5ooxg81w6f1n" path="res://Assets/art/ui/Icons/Effects/Effect12.png" id="6_50c9"]

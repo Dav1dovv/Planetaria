@@ -42,8 +42,10 @@ autoplay = &"Levitating"
 collision_layer = 128
 collision_mask = 256
 script = ExtResource("2_na7h1")
+scene_path = "uid://fcge2dhsv6cb"
 scene = "Ship"
 show_message = "back to ship"
+hold_to_interact = true
 metadata/_custom_type_script = "uid://btxho8sqg8tnx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interaction" unique_id=204196029]

@@ -1,9 +1,24 @@
 [gd_scene format=3 uid="uid://cmn05esa4kh21"]
 
 [ext_resource type="Texture2D" uid="uid://0e258k1bemao" path="res://Assets/art/sheets/Camp.png" id="1_7yhfp"]
+[ext_resource type="Script" uid="uid://d6qmq5sri4rg" path="res://game/content/Structures/Camp/camp.gd" id="1_ahwav"]
 [ext_resource type="Texture2D" uid="uid://f2a2p4mby8u1" path="res://Assets/art/vfx/Particle/Smoke.png" id="2_oddsj"]
+[ext_resource type="Texture2D" uid="uid://b4cg2jfbnlvlg" path="res://Assets/art/ui/Icons/Effects/Effect7.png" id="2_t1o5n"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://VFX/Particles/Effect.tscn" id="3_ds3mf"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/art/vfx/Light/Light.png" id="3_ww3wb"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="4_7gnm2"]
 [ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://tools/Misc/Optimizer.gd" id="4_7hlqd"]
+[ext_resource type="Script" uid="uid://cburu6b4ckehs" path="res://addons/godot-rapier2d/custom_nodes/rapier_area_2d.gd" id="5_2hxkj"]
+
+[sub_resource type="Resource" id="Resource_v0npn"]
+script = ExtResource("4_7gnm2")
+effect_icon = ExtResource("2_t1o5n")
+value = 2.0
+duration = 2.0
+corruption_damage_bonus = 0.1
+particle = ExtResource("3_ds3mf")
+display_name = "Burn"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7yhfp"]
 atlas = ExtResource("1_7yhfp")
@@ -212,8 +227,13 @@ _data = {
 &"RESET": SubResource("Animation_egvxu")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cdos3"]
+radius = 21.023796
+
 [node name="Camp" type="Node2D" unique_id=265569063]
 y_sort_enabled = true
+script = ExtResource("1_ahwav")
+effect_source = SubResource("Resource_v0npn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2036935548]
 position = Vector2(0, -15)
@@ -246,3 +266,15 @@ metadata/_custom_type_script = "uid://dbxsovdq7bbia"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=612410351]
 libraries/ = SubResource("AnimationLibrary_emoxc")
 autoplay = &"Light"
+
+[node name="RapierArea2D" type="Area2D" parent="." unique_id=602501412]
+collision_layer = 8192
+collision_mask = 16388
+script = ExtResource("5_2hxkj")
+metadata/_custom_type_script = "uid://cburu6b4ckehs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RapierArea2D" unique_id=681030081]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_cdos3")
+
+[connection signal="area_entered" from="RapierArea2D" to="." method="something_enter"]

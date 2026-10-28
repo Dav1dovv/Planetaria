@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bvjwq42peqx7y" path="res://game/Systems/Cursor/Cursor.gd" id="1_64xn1"]
 
+[ext_resource type="Script" path="res://game/Systems/Cursor/HoldRing.gd" id="2_holdring"]
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dd4go"]
 blend_mode = 1
 light_mode = 1
@@ -76,6 +78,14 @@ z_index = 1520
 material = SubResource("CanvasItemMaterial_e1yyt")
 position = Vector2(9, -10.999998)
 scale = Vector2(0.79057944, 0.79057944)
+
+[node name="HoldRing" type="Node2D" parent="."]
+visible = false
+light_mask = 0
+z_index = 1530
+material = SubResource("CanvasItemMaterial_e1yyt")
+position = Vector2(-13, -13)
+script = ExtResource("2_holdring")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=837380961]
 shape = SubResource("CircleShape2D_64xn1")

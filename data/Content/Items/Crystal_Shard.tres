@@ -3,6 +3,19 @@
 [ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://data/ItemData/ItemData.gd" id="1_34fd"]
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_tpo1g"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="2_4241"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="2_vd520"]
+
+[sub_resource type="Resource" id="Resource_nqf5q"]
+script = ExtResource("2_vd520")
+damage_mult = 2.0
+speed_mult = 1.55
+durability_mult = 1.31
+on_hit_effect = "slow"
+grants_light = true
+light_color = Color(0.30588236, 0.9490196, 1, 1)
+passive_player_effect = "regen"
+passive_player_potency = 13.7
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("2_4241")
@@ -14,3 +27,4 @@ icon = SubResource("AtlasTexture_3")
 item_name = "Crystal Shard"
 description = "Hums faintly. Master smiths mend with it."
 price = 15
+craft_properties = Array[ExtResource("2_vd520")]([SubResource("Resource_nqf5q")])

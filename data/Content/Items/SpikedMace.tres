@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://data/Content/Items/Stone.tres" id="2_ajoof"]
 [ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://data/Content/Items/Wood.tres" id="3_nesyq"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="4_4to1n"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_0ju5r"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_xhmck"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="6_eroq1"]
 
@@ -21,6 +22,14 @@ amount = 6
 script = ExtResource("1_34i6p")
 item = ExtResource("4_4to1n")
 amount = 30
+
+[sub_resource type="Resource" id="Resource_svubf"]
+script = ExtResource("5_0ju5r")
+damage_mult = 2.1
+range_mult = 0.6699999999999999
+durability_mult = 1.29
+knockback_add = 20.0
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("5_xhmck")
@@ -64,4 +73,5 @@ craft_ingredients = Array[ExtResource("1_34i6p")]([SubResource("Resource_6"), Su
 salvage = Array[ExtResource("1_34i6p")]([SubResource("Resource_11"), SubResource("Resource_12"), SubResource("Resource_13")])
 repair_ingredients = Array[ExtResource("1_34i6p")]([SubResource("Resource_14")])
 repair_gold_cost = 8
+craft_properties = Array[ExtResource("5_0ju5r")]([SubResource("Resource_svubf")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

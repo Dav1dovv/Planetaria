@@ -21,6 +21,8 @@ func _ready() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 
 func save_game() -> void:
+	# Предметы, лежащие в окне комбинатора, возвращаем в рюкзак — иначе они не попадут в сохранение
+	get_tree().call_group("combiner_station", "return_all_to_bag")
 	var data := {
 		"version"   : 9,
 		"inventory" : _pack_container(inventory.items),
@@ -87,6 +89,9 @@ func _pack_container(container: Array[InventorySlotData]) -> Array:
 			"quality"     : item.quality,
 			"icon_data"   : _serialize_texture(item.icon)
 		}
+		if item is CombinedWeapon:
+			# Комбинированное оружие хранится «рецептом»: характеристики пересчитаются при загрузке
+			entry["combo"] = item.pack()
 		if item is equip_data:
 			entry.merge({
 				"lvl"             : item.lvl,
@@ -126,6 +131,14 @@ func _unpack_container(container: Array[InventorySlotData], packed: Array) -> vo
 		slot_data.slot_node.update_ui()
 
 func _create_item_from_dict(data: Dictionary) -> ItemData:
+	# ── Оружие из комбинатора: собираем заново из основы, добавки и ресурсов ──
+	if data.has("combo") and data["combo"] is Dictionary:
+		var combined: CombinedWeapon = WeaponForge.rebuild(data["combo"])
+		if combined != null:
+			return combined
+		push_warning("[InventorySaver] не удалось собрать комбинированное оружие — предмет пропущен")
+		return null
+
 	# ── Новый путь: берём предмет из реестра по имени, а в рантайме восстанавливаем
 	# только то, что меняется в игре (прочность, качество). Так не теряются
 	# num_projectiles, on-hit эффекты, свет, рывок, эффекты аксессуаров и т.д.

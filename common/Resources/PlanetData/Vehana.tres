@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://ce7m4hegc11l7" path="res://data/Content/Items/Antidote.tres" id="3_sdqaq"]
 [ext_resource type="Resource" uid="uid://feu6mm5l4c0h" path="res://data/Content/Items/Artefact_Piece.tres" id="4_piece"]
 [ext_resource type="Resource" uid="uid://bol3i5c0uxmot" path="res://data/Content/Items/Artifact_CrystalAmulet.tres" id="6_jr2n0"]
-[ext_resource type="Resource" uid="uid://diu71r8rm5e0e" path="res://data/Content/Items/Gold_Ore.tres" id="6_wwsdt"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="7_coin"]
 [ext_resource type="Resource" uid="uid://c11ekpas1t33v" path="res://data/Content/Items/Artifact_HornedHelm.tres" id="7_uxcw0"]
 [ext_resource type="Resource" uid="uid://bckon5ghp15pl" path="res://data/Content/Items/Artifact_MinersMedal.tres" id="8_fgk47"]
@@ -33,7 +32,7 @@ quest_id = &"cleanup_infection"
 title = "Очистить планету от заражения"
 description = "Заражённые ресурсы расползаются по планете. Уничтожай их — и заражение отступит."
 kind = 11
-target_amount = 15
+target_amount = 75
 rewards = Array[ExtResource("3_ingredient")]([SubResource("Resource_jr2n0"), SubResource("Resource_uxcw0")])
 metadata/_custom_type_script = "uid://c78jhtxa5bydr"
 
@@ -52,10 +51,11 @@ metadata/_custom_type_script = "uid://bcg5vwna4id5n"
 [sub_resource type="Resource" id="Resource_fgk47"]
 script = ExtResource("1_oo82o")
 quest_id = &"defeat_cooper_knight"
-title = "Победить Медного Рыцаря"
+title = "Победить всех свиных королей"
 description = "Древний страж проснулся и не узнаёт своих. Останови его."
-kind = 5
-target_id = "cooperknight"
+kind = 6
+target_amount = 3
+target_id = "PigBoss"
 rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_boss_coin"), SubResource("Reward_boss_fuel")])
 metadata/_custom_type_script = "uid://c78jhtxa5bydr"
 
@@ -67,47 +67,11 @@ metadata/_custom_type_script = "uid://bcg5vwna4id5n"
 
 [sub_resource type="Resource" id="Quest_stone"]
 script = ExtResource("1_oo82o")
-quest_id = &"gather_gold"
+quest_id = &"save_the_robot"
 title = "Ве хотят быть богатыми"
 description = "Берну нужен камень для горна."
-kind = 2
-target_amount = 20
-target_items = Array[ExtResource("2_itemdata")]([ExtResource("6_wwsdt")])
+kind = 10
 rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_stone")])
-metadata/_custom_type_script = "uid://c78jhtxa5bydr"
-
-[sub_resource type="Resource" id="Reward_pigs"]
-script = ExtResource("3_ingredient")
-item = ExtResource("7_coin")
-amount = 30
-metadata/_custom_type_script = "uid://bcg5vwna4id5n"
-
-[sub_resource type="Resource" id="Quest_pigs"]
-script = ExtResource("1_oo82o")
-quest_id = &"pig_raiders"
-title = "Отбить налёт свиней"
-description = "Свиньи-налётчики не дают жителям выйти за ворота."
-kind = 6
-target_amount = 8
-target_id = "pig"
-rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_pigs")])
-metadata/_custom_type_script = "uid://c78jhtxa5bydr"
-
-[sub_resource type="Resource" id="Reward_elite_coin"]
-script = ExtResource("3_ingredient")
-item = ExtResource("7_coin")
-amount = 30
-metadata/_custom_type_script = "uid://bcg5vwna4id5n"
-
-[sub_resource type="Resource" id="Quest_elite"]
-script = ExtResource("1_oo82o")
-quest_id = &"elite_hunt"
-title = "Охотник на элиту"
-description = "Особо сильные враги бродят по Вехане. Выследи и победи двух элитных врагов."
-kind = 6
-target_amount = 2
-target_id = "elite"
-rewards = Array[ExtResource("3_ingredient")]([SubResource("Reward_elite_coin")])
 metadata/_custom_type_script = "uid://c78jhtxa5bydr"
 
 [sub_resource type="Resource" id="Reward_pieces"]
@@ -129,5 +93,5 @@ metadata/_custom_type_script = "uid://c78jhtxa5bydr"
 [resource]
 script = ExtResource("1_mivi8")
 base_quests = Array[ExtResource("1_oo82o")]([SubResource("Resource_d63od"), SubResource("Resource_fgk47")])
-unique_quests = Array[ExtResource("1_oo82o")]([SubResource("Quest_stone"), SubResource("Quest_pigs"), SubResource("Quest_elite"), SubResource("Resource_sdqaq")])
+unique_quests = Array[ExtResource("1_oo82o")]([SubResource("Quest_stone"), SubResource("Resource_sdqaq")])
 metadata/_custom_type_script = "uid://yqpwj1pqrajp"

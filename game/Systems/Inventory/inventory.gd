@@ -23,6 +23,7 @@ signal inventory_changed
 @onready var smith: Control = $HBoxContainer/Smith
 @onready var barmen: Control = $HBoxContainer/Barmen
 @onready var trade_window: TradeWindow = $HBoxContainer/TradeWindow
+@onready var combiner: CombinerStation = $HBoxContainer/Combiner  # комбинатор оружия (слева от рюкзака)
 
 
 # ── Слот золота ──────────────────────────────────────────────────
@@ -388,6 +389,7 @@ func call_inventory():
 	inventory.visible = true
 	smith.visible = false
 	trade_window.visible = false
+	combiner.visible = false
 	$HBoxContainer/Barmen.visible  = false
 	Cursor.detection_mode(is_opened)
 
@@ -407,6 +409,7 @@ func _call_craft_station(station: Control) -> void:
 	smith.visible = false
 	barmen.visible = false
 	trade_window.visible = false
+	combiner.visible = false
 
 	station.visible = is_opened
 	Cursor.detection_mode(is_opened)
@@ -423,6 +426,27 @@ func call_smith() -> void:
 func call_cauldron() -> void:
 	_call_craft_station(barmen)
 
+## Комбинатор оружия: окно слева, рюкзак и хотбар справа/снизу (предметы кладутся кликом или перетаскиванием).
+## Вызывает стол-комбинатор в мире (CombinerMachine) или NPC.
+func call_combiner() -> void:
+	if Global.is_opened_menu && !is_opened:
+		return
+	if is_opened:
+		%UI_inv_CloseSFX.play()
+	else:
+		%UI_inv_OpenSFX.play()
+	is_opened = !is_opened
+	Global.is_opened_menu = is_opened
+	$HBoxContainer.visible = is_opened
+	$Panel.visible = is_opened
+	$HotBar.visible = true
+	inventory.visible = true
+	smith.visible = false
+	barmen.visible = false
+	trade_window.visible = false
+	combiner.visible = is_opened
+	Cursor.detection_mode(is_opened)
+
 ## Оставлено для обратной совместимости — если где-то в мире объект ещё
 ## вызывает call_craft(), он по-прежнему откроет кузнеца.
 func call_craft() -> void:
@@ -437,6 +461,7 @@ func call_trade(Trader : TraderData):
 	$Panel.visible = is_opened
 	inventory.visible = false
 	$HotBar.visible = false
+	combiner.visible = false
 	trade_window.visible = true
 	Cursor.detection_mode(is_opened)
 	if is_opened:

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://di2yssv3uj7uc" path="res://data/ItemData/AcsesoryData.gd" id="1_11824"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="2_4241"]
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="4_2def"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="4_q5e76"]
 [ext_resource type="Texture2D" uid="uid://b64un2hdo8wht" path="res://Assets/art/ui/Icons/Effects/Effect1.png" id="5_117f4"]
 [ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://VFX/Particles/Effect.tscn" id="6_l7dym"]
 [ext_resource type="Resource" uid="uid://diu71r8rm5e0e" path="res://data/Content/Items/Gold_Ore.tres" id="8_1698c"]

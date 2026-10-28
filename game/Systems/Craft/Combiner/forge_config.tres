@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ForgeConfig" format=3 uid="uid://chd78yqkt2flx"]
+
+[ext_resource type="Script" uid="uid://baxyw8mb5sy2" path="res://game/Systems/Craft/Combiner/ForgeConfig.gd" id="1_cfg"]
+
+[resource]
+script = ExtResource("1_cfg")

@@ -2,7 +2,18 @@
 
 [ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://data/ItemData/ItemData.gd" id="1_34fd"]
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_nyv5j"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="2_3rilv"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="2_4241"]
+
+[sub_resource type="Resource" id="Resource_7prke"]
+script = ExtResource("2_3rilv")
+on_hit_effect = "burn"
+on_hit_duration = 5.5
+grants_light = true
+light_color = Color(0.63109875, 0.597945, 1.92523e-07, 1)
+passive_player_effect = "speed_boost"
+passive_player_potency = 22.5
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("2_4241")
@@ -14,3 +25,4 @@ icon = SubResource("AtlasTexture_3")
 item_name = "Gold Ore"
 description = "Heavy and shiny. Needed to mend better gear."
 price = 8
+craft_properties = Array[ExtResource("2_3rilv")]([SubResource("Resource_7prke")])

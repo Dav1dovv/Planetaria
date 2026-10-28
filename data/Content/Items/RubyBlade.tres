@@ -5,7 +5,9 @@
 [ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://data/Content/Items/Stone.tres" id="3_v4lon"]
 [ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://data/Content/Items/Fuel.tres" id="4_4dbmq"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_hxfl4"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_vkpa7"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="6_5uxpt"]
+[ext_resource type="PackedScene" uid="uid://cd70fd4bmg10c" path="res://game/content/Projectiles/RedBullet.tscn" id="7_uny2g"]
 
 [sub_resource type="Resource" id="Resource_6"]
 script = ExtResource("1_6qwrs")
@@ -53,6 +55,9 @@ Damage = 14
 hit_distance = 13.0
 Atk_speed = 1.15
 equiped_weapon_sprite = SubResource("AtlasTexture_3")
+projectile = ExtResource("7_uny2g")
+num_projectiles = 3
+spread_degrees = 80.0
 on_hit_effect = "heal_on_hit"
 on_hit_chance = 0.5
 on_hit_potency = 2.0

@@ -2,9 +2,18 @@
 
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="1_yn8wc"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="2_1lemd"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="2_55d8s"]
 [ext_resource type="PackedScene" uid="uid://ri7cqfi5b8ag" path="res://game/content/Projectiles/AbyssBolt.tscn" id="3_kiby2"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="4_6p6qn"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="5_r87va"]
+
+[sub_resource type="Resource" id="Resource_bv473"]
+script = ExtResource("2_55d8s")
+range_mult = 1.64
+on_hit_effect = "corruption"
+on_hit_chance = 0.37
+on_hit_potency = 13.5
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("2_1lemd")
@@ -35,4 +44,5 @@ price = 240
 quality = 5
 repair_ingredients = Array[ExtResource("1_yn8wc")]([SubResource("Resource_7")])
 repair_gold_cost = 60
+craft_properties = Array[ExtResource("2_55d8s")]([SubResource("Resource_bv473")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

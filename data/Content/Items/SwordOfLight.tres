@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://feu6mm5l4c0h" path="res://data/Content/Items/Artefact_Piece.tres" id="2_2gd18"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="3_qxjnb"]
 [ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://data/Content/Items/Fuel.tres" id="4_3agfx"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_6je6u"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_36hwe"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="6_mjbag"]
 
@@ -21,6 +22,18 @@ amount = 60
 script = ExtResource("1_qv268")
 item = ExtResource("4_3agfx")
 amount = 10
+
+[sub_resource type="Resource" id="Resource_lovy7"]
+script = ExtResource("5_6je6u")
+on_hit_effect = "burn"
+on_hit_chance = 0.57
+on_hit_duration = 15.0
+on_hit_potency = 14.799999999999999
+grants_light = true
+light_color = Color(1, 0.9490196, 0.3254902, 1)
+passive_player_effect = "regen"
+passive_player_potency = 27.5
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("5_36hwe")
@@ -62,4 +75,5 @@ craft_ingredients = Array[ExtResource("1_qv268")]([SubResource("Resource_6"), Su
 salvage = Array[ExtResource("1_qv268")]([SubResource("Resource_11"), SubResource("Resource_12")])
 repair_ingredients = Array[ExtResource("1_qv268")]([SubResource("Resource_13")])
 repair_gold_cost = 20
+craft_properties = Array[ExtResource("5_6je6u")]([SubResource("Resource_lovy7")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

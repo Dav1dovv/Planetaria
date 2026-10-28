@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://data/Content/Items/Wood.tres" id="3_olqhf"]
 [ext_resource type="Resource" uid="uid://ch7n76d1j6ww1" path="res://data/Content/Items/SlimeGel.tres" id="4_dwaql"]
 [ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/audio/SFX/Player/Drink.wav" id="5_2slwn"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_sh4vr"]
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="6_dvpbe"]
 [ext_resource type="Resource" path="res://data/Content/Effects/RootRegen.tres" id="7_haesd"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="8_dnsc3"]

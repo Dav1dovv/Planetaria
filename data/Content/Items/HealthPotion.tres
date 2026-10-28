@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="1_janhr"]
 [ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://data/ItemData/Food_item_data.gd" id="2_08oaj"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="2_uhmyg"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="3_emtx8"]
 [ext_resource type="Resource" uid="uid://bcr5ppm27mw0p" path="res://data/Content/Effects/Health Restore.tres" id="3_s1c5a"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="4_gmavs"]
 
@@ -12,6 +13,12 @@
 script = ExtResource("1_gmavs")
 item = ExtResource("2_uhmyg")
 amount = 8
+
+[sub_resource type="Resource" id="Resource_2xuju"]
+script = ExtResource("3_emtx8")
+passive_player_effect = "regen"
+passive_player_potency = 16.7
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tkf83"]
 atlas = ExtResource("4_gmavs")
@@ -28,4 +35,5 @@ item_name = "Health Potion"
 craft_ingredients = Array[ExtResource("1_gmavs")]([SubResource("Resource_3txcr")])
 craft_amount = 2
 craft_category = 2
+craft_properties = Array[ExtResource("3_emtx8")]([SubResource("Resource_2xuju")])
 metadata/_custom_type_script = "uid://bw7mfbq68vy23"

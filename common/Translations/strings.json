@@ -2613,5 +2613,280 @@
 		"en": "Quests",
 		"ru": "Задания",
 		"hy": "Առաջադրանքներ"
+	},
+	"Put a weapon to repair": {
+		"en": "Put a weapon to repair",
+		"ru": "Положи оружие для ремонта",
+		"hy": "Դրեք զենքը վերանորոգման համար"
+	},
+	"Any resource works for repair": {
+		"en": "Any resource works for repair",
+		"ru": "Для ремонта подойдёт любой ресурс",
+		"hy": "Վերանորոգման համար ցանկացած ռեսուրս կաշխատի"
+	},
+	"Not used when repairing": {
+		"en": "Not used when repairing",
+		"ru": "Не нужен при ремонте",
+		"hy": "Վերանորոգման ժամանակ չի օգտագործվում"
+	},
+	"This item has no properties": {
+		"en": "This item has no properties",
+		"ru": "У предмета нет свойств",
+		"hy": "Իրը հատկություններ չունի"
+	},
+	"Already combined": {
+		"en": "Already combined",
+		"ru": "Уже скомбинировано",
+		"hy": "Արդեն համակցված է"
+	},
+	"Base must be a weapon": {
+		"en": "Base must be a weapon",
+		"ru": "Основа должна быть оружием",
+		"hy": "Հիմքը պետք է զենք լինի"
+	},
+	"Only one extra weapon": {
+		"en": "Only one extra weapon",
+		"ru": "Только одно дополнительное оружие",
+		"hy": "Միայն մեկ լրացուցիչ զենք"
+	},
+	"Put a base weapon": {
+		"en": "Put a base weapon",
+		"ru": "Положи оружие-основу",
+		"hy": "Դրեք հիմնական զենքը"
+	},
+	"Add a weapon or a material": {
+		"en": "Add a weapon or a material",
+		"ru": "Добавь оружие или материал",
+		"hy": "Ավելացրեք զենք կամ նյութ"
+	},
+	"Powerful weapons wear out faster": {
+		"en": "Powerful weapons wear out faster",
+		"ru": "Мощное оружие изнашивается быстрее",
+		"hy": "Հզոր զենքերը ավելի արագ են մաշվում"
+	},
+	"Combined weapon": {
+		"en": "Combined weapon",
+		"ru": "Комбинированное оружие",
+		"hy": "Համակցված զենք"
+	},
+	"Now it shoots": {
+		"en": "Now it shoots",
+		"ru": "Теперь оно стреляет",
+		"hy": "Այժմ այն կրակում է"
+	},
+	"Shot damage": {
+		"en": "Shot damage",
+		"ru": "Урон выстрела",
+		"hy": "Կրակոցի վնաս"
+	},
+	"+1 projectile": {
+		"en": "+1 projectile",
+		"ru": "+1 снаряд",
+		"hy": "+1 արկ"
+	},
+	"Takes the special of the extra weapon": {
+		"en": "Takes the special of the extra weapon",
+		"ru": "Берёт особенность второго оружия",
+		"hy": "Վերցնում է երկրորդ զենքի առանձնահատկությունը"
+	},
+	"Extra weapon adds nothing here": {
+		"en": "Extra weapon adds nothing here",
+		"ru": "Второе оружие ничего не добавляет",
+		"hy": "Երկրորդ զենքը ոչինչ չի ավելացնում"
+	},
+	"Same effect stacks": {
+		"en": "Same effect stacks",
+		"ru": "Одинаковые эффекты усиливаются",
+		"hy": "Նույն էֆեկտները ուժեղանում են"
+	},
+	"Effects conflict: only the first works": {
+		"en": "Effects conflict: only the first works",
+		"ru": "Эффекты конфликтуют: работает первый",
+		"hy": "Էֆեկտները հակասում են՝ աշխատում է առաջինը"
+	},
+	"Damage": {
+		"en": "Damage",
+		"ru": "Урон",
+		"hy": "Վնաս"
+	},
+	"Range": {
+		"en": "Range",
+		"ru": "Дальность",
+		"hy": "Հեռավորություն"
+	},
+	"Durability": {
+		"en": "Durability",
+		"ru": "Прочность",
+		"hy": "Ամրություն"
+	},
+	"Knockback": {
+		"en": "Knockback",
+		"ru": "Отбрасывание",
+		"hy": "Հետ մղում"
+	},
+	"Holder takes burn": {
+		"en": "Holder takes burn",
+		"ru": "Владелец горит",
+		"hy": "Տիրոջը այրում է"
+	},
+	"pfx_regen": {
+		"en": "Regeneration",
+		"ru": "Регенерация",
+		"hy": "Վերականգնում"
+	},
+	"pfx_speed_boost": {
+		"en": "Speed boost",
+		"ru": "Ускорение",
+		"hy": "Արագացում"
+	},
+	"pfx_defense_boost": {
+		"en": "Defense",
+		"ru": "Защита",
+		"hy": "Պաշտպանություն"
+	},
+	"Fire": {
+		"en": "Fire",
+		"ru": "Огонь",
+		"hy": "Կրակ"
+	},
+	"Frost": {
+		"en": "Frost",
+		"ru": "Лёд",
+		"hy": "Սառնամանիք"
+	},
+	"Venom": {
+		"en": "Venom",
+		"ru": "Яд",
+		"hy": "Թույն"
+	},
+	"Heavy": {
+		"en": "Heavy",
+		"ru": "Тяжесть",
+		"hy": "Ծանրություն"
+	},
+	"Thorn": {
+		"en": "Thorn",
+		"ru": "Шипы",
+		"hy": "Փշեր"
+	},
+	"Radiant": {
+		"en": "Radiant",
+		"ru": "Сияние",
+		"hy": "Փայլ"
+	},
+	"Sturdy": {
+		"en": "Sturdy",
+		"ru": "Крепость",
+		"hy": "Ամրություն+"
+	},
+	"Rush": {
+		"en": "Rush",
+		"ru": "Рывок",
+		"hy": "Հարված-առաջ"
+	},
+	"Vampiric": {
+		"en": "Vampiric",
+		"ru": "Вампиризм",
+		"hy": "Վամպիրիզմ"
+	},
+	"A — add / take back   |   LB / RB — mode": {
+		"en": "A — add / take back   |   LB / RB — mode",
+		"ru": "A — положить / забрать   |   LB / RB — режим",
+		"hy": "A — դնել / վերցնել   |   LB / RB — ռեժիմ"
+	},
+	"Tap an item — add   |   tap a slot — take back": {
+		"en": "Tap an item — add   |   tap a slot — take back",
+		"ru": "Тап по предмету — положить   |   по слоту — забрать",
+		"hy": "Հպեք իրին՝ դնել   |   սլոտին՝ վերցնել"
+	},
+	"Click or drag items in   |   click a slot — take back": {
+		"en": "Click or drag items in   |   click a slot — take back",
+		"ru": "Клик или перетаскивание — положить   |   клик по слоту — забрать",
+		"hy": "Սեղմեք կամ քաշեք՝ դնել   |   սլոտին սեղմեք՝ վերցնել"
+	},
+	"Click an item in your bag to add it": {
+		"en": "Click an item in your bag to add it",
+		"ru": "Кликни предмет в рюкзаке, чтобы добавить",
+		"hy": "Սեղմեք պայուսակի իրին՝ ավելացնելու համար"
+	},
+	"Bag is full": {
+		"en": "Bag is full",
+		"ru": "Рюкзак полон",
+		"hy": "Պայուսակը լիքն է"
+	},
+	"No free slot": {
+		"en": "No free slot",
+		"ru": "Нет свободного слота",
+		"hy": "Ազատ սլոտ չկա"
+	},
+	"Weapon": {
+		"en": "Weapon",
+		"ru": "Оружие",
+		"hy": "Զենք"
+	},
+	"Resource": {
+		"en": "Resource",
+		"ru": "Ресурс",
+		"hy": "Ռեսուրս"
+	},
+	"Base": {
+		"en": "Base",
+		"ru": "Основа",
+		"hy": "Հիմք"
+	},
+	"Add-on": {
+		"en": "Add-on",
+		"ru": "Добавка",
+		"hy": "Հավելում"
+	},
+	"Combine": {
+		"en": "Combine",
+		"ru": "Собрать",
+		"hy": "Համակցել"
+	},
+	"A resource restores durability. Any resource works.": {
+		"en": "A resource restores durability. Any resource works.",
+		"ru": "Ресурс возвращает прочность. Подойдёт любой.",
+		"hy": "Ռեսուրսը վերականգնում է ամրությունը։ Ցանկացածը կաշխատի։"
+	},
+	"4 slots. Only 1 extra weapon. The rest — materials.": {
+		"en": "4 slots. Only 1 extra weapon. The rest — materials.",
+		"ru": "4 слота. Только 1 доп. оружие, остальное — материалы.",
+		"hy": "4 սլոտ։ Միայն 1 լրացուցիչ զենք, մնացածը՝ նյութեր։"
+	},
+	"Cost": {
+		"en": "Cost",
+		"ru": "Цена",
+		"hy": "Գին"
+	},
+	"Not enough coins": {
+		"en": "Not enough coins",
+		"ru": "Не хватает монет",
+		"hy": "Մետաղադրամները չեն բավարարում"
+	},
+	"Add a resource to repair with": {
+		"en": "Add a resource to repair with",
+		"ru": "Добавь ресурс для ремонта",
+		"hy": "Ավելացրեք ռեսուրս վերանորոգման համար"
+	},
+	"Uses": {
+		"en": "Uses",
+		"ru": "Расход",
+		"hy": "Ծախս"
+	},
+	"Created: %s": {
+		"en": "Created: %s",
+		"ru": "Создано: %s",
+		"hy": "Ստեղծվեց՝ %s"
+	},
+	"Combiner": {
+		"en": "Combiner",
+		"ru": "Комбинатор",
+		"hy": "Համակցիչ"
+	},
+	"Combine weapons": {
+		"en": "Combine weapons",
+		"ru": "Комбинировать оружие",
+		"hy": "Համակցել զենքերը"
 	}
 }

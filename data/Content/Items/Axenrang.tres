@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://0yo6ssv0d2rr" path="res://data/Content/Items/Wood.tres" id="3_hgu1x"]
 [ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://data/Content/Items/Stone.tres" id="4_wd6ig"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_0cxg6"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_symuo"]
 [ext_resource type="PackedScene" uid="uid://4xi3n2b4v2r6" path="res://game/content/Projectiles/AxenRang.tscn" id="6_ooaq8"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="7_dju3w"]
 
@@ -22,6 +23,14 @@ amount = 12
 script = ExtResource("1_r2llf")
 item = ExtResource("4_wd6ig")
 amount = 20
+
+[sub_resource type="Resource" id="Resource_xlqdv"]
+script = ExtResource("5_symuo")
+damage_mult = 1.8499999999999999
+speed_mult = 1.15
+range_mult = 1.68
+knockback_add = -3.0
+metadata/_custom_type_script = "uid://bfynxgdv4omdg"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("5_0cxg6")
@@ -67,4 +76,5 @@ craft_ingredients = Array[ExtResource("1_r2llf")]([SubResource("Resource_7"), Su
 salvage = Array[ExtResource("1_r2llf")]([SubResource("Resource_12"), SubResource("Resource_13"), SubResource("Resource_14")])
 repair_ingredients = Array[ExtResource("1_r2llf")]([SubResource("Resource_15")])
 repair_gold_cost = 15
+craft_properties = Array[ExtResource("5_symuo")]([SubResource("Resource_xlqdv")])
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

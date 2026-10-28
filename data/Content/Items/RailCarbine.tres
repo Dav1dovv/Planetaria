@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://dwmw15dg8pwvd" path="res://data/Content/Items/Fuel.tres" id="3_wyti0"]
 [ext_resource type="Resource" uid="uid://nv0xua18bp8x" path="res://data/Content/Items/Stone.tres" id="4_sd7fm"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_gld18"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_wknqr"]
 [ext_resource type="PackedScene" uid="uid://cowk3ec3deqrw" path="res://game/content/Projectiles/LaserBolt.tscn" id="6_na382"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="7_ecx5g"]
 
