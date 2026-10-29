@@ -64,7 +64,7 @@ color = Color(0.31764707, 0.17254902, 0.14509805, 1)
 color_ramp = SubResource("GradientTexture1D_mgnrg")
 
 [node name="Tree" unique_id=1934415035 instance=ExtResource("1_6b4ni")]
-durability = 105.0
+durability = 70.0
 
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(0, -4.106221)
@@ -88,6 +88,7 @@ particles = NodePath("../Splash")
 position = Vector2(0, -31.777496)
 texture = ExtResource("2_0chrr")
 hframes = 4
+frame = 2
 script = ExtResource("3_m34kx")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
 
@@ -101,7 +102,7 @@ stream = SubResource("AudioStreamRandomizer_0cpi8")
 process_material = SubResource("ParticleProcessMaterial_jrebk")
 
 [node name="Timer" type="Timer" parent="." index="12" unique_id=568577999]
-wait_time = 6.0
+wait_time = 10.0
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

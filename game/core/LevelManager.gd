@@ -156,9 +156,11 @@ func change_to_main_menu() -> void:
 
 
 ## Простой fade без смены сцены (для cutscene или телепорта внутри сцены).
-func fade(update_msg: bool = true) -> void:
-	if update_msg:
+func fade(show_msg: bool = true) -> void:
+	if show_msg:
 		_update_message(_current_scene_data)
+	else:
+		message_label.text = " "
 	animation_player.play("Fade_In")
 	await animation_player.animation_finished
 	animation_player.play("Fade_out")

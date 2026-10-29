@@ -14,7 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://dcj5noosq88tu" path="res://Assets/audio/SFX/UI/Trash/Trash-02.mp3" id="11_0bh7v"]
 [ext_resource type="Resource" uid="uid://6utu3axt82j5" path="res://data/Content/Items/Coin.tres" id="12_30377"]
 [ext_resource type="AudioStream" uid="uid://2sptuiu4d3fy" path="res://Assets/audio/SFX/UI/Trash/Trash-01.mp3" id="12_h1lmb"]
-[ext_resource type="PackedScene" path="res://game/Systems/Craft/Combiner/CombinerStation.tscn" id="12_xqeyq"]
+[ext_resource type="PackedScene" uid="uid://dhg6gmgdmpkbt" path="res://game/Systems/Craft/Combiner/CombinerStation.tscn" id="12_xqeyq"]
 [ext_resource type="AudioStream" uid="uid://dge16bwkfs3n3" path="res://Assets/audio/SFX/UI/OpenInv.wav" id="16_6444u"]
 [ext_resource type="AudioStream" uid="uid://dv50jbp6o0xu5" path="res://Assets/audio/SFX/UI/CloseInv.wav" id="17_xnpxd"]
 [ext_resource type="Theme" uid="uid://bfa08vqnic8g6" path="res://common/Themes/terminal_theme.tres" id="20_term"]

@@ -39,7 +39,7 @@ func _ready() -> void:
 	register_command("clearGameData", _cmd_clear_data,"Удаляет все сохранение за все время")
 	# Можно добавить свои: register_command("give", _cmd_give, "give <item> <amount>")
 	
-	add_to_console("[color=#9aa5b8]Добро пожаловать в игру! Используйте /help для списка команд, или нажмите ` чотбы закрыть консоль.[/color]")
+	#add_to_console("[color=#9aa5b8]Добро пожаловать в игру! Используйте /help для списка команд, или нажмите ` чотбы закрыть консоль.[/color]")
 	
 	# Оверлей чата: всегда в дереве, но невидим, пока нет сообщений
 	chat_overlay.visible = true

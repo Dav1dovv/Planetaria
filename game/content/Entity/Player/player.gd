@@ -9,6 +9,7 @@ const HAND_ANIM_SPEED_SCALE := 1.0
 #  Новый функционал добавляй отдельным Node + скриптом (по образцу этих трёх),
 #  а не новыми переменными/методами прямо здесь.
 # ─────────────────────────────────────────────────────────────────────────────
+@export var is_in_cutscene : bool = false
 
 @onready var movement:     PlayerMovement    = %PlayerMovement
 @onready var combat:       PlayerCombat      = $PlayerCombat
@@ -72,7 +73,7 @@ func _ready() -> void:
 
 	SaveLoad.load_player(self)
 	print("Player Corruption Level is: " + str(corruption))
-
+	
 	if Entity_stats.current_health <= 0:
 		Entity_stats.current_health = Entity_stats.max_health
 		_on_health_changed(Entity_stats.current_health)
@@ -80,6 +81,12 @@ func _ready() -> void:
 	health_bar.update_value(Entity_stats.current_health, Entity_stats.max_health, corruption)
 
 	effect_display_ui.set_entity(self)
+
+	# Аура заражения: частицы вокруг игрока, гуще с ростом порчи
+	var infection_aura := InfectionAura.new()
+	infection_aura.name = "InfectionAura"
+	infection_aura.player = self
+	add_child(infection_aura)
 
 	dev_commands.register_all()
 	movement.try_resume_pending_exit_walk()
@@ -90,24 +97,25 @@ func _ready() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 
 func _physics_process(delta: float) -> void:
-	# Мышь или правый стик геймпада (см. GamepadAim)
-	mouse_pos = GamepadAim.aim_world()
+	if !is_in_cutscene:
+		# Мышь или правый стик геймпада (см. GamepadAim)
+		mouse_pos = GamepadAim.aim_world()
 
-	if is_alive:
-		_tick_regen(delta)
-		if combat.is_lunging:
-			combat.update_lunge(delta)
-		else:
-			velocity = movement.process(delta)
-		_animate()
+		if is_alive:
+			_tick_regen(delta)
+			if combat.is_lunging:
+				combat.update_lunge(delta)
+			else:
+				velocity = movement.process(delta)
+			_animate()
 
-		if not is_attack:
-			hit_box.look_at(mouse_pos)
+			if not is_attack:
+				hit_box.look_at(mouse_pos)
 
-		if velocity.length_squared() <= 1.0 or is_attack:
-			skin.scale.x = scale.x if mouse_pos.x > position.x else -scale.x
+			if velocity.length_squared() <= 1.0 or is_attack:
+				skin.scale.x = scale.x if mouse_pos.x > position.x else -scale.x
 
-	move_and_slide()
+		move_and_slide()
 
 
 func _animate() -> void:
@@ -225,6 +233,9 @@ func add_infection(amount: float) -> void:
 	# INFECTION_RESIST, домножаем накопление заражения на его value (напр. x0.7).
 	amount *= effect_manager.get_effect_value(Effect.EffectType.INFECTION_RESIST, 1.0)
 	corruption += amount
+	# Отклик на заражение (раньше его заменял VFX урона от касания) — иначе момент не чувствуется
+	if amount > 0.0 and Vfx != null and Vfx.has_method("_infection_vfx"):
+		Vfx._infection_vfx(amount)
 	coruption_change()
 
 func cure_infection(amount: float) -> void:

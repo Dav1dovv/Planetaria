@@ -41,7 +41,7 @@ atlas = ExtResource("12_qlw0k")
 region = Rect2(16, 0, 16, 16)
 
 [node name="Stone" unique_id=1934415035 instance=ExtResource("1_8ehyo")]
-durability = 140.0
+durability = 93.0
 
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(-1, -4)
@@ -66,7 +66,7 @@ particles = NodePath("../Splash")
 position = Vector2(0, -16)
 texture = ExtResource("5_4frtp")
 hframes = 6
-frame = 3
+frame = 2
 script = ExtResource("6_nllmb")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 

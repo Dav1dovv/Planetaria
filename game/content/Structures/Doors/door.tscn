@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cf8i27htsnj7e" path="res://Assets/art/items/Door.png" id="2_1k2qo"]
 [ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="3_dfif0"]
 [ext_resource type="Script" uid="uid://cburu6b4ckehs" path="res://addons/godot-rapier2d/custom_nodes/rapier_area_2d.gd" id="4_ir3m2"]
+[ext_resource type="AudioStream" uid="uid://cbnprop4aq7hi" path="res://Assets/audio/SFX/Environemnt/Door/Door_open.wav" id="5_pwhse"]
+[ext_resource type="AudioStream" uid="uid://b40m86stv83xh" path="res://Assets/audio/SFX/Environemnt/Door/Door_close.wav" id="6_pwhse"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hgnio"]
 atlas = ExtResource("2_1k2qo")
@@ -74,72 +76,6 @@ size = Vector2(43.35846, 23.384863)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iw1ep"]
 size = Vector2(43.300774, 53.588345)
 
-[sub_resource type="Animation" id="Animation_6wv72"]
-resource_name = "Close"
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3, 0.42999998, 0.62),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_1k2qo"]
-resource_name = "Open"
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.38, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.61),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_dfif0"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ir3m2"]
-_data = {
-&"Close": SubResource("Animation_6wv72"),
-&"Open": SubResource("Animation_1k2qo"),
-&"RESET": SubResource("Animation_dfif0")
-}
-
 [node name="Door" type="Node2D" unique_id=1531693325]
 script = ExtResource("1_6wv72")
 
@@ -169,8 +105,15 @@ metadata/_custom_type_script = "uid://cburu6b4ckehs"
 position = Vector2(0, -15.205828)
 shape = SubResource("RectangleShape2D_iw1ep")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1044963533]
-libraries/ = SubResource("AnimationLibrary_ir3m2")
+[node name="Open" type="AudioStreamPlayer2D" parent="." unique_id=1010338737]
+stream = ExtResource("5_pwhse")
+max_distance = 250.0
+attenuation = 2.0705302
+
+[node name="Close" type="AudioStreamPlayer2D" parent="." unique_id=784235256]
+stream = ExtResource("6_pwhse")
+max_distance = 250.0
+attenuation = 2.0705302
 
 [connection signal="body_entered" from="RapierArea2D" to="." method="_on_rapier_area_2d_body_entered"]
 [connection signal="body_exited" from="RapierArea2D" to="." method="_on_rapier_area_2d_body_exited"]

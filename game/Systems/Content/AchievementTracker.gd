@@ -208,7 +208,7 @@ func _progress(id: StringName) -> Vector2i:
 		&"combo_10": return Vector2i(_best_combo, 10)
 		&"elite_hunter": return Vector2i(_elites, 1)
 		&"elite_bane": return Vector2i(_elites, 3)
-		&"collector": return Vector2i(_items_total, 40)
+		&"collector": return Vector2i(_items_total, 200)
 		&"lumberjack": return Vector2i(_wood, 30)
 		&"stonemason": return Vector2i(_stone, 30)
 		&"treasure_hunter": return Vector2i(_coins, 200)

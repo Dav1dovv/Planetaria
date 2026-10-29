@@ -1,30 +1,9 @@
 [gd_scene format=3 uid="uid://cfxxahs7peuhm"]
 
-[ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://game/content/Entity/MISC/creature.tscn" id="1_ck8bg"]
-[ext_resource type="Script" uid="uid://bcojg2oc8uiw0" path="res://game/content/Entity/Curse/corruption.gd" id="2_3te72"]
-[ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="3_7l8ac"]
-[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="4_dv512"]
-[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://game/content/Entity/Scripts/Stats.gd" id="5_l43em"]
-[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_s2fnv"]
-[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/art/vfx/Light/Light.png" id="6_gwn36"]
+[ext_resource type="Script" uid="uid://bcojg2oc8uiw0" path="res://game/content/Entity/Curse/corruption.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/art/vfx/Light/Light.png" id="2_light"]
 
-[sub_resource type="Resource" id="Resource_5vj5a"]
-script = ExtResource("5_l43em")
-max_health = 1
-base_move_speed = 4.0
-metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdos3"]
-
-[sub_resource type="Resource" id="Resource_cdos3"]
-script = ExtResource("4_dv512")
-Damage = 1
-metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_cdos3"]
-radius = 8.0
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m2rrc"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wisps"]
 particle_flag_disable_z = true
 emission_shape_scale = Vector3(8, 8, 1)
 emission_shape = 1
@@ -39,193 +18,145 @@ color = Color(0.6039216, 0.18039216, 0.60784316, 1)
 hue_variation_min = -2.2351742e-08
 hue_variation_max = 0.049999975
 
-[sub_resource type="Animation" id="Animation_hvmba"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Corruption/Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Corruption/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Corruption/Sprite2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1.6249999, 1.6249998)]
-}
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
 
-[sub_resource type="Animation" id="Animation_b6k8d"]
-resource_name = "curse"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Corruption/Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Corruption/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Corruption/Sprite2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.49, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1.6249999, 1.6249998), Vector2(1.240277, 1.2402769), Vector2(1.6249999, 1.6249998)]
-}
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 7.0
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xgs0l"]
-_data = {
-&"RESET": SubResource("Animation_hvmba"),
-&"curse": SubResource("Animation_b6k8d")
-}
+[sub_resource type="CircleShape2D" id="CircleShape2D_fire"]
+radius = 5.0
 
-[node name="Curse" unique_id=1251952136 node_paths=PackedStringArray("Vfx") instance=ExtResource("1_ck8bg")]
-collision_mask = 1
-script = ExtResource("2_3te72")
-corupt = 7
-behavior = 1.0
-can_flee = false
-flee_threshold = 0.25
-flee_on_hit = false
-use_fear = false
-fear_per_damage = 0.05
-fear_proximity_radius = 60.0
-fear_proximity_rate = 0.08
-fear_decay_rate = 0.05
-fear_flee_threshold = 0.6
-fear_calm_threshold = 0.25
-hides_when_scared = false
-hide_duration = 1.5
-hide_damage_reduction = 0.0
-fear_sound = null
-fear_sound_pitch_variance = 0.08
-flee_speed_multiplier = 1.6
-pack_group = ""
-pack_alert_radius = 300.0
-hear_radius = 60.0
-sight_radius = 180.0
-fov_half_angle = 60.0
-use_los_check = true
-wall_collision_mask = 1
-memory_duration = 3.0
-wander_interval_min = 7.0
-wander_interval_max = 10.0
-wander_radius = 500.0
-turn_speed = 12.0
-patrol_points = Array[NodePath]([])
-chase_weave_enabled = true
-chase_weave_amplitude = 30.0
-chase_weave_frequency = 3.0
-ray_length = 40.0
-avoidance_strength = 1.8
-attack_damage = 4.0
-attack_radius = 28.0
-attack_cooldown = 1.2
-max_poise = 100.0
-poise_decay_rate = 15.0
-poise_decay_delay = 1.0
-stagger_duration = 1.0
-vulnerable_damage_multiplier = 1.5
-Entity_stats = SubResource("Resource_5vj5a")
-Vfx = NodePath("VFX")
-knockback_strength = 60.0
-enemy_id = "Curse"
-hitstop_duration = 0.01
-screen_shake_strength = 5.0
+[sub_resource type="Gradient" id="Gradient_spawn"]
+colors = PackedColorArray(0.85, 0.3, 1, 0.9, 0.4, 0.1, 0.7, 0)
 
-[node name="optimizer" parent="." index="0" unique_id=1815416353]
-position = Vector2(0, 0)
+[sub_resource type="Gradient" id="Gradient_burst"]
+colors = PackedColorArray(1, 0.45, 1, 1, 0.5, 0.1, 0.8, 0)
 
-[node name="HurtBox" parent="." index="1" unique_id=411889454 groups=["corruption"]]
-position = Vector2(0, 10)
+[sub_resource type="Gradient" id="Gradient_blast"]
+offsets = PackedFloat32Array(0, 0.35, 1)
+colors = PackedColorArray(1, 0.95, 0.7, 1, 1, 0.45, 0.9, 1, 0.35, 0.1, 0.6, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0" unique_id=216553544]
-position = Vector2(0, -10)
-shape = SubResource("RectangleShape2D_cdos3")
+[node name="Curse" type="Node2D" unique_id=1700526655]
+script = ExtResource("1_script")
+lifetime = 7.0
 
-[node name="HitBox" parent="." index="2" unique_id=1440497730]
-position = Vector2(0, 10)
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1578019910]
+modulate = Color(0, 0, 0, 0.35)
+position = Vector2(0, 12)
+scale = Vector2(0.8, 0.3)
+texture = ExtResource("2_light")
+
+[node name="Light" type="PointLight2D" parent="." unique_id=1294721281]
+color = Color(1, 0, 1, 1)
+energy = 0.7
+texture = ExtResource("2_light")
+texture_scale = 4.0
+
+[node name="Skin" type="Node2D" parent="." unique_id=769674672]
+
+[node name="Wisps" type="GPUParticles2D" parent="Skin" unique_id=896161649]
+amount = 28
+lifetime = 1.2
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_wisps")
+
+[node name="Glow" type="Sprite2D" parent="Skin" unique_id=1106722179]
+self_modulate = Color(1, 0, 1, 1)
+material = SubResource("CanvasItemMaterial_add")
+scale = Vector2(1.625, 1.625)
+texture = ExtResource("2_light")
+
+[node name="Core" type="Sprite2D" parent="Skin" unique_id=2085686529]
+self_modulate = Color(0, 0, 1, 1)
+scale = Vector2(0.74, 0.74)
+texture = ExtResource("2_light")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1523523679 groups=["Ennemy", "corruption"]]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=325254170]
+shape = SubResource("CircleShape2D_body")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=488475057]
 collision_layer = 4096
 collision_mask = 23
-equip = SubResource("Resource_cdos3")
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0" unique_id=9866221]
-position = Vector2(0, -10)
-shape = SubResource("CircleShape2D_cdos3")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=351573809]
+shape = SubResource("CircleShape2D_body")
 
-[node name="HealthBar" parent="." index="8" unique_id=1354189396]
-visible = false
+[node name="FireSensor" type="Area2D" parent="." unique_id=825058030 groups=["corruption"]]
+collision_layer = 16384
+collision_mask = 0
+monitoring = false
 
-[node name="Skin" type="Node2D" parent="." index="10" unique_id=1976922875]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireSensor" unique_id=1347012058]
+shape = SubResource("CircleShape2D_fire")
 
-[node name="Corruption" type="GPUParticles2D" parent="Skin" index="0" unique_id=776316391]
-amount = 48
-speed_scale = 0.5
-process_material = SubResource("ParticleProcessMaterial_m2rrc")
-
-[node name="Sprite2D" type="Sprite2D" parent="Skin/Corruption" index="0" unique_id=344765223]
-self_modulate = Color(1, 0, 1, 1)
-scale = Vector2(1.6249999, 1.6249998)
-texture = ExtResource("6_gwn36")
-
-[node name="Sprite2D" type="Sprite2D" parent="Skin/Corruption/Sprite2D" index="0" unique_id=1934525666]
-self_modulate = Color(0, 0, 1, 1)
-scale = Vector2(0.45454544, 0.45454553)
-texture = ExtResource("6_gwn36")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Skin" index="1" unique_id=1588613683]
-libraries/ = SubResource("AnimationLibrary_xgs0l")
-autoplay = &"curse"
-
-[node name="Timer" type="Timer" parent="." index="11" unique_id=2141009598]
-wait_time = 6.0
+[node name="SpawnFX" type="CPUParticles2D" parent="." unique_id=1192241396]
+emitting = false
+amount = 14
+lifetime = 0.6
 one_shot = true
-autostart = true
+explosiveness = 0.9
+direction = Vector2(0, -1)
+spread = 120.0
+gravity = Vector2(0, -20)
+initial_velocity_min = 10.0
+initial_velocity_max = 36.0
+damping_min = 20.0
+damping_max = 40.0
+scale_amount_max = 2.5
+color_ramp = SubResource("Gradient_spawn")
 
-[connection signal="damage_taken" from="HurtBox" to="." method="_on_hurt_box_damage_taken"]
-[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="BurstFX" type="CPUParticles2D" parent="." unique_id=695763350]
+emitting = false
+amount = 18
+lifetime = 0.55
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 70.0
+damping_min = 40.0
+damping_max = 70.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_burst")
+
+[node name="Explosion" type="Node2D" parent="." unique_id=1860130579]
+
+[node name="Flash" type="Sprite2D" parent="Explosion" unique_id=1127927278]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 0.55, 0.95, 1)
+material = SubResource("CanvasItemMaterial_add")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_light")
+
+[node name="Sparks" type="CPUParticles2D" parent="Explosion" unique_id=1596792045]
+emitting = false
+amount = 36
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 170.0
+damping_min = 90.0
+damping_max = 160.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_blast")
+
+[node name="Light" type="PointLight2D" parent="Explosion" unique_id=235593922]
+color = Color(1, 0.4, 0.9, 1)
+energy = 0.0
+texture = ExtResource("2_light")
+texture_scale = 7.0

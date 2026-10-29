@@ -43,7 +43,7 @@ config/icon="uid://bx40bofn7yy27"
 
 [audio]
 
-buses/default_bus_layout="uid://dnm5q832g8ngf"
+buses/default_bus_layout="uid://l2cro6rlebg4"
 
 [autoload]
 

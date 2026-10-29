@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dipooj0r8ktan"
-path="res://.godot/imported/Decline.wav-6ebf6a25f880d440fb0c6ecd032d1e8d.sample"
+uid="uid://b1gmhyynkib7i"
+path="res://.godot/imported/Click.wav-0c7b3a3a2a246852733ea04ba34088b0.sample"
 
 [deps]
 
-source_file="res://Assets/audio/SFX/UI/Decline.wav"
-dest_files=["res://.godot/imported/Decline.wav-6ebf6a25f880d440fb0c6ecd032d1e8d.sample"]
+source_file="res://Assets/audio/SFX/UI/Buttons/Click.wav"
+dest_files=["res://.godot/imported/Click.wav-0c7b3a3a2a246852733ea04ba34088b0.sample"]
 
 [params]
 

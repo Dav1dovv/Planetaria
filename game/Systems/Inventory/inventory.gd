@@ -384,9 +384,11 @@ func call_inventory():
 	is_opened = !is_opened
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
+	$SCOREBAR.visible = !is_opened
 	$Panel.visible = is_opened
 	$HotBar.visible = true
 	inventory.visible = true
+	
 	smith.visible = false
 	trade_window.visible = false
 	combiner.visible = false
@@ -402,6 +404,7 @@ func _call_craft_station(station: Control) -> void:
 	is_opened = !is_opened
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
+	$SCOREBAR.visible = !is_opened
 	$Panel.visible = is_opened
 
 	inventory.visible = false
@@ -438,6 +441,7 @@ func call_combiner() -> void:
 	is_opened = !is_opened
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
+	$SCOREBAR.visible = !is_opened
 	$Panel.visible = is_opened
 	$HotBar.visible = true
 	inventory.visible = true
@@ -458,6 +462,7 @@ func call_trade(Trader : TraderData):
 	is_opened = !is_opened
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
+	$SCOREBAR.visible = !is_opened
 	$Panel.visible = is_opened
 	inventory.visible = false
 	$HotBar.visible = false

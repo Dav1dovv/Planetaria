@@ -318,6 +318,7 @@ _data = {
 
 [node name="MainMenu" type="ColorRect" unique_id=1265719968]
 y_sort_enabled = true
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -355,7 +356,7 @@ scroll_scale = Vector2(2, 2)
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets" unique_id=1007087873]
 position = Vector2(4.132263, 251.23965)
-rotation = -36.73676
+rotation = -271.33917
 scale = Vector2(4.175082, 4.175082)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -372,7 +373,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=530346119]
 position = Vector2(5.9159737, -41.65517)
-rotation = 2117.5679
+rotation = -176.23389
 scale = Vector2(0.6516362, 0.6516362)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -387,7 +388,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet2" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=684306597]
 position = Vector2(-48.649956, -41.51426)
-rotation = 1049.2141
+rotation = 113.75249
 scale = Vector2(0.65163606, 0.65163606)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -398,7 +399,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="ParallaxBackground/Planets/planet/planet2" unique_id=1718899979]
 position = Vector2(-1.5468187, 0.69523215)
-rotation = 152.93002
+rotation = 163.2095
 scale = Vector2(0.3292737, 0.3292737)
 texture = ExtResource("11_fqo0y")
 offset = Vector2(66.32508, 12.849968)
@@ -420,7 +421,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet3" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=1423906424]
 position = Vector2(-36.936844, 71.13017)
-rotation = 489.8682
+rotation = 321.88834
 scale = Vector2(0.65163606, 0.65163606)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -435,7 +436,7 @@ texture = ExtResource("13_fqo0y")
 
 [node name="planet5" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=543942180]
 position = Vector2(-53.9042, 23.165627)
-rotation = 840.86426
+rotation = -147.59073
 scale = Vector2(0.37224847, 0.37224847)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -454,14 +455,14 @@ scale = Vector2(5.203, 5.203)
 texture = ExtResource("13_fqo0y")
 
 [node name="Marker2D" type="Sprite2D" parent="ParallaxBackground/Planets/planet" unique_id=736093489]
-rotation = -459.21014
+rotation = -312.55173
 script = ExtResource("12_jm7od")
 rotation_speed = -0.5
 metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="ParallaxBackground/Planets/planet/Marker2D" unique_id=1864340330]
 position = Vector2(110.0839, -3.0646439)
-rotation = -3750.19
+rotation = 58.199627
 scale = Vector2(0.49572185, 0.49572185)
 texture = ExtResource("11_fqo0y")
 region_enabled = true
@@ -514,8 +515,11 @@ alignment = 1
 [node name="SoloBtn" parent="CanvasLayer/Interface/VBoxContainer/VBoxContainer" unique_id=392024303 node_paths=PackedStringArray("shortcut_context") instance=ExtResource("5_bwn3d")]
 custom_minimum_size = Vector2(100, 13)
 layout_mode = 2
+focus_neighbor_top = NodePath("../Exit")
+focus_neighbor_bottom = NodePath("../MultiBtn")
 focus_next = NodePath("../MultiBtn")
 focus_previous = NodePath("../Exit")
+focus_behavior_recursive = 2
 shortcut_context = NodePath(".")
 theme_override_font_sizes/font_size = 7
 text = "Start Game"
@@ -523,6 +527,8 @@ text = "Start Game"
 [node name="MultiBtn" parent="CanvasLayer/Interface/VBoxContainer/VBoxContainer" unique_id=1793936385 instance=ExtResource("5_bwn3d")]
 custom_minimum_size = Vector2(100, 13)
 layout_mode = 2
+focus_neighbor_top = NodePath("../SoloBtn")
+focus_neighbor_bottom = NodePath("../OptionBtn")
 focus_next = NodePath("../OptionBtn")
 focus_previous = NodePath("../SoloBtn")
 theme_override_font_sizes/font_size = 7

@@ -14,6 +14,7 @@ var player_skin_index: int = 0
 var player_skin_head_index: int = 0
 var game_difficult: int = 0
 var current_save_slot: String = ""
+var is_first_time : bool = true
 ## Меняется при смене локации; имя планеты совпадает с PlanetData.Planet_Name
 signal location_changed(location: String)
 ## Прогресс планет загружен из слота

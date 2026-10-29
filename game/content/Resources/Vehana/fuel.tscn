@@ -42,6 +42,7 @@ atlas = ExtResource("12_vht8u")
 region = Rect2(32, 0, 16, 16)
 
 [node name="Fuel" unique_id=1934415035 instance=ExtResource("1_2aj6u")]
+durability = 49.0
 
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(-1, -6)
@@ -66,6 +67,7 @@ particles = NodePath("../Splash")
 position = Vector2(0, -17)
 texture = ExtResource("5_l8pk2")
 hframes = 3
+frame = 1
 script = ExtResource("6_8s4cy")
 frame_weights = Array[float]([1.0, 1.0, 1.0])
 

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bcg5vwna4id5n" path="res://game/Systems/Craft/SimpleCraft/CraftIngeridents.gd" id="3_kxpfh"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://game/content/Entity/Scripts/Stats.gd" id="3_mho44"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://data/ItemData/Equip_item_data.gd" id="4_kxpfh"]
+[ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="4_m12l1"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="5_qmv18"]
 [ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://game/content/Projectiles/Arrow.tscn" id="6_gipjf"]
 [ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://game/Utils/Drop/DropRersource.gd" id="7_mho44"]
@@ -17,7 +18,7 @@
 script = ExtResource("4_kxpfh")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
-[sub_resource type="Resource" id="Resource_qmv18"]
+[sub_resource type="Resource" id="Resource_o4dhv"]
 resource_local_to_scene = true
 script = ExtResource("3_mho44")
 max_health = 30
@@ -26,7 +27,7 @@ base_armor = 10.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrqgb"]
-size = Vector2(20, 21)
+size = Vector2(23, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4w85q"]
 atlas = ExtResource("5_qmv18")
@@ -60,7 +61,11 @@ icon = SubResource("AtlasTexture_5xc2f")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hprji"]
-size = Vector2(18, 11)
+size = Vector2(18, 23)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ryeg6"]
+radius = 5.0
+height = 16.0
 
 [sub_resource type="Resource" id="Resource_kxpfh"]
 script = ExtResource("7_mho44")
@@ -1373,25 +1378,25 @@ speed_multiplier = 10.0
 attack_parameter = SubResource("Resource_m2pa7")
 attack_range = 50.0
 attack_cooldown = 0.8
-aim_offset = Vector2(0, 0)
-wander_enabled = true
-wander_radius = 40.0
+aim_offset = 3.0
+wander_enabled = 1.0
+wander_radius = 3.0
 wander_speed_factor = 0.3
 wander_pause_min = 1.0
 wander_pause_max = 3.0
 wander_look_around = 0.4
 skin = NodePath("Skin")
-show_gizmos = true
-sight_color = Color(1, 0.85, 0.2, 1)
-attack_color = Color(1, 0.2, 0.2, 1)
-Entity_stats = SubResource("Resource_qmv18")
+show_gizmos = null
+sight_color = false
+attack_color = null
+Entity_stats = SubResource("Resource_o4dhv")
 Vfx = NodePath("VFX")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 hide_objects = [NodePath("../Skin")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" parent_id_path=PackedInt32Array(411889454) index="0" unique_id=381275437]
-position = Vector2(0, -10.5)
+position = Vector2(0.5, -10)
 shape = SubResource("RectangleShape2D_lrqgb")
 
 [node name="HitBox" parent="." index="2" unique_id=1440497730]
@@ -1399,9 +1404,14 @@ position = Vector2(0, -9)
 random_weapons = Array[ExtResource("4_kxpfh")]([SubResource("Resource_4xexb"), SubResource("Resource_h0w0q")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0" unique_id=757434288]
-position = Vector2(21, -2)
+position = Vector2(8, -1)
 shape = SubResource("RectangleShape2D_hprji")
 disabled = true
+
+[node name="CollisionShape2D" parent="." index="3" unique_id=713772618]
+position = Vector2(0, -2)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_ryeg6")
 
 [node name="Drop" parent="." index="4" unique_id=1587885386]
 drop_resources = Array[ExtResource("7_mho44")]([SubResource("Resource_kxpfh")])

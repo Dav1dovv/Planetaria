@@ -30,7 +30,8 @@ texture = SubResource("AtlasTexture_po7el")
 modulate_color = Color(0.5411765, 1, 0.41568628, 1)
 
 [node name="Creature" type="CharacterBody2D" unique_id=627517657]
-collision_mask = 3
+collision_layer = 5
+collision_mask = 7
 script = ExtResource("1_n644n")
 Entity_stats = SubResource("Resource_20qhi")
 metadata/_custom_type_script = "uid://dsd2vkq83udix"

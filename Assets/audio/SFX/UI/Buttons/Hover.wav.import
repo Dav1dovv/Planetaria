@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://b1gmhyynkib7i"
-path="res://.godot/imported/Click.wav-f2e52eda3e2469af7f599eef518e5e82.sample"
+uid="uid://gd860wwl3b8f"
+path="res://.godot/imported/Hover.wav-9cc00087a52a3b0410832614f6867ee2.sample"
 
 [deps]
 
-source_file="res://Assets/audio/SFX/UI/Click.wav"
-dest_files=["res://.godot/imported/Click.wav-f2e52eda3e2469af7f599eef518e5e82.sample"]
+source_file="res://Assets/audio/SFX/UI/Buttons/Hover.wav"
+dest_files=["res://.godot/imported/Hover.wav-9cc00087a52a3b0410832614f6867ee2.sample"]
 
 [params]
 
