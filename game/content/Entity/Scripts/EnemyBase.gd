@@ -87,6 +87,7 @@ var is_attack : bool = false
 var _attack_cooldown_left : float = 0.0
 
 # Диагностика: был ли вызван shoot() за время текущей атаки и какие предупреждения уже выводились
+var _last_alert_msec : int = -100000
 var _shot_fired : bool = false
 var _warned : Dictionary = {}
 
@@ -172,7 +173,16 @@ func _physics_process(delta: float) -> void:
 	# Потеряли игрока из виду — новая «домашняя» точка и пауза
 	if _was_detected and not target_detected:
 		_on_target_lost()
+	if target_detected and not _was_detected:
+		_last_alert_msec = AttackTelegraph.alert(global_position + Vector2(0.0, -22.0), _last_alert_msec)
 	_was_detected = target_detected
+
+	# Оглушён: стоим, атака прервана (poise сбит игроком)
+	if is_staggered():
+		velocity = Vector2.ZERO
+		move_and_slide()
+		_animate()
+		return
 
 	# Анимация атаки доиграла — заканчиваем атаку
 	if is_attack and not _is_attacking():
@@ -207,6 +217,7 @@ func _draw() -> void:
 #  Атака (запуск и завершение анимации)
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 func _attack() -> void:
 	var attack_player := _get_attack_player()
 	if not attack_player:
@@ -225,6 +236,33 @@ func _attack() -> void:
 	is_attack = true
 	attack_player.speed_scale = attack_parameter.Atk_speed
 	attack_player.play(str(attack_parameter.play_anim))
+
+
+## Стойка сбита: отменяем замах и идущую атаку
+func _on_staggered(_duration: float) -> void:
+	if is_attack:
+		_cancel_attack()
+	# Короткая белая вспышка — «попал, стойка сломана»
+	if skin:
+		var flash := skin.create_tween()
+		skin.modulate = Color(2.2, 2.2, 2.2)
+		flash.tween_property(skin, "modulate", Color.WHITE, 0.18)
+
+
+func _cancel_attack() -> void:
+	var attack_player := _get_attack_player()
+	if attack_player and _is_attacking():
+		attack_player.stop()
+		attack_player.speed_scale = 1.0
+	_disarm_attack_hitbox()
+	is_attack = false
+	_attack_cooldown_left = attack_cooldown
+
+
+## Выключить зону урона оборванной атаки. Базовые враги бьют снарядами или касанием —
+## им ничего выключать не нужно.
+func _disarm_attack_hitbox() -> void:
+	pass
 
 
 func _finish_attack() -> void:

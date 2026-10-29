@@ -44,12 +44,27 @@ static func projectiles(item: equip_data) -> int:
 	return maxi(1, item.num_projectiles)
 
 
+## Чистое стрелковое оружие (анимация Shoot). Ближнее оружие со снарядом — «гибрид», стиль остаётся melee.
 static func style_of(item: equip_data) -> String:
-	return "ranged" if item.projectile != null else "melee"
+	return "ranged" if (item.projectile != null and item.play_anim == "Shoot") else "melee"
+
+
+## Ближнее оружие, которое ещё и стреляет при замахе (получается в комбинаторе).
+static func is_hybrid(item: equip_data) -> bool:
+	return item.projectile != null and item.play_anim != "Shoot"
+
+
+## Урон одного снаряда.
+static func shot_damage(item: equip_data) -> int:
+	return maxi(1, roundi(item.Damage * item.projectile_damage_mult))
 
 
 static func dps(item: equip_data) -> float:
-	return float(item.Damage) * item.Atk_speed * projectiles(item)
+	if item.projectile == null:
+		return float(item.Damage) * item.Atk_speed
+	var volley := float(shot_damage(item)) * projectiles(item) * item.Atk_speed
+	# Гибрид: удар + залп за один замах; чистый стрелок — только залп
+	return volley if item.play_anim == "Shoot" else float(item.Damage) * item.Atk_speed + volley
 
 
 static func hits_before_break(item: equip_data) -> float:
@@ -57,7 +72,8 @@ static func hits_before_break(item: equip_data) -> float:
 
 
 static func lifetime_damage(item: equip_data) -> float:
-	return float(item.Damage) * projectiles(item) * hits_before_break(item)
+	# Урон за один замах/выстрел × сколько их выдержит оружие
+	return dps(item) / maxf(item.Atk_speed, 0.001) * hits_before_break(item)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -113,6 +129,8 @@ static func rows(item: equip_data, reference: equip_data) -> Array[Dictionary]:
 
 static func _dmg_text(item: equip_data) -> String:
 	var n := projectiles(item)
+	if is_hybrid(item):
+		return "%d+%d×%d" % [item.Damage, shot_damage(item), n] if n > 1 else "%d+%d" % [item.Damage, shot_damage(item)]
 	return "%d×%d" % [item.Damage, n] if n > 1 else str(item.Damage)
 
 

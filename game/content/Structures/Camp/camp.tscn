@@ -251,9 +251,8 @@ texture = ExtResource("2_oddsj")
 process_material = SubResource("ParticleProcessMaterial_gaae2")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1173753225]
-visible = false
 position = Vector2(1, -9)
-color = Color(0.97340745, 0.9441534, 0, 1)
+color = Color(0.4117647, 0.94509804, 0, 1)
 texture = ExtResource("3_ww3wb")
 texture_scale = 9.88
 

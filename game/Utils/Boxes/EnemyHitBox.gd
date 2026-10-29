@@ -20,14 +20,12 @@ func _ready() -> void:
 
 func hit(area:Area2D):
 	if area.is_in_group("Player"):
-		print("damaging to player")
 		area.get_parent().take_damage(equip.Damage,self)
 		emit_signal("attacked")
 	
 func update_equip(new_equip : ItemData):
 	if equip_sprite == null:
 		return
-	print("updating equip sprite")
 	equip = new_equip
 	if equip is equip_data:
 		#equip_sprite.offset = Vector2(-0.5,-4.5)

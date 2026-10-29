@@ -38,6 +38,9 @@ signal hit_target(target: Node)
 @onready var hit_particles: GPUParticles2D = $HitParticles  # Опционально
 @onready var explosion_particles: GPUParticles2D = $ExplosionParticles  # Опционально
 
+## Стойкость, которую снимает попадание (ставит PlayerCombat из оружия; у вражеских = 0)
+var poise_damage: float = 0.0
+
 var direction: Vector2 = Vector2.RIGHT
 var owner_player: Node2D = null   # Player или враг, выстреливший снаряд
 var start_position: Vector2
@@ -68,6 +71,9 @@ func _ready() -> void:
 		bomb_timer_node.one_shot = true
 		bomb_timer_node.timeout.connect(_explode)
 		bomb_timer_node.start()
+
+func get_poise_damage() -> float:
+	return poise_damage
 
 func setup(
 		start_pos: Vector2,
@@ -140,7 +146,6 @@ func _on_area_entered(area: Area2D) -> void:
 		# Сообщаем о попадании (если цель не успела удалиться от урона)
 		if is_instance_valid(victim):
 			hit_target.emit(victim)
-		print("weapon damaged: " + str(damage))
 		_play_hit_effect()
 		if projectile_type == "boomerang":
 			has_returned = true
@@ -188,7 +193,6 @@ func _explode() -> void:
 			elif body.has_method("Harvest"):
 				body.Harvest(damage * 0.8, 1, false)
 
-	print("BOOM! ", projectile_type, " exploded! Radius: ", explosion_radius)
 
 	# Удаляем через время (чтобы частицы доиграли)
 	await get_tree().create_timer(1.0).timeout
@@ -198,7 +202,6 @@ func _play_hit_effect() -> void:
 	if hit_particles:
 		hit_particles.emitting = true
 		hit_particles.reparent(get_parent())  # Чтобы частицы остались в мире
-	print("Projectile hit! Damage: ", damage)
 
 # Плавное исчезновение: гасим спрайт (и опционально замедляем), потом удаляем
 func _fade_out() -> void:

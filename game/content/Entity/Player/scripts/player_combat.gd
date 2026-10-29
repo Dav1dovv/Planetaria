@@ -14,12 +14,23 @@ var _lunge_hit_bodies: Array   = []
 
 @export var shot_marker : Marker2D
 
+## Буфер ввода (GDD 3.3: «Ввод = 0.2»): клик ЛКМ, сделанный в конце анимации предыдущего
+## удара, не теряется, а срабатывает сразу после неё. 0 = выключить.
+@export_range(0.0, 0.5, 0.01) var input_buffer_time : float = 0.2
+
+var _buffered_until_msec : int = 0
+
 # ─────────────────────────────────────────────────────────────────────────────
 #  Ввод / атака
 # ─────────────────────────────────────────────────────────────────────────────
 
 func handle_input(event: InputEvent) -> void:
-	if not event.is_action_pressed("LMB") or player.is_attack or Global.is_opened_menu:
+	if not event.is_action_pressed("LMB") or Global.is_opened_menu:
+		return
+	# Удар/выстрел ещё идёт: запоминаем клик, а не выбрасываем его
+	if player.is_attack:
+		if _can_buffer_click():
+			_buffered_until_msec = Time.get_ticks_msec() + int(input_buffer_time * 1000.0)
 		return
 	# Диалог идёт — ни ударов, ни использования предметов
 	if DialogueLock.is_locked():
@@ -31,6 +42,11 @@ func handle_input(event: InputEvent) -> void:
 		player.get_viewport().set_input_as_handled()
 		return
 
+	_use_primary_item()
+
+
+## Использовать предмет в руках (ЛКМ-действие без проверки взаимодействия).
+func _use_primary_item() -> void:
 	var hit_box   = player.hit_box
 	var hand_anim = player.HandAanimator
 
@@ -67,6 +83,24 @@ func handle_input(event: InputEvent) -> void:
 		call_deferred("_start_attack_cooldown", true)
 
 
+## Буферизуем только оружие: еда и телепортер не должны срабатывать «сами» второй раз.
+func _can_buffer_click() -> bool:
+	return input_buffer_time > 0.0 \
+		and player.hit_box.is_weapon and player.hit_box.equip is equip_data \
+		and not DialogueLock.is_locked()
+
+
+## Вызывается, когда анимация удара закончилась: отрабатываем запомненный клик.
+func _try_buffered_attack() -> void:
+	if Time.get_ticks_msec() > _buffered_until_msec:
+		return
+	_buffered_until_msec = 0
+	if not player.is_alive or player.is_attack or Global.is_opened_menu or DialogueLock.is_locked():
+		return
+	if player.hit_box.is_weapon and player.hit_box.equip is equip_data:
+		_use_primary_item()
+
+
 ## Телепортер в руке: запускаем заряд. Если телепорт сейчас невозможен (уже на корабле или
 ## заряд идёт) — анимацию не играем и предмет не трогаем.
 func _use_teleporter(data: TeleporterData) -> void:
@@ -93,6 +127,8 @@ func _start_attack_cooldown(one_shot: bool) -> void:
 		if equip.lunge_enabled and not is_lunging:
 			start_lunge(equip)
 		call_deferred("_start_attack_cooldown", false)
+		return
+	_try_buffered_attack()
 
 
 func _start_eat_cooldown() -> void:
@@ -188,6 +224,7 @@ func _start_shot_cooldown(one_shot: bool) -> void:
 		_begin_shot(player.hit_box.equip as equip_data)
 	else:
 		player._hand.rotation = 0
+		_try_buffered_attack()
 
 
 func shoot() -> void:
@@ -216,6 +253,7 @@ func shoot() -> void:
 
 		bullet.owner_player = player
 		bullet.shot_target  = "Ennemy"
+		bullet.poise_damage = equip.get_poise_damage()
 
 		# Сначала в дерево, потом setup: иначе @onready-узлы (sprite и т.д.) ещё не готовы
 		bullet.setup(

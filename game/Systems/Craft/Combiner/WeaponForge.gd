@@ -13,7 +13,7 @@
 class_name WeaponForge
 extends RefCounted
 
-const CONFIG_PATH := "res://scr/Systems/Craft/Combiner/forge_config.tres"
+const CONFIG_PATH := "res://game/Systems/Craft/Combiner/ForgeConfig.gd"
 
 enum Mode { COMBINE, REPAIR }
 enum Role { NONE, WEAPON, COMBINED, MATERIAL }
@@ -191,15 +191,24 @@ static func build(base: equip_data, donor: equip_data, mats: Array[ItemData]) ->
 ## Строит готовое оружие из сохранённого «рецепта» (см. CombinedWeapon.pack()).
 ## null — если основа больше не существует.
 static func rebuild(packed: Dictionary) -> CombinedWeapon:
-	var base := ItemDB.get_item(str(packed.get("base", ""))) as equip_data
+	var base_key := str(packed.get("base", ""))
+	var base := ItemDB.get_item(base_key) as equip_data
 	if base == null:
+		push_warning("[WeaponForge] rebuild: основа '%s' не найдена в ItemDB" % base_key)
 		return null
-	var donor := ItemDB.get_item(str(packed.get("donor", ""))) as equip_data
+	var donor: equip_data = null
+	var donor_key := str(packed.get("donor", ""))
+	if donor_key != "":
+		donor = ItemDB.get_item(donor_key) as equip_data
+		if donor == null:
+			push_warning("[WeaponForge] rebuild: второе оружие '%s' не найдено в ItemDB — пропущено" % donor_key)
 	var mats: Array[ItemData] = []
 	for n in packed.get("mats", []):
 		var item: ItemData = ItemDB.get_item(str(n))
 		if item != null:
 			mats.append(item)
+		else:
+			push_warning("[WeaponForge] rebuild: материал '%s' не найден в ItemDB — пропущен" % str(n))
 	var weapon := build(base, donor, mats)["weapon"] as CombinedWeapon
 	var saved := int(packed.get("durability", weapon.max_durability))
 	weapon.durability = clampi(saved, 0, weapon.max_durability)
@@ -244,18 +253,17 @@ static func _copy_into(dst: Resource, src: Resource) -> void:
 static func _apply_donor(r: CombinedWeapon, base: equip_data, donor: equip_data, cfg: ForgeConfig, notes: Array[Dictionary]) -> void:
 	var donor_shoots := donor.projectile != null
 	if donor_shoots and base.projectile == null:
-		# Сильный ближний бой + слабое стрелковое = оружие, которое стреляет
+		# Ближний бой + стрелковое = гибрид. Анимация, темп и урон удара остаются от основы (Attack),
+		# а от донора берём ТОЛЬКО логику стрельбы: какой снаряд и сколько снарядов летит на каждом замахе.
 		r.projectile = donor.projectile
-		r.num_projectiles = donor.num_projectiles
+		r.num_projectiles = maxi(1, donor.num_projectiles)
 		r.spread_degrees = donor.spread_degrees
 		r.projectile_speed = donor.projectile_speed
 		r.accuracy_radius = donor.accuracy_radius
 		r.durability_per_shot = maxi(1, donor.durability_per_shot)
-		r.one_shot_attack = donor.one_shot_attack
-		r.play_anim = "Shoot"
-		r.Atk_speed = donor.Atk_speed
-		r.Damage = maxi(1, roundi(base.Damage * cfg.shoot_damage_mult))
-		notes.append({"text": Loc.t("Now it shoots"), "color": C_OK})
+		r.projectile_damage_mult = cfg.shoot_damage_mult
+		notes.append({"text": Loc.t("Strikes fire projectiles"), "color": C_OK})
+		notes.append({"text": "%s: %d  (%s)" % [Loc.t("Projectiles"), r.num_projectiles, Loc.t(donor.item_name)], "color": C_OK})
 		notes.append({"text": "%s %d%%" % [Loc.t("Shot damage"), roundi(cfg.shoot_damage_mult * 100.0)], "color": C_WARN})
 	elif donor_shoots and base.projectile != null:
 		r.num_projectiles = mini(base.num_projectiles + 1, 5)

@@ -88,6 +88,7 @@ var _attack_cooldown_left : float = 0.0
 var _offset : Vector2 = Vector2.ZERO
 var _offset_timer : float = 0.0
 
+var _last_alert_msec : int = -100000
 func _ready():
 	# В редакторе игровую логику не запускаем
 	if Engine.is_editor_hint():
@@ -153,7 +154,16 @@ func _physics_process(delta: float) -> void:
 	# Потеряли игрока из виду — новая «домашняя» точка и пауза
 	if _was_detected and not target_detected:
 		_wander.rehome(global_position)
+	if target_detected and not _was_detected:
+		_last_alert_msec = AttackTelegraph.alert(global_position + Vector2(0.0, -22.0), _last_alert_msec)
 	_was_detected = target_detected
+
+	# Оглушён: стоим, удар прерван
+	if is_staggered():
+		velocity = Vector2.ZERO
+		move_and_slide()
+		_animate()
+		return
 
 	# Удар уже идёт: стоим на месте, пока не доиграет анимация атаки (как у игрока)
 	if is_attack:
@@ -208,6 +218,7 @@ func _is_scared() -> bool:
 #  5) по окончании анимации is_attack сбрасывается.
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 func _attack() -> void:
 	if not hand_anim or not attack_parameter:
 		return
@@ -219,6 +230,31 @@ func _attack() -> void:
 	is_attack = true
 	hand_anim.speed_scale = attack_parameter.Atk_speed
 	hand_anim.play(str(attack_parameter.play_anim))
+
+
+## Стойка сбита: отменяем замах и идущий удар
+func _on_staggered(_duration: float) -> void:
+	if is_attack:
+		if hand_anim and _is_attacking():
+			hand_anim.stop()
+			hand_anim.speed_scale = 1.0
+		_disarm_attack_hitbox()
+		is_attack = false
+		_attack_cooldown_left = attack_cooldown
+	if skin:
+		var flash := skin.create_tween()
+		skin.modulate = Color(2.2, 2.2, 2.2)
+		flash.tween_property(skin, "modulate", Color.WHITE, 0.18)
+
+
+## Анимация удара включает зону урона треком — при обрыве её надо выключить вручную,
+## иначе враг продолжит бить «пустым» взмахом.
+func _disarm_attack_hitbox() -> void:
+	if not is_instance_valid(hit_box):
+		return
+	for child in hit_box.get_children():
+		if child is CollisionShape2D or child is CollisionPolygon2D:
+			child.set_deferred("disabled", true)
 
 
 func _finish_attack() -> void:
@@ -278,7 +314,6 @@ func _update_offset(delta: float) -> void:
 	_offset_timer = offset_interval * randf_range(0.7, 1.3)
 
 func _on_health_changed(new_health):
-	print("Current Health" + str(Entity_stats.current_health) + " Max Health " + str(Entity_stats.max_health) + "Scare Health value" + str(Entity_stats.max_health / 3) )
 	health_bar.visible = true
 	if new_health > 0:
 		health_bar.value = new_health

@@ -18,6 +18,10 @@ var durability: int = -1  # -1 = не инициализирована
 @export var projectile_speed: float = 0.0
 @export var accuracy_radius: float = 20.0
 @export var knockback : float = 5
+## Сколько «стойкости» врага снимает попадание. Враг, у которого она кончилась,
+## оглушается (стаггер) и получает больше урона. -1 = считать автоматически:
+## тяжёлое оружие ломает стойку быстрее, лёгкое — медленнее.
+@export var poise_damage : float = -1.0
 
 @export_group("Attack Behavior")
 @export var one_shot_attack: bool = true
@@ -27,6 +31,13 @@ var durability: int = -1  # -1 = не инициализирована
 ## Сколько прочности тратит один выстрел/залп. 0 = стрелковое оружие не изнашивается
 ## (прежнее поведение). Для нового стрелкового оружия ставим 1.
 @export_range(0, 10) var durability_per_shot: int = 0
+
+@export_group("Hybrid (ближний бой + стрельба)")
+@export_range(0.1, 2.0, 0.05) var projectile_damage_mult: float = 1.0
+@export_range(0.0, 0.6, 0.01, "suffix:s") var swing_shot_delay: float = 0.08
+
+func is_damaged() -> bool:
+	return get_durability() < max_durability
 
 # ═══════════════════════════════════════════════════════════════════
 #  LUNGE ATTACK — рывок-атака (тамплиер / рыцарь)
@@ -121,6 +132,11 @@ var durability: int = -1  # -1 = не инициализирована
 # ═══════════════════════════════════════════════════════════════════
 signal durability_changed(current: int, maximum: int)
 signal weapon_broken
+
+func get_poise_damage() -> float:
+	if poise_damage >= 0.0:
+		return poise_damage
+	return Damage * 1.6 + knockback * 2.0
 
 func get_durability() -> int:
 	if durability < 0:

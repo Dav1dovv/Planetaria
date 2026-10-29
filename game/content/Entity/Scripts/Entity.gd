@@ -33,6 +33,20 @@ class_name Entity
 @export_range(0.0, 1.0, 0.05) var knockback_resistance: float = 0.0
 # ────────────────────────────────────────────────────────────────
 
+# ── Стойкость (poise) / стаггер ─────────────────────────────────
+@export_group("Poise / Stagger")
+## Сколько «стойкости» выдерживает существо до оглушения. 0 = не оглушается
+@export var max_poise: float = 100.0
+## Скорость восстановления стойкости в секунду (когда не бьют)
+@export var poise_decay_rate: float = 15.0
+## Пауза перед началом восстановления после последнего удара
+@export var poise_decay_delay: float = 1.0
+## Длительность стаггера, когда стойкость кончилась
+@export var stagger_duration: float = 1.0
+## Множитель входящего урона во время стаггера (окно «добивания»)
+@export var vulnerable_damage_multiplier: float = 1.5
+# ────────────────────────────────────────────────────────────────
+
 ## Минимальный урон от любого удара (в Terraria удар никогда не бьёт на 0)
 const MIN_DAMAGE: float = 1.0
 
@@ -48,6 +62,11 @@ var is_alive: bool = true
 var is_knocked_back: bool = false
 var is_invincible: bool = false   # iframes
 var is_invisible: bool = false    # см. set_invisibility()
+
+# Стойкость считается лениво (по времени последнего удара) — без покадрового тика
+var current_poise: float = 0.0
+var _poise_hit_msec: int = 0
+var _staggered_until_msec: int = 0
 
 # Менеджер эффектов (баффы/дебаффы/DoT) — общий для игрока и существ
 var effect_manager: EffectManager
@@ -118,7 +137,54 @@ func set_invisibility(active: bool) -> void:
 ## Множитель входящего урона. Creature переопределяет — во время STUNNED
 ## существо получает больше урона (окно "добивания" после стаггера).
 func get_incoming_damage_multiplier() -> float:
-	return 1.0
+	return vulnerable_damage_multiplier if is_staggered() else 1.0
+
+# ── POISE / STAGGER ─────────────────────────────────────────────
+func is_staggered() -> bool:
+	return Time.get_ticks_msec() < _staggered_until_msec
+
+## Снимает стойкость. Игрока и «непробиваемых» (knockback_resistance = 1, боссы) не оглушаем.
+func add_poise_damage(amount: float) -> void:
+	if not is_alive or amount <= 0.0 or max_poise <= 0.0:
+		return
+	if knockback_resistance >= 1.0 or is_in_group("Player"):
+		return
+	var now := Time.get_ticks_msec()
+	# Ленивое восстановление: сколько секунд стойкость успела отдыхать
+	var rested := float(now - _poise_hit_msec) / 1000.0 - poise_decay_delay
+	if rested > 0.0:
+		current_poise = maxf(0.0, current_poise - poise_decay_rate * rested)
+	_poise_hit_msec = now
+	current_poise += amount * (1.0 - knockback_resistance)
+	if current_poise >= max_poise:
+		current_poise = 0.0
+		_staggered_until_msec = now + int(stagger_duration * 1000.0)
+		_on_staggered(stagger_duration)
+
+## Переопредели: прервать атаку, оглушить и т.п.
+func _on_staggered(_duration: float) -> void:
+	pass
+
+## Вызывается из take_damage() после расчёта урона, ДО проверки на смерть.
+func _on_damage_received(damage_source: Node, _actual_damage: float, is_critical: bool) -> void:
+	if damage_source != null and damage_source.has_method("get_poise_damage"):
+		add_poise_damage(damage_source.get_poise_damage() * (1.5 if is_critical else 1.0))
+
+## Кто на самом деле атаковал: владелец снаряда или игрок, внутри которого лежит оружие.
+func _resolve_attacker(source: Node) -> Node2D:
+	if source == null:
+		return null
+	var shooter = source.get("owner_player")
+	if shooter is Node2D and is_instance_valid(shooter):
+		return shooter
+	var current: Node = source
+	for i in 3:
+		if current == null:
+			return null
+		if current.is_in_group("Player"):
+			return current as Node2D
+		current = current.get_parent()
+	return null
 
 # ── ПОЛУЧЕНИЕ УРОНА (по формуле Terraria) ───────────────────────
 ## Порядок расчёта, как в Terraria:
@@ -141,6 +207,7 @@ func take_damage(damage: float, damage_source: Node2D = null, knockback_mod : fl
 	emit_signal("health_changed", Entity_stats.current_health)
 
 	_play_hit_feel(actual_damage, damage_source, is_critical)
+	_on_damage_received(damage_source, actual_damage, is_critical)
 
 	if debug_log_damage:
 		_log_damage(damage, actual_damage, is_critical)
@@ -268,6 +335,9 @@ func _play_hit_feel(actual_damage: float, damage_source: Node, is_critical: bool
 	if involves_player:
 		_do_hitstop(is_heavy)
 		_trigger_screen_shake(is_heavy)
+		# Геймпад обязателен (GDD): попадание по врагу тоже должно «ощущаться» в руках
+		if not hurt_player:
+			Rumble.confirm(is_heavy)
 
 ## Узел или один из его трёх ближайших предков — игрок (оружие/хитбокс лежат внутри игрока).
 func _is_player_node(node: Node) -> bool:

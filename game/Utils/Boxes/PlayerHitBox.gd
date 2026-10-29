@@ -86,7 +86,6 @@ func update_equip(new_equip : ItemData) -> void:
 
 
 func _on_weapon_broken() -> void:
-	print("Оружие сломано!")
 	var tween = create_tween()
 	tween.tween_property(equip_sprite, "modulate", Color(1, 0.2, 0.2), 0.1)
 	tween.tween_property(equip_sprite, "modulate", Color(1, 1, 1), 0.1)
@@ -153,7 +152,6 @@ func apply_damage(area: Area2D, damage: float) -> void:
 			if equip.lvl >= area.harvest_tool_lvl:
 				equip.reduce_durability(1)
 			elif  equip.lvl < area.harvest_tool_lvl:
-				print("resource is harder: " + str(area.harvest_tool_lvl))
 				# Кирка ниже нужного тира — ломается в 4× быстрее
 				equip.reduce_durability(1 * area.harvest_tool_lvl)
 		return
@@ -186,6 +184,14 @@ func roll_crit() -> bool:
 	if equip and "crit_chance" in equip:
 		chance += equip.crit_chance
 	return randf() < clampf(chance, 0.0, 1.0)
+
+
+## Стойкость, которую снимает этот удар (читает Entity при получении урона).
+## Усиленный финишер комбо (damage_multiplier) ломает стойку сильнее.
+func get_poise_damage() -> float:
+	if equip is equip_data:
+		return (equip as equip_data).get_poise_damage() * damage_multiplier
+	return 0.0
 
 
 ## Множитель к исходящему урону игрока — читает Entity_stats.damage_modifier

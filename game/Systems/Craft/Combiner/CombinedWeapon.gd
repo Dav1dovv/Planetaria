@@ -6,10 +6,17 @@
 extends equip_data
 class_name CombinedWeapon
 
-## item_name основы, второго оружия и ресурсов/реликвий (по порядку слотов)
-var base_name: String = ""
-var donor_name: String = ""
-var material_names: Array[String] = []
+## «Рецепт»: item_name основы, второго оружия и ресурсов/реликвий (по порядку слотов).
+## @export_storage — значит Resource.duplicate() ТОЖЕ копирует эти поля (обычные var при duplicate() обнуляются,
+## и тогда оружие теряло рецепт и пропадало из сохранения). В Inspector поля не показываются.
+@export_storage var base_name: String = ""
+@export_storage var donor_name: String = ""
+@export_storage var material_names: Array[String] = []
+
+
+## Рецепт цел (есть основа). Без него оружие нельзя собрать заново при загрузке.
+func has_recipe() -> bool:
+	return base_name != ""
 
 
 ## Что кладём в сохранение: только «рецепт» и текущую прочность (характеристики пересчитаются).

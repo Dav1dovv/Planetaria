@@ -116,18 +116,6 @@ var move_speed: float = 60.0
 @export var attack_radius: float = 28.0
 @export var attack_cooldown: float = 1.2
 
-@export_category("Poise / Stagger")
-## Сколько "стаггера" существо выдерживает до оглушения
-@export var max_poise: float = 100.0
-## Скорость восстановления poise в секунду (когда не бьют)
-@export var poise_decay_rate: float = 15.0
-## Задержка перед началом восстановления poise после последнего удара
-@export var poise_decay_delay: float = 1.0
-## Длительность стаггера при заполнении poise
-@export var stagger_duration: float = 1.0
-## Множитель урона по существу во время стаггера (окно "добивания")
-@export var vulnerable_damage_multiplier: float = 1.5
-
 @export_category("Animators")
 @export var body_anim: AnimationPlayer
 @export var hand_anim: AnimationPlayer
@@ -167,16 +155,13 @@ var _detect_timer: float  = 0.0  # throttle проверки игрока
 ## Кто ударил последним — записывается в on_hit() ДО проверки на смерть, поэтому
 ## доступен даже подклассам/сигналам, сработавшим уже после мгновенной гибели существа.
 var last_attacker: Node2D = null
+var _last_alert_msec: int = -100000
 
 # Создаётся в коде — отдельный AudioStreamPlayer2D в сцене не нужен
 var _fear_audio: AudioStreamPlayer2D
 
 ## Текущий уровень страха [0.0 – 1.0]
 var fear_level: float = 0.0
-
-## Текущий накопленный poise (стаггер)
-var current_poise: float = 0.0
-var _poise_decay_timer: float = 0.0
 
 const DETECT_INTERVAL := 0.12   # проверка каждые ~120 мс
 
@@ -323,8 +308,6 @@ func _physics_process(delta: float) -> void:
 	if use_fear:
 		_tick_fear(delta)
 
-	_tick_poise(delta)
-
 	_tick_state(delta)
 
 ## Существо вне экрана: не гоняем детект/рейкасты/move_and_slide,
@@ -333,7 +316,6 @@ func _tick_offscreen(delta: float) -> void:
 	_stun_timer = maxf(0.0, _stun_timer - delta)
 	if use_fear:
 		fear_level = maxf(0.0, fear_level - fear_decay_rate * delta)
-	_tick_poise(delta)
 	if current_state == State.STUNNED and _stun_timer <= 0.0:
 		_enter_state(_default_start_state())
 
@@ -631,6 +613,7 @@ func _acquire_target(new_target: Node2D) -> void:
 		_enter_fear_response()
 	elif behavior_type == BehaviorType.Aggressive:
 		_enter_state(State.CHASE)
+		_last_alert_msec = AttackTelegraph.alert(global_position + Vector2(0.0, -22.0), _last_alert_msec)
 	# Neutral — ждёт удара, реагирует в on_hit()
 
 ## Единая точка входа реакции на испуг: прячется (HIDE) или убегает (FLEE) —
@@ -707,7 +690,8 @@ func on_hit(attacker: Node2D = null, is_critical: bool = false, poise_damage: fl
 		if is_instance_valid(target):
 			_enter_state(State.CHASE)
 
-	if can_flee and (flee_on_hit or _is_low_health()):
+	if can_flee and (flee_on_hit or _is_low_health()) \
+			and current_state not in [State.FLEE, State.HIDE]:
 		_enter_fear_response()
 
 func apply_stun(duration: float) -> void:
@@ -795,28 +779,16 @@ func get_incoming_damage_multiplier() -> float:
 		return 1.0 - hide_damage_reduction
 	return 1.0
 
-## Затухание poise, если существо не получало ударов последние poise_decay_delay сек
-func _tick_poise(delta: float) -> void:
-	if current_state == State.DEAD:
-		return
-	if _poise_decay_timer > 0.0:
-		_poise_decay_timer -= delta
-		return
-	if current_poise > 0.0:
-		current_poise = maxf(0.0, current_poise - poise_decay_rate * delta)
+## Стойкость и стаггер живут в Entity (общие для всех врагов). Здесь — только реакция:
+## существо переходит в STUNNED.
+func _on_staggered(duration: float) -> void:
+	apply_stun(duration)
 
-## Вызывается из on_hit при каждом ударе. При заполнении — стаггер.
-func add_poise_damage(amount: float) -> void:
-	if current_state == State.DEAD or max_poise <= 0.0:
-		return
-	current_poise += amount
-	_poise_decay_timer = poise_decay_delay
-	if current_poise >= max_poise:
-		current_poise = 0.0
-		_trigger_stagger()
-
-func _trigger_stagger() -> void:
-	apply_stun(stagger_duration)
+## Entity вызывает это при каждом полученном ударе — раньше on_hit() не вызывал никто,
+## поэтому тревога стаи, ответный удар нейтральных и бегство «по удару» не срабатывали.
+func _on_damage_received(damage_source: Node, actual_damage: float, is_critical: bool) -> void:
+	super(damage_source, actual_damage, is_critical)
+	on_hit(_resolve_attacker(damage_source), is_critical, 0.0, actual_damage)
 
 # ═══════════════════════════════════════════════════════════════
 #  HELPERS

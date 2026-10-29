@@ -95,7 +95,9 @@ func _physics_process(delta: float) -> void:
 
 	if is_alive:
 		_tick_regen(delta)
-		if not combat.is_lunging:
+		if combat.is_lunging:
+			combat.update_lunge(delta)
+		else:
 			velocity = movement.process(delta)
 		_animate()
 

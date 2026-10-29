@@ -91,7 +91,10 @@ func _pack_container(container: Array[InventorySlotData]) -> Array:
 		}
 		if item is CombinedWeapon:
 			# Комбинированное оружие хранится «рецептом»: характеристики пересчитаются при загрузке
-			entry["combo"] = item.pack()
+			if item.has_recipe():
+				entry["combo"] = item.pack()
+			else:
+				push_error("[InventorySaver] у комбинированного оружия '%s' потерян рецепт — оно не сохранится" % item.item_name)
 		if item is equip_data:
 			entry.merge({
 				"lvl"             : item.lvl,
@@ -136,6 +139,11 @@ func _create_item_from_dict(data: Dictionary) -> ItemData:
 		var combined: CombinedWeapon = WeaponForge.rebuild(data["combo"])
 		if combined != null:
 			return combined
+		# Не получилось собрать (например, основу удалили из игры) — хотя бы вернём обычную основу, а не потеряем слот
+		var fallback: ItemData = ItemDB.get_item(str(data["combo"].get("base", "")))
+		if fallback != null:
+			push_warning("[InventorySaver] комбинированное оружие не собралось — выдана обычная основа")
+			return fallback.duplicate()
 		push_warning("[InventorySaver] не удалось собрать комбинированное оружие — предмет пропущен")
 		return null
 

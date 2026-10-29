@@ -2888,5 +2888,15 @@
 		"en": "Combine weapons",
 		"ru": "Комбинировать оружие",
 		"hy": "Համակցել զենքերը"
-	}
+	},
+	  "Strikes fire projectiles": {
+		"en": "Strikes fire projectiles",
+		"ru": "Удары выпускают снаряды",
+		"hy": "Հարվածները արկեր են արձակում"
+	  },
+	  "Projectiles": {
+		"en": "Projectiles",
+		"ru": "Снарядов",
+		"hy": "Արկեր"
+	  }
 }
