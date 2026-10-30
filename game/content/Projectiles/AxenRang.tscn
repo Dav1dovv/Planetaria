@@ -58,6 +58,9 @@ projectile_type = "boomerang"
 explode_on_hit = false
 homing_strength = 1.0
 max_travel_distance = 260.0
+max_bounces = 1
+wall_behavior = "bounce"
+wall_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1145688796]
 rotation = -0.7853982

@@ -51,6 +51,9 @@ speed = 180.0
 lifetime = 1.0
 damage = 5.0
 max_travel_distance = 400.0
+max_bounces = 1
+wall_behavior = "bounce"
+wall_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=136001303]
 texture = ExtResource("2_xmoit")

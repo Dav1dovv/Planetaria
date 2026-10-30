@@ -169,7 +169,9 @@ func apply_damage(area: Area2D, damage: float) -> void:
 			# On-hit эффекты оружия (яд, огонь, лёд, кровь, вампиризм)
 			if is_instance_valid(target) and owner and owner.get("weapon_passive"):
 				owner.weapon_passive.try_apply_on_hit_effect(target)
-			equip.reduce_durability(1)
+			# Отбить пулю или заражение — не «удар по врагу»: прочность не тратим
+			if not (is_instance_valid(target) and target.has_method("is_ping_pong_ball")):
+				equip.reduce_durability(1)
 		return
 	# ────────────────────────────────────────────────────────────────────────
 

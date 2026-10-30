@@ -157,6 +157,7 @@ func _finish() -> void:
 	_hide_panel()
 	set_process(false)
 	_profile_set(PROFILE_DONE, true)
+	Global.developer_console.log_message("Great job remembering the basics! I’m Susan, your AI assistant.\n Need help? Press [`] and typeSusan_help` to see what I can do for you.", Color(0.09, 0.859, 0.984, 1.0))
 
 
 ## Начать обучение заново. Без force после прохождения ничего не делает —

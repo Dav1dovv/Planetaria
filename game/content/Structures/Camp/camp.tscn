@@ -16,7 +16,9 @@ effect_icon = ExtResource("2_t1o5n")
 value = 2.0
 duration = 2.0
 corruption_damage_bonus = 0.1
+particle_color = Color(1, 0.30588236, 0.30588236, 1)
 particle = ExtResource("3_ds3mf")
+icon = ExtResource("2_t1o5n")
 display_name = "Burn"
 metadata/_custom_type_script = "uid://dj4umu6271nxr"
 

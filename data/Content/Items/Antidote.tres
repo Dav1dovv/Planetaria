@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/audio/SFX/Player/Drink.wav" id="5_745sd"]
 [ext_resource type="Script" uid="uid://bfynxgdv4omdg" path="res://game/Systems/Craft/Combiner/CraftProperty.gd" id="5_ob3q7"]
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="6_c8f4b"]
-[ext_resource type="Resource" path="res://data/Content/Effects/AntidoteResist.tres" id="7_c1i38"]
+[ext_resource type="Resource" uid="uid://7e5v805du3ur" path="res://data/Content/Effects/AntidoteResist.tres" id="7_c1i38"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/art/sheets/Items-Sheet.png" id="8_4lady"]
 [ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://data/ItemData/Food_item_data.gd" id="9_lojyv"]
 

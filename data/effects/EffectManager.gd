@@ -11,6 +11,10 @@ class_name EffectManager
 ##   character.apply_effect_instance(Effect.create_poison())
 ##   character.effect_manager.has_effect(Effect.EffectType.POISON)
 
+## Эффект наложен (каждый раз: новый, обновление длительности, мгновенное лечение).
+## effect_added приходит только когда эффект впервые стал активным — для частиц
+## «всплеск при наложении» нужен именно этот сигнал.
+signal effect_applied(effect: Effect)
 signal effect_added(effect: Effect)
 signal effect_removed(effect: Effect)
 signal effect_stacks_changed(effect_type: int, stacks: int)
@@ -141,9 +145,12 @@ func apply_effect(effect: Effect, permanent: bool = false) -> void:
 
 	# Мгновенные эффекты (напр. лечение зельем) — применяются один раз, не хранятся
 	if effect.duration == 0.0 and type == Effect.EffectType.HEALTH_RESTORE:
+		effect_applied.emit(effect)
 		if character.has_method("heal"):
 			character.heal(effect.value)
 		return
+
+	effect_applied.emit(effect)
 
 	if active_effects.has(type):
 		var existing: ActiveEffect = active_effects[type]

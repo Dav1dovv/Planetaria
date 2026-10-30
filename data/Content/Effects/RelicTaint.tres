@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Effect" format=3]
+[gd_resource type="Resource" script_class="Effect" format=3 uid="uid://15tucr4roh72"]
 
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="1_scr"]
-[ext_resource type="Texture2D" path="res://Assets/Textures/UI/Effects/Effect12.png" id="2_tex"]
+[ext_resource type="Texture2D" uid="uid://b5ooxg81w6f1n" path="res://Assets/art/ui/Icons/Effects/Effect12.png" id="2_tex"]
 [ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://VFX/Particles/Effect.tscn" id="3_pac"]
 
 [resource]
@@ -10,7 +10,7 @@ effect_icon = ExtResource("2_tex")
 effect_type = 13
 value = 1.5
 duration = -1.0
-particle_color = Color(0.6, 0.2, 0.8, 1.0)
+particle_color = Color(0.6, 0.2, 0.8, 1)
 particle = ExtResource("3_pac")
 display_name = "Tainted Pages"
 metadata/_custom_type_script = "uid://dj4umu6271nxr"

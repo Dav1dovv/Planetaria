@@ -14,12 +14,53 @@
 [ext_resource type="Texture2D" uid="uid://erxt6oh26im8" path="res://Assets/art/items/Planet.png" id="13_vs0h5"]
 [ext_resource type="Script" uid="uid://nk50qnkkqlgq" path="res://game/Systems/Terminal/terminal_bolts.gd" id="14_pugu5"]
 
+[sub_resource type="Resource" id="Resource_v2x11"]
+resource_name = "Anelim"
+script = ExtResource("2_6od7q")
+id = "Anelim"
+fuel_cost = 27
+tint = Color(0, 0.7921569, 0.7294118, 1)
+icon_region = Rect2i(76, 52, 25, 25)
+type_key = "Calm"
+description_key = "A world shaped by water and life. Anelim invites explorers to discover its unusual ennvionments and secrets hidden beneath its living waters."
+metadata/_custom_type_script = "uid://o8fvn4w2bv8e"
+
+[sub_resource type="Resource" id="Resource_twwim"]
+resource_name = "Topiaten"
+script = ExtResource("2_6od7q")
+id = "Topiaten"
+tint = Color(0.28235295, 0.54901963, 0.31764707, 1)
+icon_region = Rect2i(57, 9, 32, 32)
+type_key = "GAS"
+description_key = "Comming soon"
+metadata/_custom_type_script = "uid://o8fvn4w2bv8e"
+
+[sub_resource type="Resource" id="Resource_qhna3"]
+resource_name = "Saelia"
+script = ExtResource("2_6od7q")
+id = "Saelia"
+icon_region = Rect2i(104, 8, 17, 17)
+type_key = "FROST"
+description_key = "No survey data available. comming soon."
+metadata/_custom_type_script = "uid://o8fvn4w2bv8e"
+
+[sub_resource type="Resource" id="Resource_ptqhm"]
+resource_name = "Kyiram"
+script = ExtResource("2_6od7q")
+id = "Kyiram"
+tint = Color(0.99171716, 0.52352196, 1, 1)
+icon_region = Rect2i(49, 50, 19, 19)
+type_key = "Calm"
+description_key = "No survey data available. comming soon."
+metadata/_custom_type_script = "uid://o8fvn4w2bv8e"
+
 [node name="PlanerChooser" type="CanvasLayer" unique_id=775227025]
 layer = 20
 script = ExtResource("1_m1pq1")
-planets = Array[ExtResource("2_6od7q")]([ExtResource("4_y3klw"), ExtResource("5_jvrbk")])
+planets = Array[ExtResource("2_6od7q")]([ExtResource("4_y3klw"), SubResource("Resource_v2x11"), SubResource("Resource_twwim"), SubResource("Resource_qhna3"), SubResource("Resource_ptqhm"), ExtResource("5_jvrbk")])
 row_scene = ExtResource("6_fg1ts")
 fuel_item = ExtResource("7_5xxxk")
+launch_delay = 3.0
 
 [node name="Root" type="Control" parent="." unique_id=1651605770]
 layout_mode = 3
@@ -38,11 +79,19 @@ mouse_filter = 2
 color = Color(0, 0.015, 0.03, 0.8)
 
 [node name="Bezel" type="PanelContainer" parent="Root" unique_id=373571533]
-layout_mode = 0
-anchor_left = 0.06
-anchor_top = 0.09
-anchor_right = 0.94
-anchor_bottom = 0.91
+custom_minimum_size = Vector2(422.4, 221.4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.20001
+offset_top = -110.7
+offset_right = 211.20001
+offset_bottom = 110.7
+grow_horizontal = 2
+grow_vertical = 2
 theme_type_variation = &"TerminalMetal"
 
 [node name="Frame" type="VBoxContainer" parent="Root/Bezel" unique_id=939505899]
@@ -73,6 +122,7 @@ theme_override_constants/separation = 7
 
 [node name="ListScreen" type="PanelContainer" parent="Root/Bezel/Frame/Screens" unique_id=1198349687]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 158)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0

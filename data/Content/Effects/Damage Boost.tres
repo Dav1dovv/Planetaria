@@ -10,5 +10,6 @@ effect_icon = ExtResource("1_r4lyc")
 effect_type = 2
 particle_color = Color(0.7254902, 0.24313726, 0.08627451, 1)
 particle = ExtResource("2_2367m")
+icon = ExtResource("1_r4lyc")
 display_name = "Damage Boost"
 metadata/_custom_type_script = "uid://dj4umu6271nxr"

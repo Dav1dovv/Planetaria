@@ -2,7 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://cndi010t3aj7d" path="res://Assets/art/ui/Icons/Effects/Effect4.png" id="1_jneah"]
 [ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://VFX/Particles/Effect.tscn" id="2_1ctvd"]
+[ext_resource type="Texture2D" uid="uid://bes0yp1rfj1q3" path="res://Assets/art/ui/Icons/Icons.png" id="2_57p6o"]
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://data/effects/EffectResource.gd" id="3_v0dpw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1o5n"]
+atlas = ExtResource("2_57p6o")
+region = Rect2(0, 16, 16, 16)
 
 [resource]
 script = ExtResource("3_v0dpw")
@@ -12,5 +17,6 @@ value = 0.25
 duration = 4.0
 particle_color = Color(0.12941177, 0.14509805, 1, 1)
 particle = ExtResource("2_1ctvd")
+icon = SubResource("AtlasTexture_t1o5n")
 display_name = "Defense Boost"
 metadata/_custom_type_script = "uid://dj4umu6271nxr"

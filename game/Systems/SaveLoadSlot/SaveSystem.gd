@@ -157,6 +157,7 @@ func create_new_save(player_name: String, location: String, skin_index: int = 0,
 		"playtime_sec":  0,
 		"skin_index":    skin_index,
 		"head_index":    head_index,
+		"intro_seen":    false,  # новый персонаж ещё не видел вступительную катсцену на корабле
 	}
 	if colors != null:
 		meta["colors"] = colors.to_dict()
@@ -182,6 +183,28 @@ func load_save(slot: String) -> bool:
 	_session_base_playtime          = int(data.get("playtime_sec", 0))
 	Global.load_planets_data()
 	return true
+
+## true — новый персонаж, который ещё не видел вступительную катсцену (пустой slot = текущий).
+## У старых слотов поля intro_seen нет — они считаются «уже видели», катсцена им не покажется.
+func is_intro_pending(slot: String = "") -> bool:
+	if slot.is_empty():
+		slot = Global.current_save_slot
+	if slot.is_empty():
+		return false
+	var meta := load_slot_meta(slot)
+	return not meta.is_empty() and meta.get("intro_seen", true) == false
+
+## Запоминает в слоте, что катсцену досмотрели (читаем-меняем-пишем: остальные поля целы).
+func mark_intro_seen(slot: String = "") -> void:
+	if slot.is_empty():
+		slot = Global.current_save_slot
+	if slot.is_empty():
+		return
+	var meta := load_slot_meta(slot)
+	if meta.is_empty() or meta.get("intro_seen", true) == true:
+		return
+	meta["intro_seen"] = true
+	_write_json(_meta_path(slot), meta)
 
 ## Удаляет папку слота рекурсивно.
 func delete_save(slot: String) -> void:

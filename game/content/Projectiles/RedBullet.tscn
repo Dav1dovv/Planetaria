@@ -51,6 +51,10 @@ speed = 200.0
 damage = 15.0
 projectile_type = "bomb"
 max_travel_distance = 400.0
+max_bounces = 2
+wall_behavior = "bounce"
+wall_mask = 3
+corruption_contact = "bounce"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=136001303]
 texture = ExtResource("2_o66gb")

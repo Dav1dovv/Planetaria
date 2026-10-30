@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/art/vfx/Shadows/Shadow.png" id="4_rt35j"]
 [ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://game/Systems/Interaction/Interaction.gd" id="5_snsdu"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cedw"]
+size = Vector2(20, 9.286291)
+
 [sub_resource type="Animation" id="Animation_t4a62"]
 resource_name = "Idle"
 tracks/0/type = "value"
@@ -379,13 +382,12 @@ avoidance_strength = 1.8
 attack_damage = 10.0
 attack_radius = 28.0
 attack_cooldown = 1.2
-max_poise = 100.0
-poise_decay_rate = 15.0
-poise_decay_delay = 1.0
-stagger_duration = 1.0
-vulnerable_damage_multiplier = 1.5
 body_anim = NodePath("Skin/AnimationPlayer")
 Vfx = NodePath("VFX")
+
+[node name="CollisionShape2D" parent="." index="3" unique_id=713772618]
+position = Vector2(0, -5.3568544)
+shape = SubResource("RectangleShape2D_5cedw")
 
 [node name="Skin" type="Node2D" parent="." index="10" unique_id=250908822]
 

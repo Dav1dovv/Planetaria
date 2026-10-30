@@ -84,6 +84,12 @@ func _ready():
 	effect_manager.effect_removed.connect(_on_effect_removed)
 	_entity_sprite = _find_sprite(self)
 
+	# Частицы эффектов (бафф/дебафф/DoT) — один компонент на любое существо
+	var effect_particles := EffectParticles.new()
+	effect_particles.name = "EffectParticles"
+	add_child(effect_particles)
+	effect_particles.bind(self)
+
 # ── ЭФФЕКТЫ (баффы / дебаффы / DoT) ──────────────────────────────
 ## EffectManager можно добавить руками в сцену (как дочерний Node) — тогда
 ## он подхватится автоматически. Если его нет, создаётся на лету.

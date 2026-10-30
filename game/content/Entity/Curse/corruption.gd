@@ -101,6 +101,11 @@ enum State { SPAWN, HUNT, DEFLECTED, DYING }
 @export_range(0.0, 1.0, 0.05) var enemy_hit_life_loss: float = 0.35
 @export_range(0.0, 1.0, 0.05) var enemy_bounce_energy: float = 0.6
 
+@export_group("Пули")
+## Что делает заражение при касании пули: уничтожается или отскакивает (отбивается).
+## Параллельная настройка у пули: Projectile.corruption_contact
+@export_enum("destroy", "bounce") var bullet_contact: String = "bounce"
+
 @export_group("Explosion")
 @export var explosion_damage: float = 24.0
 @export var explosion_radius: float = 72.0
@@ -303,19 +308,16 @@ func _move_base(delta: float) -> void:
 	var step := _velocity * delta
 	if step.length_squared() < 0.0001:
 		return
-	if wall_mask != 0:
-		var query := PhysicsRayQueryParameters2D.create(
-			_base_pos, _base_pos + step + step.normalized() * BODY_RADIUS, wall_mask)
-		query.collide_with_areas = false
-		var hit := get_world_2d().direct_space_state.intersect_ray(query)
-		if not hit.is_empty():
-			var normal: Vector2 = hit.normal
-			_velocity = _velocity.bounce(normal) * wall_bounce_energy
-			_base_pos = hit.position + normal * BODY_RADIUS
-			_wander_heading = _velocity.angle()
-			if _velocity.length() > 20.0:
-				_bounce_feel(normal)
-			return
+	var hit := PingPong.cast_wall(get_world_2d(), _base_pos,
+			_base_pos + step + step.normalized() * BODY_RADIUS, wall_mask)
+	if not hit.is_empty():
+		var normal: Vector2 = hit.normal
+		_velocity = _velocity.bounce(normal) * wall_bounce_energy
+		_base_pos = hit.position + normal * BODY_RADIUS
+		_wander_heading = _velocity.angle()
+		if _velocity.length() > 20.0:
+			_bounce_feel(normal)
+		return
 	_base_pos += step
 
 
@@ -355,40 +357,32 @@ func take_damage(damage: float, damage_source: Node2D = null, knockback_mod: flo
 	deflected.emit(damage_source)
 
 
-## Куда полетит: смесь «куда целился игрок» и «прочь от удара».
+## Куда полетит: смесь «куда целился игрок» и «прочь от удара» (см. PingPong).
 func _deflect_direction(source: Node2D) -> Vector2:
-	if source == null:
-		return Vector2.from_angle(randf() * TAU)
-	var away := (global_position - source.global_position).normalized()
-	if away == Vector2.ZERO:
-		away = Vector2.from_angle(randf() * TAU)
-
-	var aim := away
-	var projectile_dir = source.get("direction")
-	if projectile_dir is Vector2 and projectile_dir != Vector2.ZERO:
-		aim = (projectile_dir as Vector2).normalized()           # выстрел
-	else:
-		var holder: Object = source
-		if holder.get("mouse_pos") == null and source.owner != null:
-			holder = source.owner                                # PlayerHitBox → Player
-		var mouse = holder.get("mouse_pos")
-		if mouse is Vector2:
-			var to_cursor: Vector2 = (mouse as Vector2) - source.global_position
-			if to_cursor.length() > 1.0:
-				aim = to_cursor.normalized()
-
-	var dir := away.lerp(aim, aim_precision)
-	return dir.normalized() if dir != Vector2.ZERO else aim
+	return PingPong.aim_direction(source, global_position, aim_precision)
 
 
 func _resolve_player(source: Node) -> Node2D:
-	if source == null:
-		return _get_player()
-	if source.is_in_group("Player"):
-		return source as Node2D
-	if source.owner != null and source.owner.is_in_group("Player"):
-		return source.owner as Node2D
-	return _get_player()
+	var player := PingPong.resolve_player(source)
+	if player != null:
+		return player
+	# Пуля врага не делает заражение «союзником» игрока
+	return null if source is Projectile else _get_player()
+
+
+## Маркер для PlayerHitBox: удар по мячу не стирает прочность оружия.
+func is_ping_pong_ball() -> bool:
+	return true
+
+
+## Пуля коснулась заражения (зовёт Projectile): уничтожить или отбить — по настройке.
+func on_bullet_contact(bullet: Projectile) -> void:
+	if _state == State.DYING or _state == State.SPAWN:
+		return
+	if bullet_contact == "destroy":
+		dissolve()
+	else:
+		take_damage(bullet._current_damage(), bullet, hit_knockback)
 
 
 ## Стойка, которую отбитое заражение снимает у врага (читает Entity).

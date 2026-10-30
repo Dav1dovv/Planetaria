@@ -3,6 +3,15 @@
 [ext_resource type="Script" uid="uid://bcojg2oc8uiw0" path="res://game/content/Entity/Curse/corruption.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/art/vfx/Light/Light.png" id="2_light"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fire"]
+radius = 5.0
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wisps"]
 particle_flag_disable_z = true
 emission_shape_scale = Vector3(8, 8, 1)
@@ -18,85 +27,78 @@ color = Color(0.6039216, 0.18039216, 0.60784316, 1)
 hue_variation_min = -2.2351742e-08
 hue_variation_max = 0.049999975
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
-blend_mode = 1
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
-radius = 7.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_fire"]
-radius = 5.0
+[sub_resource type="Gradient" id="Gradient_burst"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(1, 0.45, 1, 1, 0.5, 0.1, 0.8, 0)
 
 [sub_resource type="Gradient" id="Gradient_spawn"]
+offsets = PackedFloat32Array(0, 1)
 colors = PackedColorArray(0.85, 0.3, 1, 0.9, 0.4, 0.1, 0.7, 0)
-
-[sub_resource type="Gradient" id="Gradient_burst"]
-colors = PackedColorArray(1, 0.45, 1, 1, 0.5, 0.1, 0.8, 0)
 
 [sub_resource type="Gradient" id="Gradient_blast"]
 offsets = PackedFloat32Array(0, 0.35, 1)
 colors = PackedColorArray(1, 0.95, 0.7, 1, 1, 0.45, 0.9, 1, 0.35, 0.1, 0.6, 0)
 
-[node name="Curse" type="Node2D" unique_id=1700526655]
+[node name="Curse" type="Node2D"]
 script = ExtResource("1_script")
-lifetime = 7.0
 
-[node name="Shadow" type="Sprite2D" parent="." unique_id=1578019910]
+[node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.35)
 position = Vector2(0, 12)
 scale = Vector2(0.8, 0.3)
 texture = ExtResource("2_light")
 
-[node name="Light" type="PointLight2D" parent="." unique_id=1294721281]
+[node name="Light" type="PointLight2D" parent="."]
 color = Color(1, 0, 1, 1)
 energy = 0.7
 texture = ExtResource("2_light")
 texture_scale = 4.0
 
-[node name="Skin" type="Node2D" parent="." unique_id=769674672]
+[node name="Skin" type="Node2D" parent="."]
 
-[node name="Wisps" type="GPUParticles2D" parent="Skin" unique_id=896161649]
+[node name="Wisps" type="GPUParticles2D" parent="Skin"]
 amount = 28
 lifetime = 1.2
 speed_scale = 0.5
+local_coords = false
 process_material = SubResource("ParticleProcessMaterial_wisps")
 
-[node name="Glow" type="Sprite2D" parent="Skin" unique_id=1106722179]
-self_modulate = Color(1, 0, 1, 1)
+[node name="Glow" type="Sprite2D" parent="Skin"]
 material = SubResource("CanvasItemMaterial_add")
+self_modulate = Color(1, 0, 1, 1)
 scale = Vector2(1.625, 1.625)
 texture = ExtResource("2_light")
 
-[node name="Core" type="Sprite2D" parent="Skin" unique_id=2085686529]
+[node name="Core" type="Sprite2D" parent="Skin"]
 self_modulate = Color(0, 0, 1, 1)
 scale = Vector2(0.74, 0.74)
 texture = ExtResource("2_light")
 
-[node name="HurtBox" type="Area2D" parent="." unique_id=1523523679 groups=["Ennemy", "corruption"]]
+[node name="HurtBox" type="Area2D" parent="." groups=["Ennemy", "corruption"]]
 collision_layer = 16
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=325254170]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_body")
 
-[node name="HitBox" type="Area2D" parent="." unique_id=488475057]
+[node name="HitBox" type="Area2D" parent="."]
 collision_layer = 4096
 collision_mask = 23
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=351573809]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_body")
 
-[node name="FireSensor" type="Area2D" parent="." unique_id=825058030 groups=["corruption"]]
+[node name="FireSensor" type="Area2D" parent="." groups=["corruption"]]
 collision_layer = 16384
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FireSensor" unique_id=1347012058]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireSensor"]
 shape = SubResource("CircleShape2D_fire")
 
-[node name="SpawnFX" type="CPUParticles2D" parent="." unique_id=1192241396]
+[node name="SpawnFX" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 14
 lifetime = 0.6
@@ -109,15 +111,17 @@ initial_velocity_min = 10.0
 initial_velocity_max = 36.0
 damping_min = 20.0
 damping_max = 40.0
+scale_amount_min = 1.0
 scale_amount_max = 2.5
 color_ramp = SubResource("Gradient_spawn")
 
-[node name="BurstFX" type="CPUParticles2D" parent="." unique_id=695763350]
+[node name="BurstFX" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 18
 lifetime = 0.55
 one_shot = true
 explosiveness = 1.0
+local_coords = false
 direction = Vector2(0, -1)
 spread = 180.0
 gravity = Vector2(0, 0)
@@ -129,21 +133,22 @@ scale_amount_min = 1.5
 scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_burst")
 
-[node name="Explosion" type="Node2D" parent="." unique_id=1860130579]
+[node name="Explosion" type="Node2D" parent="."]
 
-[node name="Flash" type="Sprite2D" parent="Explosion" unique_id=1127927278]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 0.55, 0.95, 1)
+[node name="Flash" type="Sprite2D" parent="Explosion"]
 material = SubResource("CanvasItemMaterial_add")
+self_modulate = Color(1, 0.55, 0.95, 1)
+modulate = Color(1, 1, 1, 0)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_light")
 
-[node name="Sparks" type="CPUParticles2D" parent="Explosion" unique_id=1596792045]
+[node name="Sparks" type="CPUParticles2D" parent="Explosion"]
 emitting = false
 amount = 36
 lifetime = 0.7
 one_shot = true
 explosiveness = 1.0
+local_coords = false
 direction = Vector2(0, -1)
 spread = 180.0
 gravity = Vector2(0, 0)
@@ -155,7 +160,7 @@ scale_amount_min = 2.0
 scale_amount_max = 4.0
 color_ramp = SubResource("Gradient_blast")
 
-[node name="Light" type="PointLight2D" parent="Explosion" unique_id=235593922]
+[node name="Light" type="PointLight2D" parent="Explosion"]
 color = Color(1, 0.4, 0.9, 1)
 energy = 0.0
 texture = ExtResource("2_light")

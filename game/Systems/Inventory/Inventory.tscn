@@ -342,7 +342,7 @@ max_stack = 9999
 
 [node name="Combiner" parent="HBoxContainer" unique_id=1086956687 instance=ExtResource("12_xqeyq")]
 visible = false
-custom_minimum_size = Vector2(226, 210)
+custom_minimum_size = Vector2(226, 113)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4

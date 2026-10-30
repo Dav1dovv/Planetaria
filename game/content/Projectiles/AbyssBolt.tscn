@@ -51,6 +51,9 @@ speed = 240.0
 lifetime = 1.2
 damage = 19.0
 max_travel_distance = 400.0
+max_bounces = 3
+wall_behavior = "destroy"
+wall_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=136001303]
 modulate = Color(0.75, 0.35, 1, 1)

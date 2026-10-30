@@ -313,11 +313,16 @@ func _bootstrap_game_feel() -> void:
 	# Порядок важен: ExhibitionManager ищет остальных по имени в _ready()
 	for component in [SessionTracker.new(), QuestCelebrator.new(), ObjectiveMarker.new(),
 			 EliteDirector.new(), EventDirector.new(), AchievementTracker.new(),
-			TutorialHints.new(), ExhibitionManager.new()]:
+			ExhibitionManager.new()]:
 		var node := component as Node
 		node.name = node.get_script().get_global_name()
 		add_child(node)
 
+func start_tutorial():
+	var tutor = TutorialHints.new()
+	var node := tutor as Node
+	node.name = node.get_script().get_global_name()
+	add_child(node)
 
 ## «+3 Wood» над игроком; цвет — по качеству предмета.
 func _show_pickup_feedback(item_data: ItemData, amount: int) -> void:
