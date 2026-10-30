@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://ddf0srh1jj7e6" path="res://UI/PlanetChooser/planet_chooser.tscn" id="14_lc6k5"]
 [ext_resource type="PackedScene" uid="uid://doewb5iqg3g7d" path="res://game/content/Structures/Doors/door.tscn" id="15_2dmd6"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/art/vfx/Shadows/Shadow.png" id="15_dssul"]
+[ext_resource type="PackedScene" uid="uid://c6hhclt47iw1f" path="res://game/content/Entity/NPC/NPC_Smith.tscn" id="17_2gf5g"]
+[ext_resource type="PackedScene" uid="uid://dq8w6k6341p2i" path="res://game/content/Entity/NPC/NPC_WeaponSeller.tscn" id="18_imghf"]
 [ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/art/vfx/Light/GradientLight.png" id="18_w2c1c"]
 [ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="19_bn1vh"]
 [ext_resource type="PackedScene" uid="uid://d3328kgh83ku" path="res://game/content/Entity/NPC/NPC_medic.tscn" id="22_sndvk"]
@@ -169,7 +171,7 @@ texture = ExtResource("4_dssul")
 3:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-13, 6, 13, 6, 13, 16, -13, 16)
 0:7/size_in_atlas = Vector2i(3, 1)
 0:7/0 = 0
-0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23, -7, 22, -7, 22.5, 8, -23.5, 8)
+0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -4.5, 24, -4.5, 23.5, 4, -24, 3.5)
 9:0/size_in_atlas = Vector2i(1, 2)
 9:0/0 = 0
 9:0/0/texture_origin = Vector2i(0, 4)
@@ -208,7 +210,7 @@ size = Vector2(20, 31.570717)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2gf5g"]
 size = Vector2(30.761204, 39.018143)
 
-[sub_resource type="Resource" id="Resource_2f1gp"]
+[sub_resource type="Resource" id="Resource_2gf5g"]
 resource_local_to_scene = true
 script = ExtResource("8_bn1vh")
 metadata/_custom_type_script = "uid://cpp05fs341abo"
@@ -682,7 +684,7 @@ color = Color(0, 0, 0, 1)
 [node name="planet" type="Sprite2D" parent="." unique_id=2019414403]
 z_index = -92
 position = Vector2(-500.00003, -202.99997)
-rotation = -199.58676
+rotation = -258.527
 scale = Vector2(7.4438825, 7.4438825)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -699,7 +701,7 @@ texture_scale = 6.34
 
 [node name="planet" type="Sprite2D" parent="planet" unique_id=121156737]
 position = Vector2(5.9159737, -41.65517)
-rotation = -236.7869
+rotation = 188.14357
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(60, 80, 12, 12)
@@ -708,7 +710,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet2" type="Sprite2D" parent="planet" unique_id=819972865]
 position = Vector2(-48.649956, -41.51426)
-rotation = -244.98964
+rotation = 451.08627
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(49, 50, 19, 19)
@@ -718,7 +720,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet3" type="Sprite2D" parent="planet" unique_id=93638243]
 position = Vector2(-36.936844, 71.13017)
-rotation = -84.38027
+rotation = 125.04541
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(57, 9, 32, 32)
@@ -728,7 +730,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet4" type="Sprite2D" parent="planet" unique_id=1727818982]
 position = Vector2(-66.099815, -28.727964)
-rotation = 302.77243
+rotation = -278.99454
 scale = Vector2(0.32927373, 0.32927373)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -739,7 +741,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet5" type="Sprite2D" parent="planet" unique_id=649481990]
 position = Vector2(-53.9042, 23.165627)
-rotation = -321.74747
+rotation = 124.80598
 scale = Vector2(0.57125205, 0.57125205)
 texture = ExtResource("1_n85m3")
 region_enabled = true
@@ -750,7 +752,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet6" type="Sprite2D" parent="planet" unique_id=1327664183]
 position = Vector2(43.515324, 82.038666)
-rotation = 77.12441
+rotation = 141.28015
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(104, 8, 17, 17)
@@ -759,7 +761,7 @@ metadata/_custom_type_script = "uid://b60d08i8hic0m"
 
 [node name="planet7" type="Sprite2D" parent="planet" unique_id=866645813]
 position = Vector2(110.08391, -3.0646362)
-rotation = -10.996723
+rotation = 537.3952
 texture = ExtResource("1_n85m3")
 region_enabled = true
 region_rect = Rect2(112, 51, 13, 13)
@@ -865,7 +867,7 @@ metadata/_edit_lock_ = true
 
 [node name="Decor" type="TileMapLayer" parent="ShipTiles" unique_id=373441585]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAIAOz/AAAJAAIAAAAPAO3/AAAJAAAAAAAIAPv/AAAKAAAAAADu//v/AAAKAAAAAAAQAAoAAAAJAAAAAAAMAAoAAAAJAAAAAAAIAAoAAAAJAAAAAAAEAAoAAAAJAAAAAAD8/woAAAAJAAAAAAD3/woAAAAJAAAAAADy/woAAAAJAAAAAADv/woAAAAJAAAAAAAKAPz/AAAJAAYAAAAOAPz/AAAKAAYAAAAPAPz/AAAJAAYAAAASAPz/AAAKAAYAAAD8//r/AAAKAAYAAADx//z/AAAJAAYAAAD3//z/AAAKAAYAAAD5//z/AAAJAAYAAAD8//j/AAAJAAYAAAADAPj/AAAKAAYAAAADAPn/AAAKAAYAAAADAPr/AAAKAAYAAAAPAO7/AAAJAAYAAAASAPH/AAAJAAYAAAARAPD/AAAKAAYAAAAOAO3/AAAKAAYAAADt//H/AAAJAAYAAADu//D/AAAKAAYAAADw/+7/AAAKAAYAAADx/+3/AAAKAAYAAAA=")
+tile_map_data = PackedByteArray("AAAIAOz/AAAJAAIAAAAPAO3/AAAJAAAAAAAIAPv/AAAKAAAAAADu//v/AAAKAAAAAAAQAAoAAAAJAAAAAAAMAAoAAAAJAAAAAAAIAAoAAAAJAAAAAAAEAAoAAAAJAAAAAAD8/woAAAAJAAAAAAD3/woAAAAJAAAAAADy/woAAAAJAAAAAADv/woAAAAJAAAAAAAKAPz/AAAJAAYAAAAOAPz/AAAKAAYAAAAPAPz/AAAJAAYAAAASAPz/AAAKAAYAAAD8//r/AAAKAAYAAADx//z/AAAJAAYAAAD3//z/AAAKAAYAAAD5//z/AAAJAAYAAAD8//j/AAAJAAYAAAADAPj/AAAKAAYAAAADAPn/AAAKAAYAAAADAPr/AAAKAAYAAAAPAO7/AAAJAAYAAAASAPH/AAAJAAYAAAARAPD/AAAKAAYAAAAOAO3/AAAKAAYAAADt//H/AAAJAAYAAADu//D/AAAKAAYAAADw/+7/AAAKAAYAAADx/+3/AAAKAAYAAAD4/+//AAAAAAcAAAD1/+//AAAAAAcAAADy/+//AAAAAAcAAADw/+//AAAAAAcAAAD4//X/AAAAAAcAAAD2//X/AAAAAAcAAADu//b/AAAAAAcAAAA=")
 tile_set = SubResource("TileSet_cdos3")
 metadata/_edit_lock_ = true
 
@@ -1000,12 +1002,20 @@ shape = SubResource("RectangleShape2D_2gf5g")
 y_sort_enabled = true
 
 [node name="Barmen" parent="NPCS" unique_id=1140039009 instance=ExtResource("9_7qg7c")]
-position = Vector2(-193.77676, -179.82373)
+position = Vector2(-125, -192)
 show_ui = "Baff"
-Entity_stats = SubResource("Resource_2f1gp")
+Entity_stats = SubResource("Resource_2gf5g")
 
 [node name="Creature" parent="NPCS" unique_id=627517657 instance=ExtResource("22_sndvk")]
-position = Vector2(-3, 11)
+position = Vector2(-286, -167)
+show_ui = "nothing"
+
+[node name="Creature2" parent="NPCS" unique_id=1516061048 instance=ExtResource("17_2gf5g")]
+position = Vector2(-222, -269)
+
+[node name="Creature3" parent="NPCS" unique_id=1676446905 instance=ExtResource("18_imghf")]
+position = Vector2(-121, -272)
+show_ui = "Weapon"
 
 [node name="Capsule" type="Sprite2D" parent="." unique_id=515238207]
 position = Vector2(0, -412.8365)

@@ -18,10 +18,12 @@ const HAND_ANIM_SPEED_SCALE := 1.0
 		is_in_cutscene = value
 		if is_node_ready() and cutscene_lock != null:
 			cutscene_lock.set_locked(value)
+
 @onready var movement:     PlayerMovement    = %PlayerMovement
 @onready var combat:       PlayerCombat      = $PlayerCombat
 @onready var dev_commands: PlayerDevCommands = $PlayerDevCommands
 var cutscene_lock: PlayerCutsceneLock
+
 # ─────────────────────────────────────────────────────────────────────────────
 #  Ноды
 # ─────────────────────────────────────────────────────────────────────────────
@@ -80,7 +82,7 @@ func _ready() -> void:
 
 	SaveLoad.load_player(self)
 	print("Player Corruption Level is: " + str(corruption))
-
+	
 	if Entity_stats.current_health <= 0:
 		Entity_stats.current_health = Entity_stats.max_health
 		_on_health_changed(Entity_stats.current_health)
@@ -97,6 +99,7 @@ func _ready() -> void:
 
 	dev_commands.register_all()
 	movement.try_resume_pending_exit_walk()
+
 	# Компонент блокировки на время катсцены (как InfectionAura — создаётся кодом)
 	cutscene_lock = PlayerCutsceneLock.new()
 	cutscene_lock.name = "PlayerCutsceneLock"
@@ -104,29 +107,31 @@ func _ready() -> void:
 	if is_in_cutscene:
 		cutscene_lock.set_locked(true)
 
+
 # ─────────────────────────────────────────────────────────────────────────────
 #  Физика и движение
 # ─────────────────────────────────────────────────────────────────────────────
 
 func _physics_process(delta: float) -> void:
-	# Мышь или правый стик геймпада (см. GamepadAim)
-	mouse_pos = GamepadAim.aim_world()
+	if !is_in_cutscene:
+		# Мышь или правый стик геймпада (см. GamepadAim)
+		mouse_pos = GamepadAim.aim_world()
 
-	if is_alive:
-		_tick_regen(delta)
-		if combat.is_lunging:
-			combat.update_lunge(delta)
-		else:
-			velocity = movement.process(delta)
-		_animate()
+		if is_alive:
+			_tick_regen(delta)
+			if combat.is_lunging:
+				combat.update_lunge(delta)
+			else:
+				velocity = movement.process(delta)
+			_animate()
 
-		if not is_attack:
-			hit_box.look_at(mouse_pos)
+			if not is_attack:
+				hit_box.look_at(mouse_pos)
 
-		if velocity.length_squared() <= 1.0 or is_attack:
-			skin.scale.x = scale.x if mouse_pos.x > position.x else -scale.x
+			if velocity.length_squared() <= 1.0 or is_attack:
+				skin.scale.x = scale.x if mouse_pos.x > position.x else -scale.x
 
-	move_and_slide()
+		move_and_slide()
 
 
 func _animate() -> void:
@@ -149,6 +154,8 @@ func _animate() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 
 func _input(event: InputEvent) -> void:
+	if is_in_cutscene:
+		return  # во время катсцены игрок ничего не делает
 	combat.handle_input(event)
 
 

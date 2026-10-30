@@ -6,7 +6,7 @@ enum Mode { WANDER, PAUSE, PLAYER, CHAT }
 
 @onready var interact_zone: interaction_area = $interaction_area
 
-@export_enum("Weapon", "Baff", "combiner") var show_ui : String = "Weapon"
+@export_enum("Weapon", "Baff", "combiner","nothing") var show_ui : String = "Weapon"
 @export var player: Player
 
 @export_group("Player reaction")
@@ -86,6 +86,8 @@ func _Do() -> void:
 			Global.inventory.call_cauldron()
 		"combiner":
 			Global.inventory.call_combiner()
+		"nothing":
+			pass
 
 
 # ---------------------------------------------------------------------------

@@ -18,7 +18,7 @@
 resource_name = "Anelim"
 script = ExtResource("2_6od7q")
 id = "Anelim"
-fuel_cost = 27
+fuel_cost = 60
 tint = Color(0, 0.7921569, 0.7294118, 1)
 icon_region = Rect2i(76, 52, 25, 25)
 type_key = "Calm"

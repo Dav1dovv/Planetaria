@@ -759,9 +759,9 @@ region_rect = Rect2(10, 19, 12, 9)
 [node name="Head" type="Sprite2D" parent="Skin/Body" index="0" unique_id=1756965514]
 position = Vector2(0, -4)
 texture = ExtResource("3_htwsq")
-offset = Vector2(-0.68, -5.21)
+offset = Vector2(0.015, -6.75)
 region_enabled = true
-region_rect = Rect2(7, 9, 16, 10)
+region_rect = Rect2(10, 6, 12, 13)
 
 [node name="LeftLeg" type="Sprite2D" parent="Skin/Body" index="1" unique_id=822392126]
 show_behind_parent = true

@@ -7,6 +7,7 @@ signal world_ready
 
 ## Находимся ли мы в шахте / под землёй
 @export var is_underground: bool = false
+@export var start_message : String = "My sensors detect that the planet is infected with an unknown pathogen. It must be purified."
 
 var activated_stations: int = 0
 var last_saved_position: Array[Vector2]
@@ -23,7 +24,8 @@ func _ready() -> void:
 	# Day/night управляется SceneManager через SceneData.is_underground,
 	# но на случай если сцена открывается напрямую — применяем локальный флаг
 	player = find_child("Player")
-
+	if start_message.is_empty():
+		Global.developer_console.log_message(start_message, Color(0.09, 0.859, 0.984, 1.0))
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Spawn / respawn
